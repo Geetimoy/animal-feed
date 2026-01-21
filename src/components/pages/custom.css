@@ -1,0 +1,12 @@
+.whySwiper .swiper-slide {
+    display: flex;
+    height: auto;
+}
+.whySwiper .why-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.whySwiper .why-card .read-more {
+    margin-top: auto;
+}

@@ -1,0 +1,19 @@
+import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
+import Home from "./pages/Home";
+import AboutUs from "./pages/AboutUs";
+import ContactUs from "./pages/ContactUs";
+
+export default function Core() {
+  return (
+    
+      <BrowserRouter>
+        <Routes>
+          {/* <Route path="/" element={<Navigate to="/home" />} /> */}
+          <Route path="/" element={<Home />} />
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/contact-us" element={<ContactUs />} />
+        </Routes>
+      </BrowserRouter>
+   
+  );
+}
