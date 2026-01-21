@@ -40,6 +40,8 @@ function ContactUs(){
               </div>
               <div className="mb-4">
                 <textarea rows="5" placeholder="Write your message..." required="" className="w-full p-3 border rounded-lg focus:ring-primary focus:ring-2 outline-none"></textarea>
+
+                
               </div>
             </form>
           </div>
