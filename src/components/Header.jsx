@@ -1,4 +1,4 @@
-import logo from '../assets/images/Layer7-logo.png';
+import logo from '../assets/images/logo.png';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";

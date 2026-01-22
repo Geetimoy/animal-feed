@@ -6,7 +6,7 @@ import ContactUs from "./pages/ContactUs";
 export default function Core() {
   return (
     
-      <BrowserRouter>
+      <BrowserRouter basename="/uidevelopment/animal-feed/">
         <Routes>
           {/* <Route path="/" element={<Navigate to="/home" />} /> */}
           <Route path="/" element={<Home />} />

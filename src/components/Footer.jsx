@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter, faFacebookF, faInstagram, faYoutube, } from "@fortawesome/free-brands-svg-icons";
 import { faAngleRight, faLocationDot, faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
-import logo from '../assets/images/Layer7-logo.png';
+import logo from '../assets/images/logo-footer.png';
 
 import { Link } from "react-router-dom";
 
