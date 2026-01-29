@@ -11,13 +11,13 @@ function ContactUs(){
   return (
     <>
       <Header></Header>
-      <main className="pt-16">
+      <main className="pt-16 overflow-x-hidden">
         <section className="relative z-0">
           <div className="relative">
             <img
               src={contactBaner}
               alt="Contact Us Banner"
-              className="w-full h-auto"
+              className="w-full md:h-auto h-[250px] object-cover"
             />
             <div className="absolute inset-0  flex items-center justify-center">
               <h1 className="text-white text-4xl md:text-6xl font-bold">
@@ -58,7 +58,7 @@ function ContactUs(){
         </div> */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 ">
               {/* LEFT CONTENT */}
-              <div className="space-y-8 py-2">
+              <div className="space-y-8 py-2 order-2 md:order-1">
                 {/* Quick connection */}
 
                 <div className="group flex items-center gap-8 pb-6 border-b border-gray-200">
@@ -69,22 +69,28 @@ function ContactUs(){
                group-hover:scale-105"
                   >
                     <FontAwesomeIcon icon={faEnvelope} />
-                    
                   </div>
 
                   {/* CONTENT */}
                   <div>
-                    <h2 className="font-bold  text-gray-900 text-xl mb-2" >
+                    <h2 className="font-bold  text-gray-900 text-xl mb-2">
                       Quick Connection
                     </h2>
 
                     <div className="flex flex-col gap-1 text-lg font-regular">
-                      <Link to="mailto:info@greengold.com" className="text-gray-900  hover:text-[#083b1a]" >
+                      <Link
+                        to="mailto:info@greengold.com"
+                        className="text-gray-900  hover:text-[#083b1a]"
+                      >
                         info@greengold.com
                       </Link>
 
-                      <Link to="tel:+919999999999" className="text-gray-900  hover:text-[#083b1a]"
-                      > +91 9999999999
+                      <Link
+                        to="tel:+919999999999"
+                        className="text-gray-900  hover:text-[#083b1a]"
+                      >
+                        {" "}
+                        +91 9999999999
                       </Link>
                     </div>
                   </div>
@@ -152,7 +158,7 @@ function ContactUs(){
 
               {/* RIGHT CARD FORM */}
 
-              <div className="rounded-xl bg-white px-8 py-2 pb-4 shadow-[0_10px_40px_rgba(0,0,0,0.08)]">
+              <div className="rounded-xl bg-white px-8 py-2 pb-4 shadow-[0_10px_40px_rgba(0,0,0,0.08)] order-1 md:order-2">
                 <div className="mb-8">
                   <h2 className="text-3xl font-bold text-gray-900">
                     Get in <span className="text-[#ffa800]">touch</span>
@@ -196,7 +202,8 @@ function ContactUs(){
                   ></textarea>
 
                   <button className="md:col-span-2 px-4 py-3 bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center  text-[18px] cursor-pointer">
-                    Submit  <FontAwesomeIcon icon={faArrowRight} className="ml-2"/>
+                    Submit{" "}
+                    <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
                   </button>
                 </div>
               </div>

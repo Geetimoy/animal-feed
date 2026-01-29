@@ -10,3 +10,19 @@
 .whySwiper .why-card .read-more {
     margin-top: auto;
 }
+
+
+@media (max-width: 425px) {
+   .whySwiper .swiper-slide {
+    display: flex;
+    height: 100%;
+}
+.whySwiper .why-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.whySwiper .why-card .read-more {
+    margin-top: 0;
+} 
+}
