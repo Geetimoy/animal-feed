@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import ResearchDevelopment from "./pages/ResearchDevelopment";
+import NewsEvents from "./pages/NewsEvents";
 
 export default function Core() {
   return (
@@ -13,6 +14,7 @@ export default function Core() {
           <Route path="/" element={<Home />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/news-events" element={<NewsEvents />} />
           <Route path="/research-development" element={<ResearchDevelopment />} />
         </Routes>
       </BrowserRouter>
