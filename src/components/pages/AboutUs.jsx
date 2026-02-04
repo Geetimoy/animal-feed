@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../Header";
 import Footer from "../Footer";
 
@@ -9,7 +9,7 @@ import officeMan from '../../assets/images/office-man.png';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faMagnifyingGlass, faHandshake, faLightbulb, faMedal, faLeaf, faCheck, faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 
 
@@ -17,6 +17,22 @@ import { Link } from "react-router-dom";
 function AboutUs() {
 
   const [activeTab, setActiveTab] = useState("tab1");
+
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (!hash) return;
+
+    const id = hash.replace("#", "");
+
+    const el = document.getElementById(id);
+
+    if (el) {
+      setTimeout(() => {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 200);
+    }
+  }, [hash]);
 
   return (
     <>
@@ -35,10 +51,10 @@ function AboutUs() {
               className="w-full md:h-auto h-[450px] block md:hidden object-cover"
             />
             <div className="absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-4xl px-4 md:px-6  w-full">
-              <h1 className="text-[#009a62] text-4xl md:text-6xl font-bold text-center mb-4 md:mb-6">
-                About Us
+              <h1 className="text-[#fff] text-4xl md:text-6xl font-bold text-center mb-4 md:mb-6">
+                About <span className="text-[#ffa800]">Us</span>
               </h1>
-              <p className="text-black text-[16px] md:text-xl text-center">
+              <p className="text-white text-[16px] md:text-xl text-center">
                 For over 25 years, we've been at the forefront of animal
                 nutrition, blending scientific expertise with agricultural
                 wisdom to empower farmers and enhance livestock productivity
@@ -68,7 +84,7 @@ function AboutUs() {
         </section>
 
         {/* Vision and Mission Section */}
-        <section className="py-10 md:py-20 bg-gray-100">
+        <section id="missionvision" className="py-10 md:py-20 bg-gray-100 scroll-mt-[100px]">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12 place-items-center">
               <div className="w-full">
@@ -189,7 +205,7 @@ function AboutUs() {
         </section>
 
         {/* Animal Feed Story Section */}
-        <section className="">
+        <section className="scroll-mt-[100px]" id="ourstory">
           <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 md:py-20">
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center">
               Our Animal <span className="text-[#ffa800]">Feed Story</span>
@@ -333,7 +349,7 @@ function AboutUs() {
         </section>
 
         {/* Board of Directors */}
-        <section className="py-10 md:py-20 bg-gray-100">
+        <section id="ourteam" className="py-10 md:py-20 bg-gray-100 scroll-mt-[100px]">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <h2 className="text-[26px] md:text-5xl font-semibold text-gray-800 text-center">
               Leadership & <span className="text-[#ffa800]">Governance</span>
@@ -465,7 +481,7 @@ function AboutUs() {
         </section>
 
         {/* Our Commitments */}
-        <section className="py-10 md:py-20">
+        <section id="ourcommitment" className="py-10 md:py-20 scroll-mt-[100px]">
           <div className="max-w-7xl mx-auto  px-4 md:px-8">
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center">
               Our <span className="text-[#ffa800]">Commitments</span>
@@ -590,7 +606,7 @@ function AboutUs() {
         </section>
 
         {/* Our Units */}
-        <section className="py-10 md:py-20 bg-gray-100">
+        <section id="ourunit" className="py-10 md:py-20 bg-gray-100 scroll-mt-[100px]">
           <div className="max-w-7xl mx-auto  px-4 md:px-8">
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center">
               Our <span className="text-[#ffa800]">Units</span>

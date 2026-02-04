@@ -18,12 +18,19 @@ import {
   faImage,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [knowUsMobileOpen, setKnowUsMobileOpen] = useState(false);
   const [mediaMobileOpen, setMediaMobileOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  const goToSection = (section) => {
+    navigate("/", { state: { scrollTo: section } });
+  };
+
 
   return (
     <>
@@ -43,7 +50,7 @@ function Header() {
             <div className="hidden lg:flex space-x-8 absolute left-1/2 transform -translate-x-1/2">
               <Link
                 to="/"
-                className="nav-link text-[16px] font-normal flex items-center gap-2"
+                className="nav-link text-[15px] font-normal flex items-center gap-2"
               >
                 <i className="ri-home-line"></i> Home
               </Link>
@@ -52,7 +59,7 @@ function Header() {
               <div className="relative group flex items-center">
                 <Link
                   to="/about-us"
-                  className="nav-link text-[16px] font-normal flex items-center gap-2"
+                  className="nav-link text-[15px] font-normal flex items-center gap-2"
                 >
                   <i className="ri-information-line"></i>
                   Know Us
@@ -63,17 +70,17 @@ function Header() {
                 </Link>
 
                 <div className="absolute left-0 top-full pt-2 hidden group-hover:block">
-                  <div className="bg-white shadow-lg rounded-lg w-[240px] py-3">
+                  <div className="bg-white shadow-lg rounded-lg w-[245px] py-3">
                     <Link
                       to="/about-us"
-                      className="block px-4 py-2 hover:bg-gray-100 hover:text-green-600"
+                      className="block px-4 py-2 text-[15px] hover:bg-gray-100 hover:text-green-600"
                     >
                       <i className="ri-information-line mr-1 hover:text-green-600"></i>
                       About Us
                     </Link>
                     <Link
-                      to="/whygreengold"
-                      className="block px-4 py-2 hover:bg-gray-100 hover:text-green-600"
+                      to="/#whygreengold" 
+                      className="block px-4 py-2 text-[15px] hover:bg-gray-100 hover:text-green-600"
                     >
                       <FontAwesomeIcon
                         icon={faStar}
@@ -83,7 +90,7 @@ function Header() {
                     </Link>
                     <Link
                       to="/about-us#ourstory"
-                      className="block px-4 py-2 hover:bg-gray-100 hover:text-green-600"
+                      className="block px-4 py-2 text-[15px] hover:bg-gray-100 hover:text-green-600"
                     >
                       <FontAwesomeIcon
                         icon={faBookOpen}
@@ -92,8 +99,8 @@ function Header() {
                       Our Story
                     </Link>
                     <Link
-                      to="/about-us#visionmission"
-                      className="block px-4 py-2 hover:bg-gray-100 hover:text-green-600"
+                      to="/about-us#missionvision"
+                      className="block px-4 py-2 text-[15px] hover:bg-gray-100 hover:text-green-600"
                     >
                       <FontAwesomeIcon
                         icon={faBullseye}
@@ -103,7 +110,7 @@ function Header() {
                     </Link>
                     <Link
                       to="/about-us#ourcommitment"
-                      className="block px-4 py-2 hover:bg-gray-100 hover:text-green-600"
+                      className="block px-4 py-2 text-[15px] hover:bg-gray-100 hover:text-green-600"
                     >
                       <FontAwesomeIcon
                         icon={faAward}
@@ -114,7 +121,7 @@ function Header() {
 
                     <Link
                       to="/about-us#ourteam"
-                      className="block px-4 py-2 hover:bg-gray-100 hover:text-green-600"
+                      className="block px-4 py-2 text-[15px] hover:bg-gray-100 hover:text-green-600"
                     >
                       <FontAwesomeIcon
                         icon={faBriefcase}
@@ -124,7 +131,7 @@ function Header() {
                     </Link>
                     <Link
                       to="/about-us#ourunit"
-                      className="block px-4 py-2 hover:bg-gray-100 hover:text-green-600"
+                      className="block px-4 py-2 text-[15px] hover:bg-gray-100 hover:text-green-600"
                     >
                       <FontAwesomeIcon
                         icon={faBoxOpen}
@@ -134,7 +141,7 @@ function Header() {
                     </Link>
                     <Link
                       to="/research-development"
-                      className="block px-4 py-2 hover:bg-gray-100 hover:text-green-600"
+                      className="block px-4 py-2 text-[15px] hover:bg-gray-100 hover:text-green-600"
                     >
                       <FontAwesomeIcon
                         icon={faLayerGroup}
@@ -148,28 +155,28 @@ function Header() {
 
               <Link
                 to="/nutrition"
-                className="nav-link text-[16px] font-normal flex items-center gap-2"
+                className="nav-link text-[15px] font-normal flex items-center gap-2"
               >
                 <i className="ri-drop-line"></i> Nutrition
               </Link>
 
               <Link
                 to="/feed-type"
-                className="nav-link text-[16px] font-normal flex items-center gap-2"
+                className="nav-link text-[15px] font-normal flex items-center gap-2"
               >
                 <i className="ri-leaf-line"></i> Feed Type
               </Link>
 
               <Link
                 to="/csr"
-                className="nav-link text-[16px] font-normal flex items-center gap-2"
+                className="nav-link text-[15px] font-normal flex items-center gap-2"
               >
                 <i className="ri-heart-line"></i> CSR
               </Link>
               <div className="relative group flex items-center">
                 <Link
                   to="/media"
-                  className="nav-link text-[16px] font-normal flex items-center gap-2"
+                  className="nav-link text-[15px] font-normal flex items-center gap-2"
                 >
                   <i className="ri-camera-line"></i> Media
                   <FontAwesomeIcon
@@ -182,7 +189,7 @@ function Header() {
                   <div className="bg-white shadow-lg rounded-lg w-[180px] py-3">
                     <Link
                       to="/news-events"
-                      className="block px-4 py-2 hover:bg-gray-100 hover:text-green-600"
+                      className="block px-4 py-2 text-[15px] hover:bg-gray-100 hover:text-green-600"
                     >
                       <FontAwesomeIcon
                         icon={faFileImage}
@@ -192,7 +199,7 @@ function Header() {
                     </Link>
                     <Link
                       to="/gallery"
-                      className="block px-4 py-2 hover:bg-gray-100 hover:text-green-600"
+                      className="block px-4 py-2 text-[15px] hover:bg-gray-100 hover:text-green-600"
                     >
                       <FontAwesomeIcon
                         icon={faImage}

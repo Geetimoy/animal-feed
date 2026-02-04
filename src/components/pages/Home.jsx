@@ -1,7 +1,7 @@
 import Footer from "../Footer";
 import Header from "../Header";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft, faPhone } from "@fortawesome/free-solid-svg-icons";
@@ -31,7 +31,7 @@ import newsslider3 from '../../assets/images/cattle1.png';
 import newsslider4 from '../../assets/images/poultry2.png';
 import newsslider5 from '../../assets/images/fish2.png';
 
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
@@ -45,6 +45,22 @@ import './custom.css';
 function Home(){
 
   const [activeTab, setActiveTab] = useState("tab1");
+
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (!hash) return;
+
+    const id = hash.replace("#", "");
+
+    const el = document.getElementById(id);
+
+    if (el) {
+      setTimeout(() => {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 200);
+    }
+  }, [hash]);
 
   return (
     <>
@@ -233,12 +249,12 @@ function Home(){
                     </ul>
 
                     <div className="flex gap-4 pt-4">
-                      <button className="bg-[#f1c40f] px-6 py-4 rounded-md text-[16px] font-medium cursor-pointer">
+                      <Link to="/about-us" className="bg-[#f1c40f] px-6 py-4 rounded-md text-[16px] font-medium cursor-pointer">
                         Our Full Story
-                      </button>
-                      <button className="border px-6 py-4 rounded-md text-sm border border-gray-800 cursor-pointer">
+                      </Link>
+                      <Link to="/contact-us" className="border px-6 py-4 rounded-md text-sm border border-gray-800 cursor-pointer">
                         Talk to Expert
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -302,8 +318,8 @@ function Home(){
         </section>
 
         {/* Why Choose Us Section */}
-        <section
-          className="relative py-8 md:py-20 overflow-visible  gsap-fade-in"
+        <section id="whygreengold"
+          className="relative py-8 md:py-20 overflow-visible  gsap-fade-in scroll-mt-[100px]"
           style={{
             backgroundImage: `url(${bgImage})`,
             backgroundSize: "cover",
@@ -386,14 +402,13 @@ function Home(){
                             src={cardIcon1}
                             className="w-[50px] h-[60px] mb-4"
                           />
-                          <h4 className="text-[#009a62] font-semibold text-2xl leading-snug">
+                          <h4 className="text-[#009a62] font-semibold text-lg leading-snug">
                             Quality
                             <br />
-                            Ingredients
+                            You Can Trust
                           </h4>
                           <p className="text-gray-600 text-sm mt-3 leading-relaxed">
-                            We source premium raw materials to ensure safe,
-                            nutritious and consistent food quality.
+                            Each batch of Green Gold Feed is produced under strict quality control standards to ensure consistency, 
                           </p>
                         </div>
 
@@ -418,15 +433,13 @@ function Home(){
                             src={cardIcon2}
                             className="w-[50px] h-[60px] mb-4"
                           />
-                          <h4 className="text-[#009a62] font-semibold text-2xl leading-snug">
-                            Scientific
+                          <h4 className="text-[#009a62] font-semibold text-lg leading-snug">
+                            Scientifically 
                             <br />
-                            Formulation
+                            Balanced Nutrition
                           </h4>
                           <p className="text-gray-600 text-sm mt-3 leading-relaxed">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Possimus dolorum reprehenderit adipisci quasi
-                            vitae quisquam.
+                            Green Gold livestock feed is scientifically formulated to deliver a complete and well-balanced diet. 
                           </p>
                         </div>
 
@@ -451,16 +464,13 @@ function Home(){
                             src={cardIcon3}
                             className="w-[60px] h-[60px] mb-4"
                           />
-                          <h4 className="text-[#009a62] font-semibold text-2xl leading-snug">
-                            Trusted by
+                          <h4 className="text-[#009a62] font-semibold text-lg leading-snug">
+                            Enhanced Feed 
                             <br />
-                            Farming
+                            Conversion Efficiency
                           </h4>
                           <p className="text-gray-600 text-sm mt-3 leading-relaxed">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Labore dolores vitae ipsam deleniti sequi
-                            totam aut id iure consequatur explicabo maxime
-                            architecto magni est.
+                            Our advanced formulations are designed to maximize feed efficiency.
                           </p>
                         </div>
 
@@ -485,15 +495,13 @@ function Home(){
                             src={cardIcon2}
                             className="w-[50px] h-[60px] mb-4"
                           />
-                          <h4 className="text-[#009a62] font-semibold text-2xl leading-snug">
-                            Scientific
+                          <h4 className="text-[#009a62] font-semibold text-lg leading-snug">
+                            Sustainable and Responsible Sourcing
                             <br />
-                            Formulation
+                            Responsible Sourcing
                           </h4>
                           <p className="text-gray-600 text-sm mt-3 leading-relaxed">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Possimus dolorum reprehenderit adipisci quasi
-                            vitae quisquam.
+                            We are committed to sustainability. Green Gold Feed uses responsibly sourced
                           </p>
                         </div>
 
@@ -999,9 +1007,9 @@ function Home(){
                 Innovation, testing, and validation are at the core of every
                 formulation we create.{" "}
               </p>
-              <button className="mt-4 md:mt-8 inline-flex items-center justify-center md:justify-start gap-2 rounded-xl bg-yellow-500 px-6 py-3 text-[16px] font-medium text-black hover:bg-yellow-400 transition cursor-pointer w-full md:w-auto text-center">
+              <Link to="/research-development" className="mt-4 md:mt-8 inline-flex items-center justify-center md:justify-start gap-2 rounded-xl bg-yellow-500 px-6 py-3 text-[16px] font-medium text-black hover:bg-yellow-400 transition cursor-pointer w-full md:w-auto text-center">
                 Explore Our R&amp;D{" "}
-              </button>
+              </Link>
             </div>
           </div>
         </section>
@@ -1031,16 +1039,16 @@ function Home(){
 
             {/* <!-- Buttons --> */}
             <div className="mt-6 md:mt-10 flex flex-col sm:flex-row justify-center items-center gap-4 text-lg">
-              <a
-                href="#"
+              <Link
+                to="tel:+1234567890"
                 className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-lg bg-amber-400 text-black font-medium shadow-md hover:bg-amber-500 transition w-full md:w-auto "
               >
                 <FontAwesomeIcon icon={faPhone} />
                 Call Now
-              </a>
+              </Link>
 
               <Link
-                href="#"
+                to="tel:+1234567890"
                 className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-lg bg-green-500 text-white font-medium shadow-md hover:bg-green-600 transition w-full md:w-auto "
               >
                 <FontAwesomeIcon icon={faWhatsapp} className="text-lg" />
@@ -1148,7 +1156,7 @@ function Home(){
                       </p>
 
                       <Link
-                        href="#"
+                        to="/news-events"
                         className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group"
                       >
                         View Details
@@ -1194,7 +1202,7 @@ function Home(){
                       </p>
 
                       <Link
-                        href="#"
+                        to="/news-events"
                         className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group"
                       >
                         View Details
@@ -1240,7 +1248,7 @@ function Home(){
                       </p>
 
                       <Link
-                        href="#"
+                        to="/news-events"
                         className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group"
                       >
                         View Details
@@ -1286,7 +1294,7 @@ function Home(){
                       </p>
 
                       <Link
-                        href="#"
+                        to="/news-events"
                         className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group"
                       >
                         View Details
@@ -1332,7 +1340,7 @@ function Home(){
                       </p>
 
                       <Link
-                        href="#"
+                        to="/news-events"
                         className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group"
                       >
                         View Details
