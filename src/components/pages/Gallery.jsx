@@ -71,11 +71,14 @@ function Gallery() {
               </div>
             </div>
           </div>
-      </section>
+        </section>
+
+        {/* Image Gallery */}
         <section className="py-10 md:py-20">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-5xl font-semibold mb-8 text-center text-gray-800">Image <span className="text-[#ffa800]">Gallery</span></h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <p className="mt-4 md:mt-6 text-gray-600 leading-normal md:leading-relaxed text-[16px] md:text-[18px] text-center">Our Image Gallery offers a closer look at the quality, care, and consistency behind our animal feed products. From advanced manufacturing processes to healthy livestock results, these moments reflect our commitment to nutrition, safety, and excellence. Explore how our feed supports stronger growth and better productivity at every stage.</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
               {/* Sample images - replace with actual images */}
               {images.map((img, index) => (
               <div className="overflow-hidden rounded-lg shadow-lg">
@@ -91,13 +94,13 @@ function Gallery() {
               ))}
 
               {/* Lightbox */}
-      {/* {selectedImg && (
+      {selectedImg && (
         <div
           className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
           onClick={() => setSelectedImg(null)}
         >
           <div className="relative max-w-4xl w-full px-4">
-            Close Button
+            {/* Close Button */}
             <button
               className="absolute -top-10 right-4 text-white text-3xl"
               onClick={() => setSelectedImg(null)}
@@ -105,7 +108,7 @@ function Gallery() {
               &times;
             </button>
 
-            Image
+            {/* Image */}
             <img
               src={selectedImg}
               alt=""
@@ -114,7 +117,7 @@ function Gallery() {
             />
           </div>
         </div>
-      )} */}
+      )}
               {/* <div className="overflow-hidden rounded-lg shadow-lg">
                 <img src={gallery2} alt="Gallery Image 2" className="w-full h-auto transform hover:scale-105 transition-transform duration-300"/>
               </div>
@@ -136,6 +139,35 @@ function Gallery() {
               <div className="overflow-hidden rounded-lg shadow-lg">
                 <img src={gallery2} alt="Gallery Image 8" className="w-full h-auto transform hover:scale-105 transition-transform duration-300"/>
               </div> */}
+            </div>
+          </div>
+        </section>
+
+        {/* Video Gallery */}
+        <section className="py-10 md:py-20 bg-gray-100">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-5xl font-semibold mb-8 text-center text-gray-800">Video <span className="text-[#ffa800]">Gallery</span></h2>
+            <p className="mt-4 md:mt-6 text-gray-600 leading-normal md:leading-relaxed text-[16px] md:text-[18px] text-center">Dive into our Video Gallery to witness the essence of our animal feed products in action. These videos showcase our state-of-the-art manufacturing processes, quality control measures, and the positive impact our feed has on livestock health and productivity. Experience firsthand how we prioritize nutrition, safety, and excellence at every step, ensuring optimal growth and performance for animals worldwide.</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 mt-8">
+              {/* Sample videos - replace with actual videos */}
+              <div className="overflow-hidden rounded-lg shadow-lg">
+                <video controls className="w-full h-auto rounded-lg">
+                  <source src="https://placeholdervideo.dev/1920x1080" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <div className="overflow-hidden rounded-lg shadow-lg">
+                <video controls className="w-full h-auto rounded-lg">
+                  <source src="https://placeholdervideo.dev/1920x1080" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <div className="overflow-hidden rounded-lg shadow-lg">
+                <video controls className="w-full h-auto rounded-lg">
+                  <source src="https://placeholdervideo.dev/1920x1080" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
             </div>
           </div>
         </section>

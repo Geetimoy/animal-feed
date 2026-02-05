@@ -107,7 +107,7 @@ function Footer(){
                 <span className="mt-2 w-[9px] h-[9px] rounded-full bg-gray-800"></span>
                 <span>
                   <Link
-                    to="/where-to-buy"
+                    to="/distributor"
                     className="text-[#7f979f] text-lg font-medium"
                   >
                     Where to Buy
@@ -118,7 +118,7 @@ function Footer(){
                 <span className="mt-2 w-[9px] h-[9px] rounded-full bg-gray-800"></span>
                 <span>
                   <Link
-                    to="/csr-activities"
+                    to="/csr"
                     className="text-[#7f979f] text-lg font-medium"
                   >
                     CSR Activities
@@ -139,7 +139,7 @@ function Footer(){
                 <span className="mt-2 w-[9px] h-[9px] rounded-full bg-gray-800"></span>
                 <span>
                   <Link
-                    to="/cattle-feed"
+                    to="/feed-type"
                     className="text-[#7f979f] text-lg font-medium"
                   >
                     {" "}
@@ -151,7 +151,7 @@ function Footer(){
                 <span className="mt-2 w-[9px] h-[9px] rounded-full bg-gray-800"></span>
                 <span>
                   <Link
-                    to="/poultry-feed"
+                    to="/feed-type"
                     className="text-[#7f979f] text-lg font-medium"
                   >
                     Poultry Feed
@@ -162,7 +162,7 @@ function Footer(){
                 <span className="mt-2 w-[9px] h-[9px] rounded-full bg-gray-800"></span>
                 <span>
                   <Link
-                    to="/pig-feed"
+                    to="/feed-type"
                     className="text-[#7f979f] text-lg font-medium"
                   >
                     Pig Feed
@@ -173,7 +173,7 @@ function Footer(){
                 <span className="mt-2 w-[9px] h-[9px] rounded-full bg-gray-800"></span>
                 <span>
                   <Link
-                    to="/fish-feed"
+                    to="/feed-type"
                     className="text-[#7f979f] text-lg font-medium"
                   >
                     Fish Feed
@@ -184,7 +184,7 @@ function Footer(){
                 <span className="mt-2 w-[9px] h-[9px] rounded-full bg-gray-800"></span>
                 <span>
                   <Link
-                    to="/specialty-feeds"
+                    to="/feed-type"
                     className="text-[#7f979f] text-lg font-medium"
                   >
                     Specialty Feeds

@@ -7,6 +7,12 @@ import NewsEvents from "./pages/NewsEvents";
 import Distributor from "./pages/Distributor";
 import Gallery from "./pages/Gallery";
 import Nutrition from "./pages/Nutrition";
+import NewsDetails from "./pages/NewsDetails";
+import FeedType from "./pages/FeedType";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import ForgotPassword from "./pages/ForgotPassword";
+
 
 export default function Core() {
   return (
@@ -22,6 +28,11 @@ export default function Core() {
           <Route path="/distributor" element={<Distributor />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/nutrition" element={<Nutrition />} />
+          <Route path="/news-details" element={<NewsDetails />} />
+          <Route path="/feed-type" element={<FeedType />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
         </Routes>
       </BrowserRouter>
    

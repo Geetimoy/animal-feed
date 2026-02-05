@@ -68,7 +68,7 @@ function NewsEvents() {
                     Stay updated with the latest happenings, product
                     launches, and events at Green Gold.
                   </p>
-                  <Link href="#" className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group" >
+                  <Link to="/news-details" className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group" >
                     View Details
                         <span className="w-5 h-5 rounded-full border border-green-500 flex items-center justify-center  group-hover:border-green-600 transition-colors duration-300" >
                           <FontAwesomeIcon icon={faArrowRight} className="text-[10px] group-hover:text-green-600 transition-colors duration-300" />
@@ -92,7 +92,7 @@ function NewsEvents() {
                   <p className="mt-2 text-sm text-gray-500 flex-grow">
                     Stay updated with the latest happenings, product launches, and events at Green Gold.
                   </p>
-                  <Link href="#" className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group" >
+                  <Link to="/news-details" className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group" >
                     View Details
                         <span className="w-5 h-5 rounded-full border border-green-500 flex items-center justify-center  group-hover:border-green-600 transition-colors duration-300" >
                           <FontAwesomeIcon icon={faArrowRight} className="text-[10px] group-hover:text-green-600 transition-colors duration-300" />
@@ -117,7 +117,7 @@ function NewsEvents() {
                     Stay updated with the latest happenings, product
                     launches, and events at Green Gold.
                   </p>
-                  <Link href="#" className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group" >
+                  <Link to="/news-details" className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group" >
                     View Details
                         <span className="w-5 h-5 rounded-full border border-green-500 flex items-center justify-center  group-hover:border-green-600 transition-colors duration-300" >
                           <FontAwesomeIcon icon={faArrowRight} className="text-[10px] group-hover:text-green-600 transition-colors duration-300" />
@@ -133,7 +133,7 @@ function NewsEvents() {
                 </div>
                 <div className="p-6 flex flex-col flex-grow">
                   <span className="text-xs text-green-600 font-medium">
-                        28 Aug 2025
+                        29 Aug 2025
                   </span>
                   <h3 className="mt-2 font-bold text-gray-900">
                         Farmer Awareness Program Conducted in Odisha
@@ -142,7 +142,7 @@ function NewsEvents() {
                     Stay updated with the latest happenings, product
                     launches, and events at Green Gold.
                   </p>
-                  <Link href="#" className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group" >
+                  <Link to="/news-details" className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group" >
                     View Details
                         <span className="w-5 h-5 rounded-full border border-green-500 flex items-center justify-center  group-hover:border-green-600 transition-colors duration-300" >
                           <FontAwesomeIcon icon={faArrowRight} className="text-[10px] group-hover:text-green-600 transition-colors duration-300" />
@@ -167,7 +167,7 @@ function NewsEvents() {
                     Stay updated with the latest happenings, product
                     launches, and events at Green Gold.
                   </p>
-                  <Link href="#" className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group" >
+                  <Link to="/news-details" className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group" >
                     View Details
                         <span className="w-5 h-5 rounded-full border border-green-500 flex items-center justify-center  group-hover:border-green-600 transition-colors duration-300" >
                           <FontAwesomeIcon icon={faArrowRight} className="text-[10px] group-hover:text-green-600 transition-colors duration-300" />
@@ -192,7 +192,7 @@ function NewsEvents() {
                     Stay updated with the latest happenings, product
                     launches, and events at Green Gold.
                   </p>
-                  <Link href="#" className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group" >
+                  <Link to="/news-details" className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group" >
                     View Details
                         <span className="w-5 h-5 rounded-full border border-green-500 flex items-center justify-center  group-hover:border-green-600 transition-colors duration-300" >
                           <FontAwesomeIcon icon={faArrowRight} className="text-[10px] group-hover:text-green-600 transition-colors duration-300" />
