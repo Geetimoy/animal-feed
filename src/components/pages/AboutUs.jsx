@@ -3,7 +3,7 @@ import Header from "../Header";
 import Footer from "../Footer";
 
 import aboutBaner from '../../assets/images/about-banner.jpg';
-import aboutBanerMob from '../../assets/images/about-banner-mob.png';
+import aboutBanerMob from '../../assets/images/about-banner-mob.jpg';
 import visionMission from '../../assets/images/cattle1.png'; 
 import officeMan from '../../assets/images/office-man.png';
 
@@ -473,9 +473,9 @@ function AboutUs() {
               </div>
             </div>
             <div className="mt-6 md:mt-10 text-center">
-              <button className="bg-[#f1c40f] px-6 py-4 rounded-md text-[16px] font-medium cursor-pointer w-full md:w-auto">
+              <Link to="/our-teams" className="bg-[#f1c40f] px-6 py-4 inline-block rounded-md text-[16px] font-medium cursor-pointer w-full md:w-auto">
                 Meet Our Complete Team
-              </button>
+              </Link>
             </div>
           </div>
         </section>
@@ -647,7 +647,7 @@ function AboutUs() {
                 </p>
               </div>
               <div className="flex-1">
-                <iframe
+                {/* <iframe
                   src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28415.468456355145!2d93.80497037525176!3d27.095390854376515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDolikoto%2C%20Banderdewa%2C%20Arunachal%20Pradesh%20%E2%80%93%20791123!5e0!3m2!1sen!2sin!4v1769078245418!5m2!1sen!2sin"
                   width="100%"
                   height="350"
@@ -656,7 +656,9 @@ function AboutUs() {
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   title="Dolikoto Location"
-                />
+                /> */}
+                <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28412.610896202965!2d93.80259320641548!3d27.106650600337588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDolikoto%2C%20Banderdewa%2C%20Arunachal%20Pradesh!5e0!3m2!1sen!2sin!4v1770640178490!5m2!1sen!2sin" className="w-full border-0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Dolikoto Location"
+                height="350"></iframe>
               </div>
             </div>
           </div>

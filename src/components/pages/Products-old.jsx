@@ -1,6 +1,4 @@
-import React from "react";
 import { useState } from "react";
-import { useEffect } from "react";
 import Header from "../Header";
 import Footer from "../Footer";
 import broilerproduct from "../../assets/images/broiler-starter-product.png";
@@ -10,8 +8,6 @@ import cattleproduct from "../../assets/images/cattle-feed-product.png";
 import specialproduct from "../../assets/images/special-product.jpeg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass,faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import { Fancybox } from "@fancyapps/ui";
-import productbanner  from "../../assets/images/product-banner.jpeg";
 
 
 const products = [
@@ -62,27 +58,6 @@ export default function Products() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [maxPrice, setMaxPrice] = useState(3000); 
 
-    useEffect(() => {
-      Fancybox.bind("[data-fancybox='product-gallery']", {
-        Image: {
-          zoom: true,
-          click: "zoom",
-          wheel: "slide",
-        },
-        Carousel: {
-          infinite: true,
-        },
-      //   caption: (fancybox, slide) => `
-      //     <div>
-      //       <h3>${slide.title}</h3>
-          
-      //     </div>
-      //   `,
-      });
-  
-      return () => Fancybox.destroy();
-    }, []);
-
   const filteredProducts = products.filter((product) => {
     const matchSearch = product.name
       .toLowerCase()
@@ -99,21 +74,7 @@ export default function Products() {
   return (
     <>
       <Header />
-      <main className="pt-16 overflow-x-hidden">
-        <section className="relative z-0">
-          <div className="relative">
-            <img
-              src={productbanner}
-              alt="Contact Us Banner"
-              className="w-full md:h-[500px] h-[350px] object-cover"
-            />
-            <div className="absolute inset-0  flex items-center justify-center">
-              <h1 className="text-white text-4xl md:text-6xl font-bold">
-                Quality Feed Solution
-              </h1>
-            </div>
-          </div>
-        </section>
+      <main className="pt-20 overflow-x-hidden">
         <div className="max-w-7xl mx-auto px-4 py-10">
           <h2 className="text-[24px] md:text-5xl font-semibold text-gray-800 text-center mb-10">
             Our <span className="text-[#ffa800]">Products</span>
@@ -133,7 +94,7 @@ export default function Products() {
                   max="3000"
                   value={maxPrice}
                   onChange={(e) => setMaxPrice(Number(e.target.value))}
-                  className="w-full accent-[#009a62] cursor-pointer"
+                  className="w-full accent-[#ffa800] cursor-pointer"
                 />
 
                 <p className="mt-2 text-gray-700 text-[16px] md:text-[18px]">
@@ -177,7 +138,7 @@ export default function Products() {
                 <div className="relative">
                   <FontAwesomeIcon
                     icon={faMagnifyingGlass}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 text-[#009a62]"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-[#ffa800]"
                   />
                   <input
                     type="text"
@@ -208,14 +169,12 @@ export default function Products() {
                       key={product.id}
                       className="bg-[#efefef] rounded-lg p-6 shadow-sm"
                     >
-                      <span className="mx-auto w-[200px]   bg-[#fff] block p-2 rounded-2xl shadow-xl mt-0 md:-mt-[60px] mb-4">
-                        <a href={product.image} data-fancybox="product-gallery">
-                          <img
-                            src={product.image}
-                            alt={product.name}
-                            className="w-full rounded-lg object-cover h-[180px]"
-                          />
-                        </a>
+                      <span className="mx-auto w-[140px]   bg-[#fff] block p-2 rounded-2xl shadow-xl mt-0 md:-mt-[60px] mb-4">
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full rounded-lg object-cover h-[140px]"
+                        />
                       </span>
                       <h3 className="text-[18px] md:text-[20px] font-semibold text-gray-800 mb-2 text-center">
                         {product.name}
@@ -228,8 +187,8 @@ export default function Products() {
                       </p>
                       <button
                         type="button"
-                        className="mt-4 w-full bg-yellow-500 text-white
-                               py-2 rounded-xl font-medium cursor-pointer hover:bg-yellow-400"
+                        className="mt-4 w-full bg-[#ffa800] text-white
+                               py-2 rounded-lg font-medium cursor-pointer hover:bg-yellow-400"
                       >
                         <FontAwesomeIcon
                           icon={faCartShopping}

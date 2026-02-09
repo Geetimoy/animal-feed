@@ -41,6 +41,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 import './custom.css';
+import CertificateSlider from "./CertificateSlider";
 
 function Home(){
 
@@ -1365,6 +1366,8 @@ function Home(){
             </div>
           </div>
         </section>
+
+        <CertificateSlider></CertificateSlider>
       </main>
       <Footer></Footer>
     </>

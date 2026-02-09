@@ -2,7 +2,7 @@ import Header from "../Header";
 import Footer from "../Footer";
 
 import researchBanner from '../../assets/images/research-banner.jpg';
-import aboutBanerMob from '../../assets/images/about-banner-mob.png';
+import aboutBanerMob from '../../assets/images/about-banner-mob.jpg';
 import commitment from '../../assets/images/our-commitment.jpg';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
