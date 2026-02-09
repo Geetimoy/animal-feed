@@ -31,7 +31,7 @@ export default function Login() {
         </div>
 
         <h2 className="text-2xl font-semibold text-center text-white">
-          Welcome
+          Welcome to GGAF
         </h2>
         <p className="text-center text-white text-sm mb-4">
           Please login to continue
@@ -115,35 +115,7 @@ export default function Login() {
             <div className="flex-1 h-px bg-gray-500/60"></div>
           </div>
 
-          {/* social buttons – reference colors */}
-          <div className="flex gap-3">
-            <button
-              className="
-                flex-1 flex items-center justify-center gap-2
-                py-2 rounded-[12px]
-                bg-white
-                border border-gray-200
-                shadow-sm
-                hover:bg-gray-50
-              "
-            >
-              <FontAwesomeIcon icon={faGoogle} className="text-red-500" />
-              <span className="text-sm text-gray-700">Google</span>
-            </button>
-
-            <button
-              className="
-                flex-1 flex items-center justify-center gap-2
-                py-2 
-               bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px]
-                shadow-sm
-                hover:opacity-90
-              "
-            >
-              <FontAwesomeIcon icon={faFacebookF} />
-              <span className="text-sm">Facebook</span>
-            </button>
-          </div>
+        
 
           <p className="text-center text-sm text-gray-600 mt-5">
             Don&apos;t have an account?{" "}

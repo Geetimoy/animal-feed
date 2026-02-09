@@ -12,6 +12,11 @@ import FeedType from "./pages/FeedType";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import ForgotPassword from "./pages/ForgotPassword";
+import Products from "./pages/Products";
+import Profile from "./pages/Profile";
+import ResetPassword from "./pages/ResetPassword";
+import MyOrder from "./pages/MyOrder";
+import AddressManagement from "./pages/AddressManagement";
 
 
 export default function Core() {
@@ -33,6 +38,11 @@ export default function Core() {
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/my-orders" element={<MyOrder />} />
+          <Route path="/address-management" element={<AddressManagement />} />
         </Routes>
       </BrowserRouter>
    
