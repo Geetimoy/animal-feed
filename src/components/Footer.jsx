@@ -206,11 +206,11 @@ function Footer(){
                   <FontAwesomeIcon icon={faLocationDot} />
                 </span>
                 <span className="text-[#7f979f] text-lg font-medium">
-                  Green Gold Animal Feed Pvt Ltd.
+                  Rongoge Mega Food Park
                   <br className="hidden md:block" />
-                  Industrial Area, Kolkata
+                  Dolikoto Banderdewa,
                   <br className="hidden md:block" />
-                  West Bengal - 700001
+                  Arunachal Pradesh 791123 
                 </span>
               </li>
               <li className="flex items-center md:items-start justify-center md:justify-start mb-3">
@@ -218,7 +218,7 @@ function Footer(){
                   <FontAwesomeIcon icon={faPhone} />
                 </span>
                 <span className="text-[#7f979f] text-lg font-medium">
-                  +91 9999999999
+                  <Link to="tel:+919999999999">+91 9999999999</Link>
                 </span>
               </li>
               <li className="flex items-center md:items-start justify-center md:justify-start">

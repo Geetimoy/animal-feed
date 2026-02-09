@@ -115,9 +115,9 @@ function ContactUs(){
                       Our Location
                     </h2>
                     <p className="text-gray-900 text-lg font-regular">
-                      Green Gold Animal Feet Pvt Ltd. <br />
-                      Indutrial Area, Kolkata <br />
-                      West Bengal - 700001
+                      Rongoge Mega Food Park <br />
+                      Dolikoto Banderdewa, <br />
+                      Arunachal Pradesh 791123 
                     </p>
                   </div>
                 </div>
@@ -228,13 +228,15 @@ function ContactUs(){
 
             {/* Map */}
             <div className="w-full h-[480px] rounded-xl overflow-hidden border border-gray-200 shadow-sm">
-              <iframe
+              {/* <iframe
                 title="Kolkata Location"
                 src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28415.468456355145!2d93.80497037525176!3d27.095390854376515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDolikoto%2C%20Banderdewa%2C%20Arunachal%20Pradesh%20%E2%80%93%20791123!5e0!3m2!1sen!2sin!4v1769078245418!5m2!1sen!2sin"
                 className="w-full h-full border-0"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-              />
+              /> */}
+
+              <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28412.610896202965!2d93.80259320641548!3d27.106650600337588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDolikoto%2C%20Banderdewa%2C%20Arunachal%20Pradesh!5e0!3m2!1sen!2sin!4v1770640178490!5m2!1sen!2sin" className="w-full h-full border-0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
           </div>
         </section>
