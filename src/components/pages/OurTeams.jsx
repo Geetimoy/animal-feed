@@ -3,9 +3,10 @@ import Header from "../Header";
 
 import teamsBaner from '../../assets/images/teams-banner.jpg';
 import aboutBanerMob from '../../assets/images/about-banner-mob.jpg';
+import officeMan from '../../assets/images/office-man.png';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faLocationDot, faMagnifyingGlass, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 function OurTeams(){
@@ -99,7 +100,7 @@ function OurTeams(){
       </section>
 
       {/* Our Team details */}
-      <section className="py-10 md:py-20 ">
+      <section className="pt-10 md:pt-20 pb-8">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <h2 className="text-[26px] md:text-5xl font-semibold text-gray-800 text-center">
               Our Team  <span className="text-[#ffa800]">Details</span>
@@ -108,6 +109,318 @@ function OurTeams(){
             Guiding Green Gold with vision, expertise, and commitment to
             excellence
           </p>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-8 md:mt-20">
+            
+            <div className="bg-[#efefef] rounded-2xl p-6 shadow-sm mb-12">
+              <span className="mx-auto w-36 bg-[#fff] block p-2 rounded-2xl shadow-xl  mt-0 md:-mt-[60px] mb-4">
+                <img src={officeMan} alt="" className="w-full" />
+              </span>
+              <h4 className="text-lg font-bold text-gray-900 mb-0 text-center">
+                Er. Tana Tullo
+              </h4>
+              <p className="text-gray-600 text-sm text-center mb-2">
+                General Manager GEIF Pvt.Ltd
+              </p>
+              <ul className="mt-4 md:text-left text-center">
+                <li className="text-gray-600 text-sm mb-2">
+                  {" "}
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-[#00a34a] mr-2"
+                  />{" "}
+                  Visionary Leadership
+                </li>
+                <li className="text-gray-600 text-sm">
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-[#00a34a] mr-2"
+                  />{" "}
+                  Ethical Governance
+                </li>
+              </ul>
+            </div>
+            <div className="bg-[#efefef] rounded-2xl p-6 shadow-sm mb-12">
+              <span className="mx-auto w-36 bg-[#fff] block p-2 rounded-2xl shadow-xl  mt-0 md:-mt-[60px] mb-4">
+                <img src={officeMan} alt="" className="w-full" />
+              </span>
+              <h4 className="text-lg font-bold text-gray-900 mb-0 text-center">
+                Shri. Vikramjit Das
+              </h4>
+              <p className="text-gray-600 text-sm text-center mb-2">
+                General Manager (Operations& Marketing Head)
+              </p>
+              <ul className="mt-4 md:text-left text-center">
+                <li className="text-gray-600 text-sm mb-2">
+                  {" "}
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-[#00a34a] mr-2"
+                  />{" "}
+                  Visionary Leadership
+                </li>
+                <li className="text-gray-600 text-sm">
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-[#00a34a] mr-2"
+                  />{" "}
+                  Ethical Governance
+                </li>
+              </ul>
+            </div>
+            <div className="bg-[#efefef] rounded-2xl p-6 shadow-sm mb-12">
+              <span className="mx-auto w-36 bg-[#fff] block p-2 rounded-2xl shadow-xl mt-0 md:-mt-[60px] mb-4">
+                <img src={officeMan} alt="" className="w-full" />
+              </span>
+              <h4 className="text-lg font-bold text-gray-900 mb-0 text-center">
+                Shri. Manoj Sonar
+              </h4>
+              <p className="text-gray-600 text-sm text-center mb-2">
+                Marketing Manager (All Arunachal)
+              </p>
+              <ul className="mt-4 md:text-left text-center">
+                <li className="text-gray-600 text-sm mb-2">
+                  {" "}
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-[#00a34a] mr-2"
+                  />{" "}
+                  Visionary Leadership
+                </li>
+                <li className="text-gray-600 text-sm">
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-[#00a34a] mr-2"
+                  />{" "}
+                  Ethical Governance
+                </li>
+              </ul>
+            </div>
+            
+            <div className="bg-[#efefef] rounded-2xl p-6 shadow-sm mb-12">
+              <span className="mx-auto w-36 bg-[#fff] block p-2 rounded-2xl shadow-xl  mt-0 md:-mt-[60px] mb-4">
+                <img src={officeMan} alt="" className="w-full" />
+              </span>
+              <h4 className="text-lg font-bold text-gray-900 mb-0 text-center">
+                Shri. Suraj Mahato
+              </h4>
+              <p className="text-gray-600 text-sm text-center mb-2">
+                Marketing Manager (All Assam)
+              </p>
+              <ul className="mt-4 md:text-left text-center">
+                <li className="text-gray-600 text-sm mb-2">
+                  {" "}
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-[#00a34a] mr-2"
+                  />{" "}
+                  Veterinary Excellence
+                </li>
+                <li className="text-gray-600 text-sm">
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-[#00a34a] mr-2"
+                  />{" "}
+                  Scientific Leadership
+                </li>
+              </ul>
+            </div>
+            <div className="bg-[#efefef] rounded-2xl p-6 shadow-sm mb-12">
+              <span className="mx-auto w-36 bg-[#fff] block p-2 rounded-2xl shadow-xl  mt-0 md:-mt-[60px] mb-4">
+                <img src={officeMan} alt="" className="w-full" />
+              </span>
+              <h4 className="text-lg font-bold text-gray-900 mb-0 text-center">
+                Shri. Nikom Riba
+              </h4>
+              <p className="text-gray-600 text-sm text-center mb-2">
+                Marketing Manager 
+              </p>
+              <ul className="mt-4 md:text-left text-center">
+                <li className="text-gray-600 text-sm mb-2">
+                  {" "}
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-[#00a34a] mr-2"
+                  />{" "}
+                  Veterinary Excellence
+                </li>
+                <li className="text-gray-600 text-sm">
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-[#00a34a] mr-2"
+                  />{" "}
+                  Scientific Leadership
+                </li>
+              </ul>
+            </div>
+            <div className="bg-[#efefef] rounded-2xl p-6 shadow-sm mb-12">
+              <span className="mx-auto w-36 bg-[#fff] block p-2 rounded-2xl shadow-xl  mt-0 md:-mt-[60px] mb-4">
+                <img src={officeMan} alt="" className="w-full" />
+              </span>
+              <h4 className="text-lg font-bold text-gray-900 mb-0 text-center">
+                Shri. Nakibur Rehman
+              </h4>
+              <p className="text-gray-600 text-sm text-center mb-2">
+                Accountant 
+              </p>
+              <ul className="mt-4 md:text-left text-center">
+                <li className="text-gray-600 text-sm mb-2">
+                  {" "}
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-[#00a34a] mr-2"
+                  />{" "}
+                  Veterinary Excellence
+                </li>
+                <li className="text-gray-600 text-sm">
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-[#00a34a] mr-2"
+                  />{" "}
+                  Scientific Leadership
+                </li>
+              </ul>
+            </div>
+            <div className="bg-[#efefef] rounded-2xl p-6 shadow-sm mb-12">
+              <span className="mx-auto w-36 bg-[#fff] block p-2 rounded-2xl shadow-xl  mt-0 md:-mt-[60px] mb-4">
+                <img src={officeMan} alt="" className="w-full" />
+              </span>
+              <h4 className="text-lg font-bold text-gray-900 mb-0 text-center">
+                Shri. Anjon Sonowal
+              </h4>
+              <p className="text-gray-600 text-sm text-center mb-2">
+                Supervisor 
+              </p>
+              <ul className="mt-4 md:text-left text-center">
+                <li className="text-gray-600 text-sm mb-2">
+                  {" "}
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-[#00a34a] mr-2"
+                  />{" "}
+                  Veterinary Excellence
+                </li>
+                <li className="text-gray-600 text-sm">
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-[#00a34a] mr-2"
+                  />{" "}
+                  Scientific Leadership
+                </li>
+              </ul>
+            </div>
+            <div className="bg-[#efefef] rounded-2xl p-6 shadow-sm mb-12">
+              <span className="mx-auto w-36 bg-[#fff] block p-2 rounded-2xl shadow-xl  mt-0 md:-mt-[60px] mb-4">
+                <img src={officeMan} alt="" className="w-full" />
+              </span>
+              <h4 className="text-lg font-bold text-gray-900 mb-0 text-center">
+                Mr.Sikander Kumar
+              </h4>
+              <p className="text-gray-600 text-sm text-center mb-2">
+                Sr.Operator 
+              </p>
+              <ul className="mt-4 md:text-left text-center">
+                <li className="text-gray-600 text-sm mb-2">
+                  {" "}
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-[#00a34a] mr-2"
+                  />{" "}
+                  Veterinary Excellence
+                </li>
+                <li className="text-gray-600 text-sm">
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-[#00a34a] mr-2"
+                  />{" "}
+                  Scientific Leadership
+                </li>
+              </ul>
+            </div>
+            <div className="bg-[#efefef] rounded-2xl p-6 shadow-sm mb-12">
+              <span className="mx-auto w-36 bg-[#fff] block p-2 rounded-2xl shadow-xl  mt-0 md:-mt-[60px] mb-4">
+                <img src={officeMan} alt="" className="w-full" />
+              </span>
+              <h4 className="text-lg font-bold text-gray-900 mb-0 text-center">
+                Mr. Akash Pradhan
+              </h4>
+              <p className="text-gray-600 text-sm text-center mb-2">
+                Operator 
+              </p>
+              <ul className="mt-4 md:text-left text-center">
+                <li className="text-gray-600 text-sm mb-2">
+                  {" "}
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-[#00a34a] mr-2"
+                  />{" "}
+                  Veterinary Excellence
+                </li>
+                <li className="text-gray-600 text-sm">
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-[#00a34a] mr-2"
+                  />{" "}
+                  Scientific Leadership
+                </li>
+              </ul>
+            </div>
+            <div className="bg-[#efefef] rounded-2xl p-6 shadow-sm mb-12">
+              <span className="mx-auto w-36 bg-[#fff] block p-2 rounded-2xl shadow-xl  mt-0 md:-mt-[60px] mb-4">
+                <img src={officeMan} alt="" className="w-full" />
+              </span>
+              <h4 className="text-lg font-bold text-gray-900 mb-0 text-center">
+                Mr. Prem Bodala
+              </h4>
+              <p className="text-gray-600 text-sm text-center mb-2">
+                Store keeper  
+              </p>
+              <ul className="mt-4 md:text-left text-center">
+                <li className="text-gray-600 text-sm mb-2">
+                  {" "}
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-[#00a34a] mr-2"
+                  />{" "}
+                  Veterinary Excellence
+                </li>
+                <li className="text-gray-600 text-sm">
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-[#00a34a] mr-2"
+                  />{" "}
+                  Scientific Leadership
+                </li>
+              </ul>
+            </div>
+            <div className="bg-[#efefef] rounded-2xl p-6 shadow-sm mb-12">
+              <span className="mx-auto w-36 bg-[#fff] block p-2 rounded-2xl shadow-xl  mt-0 md:-mt-[60px] mb-4">
+                <img src={officeMan} alt="" className="w-full" />
+              </span>
+              <h4 className="text-lg font-bold text-gray-900 mb-0 text-center">
+                Mr. Ghanshyam Boruah
+              </h4>
+              <p className="text-gray-600 text-sm text-center mb-2">
+                Electrician   
+              </p>
+              <ul className="mt-4 md:text-left text-center">
+                <li className="text-gray-600 text-sm mb-2">
+                  {" "}
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-[#00a34a] mr-2"
+                  />{" "}
+                  Veterinary Excellence
+                </li>
+                <li className="text-gray-600 text-sm">
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-[#00a34a] mr-2"
+                  />{" "}
+                  Scientific Leadership
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
     </main>

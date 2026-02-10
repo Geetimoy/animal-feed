@@ -11,6 +11,13 @@ import certificate5 from "../../assets/images/certificate5.png"
 import certificate6 from "../../assets/images/certificate6.png";
 import certificate7 from "../../assets/images/certificate7.png";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowRight,
+  faArrowLeft,
+
+} from "@fortawesome/free-solid-svg-icons";
+
 
 
 const certificates = [
@@ -75,12 +82,16 @@ export default function CertificateSlider() {
 
         <Swiper
           className="certificate-swiper"
-          modules={[Autoplay, Pagination]}
+          modules={[Autoplay, Navigation]}
           autoplay={{ delay: 5000, disableOnInteraction: false }}
           loop
           pagination={{ clickable: true }}
           spaceBetween={20}
           slidesPerView={1}
+          navigation={{
+            prevEl: ".certificate-prev",
+            nextEl: ".certificate-next",
+          }}
           breakpoints={{
             640: { slidesPerView: 3 },
             1024: { slidesPerView: 5 },
@@ -103,6 +114,30 @@ export default function CertificateSlider() {
             </SwiperSlide>
           ))}
         </Swiper>
+
+        <div className="flex items-center justify-center gap-3">
+          {/* <!-- Prev --> */}
+          <button
+            class="certificate-prev w-10 h-10 rounded-full border border-gray-300
+              flex items-center justify-center
+              text-gray-600
+              hover:border-green-500 hover:text-green-500
+              transition-colors duration-300 cursor-pointer "
+          >
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </button>
+
+          {/* <!-- Next --> */}
+          <button
+            class="certificate-next w-10 h-10 rounded-full border border-gray-300
+              flex items-center justify-center
+              text-gray-600
+              hover:border-green-500 hover:text-green-500
+              transition-colors duration-300 cursor-pointer "
+          >
+            <FontAwesomeIcon icon={faArrowRight} />
+          </button>
+        </div>
       </div>
     </section>
   );

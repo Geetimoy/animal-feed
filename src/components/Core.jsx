@@ -20,6 +20,7 @@ import Profile from "./pages/Profile";
 import ResetPassword from "./pages/ResetPassword";
 import MyOrder from "./pages/MyOrder";
 import AddressManagement from "./pages/AddressManagement";
+import Csr from "./pages/Csr";
 
 
 export default function Core() {
@@ -48,6 +49,7 @@ export default function Core() {
           <Route path="/products" element={<Products />} />
           <Route path="/my-orders" element={<MyOrder />} />
           <Route path="/address-management" element={<AddressManagement />} />
+          <Route path="/csr" element={<Csr />} />
         </Routes>
       </BrowserRouter>
    

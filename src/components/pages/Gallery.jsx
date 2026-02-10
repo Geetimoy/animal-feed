@@ -16,16 +16,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-const images = [
-  "./src/assets/images/gallery1.jpg",
-  "./src/assets/images/gallery2.jpg",
-  "./src/assets/images/gallery3.jpg",
-  "./src/assets/images/gallery4.jpg",
-  "./src/assets/images/gallery5.jpg",
-  "./src/assets/images/gallery6.jpg",
-  "./src/assets/images/gallery7.jpg",
-  "./src/assets/images/gallery8.jpg",
-];
+const images = 
+  // "./src/assets/images/gallery1.jpg",
+  // "./src/assets/images/gallery2.jpg",
+  // "./src/assets/images/gallery3.jpg",
+  // "./src/assets/images/gallery4.jpg",
+  // "./src/assets/images/gallery5.jpg",
+  // "./src/assets/images/gallery6.jpg",
+  // "./src/assets/images/gallery7.jpg",
+  // "./src/assets/images/gallery8.jpg",
+  [gallery1, gallery2, gallery3, gallery4, gallery5, gallery6];
+
 
 function Gallery() {
   const [selectedImg, setSelectedImg] = useState(null);
@@ -74,7 +75,7 @@ function Gallery() {
         </section>
 
         {/* Image Gallery */}
-        <section className="py-8 md:py-20">
+        <section className="py-10 md:py-20">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-5xl font-semibold mb-4 md:mb-8 text-center text-gray-800">
               Image <span className="text-[#ffa800]">Gallery</span>
@@ -152,7 +153,7 @@ function Gallery() {
         </section>
 
         {/* Video Gallery */}
-        <section className="pt-4 pb-8 md:py-20 bg-gray-100 md:pt-0 md:pb-0 ">
+        <section className="pt-4 py-10 md:py-20 bg-gray-100">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-5xl font-semibold mb-4 md:mb-8 text-center text-gray-800">
               Video <span className="text-[#ffa800]">Gallery</span>

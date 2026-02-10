@@ -6,25 +6,9 @@ import aboutBaner from '../../assets/images/about-banner.jpg';
 import aboutBanerMob from '../../assets/images/about-banner-mob.jpg';
 import visionMission from '../../assets/images/cattle1.png'; 
 import officeMan from '../../assets/images/office-man.png';
-import bgNationwideImage from '../../assets/images/Laye28.png';
-import commitIcon1 from '../../assets/images/commitment.png';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faLocationDot,
-  faMagnifyingGlass,
-  faHandshake,
-  faLightbulb,
-  faMedal,
-  faLeaf,
-  faCheck,
-  faPhone,
-  faEnvelope,
-  faArrowRight,
-  faHandHoldingHeart,
-  faHexagonNodes,faTrademark,
-} from "@fortawesome/free-solid-svg-icons";
-import { faNutritionix } from "@fortawesome/free-brands-svg-icons"
+import { faLocationDot, faMagnifyingGlass, faHandshake, faLightbulb, faMedal, faLeaf, faCheck, faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { Link, useLocation } from "react-router-dom";
 
 
@@ -100,12 +84,9 @@ function AboutUs() {
         </section>
 
         {/* Vision and Mission Section */}
-        <section
-          id="missionvision"
-          className="py-10 md:py-12 bg-gray-100 scroll-mt-[100px]"
-        >
+        <section id="missionvision" className="py-10 md:py-20 bg-gray-100 scroll-mt-[100px]">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2  gap-6 md:gap-12 place-items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12 place-items-center">
               <div className="w-full">
                 <img src={visionMission} alt="" className="w-full" />
               </div>
@@ -119,7 +100,7 @@ function AboutUs() {
                     <button
                       id="vision"
                       onClick={() => setActiveTab("tab1")}
-                      className="tab-btn bg-white px-6 md:px-12 py-4 text-lg font-semibold text-gray-900 rounded-t-xl  text-center md:text-left cursor-pointer"
+                      className="tab-btn bg-white px-6 md:px-12 py-4 text-lg font-semibold text-gray-900 rounded-t-xl  text-center md:text-left"
                     >
                       Our Vision
                     </button>
@@ -127,7 +108,7 @@ function AboutUs() {
                     <button
                       id="mission"
                       onClick={() => setActiveTab("tab2")}
-                      className="tab-btn bg-yellow-200  px-6 md:px-12 py-4 text-lg font-semibold text-gray-700 rounded-t-xl  text-center md:text-left cursor-pointer"
+                      className="tab-btn bg-yellow-200  px-6 md:px-12 py-4 text-lg font-semibold text-gray-700 rounded-t-xl  text-center md:text-left"
                     >
                       Our Mission
                     </button>
@@ -148,31 +129,22 @@ function AboutUs() {
                           quality, and meaningful contribution to sustainable
                           livestock development.
                         </p>
-                        <ul className="space-y-2 md:space-y-4 text-sm text-gray-700">
+                        <ul className="space-y-4 text-sm text-gray-700">
                           <li className="flex items-center gap-3">
-                            <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
-                              <FontAwesomeIcon
-                                icon={faArrowRight}
-                                className="text-white text-[10px]"
-                              />
+                            <span className="flex items-center justify-center w-[10px] h-[10px] bg-green-600 rounded-full">
+                              <i className="fa-solid fa-arrow-right text-white text-[10px]"></i>
                             </span>
                             Scientific Excellence
                           </li>
                           <li className="flex items-center gap-3">
-                            <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
-                              <FontAwesomeIcon
-                                icon={faArrowRight}
-                                className="text-white text-[10px]"
-                              />
+                            <span className="flex items-center justify-center w-[10px] h-[10px] bg-green-600 rounded-full">
+                              <i className="fa-solid fa-arrow-right text-white text-[10px]"></i>
                             </span>
                             Uncompromising Quality
                           </li>
                           <li className="flex items-center gap-3">
-                            <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
-                              <FontAwesomeIcon
-                                icon={faArrowRight}
-                                className="text-white text-[10px]"
-                              />
+                            <span className="flex items-center justify-center w-[10px] h-[10px] bg-green-600 rounded-full">
+                              <i className="fa-solid fa-arrow-right text-white text-[10px]"></i>
                             </span>
                             Sustainable Development
                           </li>
@@ -186,58 +158,38 @@ function AboutUs() {
                           Our Mission
                         </h4>
 
-                        <ul className="space-y-2 md:space-y-4 text-sm text-gray-700">
-                          <li className="relative pl-7 text-gray-700 leading-relaxed">
-                            <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
-                              <FontAwesomeIcon
-                                icon={faArrowRight}
-                                className="text-white text-[10px]"
-                              />
-                            </span>
+                        <ul className="space-y-4 text-sm text-gray-700">
+                          <li className="flex items-center gap-3">
+                            {" "}
+                            <span className="flex items-center justify-center w-[14px] h-[10px] bg-green-600 rounded-full"></span>
                             To deliver advanced, science-led animal nutrition
                             solutions that enhance livestock health,
                             productivity, and farm profitability.
                           </li>
-                          <li className="relative pl-7 text-gray-700 leading-relaxed">
-                            <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
-                              <FontAwesomeIcon
-                                icon={faArrowRight}
-                                className="text-white text-[10px]"
-                              />
-                            </span>
+                          <li className="flex items-center gap-3">
+                            {" "}
+                            <span className="flex items-center justify-center w-[14px] h-[10px] bg-green-600 rounded-full"></span>
                             To uphold world-class quality and safety standards
                             through rigorous testing, in-house research, and
                             process excellence.
                           </li>
-                          <li className="relative pl-7 text-gray-700 leading-relaxed">
-                            <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
-                              <FontAwesomeIcon
-                                icon={faArrowRight}
-                                className="text-white text-[10px]"
-                              />
-                            </span>
+                          <li className="flex items-center gap-3">
+                            {" "}
+                            <span className="flex items-center justify-center w-[14px] h-[10px] bg-green-600 rounded-full"></span>
                             To create long-term value for farmers by providing
                             consistent, reliable, and cost-effective feed
                             solutions.
                           </li>
-                          <li className="relative pl-7 text-gray-700 leading-relaxed">
-                            <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
-                              <FontAwesomeIcon
-                                icon={faArrowRight}
-                                className="text-white text-[10px]"
-                              />
-                            </span>
+                          <li className="flex items-center gap-3">
+                            {" "}
+                            <span className="flex items-center justify-center w-[14px] h-[10px] bg-green-600 rounded-full"></span>
                             To operate responsibly by promoting sustainable
                             sourcing, environmental stewardship, and community
                             development.
                           </li>
-                          <li className="relative pl-7 text-gray-700 leading-relaxed">
-                            <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
-                              <FontAwesomeIcon
-                                icon={faArrowRight}
-                                className="text-white text-[10px]"
-                              />
-                            </span>
+                          <li className="flex items-center gap-3">
+                            {" "}
+                            <span className="flex items-center justify-center w-[14px] h-[10px] bg-green-600 rounded-full"></span>
                             To drive continuous improvement through innovation,
                             research, and professional leadership in animal
                             nutrition.
@@ -253,8 +205,8 @@ function AboutUs() {
         </section>
 
         {/* Animal Feed Story Section */}
-        <section className="scroll-mt-[100px] " id="ourstory">
-          <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 md:py-12">
+        <section className="scroll-mt-[100px]" id="ourstory">
+          <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 md:py-20">
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center">
               Our Animal <span className="text-[#ffa800]">Feed Story</span>
             </h2>
@@ -397,10 +349,7 @@ function AboutUs() {
         </section>
 
         {/* Board of Directors */}
-        <section
-          id="ourteam"
-          className="py-10 md:py-12 bg-gray-100 scroll-mt-[100px]"
-        >
+        <section id="ourteam" className="py-10 md:py-20 bg-gray-100 scroll-mt-[100px]">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <h2 className="text-[26px] md:text-5xl font-semibold text-gray-800 text-center">
               Leadership & <span className="text-[#ffa800]">Governance</span>
@@ -499,7 +448,7 @@ function AboutUs() {
                   <img src={officeMan} alt="" className="w-full" />
                 </span>
                 <h4 className="text-lg font-bold text-gray-900 mb-0 text-center">
-                  Shri. Vikramjit Das
+                  Shri. Vikrajit Das
                 </h4>
                 <p className="text-gray-600 text-sm text-center mb-2">
                   General Manager
@@ -524,10 +473,7 @@ function AboutUs() {
               </div>
             </div>
             <div className="mt-6 md:mt-10 text-center">
-              <Link
-                to="/our-teams"
-                className="bg-yellow-500 hover:bg-yellow-400 px-6 py-3 inline-block rounded-xl text-[16px] font-medium cursor-pointer w-full md:w-auto"
-              >
+              <Link to="/our-teams" className="bg-[#f1c40f] px-6 py-4 inline-block rounded-md text-[16px] font-medium cursor-pointer w-full md:w-auto">
                 Meet Our Complete Team
               </Link>
             </div>
@@ -535,10 +481,7 @@ function AboutUs() {
         </section>
 
         {/* Our Commitments */}
-        <section
-          id="ourcommitment"
-          className="py-10 md:py-12 scroll-mt-[100px]"
-        >
+        <section id="ourcommitment" className="py-10 md:py-20 scroll-mt-[100px]">
           <div className="max-w-7xl mx-auto  px-4 md:px-8">
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center">
               Our <span className="text-[#ffa800]">Commitments</span>
@@ -552,13 +495,10 @@ function AboutUs() {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-6 md:mt-12">
               <div className="bg-gray-100 rounded-2xl p-4 md:p-6 shadow-sm text-center md:text-left">
-                <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center leading-[40px] mb-4">
-                    <FontAwesomeIcon icon={faMedal} />
-                  </span>
                 <h4 className="text-lg font-bold text-gray-900 mb-2">
                   Uncompromising Quality
                 </h4>
-                <p className="text-gray-600 text-md mb-3">
+                <p className="text-gray-600 text-sm mb-3">
                   We ensure consistent quality in every bag through strict
                   quality control, premium ingredients, and advanced
                   manufacturing practices you can rely on.
@@ -573,13 +513,10 @@ function AboutUs() {
                 </ul>
               </div>
               <div className="bg-gray-100 rounded-2xl  p-4 md:p-6 shadow-sm text-center md:text-left">
-                <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center leading-[40px] mb-4">
-                    <FontAwesomeIcon icon={faNutritionix} />
-                  </span>
                 <h4 className="text-lg font-bold text-gray-900 mb-2">
                   Science-Driven Nutrition
                 </h4>
-                <p className="text-gray-600 text-md mb-3">
+                <p className="text-gray-600 text-sm mb-3">
                   Our feeds are carefully formulated using scientific research
                   to deliver balanced nutrition that supports healthy growth,
                   strong immunity, and higher productivity.
@@ -594,13 +531,10 @@ function AboutUs() {
                 </ul>
               </div>
               <div className="bg-gray-100 rounded-2xl  p-4 md:p-6 shadow-sm text-center md:text-left">
-                <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center leading-[40px] mb-4">
-                    <FontAwesomeIcon icon={faHandHoldingHeart} />
-                  </span>
                 <h4 className="text-lg font-bold text-gray-900 mb-2">
                   Farmers at the Heart
                 </h4>
-                <p className="text-gray-600 text-md mb-3">
+                <p className="text-gray-600 text-sm mb-3">
                   We exist to serve farmers. Our solutions are designed to be
                   reliable, affordable, and effective—helping farmers achieve
                   better results and long-term success.
@@ -615,13 +549,10 @@ function AboutUs() {
                 </ul>
               </div>
               <div className="bg-gray-100 rounded-2xl  p-4 md:p-6 shadow-sm text-center md:text-left">
-                <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center leading-[40px] mb-4">
-                    <FontAwesomeIcon icon={faHexagonNodes} />
-                  </span>
                 <h4 className="text-lg font-bold text-gray-900 mb-2">
                   Sustainability in Action
                 </h4>
-                <p className="text-gray-600 text-md mb-3">
+                <p className="text-gray-600 text-sm mb-3">
                   From responsible sourcing to eco-friendly production, we are
                   committed to practices that protect nature and strengthen
                   rural communities.
@@ -636,9 +567,6 @@ function AboutUs() {
                 </ul>
               </div>
               <div className="bg-gray-100 rounded-2xl  p-4 md:p-6 shadow-sm text-center md:text-left">
-                <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center leading-[40px] mb-4">
-                    <FontAwesomeIcon icon={faTrademark} />
-                  </span>
                 <h4 className="text-lg font-bold text-gray-900 mb-2">
                   Consistency You Can Trust
                 </h4>
@@ -657,9 +585,6 @@ function AboutUs() {
                 </ul>
               </div>
               <div className="bg-gray-100 rounded-2xl  p-4 md:p-6 shadow-sm text-center md:text-left">
-                <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center leading-[40px] mb-4">
-                  <FontAwesomeIcon icon={faLightbulb} />
-                </span>
                 <h4 className="text-lg font-bold text-gray-900 mb-2">
                   Continuous Innovation
                 </h4>
@@ -681,10 +606,7 @@ function AboutUs() {
         </section>
 
         {/* Our Units */}
-        <section
-          id="ourunit"
-          className="py-10 md:py-12 bg-gray-100 scroll-mt-[100px]"
-        >
+        <section id="ourunit" className="py-10 md:py-20 bg-gray-100 scroll-mt-[100px]">
           <div className="max-w-7xl mx-auto  px-4 md:px-8">
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center">
               Our <span className="text-[#ffa800]">Units</span>
@@ -695,32 +617,11 @@ function AboutUs() {
               efficiency{" "}
             </p>
             <div className="flex flex-col md:flex-row md:flex-wrap gap-8 md:gap-12 mt-8 md:mt-12 items-center justify-center">
-              <div className="flex-1   order-2 md:order-1">
-                {/* <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28415.468456355145!2d93.80497037525176!3d27.095390854376515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDolikoto%2C%20Banderdewa%2C%20Arunachal%20Pradesh%20%E2%80%93%20791123!5e0!3m2!1sen!2sin!4v1769078245418!5m2!1sen!2sin"
-                  width="100%"
-                  height="350"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Dolikoto Location"
-                /> */}
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28412.610896202965!2d93.80259320641548!3d27.106650600337588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDolikoto%2C%20Banderdewa%2C%20Arunachal%20Pradesh!5e0!3m2!1sen!2sin!4v1770640178490!5m2!1sen!2sin"
-                  className="w-full border-0"
-                  allowfullscreen=""
-                  loading="lazy"
-                  referrerpolicy="no-referrer-when-downgrade"
-                  title="Dolikoto Location"
-                  height="350"
-                ></iframe>
-              </div>
-              <div className="flex-1   order-1 md:order-2">
-                <h4 className="text-[22px] md:text-2xl font-bold text-gray-900 text-center md:text-left mb-2">
+              <div className="flex-1">
+                <h4 className="text-[22px] md:text-2xl font-bold text-gray-900 text-center md:text-left mb-1">
                   Rongoge Mega Food Park
                 </h4>
-                <h5 className="text-sm text-gray-900 mb-2 md:mb-4 text-center md:text-left ">
+                <h5 className="text-sm text-gray-900 mb-2 text-center md:text-left ">
                   Manufacturing & Processing Unit
                 </h5>
                 <p
@@ -736,14 +637,28 @@ function AboutUs() {
                   <span className="text-[#00a34a] mr-2">
                     <FontAwesomeIcon icon={faPhone} />
                   </span>
-                  <a href="#"> +91 9999999999</a>
+                  +91 9999999999
                 </p>
                 <p className="text-gray-900 text-md text-center md:text-left ">
                   <span className="text-[#00a34a] mr-2">
                     <FontAwesomeIcon icon={faEnvelope} />
                   </span>
-                  <a href="mailto:info@greengold.com">info@greengold.com</a>
+                  info@greengold.com
                 </p>
+              </div>
+              <div className="flex-1">
+                {/* <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28415.468456355145!2d93.80497037525176!3d27.095390854376515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDolikoto%2C%20Banderdewa%2C%20Arunachal%20Pradesh%20%E2%80%93%20791123!5e0!3m2!1sen!2sin!4v1769078245418!5m2!1sen!2sin"
+                  width="100%"
+                  height="350"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Dolikoto Location"
+                /> */}
+                <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28412.610896202965!2d93.80259320641548!3d27.106650600337588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDolikoto%2C%20Banderdewa%2C%20Arunachal%20Pradesh!5e0!3m2!1sen!2sin!4v1770640178490!5m2!1sen!2sin" className="w-full border-0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Dolikoto Location"
+                height="350"></iframe>
               </div>
             </div>
           </div>
