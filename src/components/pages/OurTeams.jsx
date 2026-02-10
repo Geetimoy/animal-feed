@@ -121,23 +121,7 @@ function OurTeams(){
               <p className="text-gray-600 text-sm text-center mb-2">
                 General Manager GEIF Pvt.Ltd
               </p>
-              <ul className="mt-4 md:text-left text-center">
-                <li className="text-gray-600 text-sm mb-2">
-                  {" "}
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-[#00a34a] mr-2"
-                  />{" "}
-                  Visionary Leadership
-                </li>
-                <li className="text-gray-600 text-sm">
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-[#00a34a] mr-2"
-                  />{" "}
-                  Ethical Governance
-                </li>
-              </ul>
+              
             </div>
             <div className="bg-[#efefef] rounded-2xl p-6 shadow-sm mb-12">
               <span className="mx-auto w-36 bg-[#fff] block p-2 rounded-2xl shadow-xl  mt-0 md:-mt-[60px] mb-4">
@@ -149,23 +133,7 @@ function OurTeams(){
               <p className="text-gray-600 text-sm text-center mb-2">
                 General Manager (Operations& Marketing Head)
               </p>
-              <ul className="mt-4 md:text-left text-center">
-                <li className="text-gray-600 text-sm mb-2">
-                  {" "}
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-[#00a34a] mr-2"
-                  />{" "}
-                  Visionary Leadership
-                </li>
-                <li className="text-gray-600 text-sm">
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-[#00a34a] mr-2"
-                  />{" "}
-                  Ethical Governance
-                </li>
-              </ul>
+              
             </div>
             <div className="bg-[#efefef] rounded-2xl p-6 shadow-sm mb-12">
               <span className="mx-auto w-36 bg-[#fff] block p-2 rounded-2xl shadow-xl mt-0 md:-mt-[60px] mb-4">
@@ -177,23 +145,7 @@ function OurTeams(){
               <p className="text-gray-600 text-sm text-center mb-2">
                 Marketing Manager (All Arunachal)
               </p>
-              <ul className="mt-4 md:text-left text-center">
-                <li className="text-gray-600 text-sm mb-2">
-                  {" "}
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-[#00a34a] mr-2"
-                  />{" "}
-                  Visionary Leadership
-                </li>
-                <li className="text-gray-600 text-sm">
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-[#00a34a] mr-2"
-                  />{" "}
-                  Ethical Governance
-                </li>
-              </ul>
+              
             </div>
             
             <div className="bg-[#efefef] rounded-2xl p-6 shadow-sm mb-12">
@@ -206,23 +158,7 @@ function OurTeams(){
               <p className="text-gray-600 text-sm text-center mb-2">
                 Marketing Manager (All Assam)
               </p>
-              <ul className="mt-4 md:text-left text-center">
-                <li className="text-gray-600 text-sm mb-2">
-                  {" "}
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-[#00a34a] mr-2"
-                  />{" "}
-                  Veterinary Excellence
-                </li>
-                <li className="text-gray-600 text-sm">
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-[#00a34a] mr-2"
-                  />{" "}
-                  Scientific Leadership
-                </li>
-              </ul>
+              
             </div>
             <div className="bg-[#efefef] rounded-2xl p-6 shadow-sm mb-12">
               <span className="mx-auto w-36 bg-[#fff] block p-2 rounded-2xl shadow-xl  mt-0 md:-mt-[60px] mb-4">
@@ -234,23 +170,7 @@ function OurTeams(){
               <p className="text-gray-600 text-sm text-center mb-2">
                 Marketing Manager 
               </p>
-              <ul className="mt-4 md:text-left text-center">
-                <li className="text-gray-600 text-sm mb-2">
-                  {" "}
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-[#00a34a] mr-2"
-                  />{" "}
-                  Veterinary Excellence
-                </li>
-                <li className="text-gray-600 text-sm">
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-[#00a34a] mr-2"
-                  />{" "}
-                  Scientific Leadership
-                </li>
-              </ul>
+              
             </div>
             <div className="bg-[#efefef] rounded-2xl p-6 shadow-sm mb-12">
               <span className="mx-auto w-36 bg-[#fff] block p-2 rounded-2xl shadow-xl  mt-0 md:-mt-[60px] mb-4">
@@ -262,23 +182,7 @@ function OurTeams(){
               <p className="text-gray-600 text-sm text-center mb-2">
                 Accountant 
               </p>
-              <ul className="mt-4 md:text-left text-center">
-                <li className="text-gray-600 text-sm mb-2">
-                  {" "}
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-[#00a34a] mr-2"
-                  />{" "}
-                  Veterinary Excellence
-                </li>
-                <li className="text-gray-600 text-sm">
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-[#00a34a] mr-2"
-                  />{" "}
-                  Scientific Leadership
-                </li>
-              </ul>
+              
             </div>
             <div className="bg-[#efefef] rounded-2xl p-6 shadow-sm mb-12">
               <span className="mx-auto w-36 bg-[#fff] block p-2 rounded-2xl shadow-xl  mt-0 md:-mt-[60px] mb-4">
@@ -290,23 +194,7 @@ function OurTeams(){
               <p className="text-gray-600 text-sm text-center mb-2">
                 Supervisor 
               </p>
-              <ul className="mt-4 md:text-left text-center">
-                <li className="text-gray-600 text-sm mb-2">
-                  {" "}
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-[#00a34a] mr-2"
-                  />{" "}
-                  Veterinary Excellence
-                </li>
-                <li className="text-gray-600 text-sm">
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-[#00a34a] mr-2"
-                  />{" "}
-                  Scientific Leadership
-                </li>
-              </ul>
+              
             </div>
             <div className="bg-[#efefef] rounded-2xl p-6 shadow-sm mb-12">
               <span className="mx-auto w-36 bg-[#fff] block p-2 rounded-2xl shadow-xl  mt-0 md:-mt-[60px] mb-4">
@@ -318,23 +206,7 @@ function OurTeams(){
               <p className="text-gray-600 text-sm text-center mb-2">
                 Sr.Operator 
               </p>
-              <ul className="mt-4 md:text-left text-center">
-                <li className="text-gray-600 text-sm mb-2">
-                  {" "}
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-[#00a34a] mr-2"
-                  />{" "}
-                  Veterinary Excellence
-                </li>
-                <li className="text-gray-600 text-sm">
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-[#00a34a] mr-2"
-                  />{" "}
-                  Scientific Leadership
-                </li>
-              </ul>
+              
             </div>
             <div className="bg-[#efefef] rounded-2xl p-6 shadow-sm mb-12">
               <span className="mx-auto w-36 bg-[#fff] block p-2 rounded-2xl shadow-xl  mt-0 md:-mt-[60px] mb-4">
@@ -346,23 +218,7 @@ function OurTeams(){
               <p className="text-gray-600 text-sm text-center mb-2">
                 Operator 
               </p>
-              <ul className="mt-4 md:text-left text-center">
-                <li className="text-gray-600 text-sm mb-2">
-                  {" "}
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-[#00a34a] mr-2"
-                  />{" "}
-                  Veterinary Excellence
-                </li>
-                <li className="text-gray-600 text-sm">
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-[#00a34a] mr-2"
-                  />{" "}
-                  Scientific Leadership
-                </li>
-              </ul>
+              
             </div>
             <div className="bg-[#efefef] rounded-2xl p-6 shadow-sm mb-12">
               <span className="mx-auto w-36 bg-[#fff] block p-2 rounded-2xl shadow-xl  mt-0 md:-mt-[60px] mb-4">
@@ -374,23 +230,7 @@ function OurTeams(){
               <p className="text-gray-600 text-sm text-center mb-2">
                 Store keeper  
               </p>
-              <ul className="mt-4 md:text-left text-center">
-                <li className="text-gray-600 text-sm mb-2">
-                  {" "}
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-[#00a34a] mr-2"
-                  />{" "}
-                  Veterinary Excellence
-                </li>
-                <li className="text-gray-600 text-sm">
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-[#00a34a] mr-2"
-                  />{" "}
-                  Scientific Leadership
-                </li>
-              </ul>
+              
             </div>
             <div className="bg-[#efefef] rounded-2xl p-6 shadow-sm mb-12">
               <span className="mx-auto w-36 bg-[#fff] block p-2 rounded-2xl shadow-xl  mt-0 md:-mt-[60px] mb-4">
@@ -402,23 +242,7 @@ function OurTeams(){
               <p className="text-gray-600 text-sm text-center mb-2">
                 Electrician   
               </p>
-              <ul className="mt-4 md:text-left text-center">
-                <li className="text-gray-600 text-sm mb-2">
-                  {" "}
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-[#00a34a] mr-2"
-                  />{" "}
-                  Veterinary Excellence
-                </li>
-                <li className="text-gray-600 text-sm">
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-[#00a34a] mr-2"
-                  />{" "}
-                  Scientific Leadership
-                </li>
-              </ul>
+              
             </div>
           </div>
         </div>

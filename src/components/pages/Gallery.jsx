@@ -9,6 +9,9 @@ import gallery3 from "../../assets/images/gallery3.jpg";
 import gallery4 from "../../assets/images/gallery4.jpg";
 import gallery5 from "../../assets/images/gallery5.jpg";
 import gallery6 from "../../assets/images/gallery6.jpg";
+import gallery7 from "../../assets/images/gallery7.jpg";
+import gallery8 from "../../assets/images/gallery8.jpg";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLocationDot,
@@ -25,7 +28,7 @@ const images =
   // "./src/assets/images/gallery6.jpg",
   // "./src/assets/images/gallery7.jpg",
   // "./src/assets/images/gallery8.jpg",
-  [gallery1, gallery2, gallery3, gallery4, gallery5, gallery6];
+  [gallery1, gallery2, gallery3, gallery4, gallery5, gallery6, gallery7, gallery8];
 
 
 function Gallery() {

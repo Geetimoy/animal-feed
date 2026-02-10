@@ -1,7 +1,7 @@
 import Footer from "../Footer";
 import Header from "../Header";
 
-import csrBanner from '../../assets/images/about-banner.jpg';
+import csrBanner from '../../assets/images/csr-banner.jpg';
 
 function Csr(){
   return(
