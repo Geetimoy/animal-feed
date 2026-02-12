@@ -171,7 +171,7 @@ function Home(){
         </section>
 
         {/* About Section */}
-        <section className="w-full py-6 md:py-12 md:mt-12">
+        <section className="w-full py-10 md:py-12 md:mt-12">
           <div className="max-w-7xl mx-auto px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center justify-center">
               {/* <!-- LEFT SIDE (UNCHANGED) --> */}
@@ -250,10 +250,16 @@ function Home(){
                     </ul>
 
                     <div className="flex gap-4 pt-4">
-                      <Link to="/about-us" className="bg-[#f1c40f] px-6 py-4 rounded-md text-[16px] font-medium cursor-pointer">
+                      <Link
+                        to="/about-us"
+                        className="bg-yellow-500 hover:bg-yellow-400 px-6 py-4 rounded-xl text-[16px] font-medium cursor-pointer"
+                      >
                         Our Full Story
                       </Link>
-                      <Link to="/contact-us" className="border px-6 py-4 rounded-md text-sm border border-gray-800 cursor-pointer">
+                      <Link
+                        to="/contact-us"
+                        className="border px-6 py-4 rounded-xl text-sm border border-gray-800 cursor-pointer hover:bg-[#f3f6f4]"
+                      >
                         Talk to Expert
                       </Link>
                     </div>
@@ -305,10 +311,10 @@ function Home(){
                   </ul>
 
                   <div className="flex flex-col gap-2 pt-4">
-                    <button className="bg-[#f1c40f] px-6 py-4 rounded-md text-[16px] font-medium cursor-pointer">
+                    <button className="bg-yellow-500 hover:bg-yellow-400  px-6 py-4 rounded-md text-[16px] font-medium cursor-pointer">
                       Our Full Story
                     </button>
-                    <button className="border px-6 py-4 rounded-md text-sm border border-gray-800 cursor-pointer">
+                    <button className="border px-6 py-4 rounded-md text-sm border border-gray-800 cursor-pointer hover:bg-[#f3f6f4]">
                       Talk to Expert
                     </button>
                   </div>
@@ -319,7 +325,8 @@ function Home(){
         </section>
 
         {/* Why Choose Us Section */}
-        <section id="whygreengold"
+        <section
+          id="whygreengold"
           className="relative py-8 md:py-20 overflow-visible  gsap-fade-in scroll-mt-[100px]"
           style={{
             backgroundImage: `url(${bgImage})`,
@@ -353,7 +360,7 @@ function Home(){
               border border-gray-400 text-gray-400
               flex items-center justify-center shadow-xl
               transition-all duration-300
-              hover:border-green-600 hover:text-green-600 swiper-prev cursor-pointer"
+              hover:border-green-600 hover:text-green-600 swiper-prev cursor-pointer  transition-transform duration-300 easy-in-out hover:-translate-x-1"
                   >
                     <FontAwesomeIcon icon={faArrowLeft} />
                   </button>
@@ -365,7 +372,7 @@ function Home(){
               border border-gray-400 text-gray-400
               flex items-center justify-center shadow-xl
               transition-all duration-300
-              hover:border-green-600 hover:text-green-600 swiper-next cursor-pointer"
+              hover:border-green-600 hover:text-green-600 swiper-next cursor-pointer  transition-transform duration-300 easy-in-out hover:translate-x-1"
                   >
                     <FontAwesomeIcon icon={faArrowRight} />
                   </button>
@@ -409,16 +416,18 @@ function Home(){
                             You Can Trust
                           </h4>
                           <p className="text-gray-600 text-sm mt-3 leading-relaxed">
-                            Each batch of Green Gold Feed is produced under strict quality control standards to ensure consistency, 
+                            Each batch of Green Gold Feed is produced under
+                            strict quality control standards to ensure
+                            consistency,
                           </p>
                         </div>
 
                         <Link
                           href="#"
-                          className="read-more inline-flex items-center gap-3 text-sm text-gray-500 pt-6"
+                          className="group read-more inline-flex items-center gap-3 text-sm text-gray-500 pt-6  hover:text-green-600 "
                         >
                           Read More
-                          <span className="w-8 h-8 rounded-full border border-gray-400 flex items-center justify-center">
+                          <span className="w-8 h-8 rounded-full border border-gray-400 flex items-center justify-center  group-hover:border-green-600  group-hover:text-green-600 transition-transform duration-300 easy-in-out group-hover:translate-x-1">
                             <FontAwesomeIcon
                               icon={faArrowRight}
                               className="text-xs"
@@ -435,21 +444,23 @@ function Home(){
                             className="w-[50px] h-[60px] mb-4"
                           />
                           <h4 className="text-[#009a62] font-semibold text-lg leading-snug">
-                            Scientifically 
+                            Scientifically
                             <br />
                             Balanced Nutrition
                           </h4>
                           <p className="text-gray-600 text-sm mt-3 leading-relaxed">
-                            Green Gold livestock feed is scientifically formulated to deliver a complete and well-balanced diet. 
+                            Green Gold livestock feed is scientifically
+                            formulated to deliver a complete and well-balanced
+                            diet.
                           </p>
                         </div>
 
                         <Link
                           href="#"
-                          className="read-more inline-flex items-center gap-3 text-sm text-gray-500 pt-6"
+                          className="group read-more inline-flex items-center gap-3 text-sm text-gray-500 pt-6  hover:text-green-600 "
                         >
                           Read More
-                          <span className="w-8 h-8 rounded-full border border-gray-400 flex items-center justify-center">
+                          <span className="w-8 h-8 rounded-full border border-gray-400 flex items-center justify-center  group-hover:border-green-600  group-hover:text-green-600  transition-transform duration-300 easy-in-out group-hover:translate-x-1">
                             <FontAwesomeIcon
                               icon={faArrowRight}
                               className="text-xs"
@@ -466,21 +477,22 @@ function Home(){
                             className="w-[60px] h-[60px] mb-4"
                           />
                           <h4 className="text-[#009a62] font-semibold text-lg leading-snug">
-                            Enhanced Feed 
+                            Enhanced Feed
                             <br />
                             Conversion Efficiency
                           </h4>
                           <p className="text-gray-600 text-sm mt-3 leading-relaxed">
-                            Our advanced formulations are designed to maximize feed efficiency.
+                            Our advanced formulations are designed to maximize
+                            feed efficiency.
                           </p>
                         </div>
 
                         <Link
                           href="#"
-                          className="read-more inline-flex items-center gap-3 text-sm text-gray-500 pt-6"
+                          className="group read-more inline-flex items-center gap-3 text-sm text-gray-500 pt-6  hover:text-green-600 "
                         >
                           Read More
-                          <span className="w-8 h-8 rounded-full border border-gray-400 flex items-center justify-center">
+                          <span className="w-8 h-8 rounded-full border border-gray-400 flex items-center justify-center  group-hover:border-green-600  group-hover:text-green-600  transition-transform duration-300 easy-in-out group-hover:translate-x-1">
                             <FontAwesomeIcon
                               icon={faArrowRight}
                               className="text-xs"
@@ -502,16 +514,17 @@ function Home(){
                             Responsible Sourcing
                           </h4>
                           <p className="text-gray-600 text-sm mt-3 leading-relaxed">
-                            We are committed to sustainability. Green Gold Feed uses responsibly sourced
+                            We are committed to sustainability. Green Gold Feed
+                            uses responsibly sourced
                           </p>
                         </div>
 
                         <Link
                           href="#"
-                          className="read-more inline-flex items-center gap-3 text-sm text-gray-500 pt-6"
+                          className="group read-more inline-flex items-center gap-3 text-sm text-gray-500 pt-6  hover:text-green-600 "
                         >
                           Read More
-                          <span className="w-8 h-8 rounded-full border border-gray-400 flex items-center justify-center">
+                          <span className="w-8 h-8 rounded-full border border-gray-400 flex items-center justify-center  group-hover:border-green-600  group-hover:text-green-600  transition-transform duration-300 easy-in-out group-hover:translate-x-1">
                             <FontAwesomeIcon
                               icon={faArrowRight}
                               className="text-xs"
@@ -574,7 +587,7 @@ function Home(){
           </div>
         </section>
 
-        <div className="relative lg:hidden   ">
+        <div className="relative lg:hidden">
           <div className="w-full py-4">
             <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4  gap-2  justify-items-center text-center">
               {/* Circle 1 */}
@@ -785,7 +798,7 @@ function Home(){
           {/* <!-- Dark overlay --> */}
           <div className="absolute inset-0 bg-black/60"></div>
           {/* <!-- Content wrapper --> */}
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16 ">
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-12 ">
             {/* <!-- Heading --> */}
             <div className="text-center max-w-3xl mx-auto mb-6 md:mb-14 ">
               <h2 className="text-3xl sm:text-5xl font-semibold text-white">
@@ -980,7 +993,7 @@ function Home(){
         </section>
 
         {/* Research & Development */}
-        <section className="bg-white py-10 md:py-20  gsap-fade-in">
+        <section className="bg-white py-10 md:py-12  gsap-fade-in">
           <div className="max-w-5xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <div className="relative">
               {" "}
@@ -1008,7 +1021,10 @@ function Home(){
                 Innovation, testing, and validation are at the core of every
                 formulation we create.{" "}
               </p>
-              <Link to="/research-development" className="mt-4 md:mt-8 inline-flex items-center justify-center md:justify-start gap-2 rounded-xl bg-yellow-500 px-6 py-3 text-[16px] font-medium text-black hover:bg-yellow-400 transition cursor-pointer w-full md:w-auto text-center">
+              <Link
+                to="/research-development"
+                className="mt-4 md:mt-8 inline-flex items-center justify-center md:justify-start gap-2 rounded-xl bg-yellow-500 px-6 py-3 text-[16px] font-medium text-black hover:bg-yellow-400 transition cursor-pointer w-full md:w-auto text-center"
+              >
                 Explore Our R&amp;D{" "}
               </Link>
             </div>
@@ -1017,7 +1033,7 @@ function Home(){
 
         {/* Nationwide Availability */}
         <section
-          className="relative py-10 md:py-24 overflow-hidden bg-center bg-cover"
+          className="relative py-10 md:py-12 overflow-hidden bg-center bg-cover"
           style={{ backgroundImage: `url(${bgNationwideImage})` }}
         >
           {/* Dark overlay */}
@@ -1042,7 +1058,7 @@ function Home(){
             <div className="mt-6 md:mt-10 flex flex-col sm:flex-row justify-center items-center gap-4 text-lg">
               <Link
                 to="tel:+1234567890"
-                className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-lg bg-amber-400 text-black font-medium shadow-md hover:bg-amber-500 transition w-full md:w-auto "
+                className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-amber-400 text-black font-medium shadow-md hover:bg-amber-500 transition w-full md:w-auto "
               >
                 <FontAwesomeIcon icon={faPhone} />
                 Call Now
@@ -1050,7 +1066,7 @@ function Home(){
 
               <Link
                 to="tel:+1234567890"
-                className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-lg bg-green-500 text-white font-medium shadow-md hover:bg-green-600 transition w-full md:w-auto "
+                className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-green-500 text-white font-medium shadow-md hover:bg-green-600 transition w-full md:w-auto "
               >
                 <FontAwesomeIcon icon={faWhatsapp} className="text-lg" />
                 WhatsApp
@@ -1070,7 +1086,7 @@ function Home(){
         </section>
 
         {/* News & Event */}
-        <section className="py-10 md:py-20 bg-white">
+        <section className="py-10 md:py-12 bg-white">
           <div className="max-w-7xl mx-auto px-4">
             {/* Header */}
             <div className="flex items-center justify-between mb-8 md:mb-12">
@@ -1092,18 +1108,18 @@ function Home(){
               flex items-center justify-center
               text-gray-600
               hover:border-green-500 hover:text-green-500
-              transition-colors duration-300 cursor-pointer swiper-prev1"
+              transition-colors duration-300 cursor-pointer swiper-prev1  transition-transform duration-300 easy-in-out hover:-translate-x-1"
                 >
                   <FontAwesomeIcon icon={faArrowLeft} />
                 </button>
 
                 {/* <!-- Next --> */}
                 <button
-                  class="news-next w-10 h-10 rounded-full border border-gray-300
+                  class=" news-next w-10 h-10 rounded-full border border-gray-300
               flex items-center justify-center
               text-gray-600
               hover:border-green-500 hover:text-green-500
-              transition-colors duration-300 cursor-pointer swiper-next1"
+              transition-colors duration-300 cursor-pointer swiper-next1  transition-transform duration-300 easy-in-out hover:translate-x-1"
                 >
                   <FontAwesomeIcon icon={faArrowRight} />
                 </button>
@@ -1158,19 +1174,19 @@ function Home(){
 
                       <Link
                         to="/news-events"
-                        className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group"
+                        className=" group mt-4 inline-flex items-center gap-2  hover:text-green-700 text-green-600 font-medium"
                       >
                         View Details
                         <span
                           className="w-5 h-5 rounded-full border border-green-500
                 flex items-center justify-center
-                group-hover:border-green-600
-                transition-colors duration-300"
+                group-hover:border-green-700
+                transition-colors  transition-transform duration-300 easy-in-out group-hover:translate-x-1"
                         >
                           <FontAwesomeIcon
                             icon={faArrowRight}
                             className="text-[10px]
-                  group-hover:text-green-600
+                  group-hover:text-green-700
                   transition-colors duration-300"
                           />
                         </span>
@@ -1204,19 +1220,19 @@ function Home(){
 
                       <Link
                         to="/news-events"
-                        className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group"
+                        className=" group mt-4 inline-flex items-center gap-2  hover:text-green-700 text-green-600 font-medium"
                       >
                         View Details
                         <span
                           className="w-5 h-5 rounded-full border border-green-500
                 flex items-center justify-center
-                group-hover:border-green-600
-                transition-colors duration-300"
+                group-hover:border-green-700
+                transition-colors  transition-transform duration-300 easy-in-out group-hover:translate-x-1"
                         >
                           <FontAwesomeIcon
                             icon={faArrowRight}
                             className="text-[10px]
-                  group-hover:text-green-600
+                  group-hover:text-green-700
                   transition-colors duration-300"
                           />
                         </span>
@@ -1250,19 +1266,19 @@ function Home(){
 
                       <Link
                         to="/news-events"
-                        className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group"
+                        className=" group mt-4 inline-flex items-center gap-2  hover:text-green-700 text-green-600 font-medium"
                       >
                         View Details
                         <span
                           className="w-5 h-5 rounded-full border border-green-500
                 flex items-center justify-center
-                group-hover:border-green-600
-                transition-colors duration-300"
+                group-hover:border-green-700
+                transition-colors  transition-transform duration-300 easy-in-out group-hover:translate-x-1"
                         >
                           <FontAwesomeIcon
                             icon={faArrowRight}
                             className="text-[10px]
-                  group-hover:text-green-600
+                  group-hover:text-green-700
                   transition-colors duration-300"
                           />
                         </span>
@@ -1296,19 +1312,19 @@ function Home(){
 
                       <Link
                         to="/news-events"
-                        className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group"
+                        className=" group mt-4 inline-flex items-center gap-2  hover:text-green-700 text-green-600 font-medium"
                       >
                         View Details
                         <span
                           className="w-5 h-5 rounded-full border border-green-500
                 flex items-center justify-center
-                group-hover:border-green-600
-                transition-colors duration-300"
+                group-hover:border-green-700
+                transition-colors  transition-transform duration-300 easy-in-out group-hover:translate-x-1"
                         >
                           <FontAwesomeIcon
                             icon={faArrowRight}
                             className="text-[10px]
-                  group-hover:text-green-600
+                  group-hover:text-green-700
                   transition-colors duration-300"
                           />
                         </span>
@@ -1342,19 +1358,19 @@ function Home(){
 
                       <Link
                         to="/news-events"
-                        className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group"
+                        className=" group mt-4 inline-flex items-center gap-2  hover:text-green-700 text-green-600 font-medium"
                       >
                         View Details
                         <span
                           className="w-5 h-5 rounded-full border border-green-500
                 flex items-center justify-center
-                group-hover:border-green-600
-                transition-colors duration-300"
+                group-hover:border-green-700
+                transition-colors  transition-transform duration-300 easy-in-out group-hover:translate-x-1"
                         >
                           <FontAwesomeIcon
                             icon={faArrowRight}
                             className="text-[10px]
-                  group-hover:text-green-600
+                  group-hover:text-green-700
                   transition-colors duration-300"
                           />
                         </span>

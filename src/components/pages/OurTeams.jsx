@@ -55,7 +55,7 @@ function OurTeams(){
             </div>
           </div>
       </section>
-      <section className="py-10 md:py-20 bg-gray-100">
+      <section className="py-10 md:py-12 bg-gray-100">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <h2 className="text-[26px] md:text-5xl font-semibold text-gray-800 text-center">
               Board of  <span className="text-[#ffa800]">Directors</span>
@@ -67,11 +67,7 @@ function OurTeams(){
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 md:mt-20">
             {/* Team Member 1 */}
             <div className="bg-white rounded-lg shadow-md p-6 text-center">
-              <img
-                src="https://randomuser.me/api/portraits/men/32.jpg"
-                alt="Team Member 1"
-                className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
-              />
+              <img src={officeMan} alt="Team Member 1" className="w-36 h-36 rounded-full mx-auto mb-4 object-cover" />
               <h3 className="text-lg font-semibold text-gray-800">
                 Shri Likha Maaj
               </h3>
@@ -81,11 +77,8 @@ function OurTeams(){
               <p className="text-gray-600 text-left">With a deep commitment to ethical practices, operational efficiency, and community development, Shri Likha Maaj plays a pivotal role in strengthening the company’s foundation and expanding its presence in the animal feed industry. His leadership continues to inspire innovation, responsibility, and trust across the organization.</p>
             </div>
             <div className="bg-white rounded-lg shadow-md p-6 text-center">
-              <img
-                src="https://randomuser.me/api/portraits/men/32.jpg"
-                alt="Team Member 1"
-                className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
-              />
+              
+              <img src={officeMan} alt="Team Member 1" className="w-36 h-36 rounded-full mx-auto mb-4 object-cover" />
               <h3 className="text-lg font-semibold text-gray-800">
                 Dr. Hemant Kr. Gogoi
               </h3>
@@ -100,7 +93,7 @@ function OurTeams(){
       </section>
 
       {/* Our Team details */}
-      <section className="pt-10 md:pt-20 pb-8">
+      <section className="pt-10 md:pt-12 pb-8">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <h2 className="text-[26px] md:text-5xl font-semibold text-gray-800 text-center">
               Our Team  <span className="text-[#ffa800]">Details</span>

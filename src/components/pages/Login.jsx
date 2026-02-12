@@ -102,7 +102,7 @@ export default function Login() {
               text-white font-semibold
               shadow-md
               hover:opacity-90
-              transition
+              transition cursor-pointer
             "
           >
             Log In

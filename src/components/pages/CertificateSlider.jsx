@@ -74,7 +74,7 @@ export default function CertificateSlider() {
   }, []);
 
   return (
-    <section className="py-8 bg-white">
+    <section className="py-10 md:py-12 bg-gray-100">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl md:text-5xl font-semibold text-gray-900 text-center mb-10">
           Our <span className="text-yellow-500"> Certifications</span>
@@ -122,7 +122,7 @@ export default function CertificateSlider() {
               flex items-center justify-center
               text-gray-600
               hover:border-green-500 hover:text-green-500
-              transition-colors duration-300 cursor-pointer "
+              transition-colors duration-300 cursor-pointer transition-transform duration-300 ease-in-out hover:-translate-x-1"
           >
             <FontAwesomeIcon icon={faArrowLeft} />
           </button>
@@ -133,7 +133,7 @@ export default function CertificateSlider() {
               flex items-center justify-center
               text-gray-600
               hover:border-green-500 hover:text-green-500
-              transition-colors duration-300 cursor-pointer "
+              transition-colors duration-300 cursor-pointer transition-transform duration-300 ease-in-out hover:translate-x-1"
           >
             <FontAwesomeIcon icon={faArrowRight} />
           </button>

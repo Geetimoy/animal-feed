@@ -4,7 +4,7 @@ import Footer from "../Footer";
 
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight, faArrowLeft, faPhone } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faMagnifyingGlass, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 import newsEvents from '../../assets/images/news-banner.jpg';
 import newsslider1 from '../../assets/images/newfish.jpeg';
@@ -42,13 +42,32 @@ function NewsEvents() {
                 Stay updated with the latest developments and activities at
                 Green Gold Animal Feed.
               </p>
+              <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
+                              <Link
+                                to="/distributor"
+                                className="mt-4 md:mt-6 w-full  md:w-[198px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
+                              >
+                                <span className="text-[20px] font-bold font-inter">
+                                  <FontAwesomeIcon icon={faMagnifyingGlass} /> Find
+                                  Distributor
+                                </span>
+                              </Link>
+                              <Link
+                                to="/contact-us"
+                                className="mt-3 md:mt-6  w-full  md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
+                              >
+                                <span className="text-[20px] font-bold font-inter">
+                                  <FontAwesomeIcon icon={faLocationDot} /> Contact Us
+                                </span>
+                              </Link>
+                            </div>
             </div>
           </div>
         </section>
 
         {/* Latest News */}
         <section className="">
-          <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-20">
+          <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 md:py-12">
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center">
               Latest <span className="text-[#ffa800]">News</span>
             </h2>
@@ -275,7 +294,7 @@ function NewsEvents() {
         </section>
 
         {/* Events */}
-        <section className="py-8 md:py-20 bg-gray-100">
+        <section className="py-10 md:py-12 bg-gray-100">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center">
               Upcoming <span className="text-[#ffa800]">Events</span>

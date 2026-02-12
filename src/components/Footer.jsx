@@ -74,8 +74,7 @@ function Footer(){
                 <span>
                   <Link
                     to="/about-us"
-                    className="text-[#7f979f] text-lg font-medium"
-                  >
+                    className="text-[#7f979f] text-lg font-medium inline-block transition-transform duration-300 ease-in-out hover:translate-x-1" >
                     {" "}
                     About Us
                   </Link>
@@ -86,8 +85,7 @@ function Footer(){
                 <span>
                   <Link
                     to="/products"
-                    className="text-[#7f979f] text-lg font-medium"
-                  >
+                    className="text-[#7f979f] text-lg font-medium transition hover:translate-x-1 duration-300 ease-in-out inline-block" >
                     Products
                   </Link>
                 </span>
@@ -97,7 +95,7 @@ function Footer(){
                 <span>
                   <Link
                     to="/quality"
-                    className="text-[#7f979f] text-lg font-medium"
+                    className="text-[#7f979f] text-lg font-medium inline-block transition-transform duration-300 ease-in-out hover:translate-x-1"
                   >
                     Quality
                   </Link>
@@ -108,7 +106,7 @@ function Footer(){
                 <span>
                   <Link
                     to="/distributor"
-                    className="text-[#7f979f] text-lg font-medium"
+                    className="text-[#7f979f] text-lg font-medium inline-block transition-transform duration-300 ease-in-out hover:translate-x-1"
                   >
                     Where to Buy
                   </Link>
@@ -119,7 +117,7 @@ function Footer(){
                 <span>
                   <Link
                     to="/csr"
-                    className="text-[#7f979f] text-lg font-medium"
+                    className="text-[#7f979f] text-lg font-medium inline-block transition-transform duration-300 ease-in-out hover:translate-x-1"
                   >
                     CSR Activities
                   </Link>
@@ -140,7 +138,7 @@ function Footer(){
                 <span>
                   <Link
                     to="/feed-type"
-                    className="text-[#7f979f] text-lg font-medium"
+                    className="text-[#7f979f] text-lg font-medium inline-block transition-transform duration-300 ease-in-out hover:translate-x-1"
                   >
                     {" "}
                     Cattle Feed
@@ -152,7 +150,7 @@ function Footer(){
                 <span>
                   <Link
                     to="/feed-type"
-                    className="text-[#7f979f] text-lg font-medium"
+                    className="text-[#7f979f] text-lg font-medium inline-block transition-transform duration-300 ease-in-out hover:translate-x-1"
                   >
                     Poultry Feed
                   </Link>
@@ -163,7 +161,7 @@ function Footer(){
                 <span>
                   <Link
                     to="/feed-type"
-                    className="text-[#7f979f] text-lg font-medium"
+                    className="text-[#7f979f] text-lg font-medium inline-block transition-transform duration-300 ease-in-out hover:translate-x-1"
                   >
                     Pig Feed
                   </Link>
@@ -174,7 +172,7 @@ function Footer(){
                 <span>
                   <Link
                     to="/feed-type"
-                    className="text-[#7f979f] text-lg font-medium"
+                    className="text-[#7f979f] text-lg font-medium inline-block transition-transform duration-300 ease-in-out hover:translate-x-1"
                   >
                     Fish Feed
                   </Link>
@@ -185,7 +183,7 @@ function Footer(){
                 <span>
                   <Link
                     to="/feed-type"
-                    className="text-[#7f979f] text-lg font-medium"
+                    className="text-[#7f979f] text-lg font-medium inline-block transition-transform duration-300 ease-in-out hover:translate-x-1"
                   >
                     Specialty Feeds
                   </Link>
@@ -218,7 +216,7 @@ function Footer(){
                   <FontAwesomeIcon icon={faPhone} />
                 </span>
                 <span className="text-[#7f979f] text-lg font-medium">
-                  <Link to="tel:+919999999999">+91 9999999999</Link>
+                  <Link to="tel:+919999999999" className="inline-block transition-transform duration-300 ease-in-out hover:text-[#cfcfcf]">+91 9999999999</Link>
                 </span>
               </li>
               <li className="flex items-center md:items-start justify-center md:justify-start">
@@ -226,7 +224,7 @@ function Footer(){
                   <FontAwesomeIcon icon={faEnvelope} />
                 </span>
                 <span className="text-[#7f979f] text-lg font-medium">
-                  <a href="mailto:info@greengold.com">info@greengold.com</a>
+                  <Link to="mailto:info@greengold.com" className="inline-block transition-transform duration-300 ease-in-out hover:text-[#cfcfcf]">info@greengold.com</Link>
                 </span>
               </li>
             </ul>

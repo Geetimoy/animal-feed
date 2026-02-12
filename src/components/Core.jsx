@@ -21,6 +21,7 @@ import ResetPassword from "./pages/ResetPassword";
 import MyOrder from "./pages/MyOrder";
 import AddressManagement from "./pages/AddressManagement";
 import Csr from "./pages/Csr";
+import Quality from "./pages/Quality";
 
 
 export default function Core() {
@@ -49,6 +50,7 @@ export default function Core() {
           <Route path="/products" element={<Products />} />
           <Route path="/my-orders" element={<MyOrder />} />
           <Route path="/address-management" element={<AddressManagement />} />
+          <Route path="/quality" element={<Quality />} />
           <Route path="/csr" element={<Csr />} />
         </Routes>
       </BrowserRouter>

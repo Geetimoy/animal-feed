@@ -53,7 +53,7 @@ function Distributor() {
             </div>
           </div>
         </section>
-        <section className="py-8 md:py-20 bg-gray-100">
+        <section className="py-10 md:py-12 bg-gray-100">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <h2 className="text-3xl md:text-5xl text-gray-800 font-semibold mb-4 text-center">
               Our Distributor <span className="text-[#ffa800]">Network</span>

@@ -3,7 +3,7 @@ import Footer from "../Footer";
 
 import contactBaner from '../../assets/images/contact-banner.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight, faLocationDot,faEnvelope,faClock, faArrowLeft, faPhone } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faLocationDot, faEnvelope, faClock, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { Link } from "react-router-dom";
 
@@ -19,10 +19,34 @@ function ContactUs(){
               alt="Contact Us Banner"
               className="w-full md:h-auto h-[250px] object-cover"
             />
-            <div className="absolute inset-0  flex items-center justify-center">
+            <div className="absolute inset-0  flex items-center justify-center flex-col">
               <h1 className="text-white text-4xl md:text-6xl font-bold">
-                Contact Us
+                Contact <span className="text-[#ffa800]">Us</span>
               </h1>
+              
+              <p className="text-white text-[16px] md:text-xl text-center">
+                Stay updated with the latest developments and activities at
+                Green Gold Animal Feed.
+              </p>
+              <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
+                <Link
+                  to="/distributor"
+                  className="mt-4 md:mt-6 w-full  md:w-[198px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
+                >
+                  <span className="text-[20px] font-bold font-inter">
+                    <FontAwesomeIcon icon={faMagnifyingGlass} /> Find
+                    Distributor
+                  </span>
+                </Link>
+                <Link
+                  to="/contact-us"
+                  className="mt-3 md:mt-6  w-full  md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
+                >
+                  <span className="text-[20px] font-bold font-inter">
+                    <FontAwesomeIcon icon={faLocationDot} /> Contact Us
+                  </span>
+                </Link>
+              </div>
             </div>
           </div>
         </section>
@@ -217,7 +241,7 @@ function ContactUs(){
               {/* Heading */}
               <h2 className="text-2xl md:text-5xl font-semibold tracking-wide text-gray-900">
                 Our
-                <span className="text-[#ffa800] font-medium"> Location</span>
+                <span className="text-[#ffa800] font-semibold"> Location</span>
               </h2>
 
               {/* Description */}

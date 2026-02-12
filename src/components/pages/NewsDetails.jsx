@@ -2,11 +2,8 @@ import Footer from "../Footer";
 import Header from "../Header";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCommentDots,
-  faUser,
-  faArrowRight,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCommentDots, faUser, faArrowRight, faLocationDot, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 import newsEvents from "../../assets/images/news-banner.jpg";
 import newsslider from "../../assets/images/newfish.jpeg";
@@ -37,6 +34,25 @@ function NewsDetails() {
                 Stay updated with the latest developments and activities at
                 Green Gold Animal Feed.
               </p>
+              <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
+                <Link
+                  to="/distributor"
+                  className="mt-4 md:mt-6 w-full  md:w-[198px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
+                >
+                  <span className="text-[20px] font-bold font-inter">
+                    <FontAwesomeIcon icon={faMagnifyingGlass} /> Find
+                    Distributor
+                  </span>
+                </Link>
+                <Link
+                  to="/contact-us"
+                  className="mt-3 md:mt-6  w-full  md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
+                >
+                  <span className="text-[20px] font-bold font-inter">
+                    <FontAwesomeIcon icon={faLocationDot} /> Contact Us
+                  </span>
+                </Link>
+              </div>
             </div>
           </div>
         </section>

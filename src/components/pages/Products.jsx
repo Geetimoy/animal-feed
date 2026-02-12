@@ -8,8 +8,15 @@ import pigproduct from "../../assets/images/pig-starter-product.png";
 import fishproduct from "../../assets/images/floating-fish-product.png";
 import cattleproduct from "../../assets/images/cattle-feed-product.png";
 import specialproduct from "../../assets/images/special-product.jpeg";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass,faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMagnifyingGlass,
+  faCartShopping,
+  faIndianRupeeSign,
+  faLocationDot,
+
+} from "@fortawesome/free-solid-svg-icons";
 import { Fancybox } from "@fancyapps/ui";
 import productbanner  from "../../assets/images/product-banner.jpeg";
 
@@ -100,29 +107,100 @@ export default function Products() {
     <>
       <Header />
       <main className="pt-16 overflow-x-hidden">
+        {/* <section className="relative z-0">
+          <div className="relative">
+            <img
+              src={productbanner}
+              alt="About Us Banner"
+              className="w-full md:h-auto h-[450px] hidden md:block object-cover"
+            />
+
+            <div className="absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-4xl px-4 md:px-6  w-full">
+              <h1 className="text-[#fff] text-4xl md:text-6xl font-bold text-center mb-4 md:mb-6">
+                Quality <span className="text-[#ffa800]"> Feed Solution</span>
+              </h1>
+              <p className="text-white text-[16px] md:text-xl text-center">
+                For over 25 years, we've been at the forefront of animal
+                nutrition, blending scientific expertise with agricultural
+                wisdom to empower farmers and enhance livestock productivity
+                across India
+              </p>
+              <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
+                <Link
+                  to="/distributor"
+                  className="mt-4 md:mt-6 w-full  md:w-[198px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
+                >
+                  <span className="text-[20px] font-bold font-inter">
+                    <FontAwesomeIcon icon={faMagnifyingGlass} /> Find
+                    Distributor
+                  </span>
+                </Link>
+                <Link
+                  to="/contact-us"
+                  className="mt-3 md:mt-6  w-full  md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
+                >
+                  <span className="text-[20px] font-bold font-inter">
+                    <FontAwesomeIcon icon={faLocationDot} /> Contact Us
+                  </span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section> */}
         <section className="relative z-0">
           <div className="relative">
             <img
               src={productbanner}
               alt="Contact Us Banner"
-              className="w-full md:h-[500px] h-[350px] object-cover"
+              className="w-full md:h-[500px] h-[350px] object-cover object-top"
             />
-            <div className="absolute inset-0  flex items-center justify-center">
+            {/* Overlay Layer (81%) */}
+            <div className="absolute inset-0 bg-black/[0.60]"></div>
+            {/* <div className="absolute inset-0  flex items-center justify-center">
               <h1 className="text-white text-4xl md:text-6xl font-bold">
                 Quality Feed Solution
               </h1>
+
+            </div> */}
+            <div className="absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-4xl px-4 md:px-6  w-full">
+              <h1 className="text-[#fff] text-4xl md:text-6xl font-bold text-center mb-4 md:mb-6">
+                Quality Feed <span className="text-[#ffa800]">  Solution</span>
+              </h1>
+              <p className="text-white text-[16px] md:text-xl text-center">
+                Empowering livestock productivity with scientifically balanced
+                nutrition for healthier animals and better returns.
+              </p>
+              <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
+                <Link
+                  to="/distributor"
+                  className="mt-4 md:mt-6 w-full  md:w-[198px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
+                >
+                  <span className="text-[20px] font-bold font-inter">
+                    <FontAwesomeIcon icon={faMagnifyingGlass} /> Find
+                    Distributor
+                  </span>
+                </Link>
+                <Link
+                  to="/contact-us"
+                  className="mt-3 md:mt-6  w-full  md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
+                >
+                  <span className="text-[20px] font-bold font-inter">
+                    <FontAwesomeIcon icon={faLocationDot} /> Contact Us
+                  </span>
+                </Link>
+              </div>
             </div>
           </div>
         </section>
-        <div className="max-w-7xl mx-auto px-4 py-10">
-          <h2 className="text-[24px] md:text-5xl font-semibold text-gray-800 text-center mb-10">
+        <div className="max-w-7xl mx-auto px-4 py-10 md:py-12">
+          <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center mb-10">
             Our <span className="text-[#ffa800]">Products</span>
           </h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* Sidebar */}
             <aside className="bg-white p-4 rounded-xl shadow-md">
-              <h3 className="text-[20px] md:text-[24px] font-semibold mb-4 text-gray-800">
+              <h3 className="text-xl font-semibold mb-4 text-gray-900">
                 Price Filter
               </h3>
 
@@ -137,11 +215,16 @@ export default function Products() {
                 />
 
                 <p className="mt-2 text-gray-700 text-[16px] md:text-[18px]">
-                  Price: <span className="font-semibold">$0 - ${maxPrice}</span>
+                  Price:{" "}
+                  <span className="font-semibold">
+                    <FontAwesomeIcon icon={faIndianRupeeSign} />0 -{" "}
+                    <FontAwesomeIcon icon={faIndianRupeeSign} />
+                    {maxPrice}
+                  </span>
                 </p>
               </div>
 
-              <h3 className="text-[20px] md:text-[24px] font-semibold  text-gray-800 mt-8 mb-4">
+              <h3 className="text-xl font-semibold  text-gray-900 mt-8 mb-4">
                 Categories
               </h3>
               <div className="bg-white shadow-md rounded-lg py-4 px-4">
@@ -221,15 +304,17 @@ export default function Products() {
                         {product.name}
                       </h3>
                       <p className="text-gray-600 text-[16px] text-center mb-2 font-bold">
-                        ${product.price}{" "}
+                        <FontAwesomeIcon icon={faIndianRupeeSign} />
+                        {product.price}{" "}
                         <span className="line-through text-sm text-gray-400 ml-2">
-                          ${product.oldPrice}{" "}
+                          <FontAwesomeIcon icon={faIndianRupeeSign} />
+                          {product.oldPrice}{" "}
                         </span>
                       </p>
                       <button
                         type="button"
                         className="mt-4 w-full bg-yellow-500 text-white
-                               py-2 rounded-xl font-medium cursor-pointer hover:bg-yellow-400"
+                               py-3 rounded-xl font-medium cursor-pointer hover:bg-yellow-400  text-[16px]"
                       >
                         <FontAwesomeIcon
                           icon={faCartShopping}

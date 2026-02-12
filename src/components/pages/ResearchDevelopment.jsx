@@ -24,15 +24,15 @@ function ResearchDevelopment() {
               className="w-full md:h-auto h-[450px] hidden md:block object-cover"
             />
             <img
-              src={aboutBanerMob}
+              src={researchBanner}
               alt="Research & Development Banner Mobile"
               className="w-full md:h-auto h-[500px] block md:hidden object-cover"
             />
             <div className="absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-4xl px-4 md:px-6  w-full">
-              <h1 className="text-[#009a62] text-4xl md:text-6xl font-bold text-center mb-4 md:mb-6">
-                Research & Development
+              <h1 className="text-[#fff] text-4xl md:text-6xl font-bold text-center mb-4 md:mb-6">
+                Research & <span className="text-[#ffa800]">Development</span>
               </h1>
-              <p className="text-black text-[16px] md:text-xl text-center">
+              <p className="text-white text-[16px] md:text-xl text-center">
                 At Green Gold Animal Feed, innovation begins in our in-house
                 Research & Development laboratory, where science meets practical
                 farming needs to deliver superior animal nutrition.
@@ -60,7 +60,7 @@ function ResearchDevelopment() {
           </div>
         </section>
 
-         <section className="py-8 md:py-20 bg-gray-100">
+         <section className="py-10 md:py-12 bg-gray-100">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center">
               In-House Laboratory{" "}
@@ -130,7 +130,7 @@ function ResearchDevelopment() {
 
         {/* Science-Based Feed Formulation */}
         <section>
-          <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-20">
+          <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 md:py-12">
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center">
               Science-Based Feed{" "}
               <span className="text-[#ffa800]">Formulation</span>
@@ -261,7 +261,7 @@ function ResearchDevelopment() {
 
         {/* Innovation for Sustainable Nutrition */}
         <section className="bg-gray-100">
-          <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-20 ">
+          <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 md:py-12">
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center">
               Innovation for{" "}
               <span className="text-[#ffa800]">Sustainable Nutrition</span>

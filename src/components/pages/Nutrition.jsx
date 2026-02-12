@@ -10,6 +10,7 @@ import animal1 from "../../assets/images/cattle1.png";
 import animal2 from "../../assets/images/pig2.png";
 import animal3 from "../../assets/images/poultry2.png";
 import animal4 from "../../assets/images/fish2.png";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCow,
@@ -29,10 +30,12 @@ import {
   faWater,
   faFlask,
   faRecycle,
-  faArrowRight
+  faArrowRight,
+  faMagnifyingGlass,
+  faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
-import { Link } from "react-router-dom";
+
 import nutritionHero from "../../assets/images/nutrition-banner.png";
 
 function Nutrition(){
@@ -60,13 +63,32 @@ function Nutrition(){
                 (FCR), and performance calculations to deliver measurable
                 results for farmers.
               </p>
+              <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
+                <Link
+                  to="/distributor"
+                  className="mt-4 md:mt-6 w-full  md:w-[198px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
+                >
+                  <span className="text-[20px] font-bold font-inter">
+                    <FontAwesomeIcon icon={faMagnifyingGlass} /> Find
+                    Distributor
+                  </span>
+                </Link>
+                <Link
+                  to="/contact-us"
+                  className="mt-3 md:mt-6  w-full  md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
+                >
+                  <span className="text-[20px] font-bold font-inter">
+                    <FontAwesomeIcon icon={faLocationDot} /> Contact Us
+                  </span>
+                </Link>
+              </div>
             </div>
           </div>
         </section>
 
         {/* ================= CATTLE ================= */}
 
-        <section className="bg-white py-2  md:py-12  gsap-fade-in">
+        <section className="bg-gray-100 py-10 md:py-12 gsap-fade-in">
           <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <div className="relative">
               {" "}
@@ -82,29 +104,27 @@ function Nutrition(){
                 Cattle <span className="text-[#ffa800]">Nutrition</span>{" "}
               </h2>
 
-
-               <ul className="space-y-2 text-[16px] text-gray-700 mt-4 text-center md:text-left">
-                    
-                    <li className="flex gap-2">
-                        <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
-                          <FontAwesomeIcon
-                            icon={faArrowRight}
-                            className="text-white text-[10px]"
-                          />
-                        </span>
-                         Average milk yield increase: 10–15%
-                      </li>
-                      <li className="flex gap-2">
-                        <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
-                          <FontAwesomeIcon
-                            icon={faArrowRight}
-                            className="text-white text-[10px]"
-                          />
-                        </span>
-                         Improved digestion efficiency Better fertility and body
-                    condition
-                      </li>
-                    </ul>
+              <ul className="space-y-2 text-[16px] text-gray-700 mt-4 text-center md:text-left">
+                <li className="flex gap-2">
+                  <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
+                    <FontAwesomeIcon
+                      icon={faArrowRight}
+                      className="text-white text-[10px]"
+                    />
+                  </span>
+                  Average milk yield increase: 10–15%
+                </li>
+                <li className="flex gap-2">
+                  <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
+                    <FontAwesomeIcon
+                      icon={faArrowRight}
+                      className="text-white text-[10px]"
+                    />
+                  </span>
+                  Improved digestion efficiency Better fertility and body
+                  condition
+                </li>
+              </ul>
 
               {/* <div className="space-y-2 mt-4 md:mt-6 text-gray-600 leading-normal md:leading-relaxed text-[16px] md:text-[18px] text-center md:text-left">
                 <div className="flex items-start gap-3">
@@ -181,7 +201,7 @@ function Nutrition(){
 
         {/* ================= Poultry ================= */}
 
-        <section className="bg-white py-2  md:py-12  gsap-fade-in">
+        <section className="bg-white py-10  md:py-12  gsap-fade-in">
           <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <div>
               <h2 className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left">
@@ -189,28 +209,27 @@ function Nutrition(){
                 Poultry <span className="text-[#ffa800]">Nutrition</span>{" "}
               </h2>
 
-              <p className="text-[16px] text-gray-600 mt-1 text-center md:text-left mt-3 mb-4">
+              <p className="text-[16px] text-gray-600 mt-1 text-center md:text-left mt-2 mb-4">
                 Balanced calcium ensures strong eggshells and reduced breaka
               </p>
               <div
-                className="bg-white rounded-2xl p-4 md:p-6 border border-gray-200 shadow-sm 
-                transition-transform duration-300 hover:scale-[1.02]"
+                className=" bg-white rounded-2xl  border border-gray-200 shadow-sm 
+                 "
               >
-                <h3 className="text-[16px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-2">
-                  
+                <h3 className="text-[16px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4 ml-6">
                   Broiler Feed Standards
                 </h3>
-                <div className="overflow-x-auto">
-                  <table className="w-full border border-green-600 rounded-xl overflow-hidden">
+                <div className="overflow-x-auto   ">
+                  <table className="w-full   rounded-xl">
                     <thead className="bg-green-100 text-gray-800">
                       <tr>
-                        <th className="px-4 py-3 text-center text-sm md:text-base font-semibold border-r border-green-200">
+                        <th className="px-4 py-3 text-center text-sm md:text-base font-semibold ">
                           Phase
                         </th>
-                        <th className="px-4 py-3 text-center text-sm md:text-base font-semibold border-r border-green-200">
+                        <th className="px-4 py-3 text-center text-sm md:text-base font-semibold ">
                           CP %
                         </th>
-                        <th className="px-4 py-3 text-center text-sm md:text-base font-semibold border-r border-green-200">
+                        <th className="px-4 py-3 text-center text-sm md:text-base font-semibold ">
                           Energy (Kcal/kg)
                         </th>
                         <th className="px-4 py-3 text-center text-sm md:text-base font-semibold">
@@ -221,48 +240,30 @@ function Nutrition(){
 
                     <tbody className="text-gray-700">
                       <tr className="hover:bg-green-50 transition">
-                        <td className="px-4 py-3 text-center border border-green-100 font-medium">
+                        <td className="px-4 py-3 text-center  font-medium">
                           Starter
                         </td>
-                        <td className="px-4 py-3 text-center border border-green-100">
-                          22–23%
-                        </td>
-                        <td className="px-4 py-3 text-center border border-green-100">
-                          3000
-                        </td>
-                        <td className="px-4 py-3 text-center border border-green-100">
-                          1.4
-                        </td>
+                        <td className="px-4 py-3 text-center ">22–23%</td>
+                        <td className="px-4 py-3 text-center ">3000</td>
+                        <td className="px-4 py-3 text-center ">1.4</td>
                       </tr>
 
                       <tr className="hover:bg-green-50 transition">
-                        <td className="px-4 py-3 text-center border border-green-100 font-medium">
+                        <td className="px-4 py-3 text-center  font-medium">
                           Grower
                         </td>
-                        <td className="px-4 py-3 text-center border border-green-100">
-                          20–21%
-                        </td>
-                        <td className="px-4 py-3 text-center border border-green-100">
-                          3100
-                        </td>
-                        <td className="px-4 py-3 text-center border border-green-100">
-                          1.6
-                        </td>
+                        <td className="px-4 py-3 text-center ">20–21%</td>
+                        <td className="px-4 py-3 text-center ">3100</td>
+                        <td className="px-4 py-3 text-center ">1.6</td>
                       </tr>
 
                       <tr className="hover:bg-green-50 transition">
-                        <td className="px-4 py-3 text-center border border-green-100 font-medium">
+                        <td className="px-4 py-3 text-center  font-medium">
                           Finisher
                         </td>
-                        <td className="px-4 py-3 text-center border border-green-100">
-                          18–19%
-                        </td>
-                        <td className="px-4 py-3 text-center border border-green-100">
-                          3200
-                        </td>
-                        <td className="px-4 py-3 text-center border border-green-100">
-                          1.8
-                        </td>
+                        <td className="px-4 py-3 text-center ">18–19%</td>
+                        <td className="px-4 py-3 text-center ">3200</td>
+                        <td className="px-4 py-3 text-center ">1.8</td>
                       </tr>
                     </tbody>
                   </table>
@@ -270,7 +271,6 @@ function Nutrition(){
               </div>
 
               <h3 className="text-[16px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mt-6 mb-4">
-              
                 Layer Nutrition
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-4 mt-6 ">
@@ -323,7 +323,7 @@ function Nutrition(){
 
         {/* ================= PIG ================= */}
 
-        <section className="bg-white py-2  md:py-12  gsap-fade-in">
+        <section className="bg-gray-100 py-10  md:py-12  gsap-fade-in">
           <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <div className="relative">
               {" "}
@@ -334,7 +334,7 @@ function Nutrition(){
               />
             </div>
             <div>
-              <h2 className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left">
+              <h2 className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left mb-4">
                 {" "}
                 Pig <span className="text-[#ffa800]">Nutrition</span>{" "}
               </h2>
@@ -342,28 +342,29 @@ function Nutrition(){
               {/* <p className="text-[16px] text-gray-600 mt-1 text-center md:text-left mt-3 mb-4">
                 Balanced calcium ensures strong eggshells and reduced breaka
               </p> */}
-              <div
-                className="bg-white rounded-2xl p-4 md:p-6 border border-gray-200 shadow-sm 
-                transition-transform duration-300 hover:scale-[1.02]  mt-4"
-              >
+              <div className=" bg-white rounded-2xl  border border-gray-200 shadow-sm ">
                 {/* <h3 className="text-[16px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-2">
                   <FontAwesomeIcon
                     icon={faDrumstickBite}
                     className="text-green-600    text-[18px] md:text-[22px]"
                   />
-                  Broiler Feed Standards
+                  
                 </h3> */}
-                <div className="overflow-x-auto">
-                  <table className="w-full border border-green-600 rounded-xl overflow-hidden">
+                <h3 className="text-[16px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4 ml-6">
+                  Pig Feed
+                </h3>
+
+                <div className="overflow-x-auto   ">
+                  <table className="w-full ">
                     <thead className="bg-green-100 text-gray-800">
                       <tr>
-                        <th className="px-4 py-3 text-center text-sm md:text-base font-semibold border-r border-green-200">
+                        <th className="px-4 py-3 text-center text-sm md:text-base font-semibold ">
                           Phase
                         </th>
-                        <th className="px-4 py-3 text-center text-sm md:text-base font-semibold border-r border-green-200">
+                        <th className="px-4 py-3 text-center text-sm md:text-base font-semibold ">
                           CP %
                         </th>
-                        <th className="px-4 py-3 text-center text-sm md:text-base font-semibold border-r border-green-200">
+                        <th className="px-4 py-3 text-center text-sm md:text-base font-semibold ">
                           Energy (Kcal/kg)
                         </th>
                         <th className="px-4 py-3 text-center text-sm md:text-base font-semibold">
@@ -374,46 +375,30 @@ function Nutrition(){
 
                     <tbody className="text-gray-700">
                       <tr className="hover:bg-green-50 transition">
-                        <td className="px-4 py-3 text-center border border-green-100 font-medium">
+                        <td className="px-4 py-3 text-center  font-medium">
                           Starter
                         </td>
-                        <td className="px-4 py-3 text-center border border-green-100">
-                          20–22%
-                        </td>
-                        <td className="px-4 py-3 text-center border border-green-100">
-                          3200
-                        </td>
-                        <td className="px-4 py-3 text-center border border-green-100">
-                          1.6
-                        </td>
+                        <td className="px-4 py-3 text-center ">20–22%</td>
+                        <td className="px-4 py-3 text-center ">3200</td>
+                        <td className="px-4 py-3 text-center ">1.6</td>
                       </tr>
 
                       <tr className="hover:bg-green-50 transition">
-                        <td className="px-4 py-3 text-center border border-green-100 font-medium">
+                        <td className="px-4 py-3 text-center  font-medium">
                           Grower
                         </td>
-                        <td className="px-4 py-3 text-center border border-green-100">
-                          18–20%
-                        </td>
-                        <td className="px-4 py-3 text-center border border-green-100">
-                          3300
-                        </td>
-                        <td className="px-4 py-3 text-center border border-green-100">
-                          2.2
-                        </td>
+                        <td className="px-4 py-3 text-center ">18–20%</td>
+                        <td className="px-4 py-3 text-center ">3300</td>
+                        <td className="px-4 py-3 text-center ">2.2</td>
                       </tr>
 
                       <tr className="hover:bg-green-50 transition">
-                        <td className="px-4 py-3 text-center border border-green-100 font-medium">
+                        <td className="px-4 py-3 text-center  font-medium">
                           Finisher
                         </td>
-                        <td className="px-4 py-3 text-center border border-green-100">
-                          16-18%
-                        </td>
-                        <td className="px-4 py-3 text-center border border-green-100">
-                          3400
-                        </td>
-                        <td className="px-4 py-3 text-center border border-green-100">
+                        <td className="px-4 py-3 text-center ">16-18%</td>
+                        <td className="px-4 py-3 text-center ">3400</td>
+                        <td className="px-4 py-3 text-center border border-gray-100">
                           2.8
                         </td>
                       </tr>
@@ -424,26 +409,21 @@ function Nutrition(){
             </div>
           </div>
         </section>
-       
 
         {/* ================= FISH ================= */}
- <section className="bg-white py-2  md:py-12  gsap-fade-in">
+        <section className="bg-white py-10  md:py-12  gsap-fade-in">
           <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <div>
               <h2 className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left">
                 {" "}
-                Fish  <span className="text-[#ffa800]">Nutrition</span>{" "}
+                Fish <span className="text-[#ffa800]">Nutrition</span>{" "}
               </h2>
 
-              <p className="text-[16px] text-gray-600 mt-1 text-center md:text-left mt-3 mb-4">
-              Reduce feed wastage improves water quality and survival rate.
+              <p className="text-[16px] text-gray-600 mt-1 text-center md:text-left mt-2 mb-4">
+                Reduce feed wastage improves water quality and survival rate.
               </p>
 
-             
-            
-
               <h3 className=" text-[18px] md:text-[22px] font-bold text-gray-800 leading-normal text-center md:text-left mt-6 mb-4">
-                
                 Feed Composition
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-4 mt-6 ">
@@ -494,10 +474,7 @@ function Nutrition(){
           </div>
         </section>
 
-
-     
-
-        <section className="w-full bg-[#f8f8f8] py-6 md:py-20">
+        <section className="w-full bg-gray-100 py-10 md:py-12">
           <div className="max-w-7xl mx-auto px-4">
             {/* Heading */}
             <h2 className="text-[24px] md:text-5xl font-semibold text-gray-800 text-center mb-4 md:mb-8">

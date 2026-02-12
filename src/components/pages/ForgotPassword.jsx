@@ -70,7 +70,7 @@ export default function ForgotPassword() {
               w-full py-3
               bg-gradient-to-r from-[#00a34a] to-[#009a62]
               text-white font-semibold rounded-[12px]
-              shadow-md hover:opacity-90 transition
+              shadow-md hover:opacity-90 transition cursor-pointer
             "
           >
             Send Reset Link

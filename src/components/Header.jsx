@@ -175,7 +175,7 @@ function Header() {
               </Link>
               <div className="relative group flex items-center">
                 <Link
-                  to="/media"
+                  to="/news-events"
                   className="nav-link text-[15px] font-normal flex items-center gap-2"
                 >
                   <i className="ri-camera-line"></i> Media
