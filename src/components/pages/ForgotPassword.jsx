@@ -20,7 +20,10 @@ export default function ForgotPassword() {
           bg-white/35
           backdrop-blur-[20px]
           rounded-2xl
-          shadow-[0_20px_60px_rgba(0,0,0,0.15)]
+          backdrop-blur-2xl
+          rounded-[32px]
+          border border-white/30
+          shadow-[0_30px_80px_rgba(0,0,0,0.18)]
           px-6 py-8
         "
       >
@@ -75,6 +78,13 @@ export default function ForgotPassword() {
           >
             Send Reset Link
           </button>
+
+          {/* divider */}
+          <div className="flex items-center gap-3 my-3">
+            <div className="flex-1 h-px bg-gray-500/60"></div>
+            <span className="text-gray-500 text-sm">or</span>
+            <div className="flex-1 h-px bg-gray-500/60"></div>
+          </div>
 
           <p className="text-center text-sm text-gray-600 mt-4">
             Remember your password?{" "}

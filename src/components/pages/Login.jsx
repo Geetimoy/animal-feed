@@ -21,7 +21,10 @@ export default function Login() {
           bg-white/35
           backdrop-blur-[20px]
           rounded-2xl
-          shadow-[0_20px_60px_rgba(0,0,0,0.15)]
+          backdrop-blur-2xl
+          rounded-[32px]
+          border border-white/30
+          shadow-[0_30px_80px_rgba(0,0,0,0.18)]
         md:px-4 md:py-4    md:px-6 md:py-8
         "
       >
@@ -105,7 +108,7 @@ export default function Login() {
               transition cursor-pointer
             "
           >
-            Log In
+            <Link to="/profile">Log In</Link>
           </button>
 
           {/* divider */}
@@ -114,8 +117,6 @@ export default function Login() {
             <span className="text-gray-500 text-sm">or</span>
             <div className="flex-1 h-px bg-gray-500/60"></div>
           </div>
-
-        
 
           <p className="text-center text-sm text-gray-600 mt-5">
             Don&apos;t have an account?{" "}

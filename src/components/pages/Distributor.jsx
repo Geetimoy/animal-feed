@@ -149,7 +149,7 @@ function Distributor() {
                       </Link>
                     </p>
                   </div>
-                  <div className="w-full md:w-1/3 border border-gray-200 overflow-hidden rounded-xl p-1">
+                  <div className="w-full md:w-1/3 md:border md:border-gray-200 overflow-hidden rounded-xl p-1">
                     <iframe
                       title="Kolkata Location"
                       src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28415.468456355145!2d93.80497037525176!3d27.095390854376515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDolikoto%2C%20Banderdewa%2C%20Arunachal%20Pradesh%20%E2%80%93%20791123!5e0!3m2!1sen!2sin!4v1769078245418!5m2!1sen!2sin"
@@ -191,7 +191,7 @@ function Distributor() {
                       </Link>
                     </p>
                   </div>
-                  <div className="w-full md:w-1/3 border border-gray-200 overflow-hidden rounded-xl p-1">
+                  <div className="w-full md:w-1/3  md:border md:border-gray-200 overflow-hidden rounded-xl p-1">
                     <iframe
                       title="Kolkata Location"
                       src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28415.468456355145!2d93.80497037525176!3d27.095390854376515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDolikoto%2C%20Banderdewa%2C%20Arunachal%20Pradesh%20%E2%80%93%20791123!5e0!3m2!1sen!2sin!4v1769078245418!5m2!1sen!2sin"
@@ -233,7 +233,7 @@ function Distributor() {
                       </Link>
                     </p>
                   </div>
-                  <div className="w-full md:w-1/3 border border-gray-200 overflow-hidden rounded-xl p-1">
+                  <div className="w-full md:w-1/3  md:border md:border-gray-200 overflow-hidden rounded-xl p-1">
                     <iframe
                       title="Kolkata Location"
                       src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28415.468456355145!2d93.80497037525176!3d27.095390854376515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDolikoto%2C%20Banderdewa%2C%20Arunachal%20Pradesh%20%E2%80%93%20791123!5e0!3m2!1sen!2sin!4v1769078245418!5m2!1sen!2sin"
@@ -275,7 +275,7 @@ function Distributor() {
                       </Link>
                     </p>
                   </div>
-                  <div className="w-full md:w-1/3 border border-gray-200 overflow-hidden rounded-xl p-1">
+                  <div className="w-full md:w-1/3  md:border md:border-gray-200 overflow-hidden rounded-xl p-1">
                     <iframe
                       title="Kolkata Location"
                       src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28415.468456355145!2d93.80497037525176!3d27.095390854376515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDolikoto%2C%20Banderdewa%2C%20Arunachal%20Pradesh%20%E2%80%93%20791123!5e0!3m2!1sen!2sin!4v1769078245418!5m2!1sen!2sin"
@@ -317,7 +317,7 @@ function Distributor() {
                       </Link>
                     </p>
                   </div>
-                  <div className="w-full md:w-1/3 border border-gray-200 overflow-hidden rounded-xl p-1">
+                  <div className="w-full md:w-1/3  md:border md:border-gray-200 overflow-hidden rounded-xl p-1">
                     <iframe
                       title="Kolkata Location"
                       src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28415.468456355145!2d93.80497037525176!3d27.095390854376515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDolikoto%2C%20Banderdewa%2C%20Arunachal%20Pradesh%20%E2%80%93%20791123!5e0!3m2!1sen!2sin!4v1769078245418!5m2!1sen!2sin"
@@ -359,7 +359,7 @@ function Distributor() {
                       </Link>
                     </p>
                   </div>
-                  <div className="w-full md:w-1/3 border border-gray-200 overflow-hidden rounded-xl p-1">
+                  <div className="w-full md:w-1/3  md:border md:border-gray-200 overflow-hidden rounded-xl p-1">
                     <iframe
                       title="Kolkata Location"
                       src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28415.468456355145!2d93.80497037525176!3d27.095390854376515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDolikoto%2C%20Banderdewa%2C%20Arunachal%20Pradesh%20%E2%80%93%20791123!5e0!3m2!1sen!2sin!4v1769078245418!5m2!1sen!2sin"

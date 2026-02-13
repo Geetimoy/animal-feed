@@ -59,12 +59,12 @@ function AboutUs() {
             <img
               src={aboutBaner}
               alt="About Us Banner"
-              className="w-full md:h-auto h-[450px] hidden md:block object-cover"
+              className="w-full md:h-auto h-[500px] hidden md:block object-cover"
             />
             <img
               src={aboutBanerMob}
               alt="About Us Banner Mobile"
-              className="w-full md:h-auto h-[450px] block md:hidden object-cover"
+              className="w-full md:h-auto h-[500px] block md:hidden object-cover"
             />
             <div className="absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-4xl px-4 md:px-6  w-full">
               <h1 className="text-[#fff] text-4xl md:text-6xl font-bold text-center mb-4 md:mb-6">
@@ -88,7 +88,7 @@ function AboutUs() {
                 </Link>
                 <Link
                   to="/contact-us"
-                  className="mt-3 md:mt-6  w-full  md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
+                  className="mt-2 md:mt-6  w-full  md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
                 >
                   <span className="text-[20px] font-bold font-inter">
                     <FontAwesomeIcon icon={faLocationDot} /> Contact Us
@@ -107,7 +107,11 @@ function AboutUs() {
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2  gap-6 md:gap-12 place-items-center">
               <div className="w-full">
-                <img src={visionMission} alt="" className="w-full" />
+                <img
+                  src={visionMission}
+                  alt=""
+                  className="w-full  rounded-2xl "
+                />
               </div>
               <div>
                 <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center md:text-left">
@@ -420,7 +424,7 @@ function AboutUs() {
                 <p className="text-gray-600 text-sm text-center mb-2">
                   Chairman
                 </p>
-                <ul className="mt-4 md:text-left text-center">
+                {/* <ul className="mt-4 md:text-left text-center">
                   <li className="text-gray-600 text-sm mb-2">
                     {" "}
                     <FontAwesomeIcon
@@ -436,7 +440,7 @@ function AboutUs() {
                     />{" "}
                     Ethical Governance
                   </li>
-                </ul>
+                </ul> */}
               </div>
               <div className="bg-[#efefef] rounded-2xl p-6 shadow-sm">
                 <span className="mx-auto w-24 bg-[#fff] block p-2 rounded-2xl shadow-xl  mt-0 md:-mt-[60px] mb-4">
@@ -448,7 +452,7 @@ function AboutUs() {
                 <p className="text-gray-600 text-sm text-center mb-2">
                   Managing Director
                 </p>
-                <ul className="mt-4 md:text-left text-center">
+                {/* <ul className="mt-4 md:text-left text-center">
                   <li className="text-gray-600 text-sm mb-2">
                     {" "}
                     <FontAwesomeIcon
@@ -464,7 +468,7 @@ function AboutUs() {
                     />{" "}
                     Scientific Leadership
                   </li>
-                </ul>
+                </ul> */}
               </div>
               <div className="bg-[#efefef] rounded-2xl p-6 shadow-sm">
                 <span className="mx-auto w-24 bg-[#fff] block p-2 rounded-2xl shadow-xl  mt-0 md:-mt-[60px] mb-4">
@@ -476,7 +480,7 @@ function AboutUs() {
                 <p className="text-gray-600 text-sm text-center mb-2">
                   General Manager
                 </p>
-                <ul className="mt-4 md:text-left text-center">
+                {/* <ul className="mt-4 md:text-left text-center">
                   <li className="text-gray-600 text-sm mb-2">
                     {" "}
                     <FontAwesomeIcon
@@ -492,7 +496,7 @@ function AboutUs() {
                     />{" "}
                     Ethical Governance
                   </li>
-                </ul>
+                </ul> */}
               </div>
               <div className="bg-[#efefef] rounded-2xl p-6 shadow-sm">
                 <span className="mx-auto w-24 bg-[#fff] block p-2 rounded-2xl shadow-xl  mt-0 md:-mt-[60px] mb-4">
@@ -504,7 +508,7 @@ function AboutUs() {
                 <p className="text-gray-600 text-sm text-center mb-2">
                   General Manager
                 </p>
-                <ul className="mt-4 md:text-left text-center">
+                {/* <ul className="mt-4 md:text-left text-center">
                   <li className="text-gray-600 text-sm mb-2">
                     {" "}
                     <FontAwesomeIcon
@@ -520,7 +524,7 @@ function AboutUs() {
                     />{" "}
                     Ethical Governance
                   </li>
-                </ul>
+                </ul> */}
               </div>
             </div>
             <div className="mt-6 md:mt-10 text-center">
@@ -551,10 +555,10 @@ function AboutUs() {
               environment.{" "}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-6 md:mt-12">
-              <div className="bg-gray-100 rounded-2xl p-4 md:p-6 shadow-sm text-center md:text-left">
-                <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center leading-[40px] mb-4">
-                    <FontAwesomeIcon icon={faMedal} />
-                  </span>
+              <div className="bg-gray-100 rounded-2xl p-4 md:p-6 shadow-sm text-center md:text-left ">
+                <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center  leading-[40px] mb-4 mx-auto md:mx-0">
+                  <FontAwesomeIcon icon={faMedal} />
+                </span>
                 <h4 className="text-lg font-bold text-gray-900 mb-2">
                   Uncompromising Quality
                 </h4>
@@ -573,9 +577,9 @@ function AboutUs() {
                 </ul>
               </div>
               <div className="bg-gray-100 rounded-2xl  p-4 md:p-6 shadow-sm text-center md:text-left">
-                <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center leading-[40px] mb-4">
-                    <FontAwesomeIcon icon={faNutritionix} />
-                  </span>
+                <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center leading-[40px] mb-4 mx-auto md:mx-0">
+                  <FontAwesomeIcon icon={faNutritionix} />
+                </span>
                 <h4 className="text-lg font-bold text-gray-900 mb-2">
                   Science-Driven Nutrition
                 </h4>
@@ -594,9 +598,9 @@ function AboutUs() {
                 </ul>
               </div>
               <div className="bg-gray-100 rounded-2xl  p-4 md:p-6 shadow-sm text-center md:text-left">
-                <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center leading-[40px] mb-4">
-                    <FontAwesomeIcon icon={faHandHoldingHeart} />
-                  </span>
+                <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center leading-[40px] mb-4 mx-auto md:mx-0">
+                  <FontAwesomeIcon icon={faHandHoldingHeart} />
+                </span>
                 <h4 className="text-lg font-bold text-gray-900 mb-2">
                   Farmers at the Heart
                 </h4>
@@ -614,10 +618,10 @@ function AboutUs() {
                   </li>
                 </ul>
               </div>
-              <div className="bg-gray-100 rounded-2xl  p-4 md:p-6 shadow-sm text-center md:text-left">
-                <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center leading-[40px] mb-4">
-                    <FontAwesomeIcon icon={faHexagonNodes} />
-                  </span>
+              <div className="bg-gray-100 rounded-2xl  p-4 md:p-6 shadow-sm text-center md:text-left ">
+                <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center leading-[40px] mb-4 mx-auto md:mx-0">
+                  <FontAwesomeIcon icon={faHexagonNodes} />
+                </span>
                 <h4 className="text-lg font-bold text-gray-900 mb-2">
                   Sustainability in Action
                 </h4>
@@ -636,9 +640,9 @@ function AboutUs() {
                 </ul>
               </div>
               <div className="bg-gray-100 rounded-2xl  p-4 md:p-6 shadow-sm text-center md:text-left">
-                <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center leading-[40px] mb-4">
-                    <FontAwesomeIcon icon={faTrademark} />
-                  </span>
+                <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center leading-[40px] mb-4 mx-auto md:mx-0">
+                  <FontAwesomeIcon icon={faTrademark} />
+                </span>
                 <h4 className="text-lg font-bold text-gray-900 mb-2">
                   Consistency You Can Trust
                 </h4>
@@ -657,7 +661,7 @@ function AboutUs() {
                 </ul>
               </div>
               <div className="bg-gray-100 rounded-2xl  p-4 md:p-6 shadow-sm text-center md:text-left">
-                <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center leading-[40px] mb-4">
+                <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center leading-[40px] mb-4 mx-auto md:mx-0">
                   <FontAwesomeIcon icon={faLightbulb} />
                 </span>
                 <h4 className="text-lg font-bold text-gray-900 mb-2">

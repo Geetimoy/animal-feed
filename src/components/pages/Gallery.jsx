@@ -78,7 +78,7 @@ function Gallery() {
         </section>
 
         {/* Image Gallery */}
-        <section className="py-10 md:py-20">
+        <section className="py-10 md:py-12">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-5xl font-semibold mb-4 md:mb-8 text-center text-gray-800">
               Image <span className="text-[#ffa800]">Gallery</span>
@@ -156,7 +156,7 @@ function Gallery() {
         </section>
 
         {/* Video Gallery */}
-        <section className="pt-4 py-10 md:py-20 bg-gray-100">
+        <section className="pt-4 py-10 md:py-12 bg-gray-100">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-5xl font-semibold mb-4 md:mb-8 text-center text-gray-800">
               Video <span className="text-[#ffa800]">Gallery</span>

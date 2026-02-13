@@ -153,6 +153,14 @@ export default function SignUp() {
               >
                 Sign Up
               </button>
+
+              {/* divider */}
+          <div className="flex items-center gap-3 my-3">
+            <div className="flex-1 h-px bg-gray-500/60"></div>
+            <span className="text-gray-500 text-sm">or</span>
+            <div className="flex-1 h-px bg-gray-500/60"></div>
+          </div>
+          
               <p className="text-center text-sm text-gray-600 mt-5">
                 Already have an account?{" "}
                 <Link

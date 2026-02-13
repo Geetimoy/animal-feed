@@ -174,7 +174,7 @@ function Home(){
         <section className="w-full py-10 md:py-12 md:mt-12">
           <div className="max-w-7xl mx-auto px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center justify-center">
-              {/* <!-- LEFT SIDE (UNCHANGED) --> */}
+              {/* <!-- LEFT SIDE --> */}
               <div className="space-y-5 ">
                 {/* <!-- Heading --> */}
                 <div className="mb-[0px] md:mb-[0px]   gsap-slide-in-left">
@@ -539,7 +539,7 @@ function Home(){
             </div>
           </div>
 
-          <div className="hidden lg:block absolute  lg:-bottom-[120px] md:left-1/2 lg:-translate-x-1/2 px-3 sm:px-0 ">
+          <div className="hidden lg:block absolute  lg:-bottom-[130px] md:left-1/2 lg:-translate-x-1/2 px-3 sm:px-0 ">
             <div className="w-full py-10">
               <div className="max-w-6xl mx-auto flex flex-wrap justify-center gap-6">
                 {/* Circle 1 */}
@@ -644,7 +644,7 @@ function Home(){
                 <div className="relative inline-block overflow-hidden">
                   <img
                     src={animal1}
-                    className="block w-[280px] h-[280px] object-cover"
+                    className="block w-[280px] h-[280px] rounded-2xl  object-cover"
                     alt=""
                   />
                   <div
@@ -678,7 +678,7 @@ function Home(){
                 <div className="relative inline-block overflow-hidden">
                   <img
                     src={animal2}
-                    className="block w-[280px] h-[280px] object-cover"
+                    className="block w-[280px] h-[280px] object-cover rounded-2xl "
                     alt=""
                   />
                   <div
@@ -711,7 +711,7 @@ function Home(){
                 <div className="relative inline-block overflow-hidden">
                   <img
                     src={animal3}
-                    className="block w-[280px] h-[280px] object-cover"
+                    className="block w-[280px] h-[280px]  rounded-2xl object-cover"
                     alt=""
                   />
                   <div
@@ -744,7 +744,7 @@ function Home(){
                 <div className="relative inline-block overflow-hidden">
                   <img
                     src={animal4}
-                    className="block w-[280px] h-[280px] object-cover"
+                    className="block w-[280px] h-[280px]  rounded-2xl object-cover"
                     alt=""
                   />
                   <div
@@ -788,7 +788,7 @@ function Home(){
         </section>
 
         {/* Our Unwavering Commitment */}
-        <section className="relative w-full overflow-hidden  gsap-fade-in">
+        <section className="relative w-full overflow-hidden  gsap-fade-in h-auto lg:h-[700px]">
           {/* <!-- Background image --> */}
           <img
             src={commitment}

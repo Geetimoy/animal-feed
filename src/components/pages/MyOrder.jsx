@@ -5,6 +5,7 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import ProfileDashboard from "./ProfileDashboard";
 import Header from "../Header";
 import Footer from "../Footer";
+import specialproduct from "../../assets/images/special-product.jpeg";
 
 export default function MyOrders() {
   const [open, setOpen] = useState(false);
@@ -62,91 +63,89 @@ export default function MyOrders() {
             </div>
 
             {/* ORDERS TABLE */}
-            <div className="bg-white rounded-3xl shadow-[0_20px_40px_rgba(0,0,0,0.06)] p-6 overflow-x-auto">
-              <h2 className="text-xl font-semibold text-gray-800 mb-6">
-                My Orders
-              </h2>
+         
 
-              <div className="overflow-x-auto border border-green-300 rounded-xl">
-                <table className="w-full min-w-[800px] border-collapse">
-                  <thead className="bg-green-100 text-gray-800">
-                    <tr className="text-left text-sm ">
-                      <th className=" px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold border border-green-200">
-                        Product
-                      </th>
-                      <th className=" px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold border border-green-200">
-                        Order ID
-                      </th>
-                      <th className=" px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold border border-green-200">
-                        Date
-                      </th>
-                      <th className=" px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold border border-green-200">
-                        Amount
-                      </th>
-                      <th className=" px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold border border-green-200">
-                        Status
-                      </th>
-                      <th className=" px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold border border-green-200">
-                        Action
-                      </th>
-                    </tr>
-                  </thead>
+<div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+  <h2 className="text-xl font-semibold text-gray-800 mb-6">
+    My Orders
+  </h2>
 
-                  <tbody className="text-gray-700">
-                    {/* ROW */}
-                    <tr className="hover:bg-green-50 transition">
-                      <td className="px-2 md:px-4 py-3 text-center border border-green-200 whitespace-nowrap">
-                        <div className="flex items-center gap-4">
-                          <img
-                            src="https://via.placeholder.com/60"
-                            alt="product"
-                            className="w-[60px] h-[60px] rounded-lg object-cover"
-                          />
-                          <div>
-                            <p className="font-medium text-gray-800">
-                              Cattle Feed Premium
-                            </p>
-                            <p className="text-xs text-gray-500">10 kg Pack</p>
-                          </div>
-                        </div>
-                      </td>
+  <div className="overflow-x-auto rounded-xl">
+    <table className="w-full min-w-[800px] border-collapse">
+      <thead className="bg-green-100 text-gray-800">
+        <tr className="text-left text-sm">
+          <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold border border-green-200">
+            Product
+          </th>
+          <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold border border-green-200">
+            Order ID
+          </th>
+          <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold border border-green-200">
+            Date
+          </th>
+          <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold border border-green-200">
+            Amount
+          </th>
+          <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold border border-green-200">
+            Status
+          </th>
+          <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold border border-green-200">
+            Action
+          </th>
+        </tr>
+      </thead>
 
-                      {/* ORDER ID */}
-                      <td className="px-2 md:px-4 py-3 text-center border border-green-200 whitespace-nowrap">
-                        #ORD-10234
-                      </td>
-
-                      {/* DATE */}
-                      <td className="px-2 md:px-4 py-3 text-center border border-green-200 whitespace-nowrap">
-                        06 Feb 2026
-                      </td>
-
-                      {/* AMOUNT */}
-                      <td className="px-2 md:px-4 py-3 text-center border border-green-200 whitespace-nowrap">
-                        ₹1,450
-                      </td>
-
-                      {/* STATUS */}
-                      <td className="px-2 md:px-4 py-3 text-center border border-green-200 whitespace-nowrap">
-                        <span className="inline-block px-3 py-1 text-xs rounded-full bg-green-50 text-green-700 font-medium">
-                          Delivered
-                        </span>
-                      </td>
-
-                      {/* ACTION */}
-                      <td className="px-2 md:px-4 py-3 text-center border border-green-200 whitespace-nowrap">
-                        <Link
-                          to="#"
-                          className="text-[#2f855a] font-medium hover:underline"
-                        >
-                          View
-                        </Link>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+      <tbody className="text-gray-700">
+        <tr className="hover:bg-green-50 transition">
+          <td className="px-2 md:px-4 py-3 text-center border border-green-200 whitespace-nowrap">
+            <div className="flex items-center gap-4">
+              <img
+                src={specialproduct}
+                alt="product"
+                className="w-[60px] h-[60px] rounded-lg object-cover"
+              />
+              <div>
+                <p className="font-medium text-gray-800">
+                  Specialty Feed
+                </p>
+                {/* <p className="text-xs text-gray-500">10 kg Pack</p> */}
               </div>
             </div>
+          </td>
+
+          <td className="px-2 md:px-4 py-3 text-center border border-green-200 whitespace-nowrap">
+            #ORD-10234
+          </td>
+
+          <td className="px-2 md:px-4 py-3 text-center border border-green-200 whitespace-nowrap">
+            06 Feb 2026
+          </td>
+
+          <td className="px-2 md:px-4 py-3 text-center border border-green-200 whitespace-nowrap">
+            ₹ 1,490
+          </td>
+
+          <td className="px-2 md:px-4 py-3 text-center border border-green-200 whitespace-nowrap">
+            <span className="inline-block px-3 py-1 text-xs rounded-full bg-green-50 text-green-700 font-medium">
+              Delivered
+            </span>
+          </td>
+
+          <td className="px-2 md:px-4 py-3 text-center border border-green-200 whitespace-nowrap">
+            <Link
+              to="#"
+              className="text-[#2f855a] font-medium hover:underline"
+            >
+              View
+            </Link>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+            
           </div>
         </div>
 

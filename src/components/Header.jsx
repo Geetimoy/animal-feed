@@ -47,7 +47,7 @@ function Header() {
             </div>
 
             {/* Desktop Menu */}
-            <div className="hidden lg:flex space-x-8 absolute left-1/2 transform -translate-x-1/2">
+            <div className="hidden lg:flex space-x-6 absolute left-1/2 transform -translate-x-1/2">
               <Link
                 to="/"
                 className="nav-link text-[15px] font-normal flex items-center gap-2"
@@ -79,7 +79,7 @@ function Header() {
                       About Us
                     </Link>
                     <Link
-                      to="/#whygreengold" 
+                      to="/#whygreengold"
                       className="block px-4 py-2 text-[15px] hover:bg-gray-100 hover:text-green-600"
                     >
                       <FontAwesomeIcon
@@ -173,6 +173,7 @@ function Header() {
               >
                 <i className="ri-heart-line"></i> CSR
               </Link>
+
               <div className="relative group flex items-center">
                 <Link
                   to="/news-events"
@@ -221,6 +222,12 @@ function Header() {
 
             {/* Desktop CTA */}
             <div className="hidden lg:flex">
+              <Link
+                to="/login"
+                className="nav-link text-[15px] font-normal flex items-center mr-2 gap-1 text-[#00a34a]"
+              >
+                <i className="ri-login-box-line"></i> Login
+              </Link>
               <Link
                 to="/distributor"
                 className="w-[198px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
@@ -377,6 +384,10 @@ function Header() {
                 </div>
               )}
             </div>
+
+            <Link to="/login" onClick={() => setIsOpen(false)}>
+              Login
+            </Link>
 
             <Link
               to="/distributor"

@@ -152,7 +152,7 @@ export default function Products() {
             <img
               src={productbanner}
               alt="Contact Us Banner"
-              className="w-full md:h-[500px] h-[350px] object-cover object-top"
+              className="w-full md:h-[500px] h-[500px] object-cover object-top"
             />
             {/* Overlay Layer (81%) */}
             <div className="absolute inset-0 bg-black/[0.60]"></div>
@@ -254,10 +254,10 @@ export default function Products() {
             </aside>
 
             {/* Products Section */}
-            <div className="lg:col-span-3">
+            <div className="lg:col-span-3 ">
               {/* Search */}
               <div className="flex justify-end mb-6 md:mb-12 ">
-                <div className="relative">
+                <div className="relative w-full sm:w-72 " >
                   <FontAwesomeIcon
                     icon={faMagnifyingGlass}
                     className="absolute left-4 top-1/2 -translate-y-1/2 text-[#009a62]"

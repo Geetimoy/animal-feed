@@ -165,7 +165,7 @@ function NewsDetails() {
                       </ul>
                     </div>
                   </div>
-                  <div className="relative bg-[#f5f5f5] p-[20px] md:p-[35px] italic mt-4 md:mt-8 text-[17px] md:text-lg text-[#746a6f]">
+                  <div className="relative bg-[#f5f5f5] p-[25px] md:p-[35px] italic mt-4 md:mt-8 text-[17px] md:text-lg text-[#746a6f] text-center md:text-left">
                     "At Green Gold, we are committed to advancing animal
                     nutrition through innovation and quality. Our new cattle
                     feed formula reflects our dedication to supporting farmers

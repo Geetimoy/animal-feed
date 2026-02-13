@@ -49,7 +49,7 @@ function Nutrition(){
             <img
               src={nutritionHero}
               alt="Contact Us Banner"
-              className="w-full md:h-auto h-[350px] object-cover"
+              className="w-full md:h-auto h-[500px] object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-gray-900/60 to-transparent"></div>
             <div className="absolute inset-0  flex items-center justify-center flex-col ">
@@ -89,6 +89,12 @@ function Nutrition(){
         {/* ================= CATTLE ================= */}
 
         <section className="bg-gray-100 py-10 md:py-12 gsap-fade-in">
+          <div className="max-w-7xl mx-auto px-4 mb-4 md:hidden">
+            <h2 className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left ">
+              {" "}
+              Cattle <span className="text-[#ffa800]">Nutrition</span>{" "}
+            </h2>
+          </div>
           <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <div className="relative">
               {" "}
@@ -99,23 +105,25 @@ function Nutrition(){
               />
             </div>
             <div>
-              <h2 className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left">
+              <h2 className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left  hidden md:block">
                 {" "}
                 Cattle <span className="text-[#ffa800]">Nutrition</span>{" "}
               </h2>
 
-              <ul className="space-y-2 text-[16px] text-gray-700 mt-4 text-center md:text-left">
-                <li className="flex gap-2">
-                  <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
+              <ul className="space-y-2 text-[16px] text-gray-700 mt-4 text-left">
+              
+             
+                <li className="relative pl-7 text-gray-700 leading-relaxed">
+                  <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                     <FontAwesomeIcon
                       icon={faArrowRight}
                       className="text-white text-[10px]"
                     />
                   </span>
-                  Average milk yield increase: 10–15%
+                   Average milk yield increase: 10–15%
                 </li>
-                <li className="flex gap-2">
-                  <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
+                <li className="relative pl-7 text-gray-700 leading-relaxed">
+                  <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                     <FontAwesomeIcon
                       icon={faArrowRight}
                       className="text-white text-[10px]"
@@ -201,22 +209,32 @@ function Nutrition(){
 
         {/* ================= Poultry ================= */}
 
-        <section className="bg-white py-10  md:py-12  gsap-fade-in">
+        <section className="bg-white py-8  md:py-12  gsap-fade-in">
+          <div className="max-w-7xl mx-auto px-4 mb-4 md:hidden">
+            <h2 className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left">
+              {" "}
+              Poultry <span className="text-[#ffa800]">Nutrition</span>{" "}
+            </h2>
+
+            <p className="text-[16px] text-gray-600 mt-1 text-center md:text-left mt-2 mb-4">
+              Balanced calcium ensures strong eggshells and reduced breaka
+            </p>
+          </div>
           <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
-            <div>
-              <h2 className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left">
+            <div className="  order-2 md:order-1">
+              <h2 className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left hidden md:block">
                 {" "}
                 Poultry <span className="text-[#ffa800]">Nutrition</span>{" "}
               </h2>
 
-              <p className="text-[16px] text-gray-600 mt-1 text-center md:text-left mt-2 mb-4">
+              <p className="text-[16px] text-gray-600 mt-1 text-center md:text-left mt-2 mb-4 hidden md:block">
                 Balanced calcium ensures strong eggshells and reduced breaka
               </p>
               <div
                 className=" bg-white rounded-2xl  border border-gray-200 shadow-sm 
                  "
               >
-                <h3 className="text-[16px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4 ml-6">
+                <h3 className="text-[18px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4 ml-0 md:ml-6">
                   Broiler Feed Standards
                 </h3>
                 <div className="overflow-x-auto   ">
@@ -238,12 +256,12 @@ function Nutrition(){
                       </tr>
                     </thead>
 
-                    <tbody className="text-gray-700">
+                    <tbody className="text-gray-700  whitespace-nowrap">
                       <tr className="hover:bg-green-50 transition">
                         <td className="px-4 py-3 text-center  font-medium">
                           Starter
                         </td>
-                        <td className="px-4 py-3 text-center ">22–23%</td>
+                        <td className="px-4 py-3 text-center">22–23%</td>
                         <td className="px-4 py-3 text-center ">3000</td>
                         <td className="px-4 py-3 text-center ">1.4</td>
                       </tr>
@@ -270,7 +288,7 @@ function Nutrition(){
                 </div>
               </div>
 
-              <h3 className="text-[16px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mt-6 mb-4">
+              <h3 className=" text-[20px] md:text-[22px]  font-bold text-gray-800 leading-normal text-center md:text-left mt-6 mb-4">
                 Layer Nutrition
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-4 mt-6 ">
@@ -310,7 +328,7 @@ function Nutrition(){
               </div>
             </div>
 
-            <div className="relative">
+            <div className="relative order-1 md:order-2">
               {" "}
               <img
                 src={animal3}
@@ -323,7 +341,13 @@ function Nutrition(){
 
         {/* ================= PIG ================= */}
 
-        <section className="bg-gray-100 py-10  md:py-12  gsap-fade-in">
+        <section className="bg-gray-100 py-8  md:py-12  gsap-fade-in">
+          <div className="max-w-7xl mx-auto px-4 mb-4 md:hidden">
+            <h2 className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left mb-4 ">
+              {" "}
+              Pig <span className="text-[#ffa800]">Nutrition</span>{" "}
+            </h2>
+          </div>
           <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <div className="relative">
               {" "}
@@ -334,7 +358,7 @@ function Nutrition(){
               />
             </div>
             <div>
-              <h2 className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left mb-4">
+              <h2 className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left mb-4 hidden md:block">
                 {" "}
                 Pig <span className="text-[#ffa800]">Nutrition</span>{" "}
               </h2>
@@ -350,7 +374,7 @@ function Nutrition(){
                   />
                   
                 </h3> */}
-                <h3 className="text-[16px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4 ml-6">
+                <h3 className="text-[18px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4 ml-0 md:ml-6">
                   Pig Feed
                 </h3>
 
@@ -373,7 +397,7 @@ function Nutrition(){
                       </tr>
                     </thead>
 
-                    <tbody className="text-gray-700">
+                    <tbody className="text-gray-700  whitespace-nowrap">
                       <tr className="hover:bg-green-50 transition">
                         <td className="px-4 py-3 text-center  font-medium">
                           Starter
@@ -411,22 +435,32 @@ function Nutrition(){
         </section>
 
         {/* ================= FISH ================= */}
-        <section className="bg-white py-10  md:py-12  gsap-fade-in">
+        <section className="bg-white py-8  md:py-12  gsap-fade-in">
+          <div className="max-w-7xl mx-auto px-4 ">
+            <h2 className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left md:hidden ">
+              {" "}
+              Fish <span className="text-[#ffa800]">Nutrition</span>{" "}
+            </h2>
+
+            <p className="text-[16px]  text-gray-600 mt-1 text-center md:text-left mt-2 mb-4 md:hidden ">
+              Reduce feed wastage improves water quality and survival rate.
+            </p>
+          </div>
           <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
-            <div>
-              <h2 className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left">
+            <div className="  order-2 md:order-1">
+              <h2 className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left hidden md:block">
                 {" "}
                 Fish <span className="text-[#ffa800]">Nutrition</span>{" "}
               </h2>
 
-              <p className="text-[16px] text-gray-600 mt-1 text-center md:text-left mt-2 mb-4">
+              <p className="text-[16px]  text-gray-600 mt-1 text-center md:text-left mt-2 mb-4 hidden md:block">
                 Reduce feed wastage improves water quality and survival rate.
               </p>
 
-              <h3 className=" text-[18px] md:text-[22px] font-bold text-gray-800 leading-normal text-center md:text-left mt-6 mb-4">
+              <h3 className=" text-[20px] md:text-[22px] font-bold text-gray-800 leading-normal text-center md:text-left mt-0  md:mt-6 mb-4">
                 Feed Composition
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-4 mt-6 ">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-4  mt-2  md:mt-6  ">
                 <div className="bg-white rounded-2xl  p-2 md:p-4 border border-gray-100 shadow-sm">
                   <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center mx-auto leading-[40px]  mb-4 ">
                     <FontAwesomeIcon icon={faDumbbell} />
@@ -463,7 +497,7 @@ function Nutrition(){
               </div>
             </div>
 
-            <div className="relative">
+            <div className="relative order-1 md:order-2">
               {" "}
               <img
                 src={animal4}
@@ -474,17 +508,17 @@ function Nutrition(){
           </div>
         </section>
 
-        <section className="w-full bg-gray-100 py-10 md:py-12">
+        <section className="w-full bg-gray-100 py-8 md:py-12">
           <div className="max-w-7xl mx-auto px-4">
             {/* Heading */}
-            <h2 className="text-[24px] md:text-5xl font-semibold text-gray-800 text-center mb-4 md:mb-8">
+            <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center mb-4 md:mb-8">
               Why GGAF <span className="text-[#ffa800]">Nutrition Works</span>
             </h2>
 
             {/* Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5  gap-4 md:gap-8">
               {/* Card 1 */}
-              <div className="bg-white p-6 rounded-lg shadow text-center hover:shadow-lg transition">
+              <div className="bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-lg transition">
                 <FontAwesomeIcon
                   icon={faFlask}
                   className="text-4xl text-[#009a62] mb-4 mx-auto"
@@ -499,7 +533,7 @@ function Nutrition(){
               </div>
 
               {/* Card 2 */}
-              <div className="bg-white p-6 rounded-lg shadow text-center hover:shadow-lg transition">
+              <div className="bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-lg transition">
                 <FontAwesomeIcon
                   icon={faGaugeHigh}
                   className="text-4xl text-[#009a62] mb-4 mx-auto"
@@ -511,7 +545,7 @@ function Nutrition(){
               </div>
 
               {/* Card 3 */}
-              <div className="bg-white p-6 rounded-lg shadow text-center hover:shadow-lg transition">
+              <div className="bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-lg transition">
                 <FontAwesomeIcon
                   icon={faRecycle}
                   className="text-4xl text-[#009a62] mb-4 mx-auto"
@@ -524,7 +558,7 @@ function Nutrition(){
               </div>
 
               {/* Card 4 */}
-              <div className="bg-white p-6 rounded-lg shadow text-center hover:shadow-lg transition">
+              <div className="bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-lg transition">
                 <FontAwesomeIcon
                   icon={faBolt}
                   className="text-4xl text-[#009a62] mb-4 mx-auto"

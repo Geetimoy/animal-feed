@@ -25,7 +25,10 @@ export default function ResetPassword() {
           bg-white/35
           backdrop-blur-[20px]
           rounded-2xl
-          shadow-[0_20px_60px_rgba(0,0,0,0.15)]
+          backdrop-blur-2xl
+          rounded-[32px]
+          border border-white/30
+          shadow-[0_30px_80px_rgba(0,0,0,0.18)]
           px-6 py-8
         "
       >

@@ -57,10 +57,10 @@ function FeedType(){
             <img
               src={feedbanner}
               alt="Contact Us Banner"
-              className="w-full md:h-[500px] h-[350px] object-cover"
+              className="w-full md:h-[500px] h-[500px] object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-gray-900/60 to-transparent"></div>
-            <div className="absolute inset-0  flex items-center justify-center flex-col ">
+            <div className="absolute inset-0  flex items-center justify-center flex-col px-4">
               <h1 className="text-white text-4xl md:text-6xl font-bold max-w-6xl px-4">
                 Types of <span className="text-[#ffa800]">Feeds</span>
               </h1>
@@ -95,23 +95,23 @@ function FeedType(){
         </section>
 
         {/* ================= CATTLE ================= */}
-        <section className="py-10 md:py-12 bg-gray-100">
+        <section className="py-8 md:py-12 bg-gray-100">
           <div className="text-center  mb-6">
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center ">
               Cattle <span className="text-[#ffa800]">Feed</span>
             </h2>
           </div>
-          <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 items-center gap-4 md:gap-12">
+          <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 items-center gap-8 md:gap-12">
             <img
               src={animal1}
-              className="block w-full h-[280px]  md:h-[350px] object-cover"
+              className="block w-full h-[280px] rounded-2xl md:h-[350px] object-cover"
               alt=""
             />
 
-            <div className="space-y-3">
+            <div className="space-y-8">
               <div
                 className="relative w-full h-auto bg-white rounded-2xl p-8 space-y-5
-                      shadow-[0_15px_40px_rgba(0,0,0,0.15)] z-30"
+                      shadow-sm z-30"
               >
                 <h3 className="text-[22px] md:text-[24px] font-bold text-gray-800">
                   Cattle Concentrate Feed
@@ -161,7 +161,7 @@ function FeedType(){
               </div>
               <div
                 className="relative w-full h-auto bg-white rounded-2xl p-8 space-y-5
-                       shadow-[0_15px_40px_rgba(0,0,0,0.15)] z-30"
+                       shadow-sm z-30"
               >
                 <h3 className="text-[22px] md:text-[24px] font-bold text-gray-800">
                   Calf Starter Feed
@@ -210,7 +210,7 @@ function FeedType(){
             </div>
           </div>
           {/* Feeding Schedule */}
-          <div className=" mt-14 max-w-7xl mx-auto px-4 ">
+          <div className="mt-8 md:mt-14 max-w-7xl mx-auto px-4 ">
             <h3 className="text-2xl font-semibold text-gray-800 flex items-center gap-3 mb-6 text-center justify-center">
               {/* <FontAwesomeIcon icon={faClipboardList} /> */}
               Cattle Feeding Schedule
@@ -219,7 +219,7 @@ function FeedType(){
               <div>
                 {/* Calves */}
                 <div className=" bg-white rounded-2xl  border border-gray-200 shadow-sm ">
-                  <h4 className="text-[16px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4 ml-6 ">
+                  <h4 className="text-[16px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4 ml-0 md:ml-6 ">
                     {/* <FontAwesomeIcon icon={faCow} /> */}
                     Calves (0–6 Months)
                   </h4>
@@ -273,11 +273,11 @@ function FeedType(){
               {/* Growing Cattle */}
               <div>
                 <div className=" bg-white rounded-2xl  border border-gray-200 shadow-sm ">
-                  <h4 className="text-[16px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4 ml-6">
+                  <h4 className="text-[16px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4  ml-0 md:ml-6">
                     {/* <FontAwesomeIcon icon={faCow} /> */}
                     Growing Cattle (6–24 Months)
                   </h4>
-                  <div className="overflow-x-auto   ">
+                  <div className="overflow-x-auto   hidden md:block ">
                     <table className="w-full border-collapse">
                       <thead className="bg-green-100 ">
                         <tr>
@@ -300,7 +300,7 @@ function FeedType(){
 
                         {/* Row 2 - Green Fodder */}
                         <tr
-                          className={`hover:bg-green-50 transition ${!showAll ? "relative" : ""}`}
+                          className={`hover:bg-green-50 transition  ${!showAll ? "relative" : ""}`}
                         >
                           <td className="px-4 py-3 text-center">
                             Green Fodder
@@ -385,6 +385,78 @@ function FeedType(){
                       </tbody> */}
                     </table>
                   </div>
+
+                  <div className="overflow-x-auto    md:hidden ">
+                    <table className="w-full border-collapse">
+                      <thead className="bg-green-100 ">
+                        <tr>
+                          <th className="px-4 py-3 text-center text-sm md:text-base font-semibold ">
+                            Feed Type
+                          </th>
+
+                          <th className="px-4 py-3 text-center text-sm md:text-base font-semibold ">
+                            Quantity / Day
+                          </th>
+                        </tr>
+                      </thead>
+
+                      <tbody className="text-gray-700">
+                        {/* Row 1 */}
+                        <tr className="hover:bg-green-50 transition">
+                          <td className="px-4 py-3 text-center">Cattle Feed</td>
+                          <td className="px-4 py-3 text-center">2 – 3 kg</td>
+                        </tr>
+
+                        {/* Row 2 - Green Fodder */}
+                        <tr className="hover:bg-green-50 transition">
+                          <td className="px-4 py-3 text-center">
+                            Green Fodder
+                          </td>
+                          <td className="px-4 py-3 text-center">10–15 kg</td>
+                        </tr>
+
+                        {/* Row */}
+
+                        <tr className="hover:bg-green-50 transition">
+                          <td className="px-4 py-3 text-center">Dry Fodder</td>
+                          <td className="px-4 py-3 text-center">4–5 kg</td>
+                        </tr>
+                      </tbody>
+
+                      {/* <tbody className="text-gray-700">
+                        <tr className="hover:bg-green-50 transition">
+                          <td className="px-4 py-3 text-center  whitespace-nowrap">
+                            Cattle Feed
+                          </td>
+                          <td className="px-4 py-3 text-center  whitespace-nowrap">
+                            2 – 3 kg
+                          </td>
+                        </tr>
+                        
+
+                        <tr className="hover:bg-green-50 transition relative">
+                          <td className="px-4 py-3 text-center  whitespace-nowrap">
+                            Green Fodder
+                          </td>
+                          
+                          <td className="px-4 py-3 text-center  whitespace-nowrap ">
+                            10–15 kg
+                          </td>
+                        </tr>
+
+                        {showAll && (
+                          <tr className="hover:bg-green-50 transition">
+                            <td className="px-4 py-3 text-center  whitespace-nowrap">
+                              Dry Fodder
+                            </td>
+                            <td className="px-4 py-3 text-center  whitespace-nowrap">
+                              4–5 kg
+                            </td>
+                          </tr>
+                        )}
+                      </tbody> */}
+                    </table>
+                  </div>
                 </div>
 
                 {/* <div className="flex justify-center py-3 ">
@@ -413,8 +485,8 @@ function FeedType(){
         </section>
 
         {/* ================= Poultry ================= */}
-        <section className="py-10 md:py-12">
-          <div className="text-center  mb-6">
+        <section className="py-8 md:py-12">
+          <div className="text-center  mb-6 px-4">
             {/* <h2 className="text-3xl md:text-5xl font-semibold text-green-800 flex items-center justify-center gap-3">
                 Feed
               </h2> */}
@@ -427,9 +499,9 @@ function FeedType(){
             </p>
           </div>
 
-          <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 items-stretch gap-4 md:gap-6">
+          <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 items-stretch gap-6">
             {/* card-1 */}
-            <div className="relative w-full h-full bg-white rounded-2xl p-8 shadow-md z-30 flex flex-col">
+            <div className="relative w-full h-full bg-white rounded-2xl p-8 shadow-sm z-30 flex flex-col">
               <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center leading-[40px] mb-4">
                 <FontAwesomeIcon icon={faDrumstickBite} />
               </span>
@@ -460,39 +532,9 @@ function FeedType(){
               </ul>
             </div>
 
-            {/* card-2 */}
-            {/* <div className="relative w-full h-full bg-white rounded-2xl p-8 shadow-md z-30 flex flex-col">
-              <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center mx-auto leading-[40px] mb-4">
-                <FontAwesomeIcon icon={faShieldVirus} />
-              </span>
+       
 
-              <h2 className="text-lg font-bold text-gray-900 mb-2 text-center min-h-[48px] flex items-center justify-center">
-                Broiler Grower Feed
-              </h2>
-
-              <ul className="space-y-3 text-sm text-gray-700">
-                <li className="relative pl-7 text-gray-700 leading-relaxed">
-                  <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
-                    <FontAwesomeIcon
-                      icon={faArrowRight}
-                      className="text-white text-[10px]"
-                    />
-                  </span>
-                  Protein: 20–21%
-                </li>
-                <li className="relative pl-7 text-gray-700 leading-relaxed">
-                  <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
-                    <FontAwesomeIcon
-                      icon={faArrowRight}
-                      className="text-white text-[10px]"
-                    />
-                  </span>
-                  Balanced growth and muscle development
-                </li>
-              </ul>
-            </div> */}
-
-            <div className="relative w-full h-full bg-white rounded-2xl p-8 shadow-md z-30 flex flex-col">
+            <div className="relative w-full h-full bg-white rounded-2xl p-8 shadow-sm z-30 flex flex-col">
               <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center  leading-[40px] mb-4">
                 <FontAwesomeIcon icon={faShieldVirus} />
               </span>
@@ -524,7 +566,7 @@ function FeedType(){
             </div>
 
             {/* card-3 */}
-            <div className="relative w-full h-full bg-white rounded-2xl p-8 shadow-md z-30 flex flex-col">
+            <div className="relative w-full h-full bg-white rounded-2xl p-8 shadow-sm z-30 flex flex-col">
               <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center  leading-[40px] mb-4">
                 <FontAwesomeIcon icon={faEgg} />
               </span>
@@ -556,7 +598,7 @@ function FeedType(){
             </div>
 
             {/* card-4 */}
-            <div className="relative w-full h-full bg-white rounded-2xl p-8 shadow-md z-30 flex flex-col">
+            <div className="relative w-full h-full bg-white rounded-2xl p-8 shadow-sm z-30 flex flex-col">
               <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center  leading-[40px] mb-4">
                 <FontAwesomeIcon icon={faDumbbell} />
               </span>
@@ -598,8 +640,8 @@ function FeedType(){
           </div>
 
           {/* Feeding Schedule */}
-          <div className="mt-14 max-w-7xl mx-auto px-4 ">
-            <h3 className="text-2xl font-semibold text-gray-800 flex items-center gap-3 mb-6 text-center justify-center">
+          <div className="mt-8 md:mt-14 max-w-7xl mx-auto px-4 ">
+            <h3 className="text-2xl font-semibold text-gray-800 flex items-center gap-3 mb-4 md:mb-6 text-center justify-center">
               {/* <FontAwesomeIcon icon={faClipboardList} /> */}
               Poultry Feeding Schedule
             </h3>
@@ -741,7 +783,7 @@ function FeedType(){
 
         {/* ================= PIG ================= */}
 
-        <section className="py-10 md:py-12 bg-gray-100">
+        <section className="py-8 md:py-12 bg-gray-100">
           <div className="text-center mb-6">
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center ">
               Pig <span className="text-[#ffa800]">Feed</span>
@@ -755,13 +797,14 @@ function FeedType(){
 
           <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 items-stretch gap-4 md:gap-6">
             {/* card-1 */}
-            <div className="relative w-full h-full bg-white rounded-2xl p-8 shadow-[0_15px_40px_rgba(0,0,0,0.15)] z-30 flex flex-col">
-              <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center mx-auto leading-[40px] mb-4">
+
+            <div className="relative w-full h-full bg-white rounded-2xl p-8 shadow-sm z-30 flex flex-col">
+              <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center  leading-[40px] mb-4">
                 <FontAwesomeIcon icon={faPiggyBank} />
               </span>
 
-              <h2 className="text-lg font-bold text-gray-900 mb-2 text-center min-h-[48px] flex items-center justify-center">
-                Pig Starter Feed
+              <h2 className="text-lg font-bold text-gray-900 mb-2 text-center min-h-[48px] flex items-center ">
+               Pig Starter Feed
               </h2>
 
               <ul className="space-y-3 text-sm text-gray-700">
@@ -772,8 +815,8 @@ function FeedType(){
                       className="text-white text-[10px]"
                     />
                   </span>
-                  Protein: 20-22%
-                </li>
+                 Protein: 20-22%
+                </li>{" "}
                 <li className="relative pl-7 text-gray-700 leading-relaxed">
                   <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                     <FontAwesomeIcon
@@ -781,19 +824,23 @@ function FeedType(){
                       className="text-white text-[10px]"
                     />
                   </span>
-                  Improves early growth and gut health
-                </li>
+                Improves early growth and gut health
+                </li>{" "}
+              
               </ul>
             </div>
 
+          
+
             {/* card-2 */}
-            <div className="relative w-full h-full bg-white rounded-2xl p-8 shadow-[0_15px_40px_rgba(0,0,0,0.15)] z-30 flex flex-col">
-              <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center mx-auto leading-[40px] mb-4">
+
+             <div className="relative w-full h-full bg-white rounded-2xl p-8 shadow-sm z-30 flex flex-col">
+              <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center  leading-[40px] mb-4">
                 <FontAwesomeIcon icon={faDrumstickBite} />
               </span>
 
-              <h2 className="text-lg font-bold text-gray-900 mb-2 text-center min-h-[48px] flex items-center justify-center">
-                Pig Grower Feed
+              <h2 className="text-lg font-bold text-gray-900 mb-2 text-center min-h-[48px] flex items-center ">
+               Pig Grower Feed
               </h2>
 
               <ul className="space-y-3 text-sm text-gray-700">
@@ -805,7 +852,7 @@ function FeedType(){
                     />
                   </span>
                   Protein: 18-20%
-                </li>
+                </li>{" "}
                 <li className="relative pl-7 text-gray-700 leading-relaxed">
                   <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                     <FontAwesomeIcon
@@ -813,18 +860,22 @@ function FeedType(){
                       className="text-white text-[10px]"
                     />
                   </span>
-                  Faster weight gain with better feed conversion
-                </li>
+               Faster weight gain with better feed conversion
+                </li>{" "}
+              
               </ul>
             </div>
+          
 
             {/* card-3 */}
-            <div className="relative w-full h-full bg-white rounded-2xl p-8 shadow-[0_15px_40px_rgba(0,0,0,0.15)] z-30 flex flex-col">
-              <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center mx-auto leading-[40px] mb-4">
+
+            
+             <div className="relative w-full h-full bg-white rounded-2xl p-8 shadow-sm z-30 flex flex-col">
+              <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center  leading-[40px] mb-4">
                 <FontAwesomeIcon icon={faShieldVirus} />
               </span>
 
-              <h2 className="text-lg font-bold text-gray-900 mb-2 text-center min-h-[48px] flex items-center justify-center">
+              <h2 className="text-lg font-bold text-gray-900 mb-2 text-center min-h-[48px] flex items-center ">
                 Pig Finisher Feed
               </h2>
 
@@ -837,7 +888,7 @@ function FeedType(){
                     />
                   </span>
                   Protein: 16-18%
-                </li>
+                </li>{" "}
                 <li className="relative pl-7 text-gray-700 leading-relaxed">
                   <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                     <FontAwesomeIcon
@@ -845,15 +896,17 @@ function FeedType(){
                       className="text-white text-[10px]"
                     />
                   </span>
-                  Cost-effective finishing and improved carcass quality
-                </li>
+               Cost-effective finishing and improved carcass quality
+                </li>{" "}
+              
               </ul>
             </div>
+          
           </div>
 
           {/* Feeding Schedule */}
 
-          <div className="mt-14 max-w-7xl mx-auto px-4">
+          <div className="mt-8 md:mt-14 max-w-7xl mx-auto px-4">
             <h3 className="text-2xl font-semibold text-gray-800 flex items-center gap-3 mb-6 text-center justify-center">
               Pig Feeding Schedule
             </h3>
@@ -939,7 +992,7 @@ function FeedType(){
         </section>
 
         {/* ================= FISH ================= */}
-        <section className="py-10 md:py-12">
+        <section className="py-8 md:py-12">
           <div className="text-center  mb-6">
             {/* <h2 className="text-3xl md:text-5xl font-semibold text-green-800 flex items-center justify-center gap-3">
                 Feed
@@ -949,12 +1002,12 @@ function FeedType(){
               Fish <span className="text-[#ffa800]">Feed</span>
             </h2>
           </div>
-          <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 items-center gap-4 md:gap-12">
+          <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 items-center gap-8 md:gap-12">
             <div className="  order-2 md:order-1">
-              <div className="space-y-3">
+              <div className="space-y-8">
                 <div
                   className="relative w-full h-auto bg-white rounded-2xl p-8 space-y-5
-                     shadow-[0_15px_40px_rgba(0,0,0,0.15)] z-30"
+                     shadow-sm z-30"
                 >
                   <h3 className="text-[22px] md:text-[24px] font-bold text-gray-800">
                     Floating Fish Feed
@@ -992,7 +1045,7 @@ function FeedType(){
                 </div>
                 <div
                   className="relative w-full h-auto bg-white rounded-2xl p-8 space-y-5
-                     shadow-[0_15px_40px_rgba(0,0,0,0.15)] z-30"
+                     shadow-sm z-30"
                 >
                   <h3 className="text-[22px] md:text-[24px] font-bold text-gray-800">
                     Sinking Fish Feed

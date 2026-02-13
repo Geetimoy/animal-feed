@@ -60,7 +60,7 @@ function ResearchDevelopment() {
           </div>
         </section>
 
-         <section className="py-10 md:py-12 bg-gray-100">
+        <section className="py-10 md:py-12 bg-gray-100">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center">
               In-House Laboratory{" "}
@@ -151,8 +151,8 @@ function ResearchDevelopment() {
                   Using nutritional research and performance data, our R&D team:
                 </h5>
                 <ul className="text-gray-600">
-                  <li className="mb-2 flex items-center gap-2">
-                    <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
+                  <li className="relative pl-7 text-gray-700 leading-relaxed">
+                    <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                       <FontAwesomeIcon
                         icon={faArrowRight}
                         className="text-white text-[10px]"
@@ -160,11 +160,9 @@ function ResearchDevelopment() {
                     </span>
                     Designs species- and stage-specific feed formulations
                   </li>
-                  <li className="mb-2 flex items-center gap-2">
-                    <span
-                      className="flex items-center justify-center 
-                  w-[18px] h-[18px] bg-green-600 rounded-full"
-                    >
+
+                  <li className="relative pl-7 text-gray-700 leading-relaxed">
+                    <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                       <FontAwesomeIcon
                         icon={faArrowRight}
                         className="text-white text-[10px]"
@@ -172,11 +170,8 @@ function ResearchDevelopment() {
                     </span>
                     Optimizes Feed Conversion Ratio (FCR) and digestibility
                   </li>
-                  <li className="mb-2 flex items-center gap-2">
-                    <span
-                      className="flex items-center justify-center 
-                  w-[18px] h-[18px] bg-green-600 rounded-full"
-                    >
+                  <li className="relative pl-7 text-gray-700 leading-relaxed">
+                    <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                       <FontAwesomeIcon
                         icon={faArrowRight}
                         className="text-white text-[10px]"
@@ -185,11 +180,8 @@ function ResearchDevelopment() {
                     Balances nutrients to support growth, immunity,
                     reproduction, and productivity
                   </li>
-                  <li className="mb-2 flex items-center gap-2">
-                    <span
-                      className="flex items-center justify-center 
-                  w-[18px] h-[18px] bg-green-600 rounded-full"
-                    >
+                  <li className="relative pl-7 text-gray-700 leading-relaxed">
+                    <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                       <FontAwesomeIcon
                         icon={faArrowRight}
                         className="text-white text-[10px]"
@@ -197,11 +189,8 @@ function ResearchDevelopment() {
                     </span>
                     Continuously refines formulations based on field feedback
                   </li>
-                  <li className="mb-2 flex items-center gap-2">
-                    <span
-                      className="flex items-center justify-center 
-                  w-[18px] h-[18px] bg-green-600 rounded-full"
-                    >
+                  <li className="relative pl-7 text-gray-700 leading-relaxed">
+                    <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                       <FontAwesomeIcon
                         icon={faArrowRight}
                         className="text-white text-[10px]"
@@ -220,8 +209,8 @@ function ResearchDevelopment() {
                   Every batch produced at GGAF undergoes:
                 </h5>
                 <ul className="text-gray-600">
-                  <li className="mb-2 flex items-center gap-2">
-                    <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
+                  <li className="relative pl-7 text-gray-700 leading-relaxed">
+                    <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                       <FontAwesomeIcon
                         icon={faArrowRight}
                         className="text-white text-[10px]"
@@ -229,11 +218,8 @@ function ResearchDevelopment() {
                     </span>
                     Routine laboratory testing
                   </li>
-                  <li className="mb-2 flex items-center gap-2">
-                    <span
-                      className="flex items-center justify-center 
-                  w-[18px] h-[18px] bg-green-600 rounded-full"
-                    >
+                  <li className="relative pl-7 text-gray-700 leading-relaxed">
+                    <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                       <FontAwesomeIcon
                         icon={faArrowRight}
                         className="text-white text-[10px]"
@@ -241,11 +227,8 @@ function ResearchDevelopment() {
                     </span>
                     Ingredient validation before use
                   </li>
-                  <li className="mb-2 flex items-center gap-2">
-                    <span
-                      className="flex items-center justify-center 
-                  w-[18px] h-[18px] bg-green-600 rounded-full"
-                    >
+                  <li className="relative pl-7 text-gray-700 leading-relaxed">
+                    <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                       <FontAwesomeIcon
                         icon={faArrowRight}
                         className="text-white text-[10px]"
@@ -253,6 +236,7 @@ function ResearchDevelopment() {
                     </span>
                     Performance evaluation under practical farm conditions
                   </li>
+                 
                 </ul>
               </div>
             </div>
