@@ -24,7 +24,7 @@ function Quality(){
               Our <span className="text-[#ffa800]">Quality</span>
             </h1>
             <p className="text-white text-[16px] md:text-xl text-center">
-              Our commitment to making a positive impact on society and the environment.
+              Fueling Growth Through Better Nutrition
             </p>
             <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
                 <Link
