@@ -34,7 +34,9 @@ export default function SignUp() {
              
             "
           >
-            <img src={logo} alt="logo" className="w-[120px] h-[120px] mb-5" />
+            <Link to="/">
+              <img src={logo} alt="logo" className="w-[120px] h-[120px]" />
+            </Link>
 
             <h2 className="text-3xl font-semibold text-white mb-3">
               Create Account

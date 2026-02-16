@@ -39,11 +39,11 @@ function Header() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between w-full">
             {/* Logo */}
             <div className="flex-shrink-0 flex items-center justify-center bg-white rounded-full lg:h-[156px] lg:w-[156px] md:h-[120px] md:w-[120px] h-[100px] w-[100px] lg:mt-10 mt-0 relative z-50">
-              <img
+             <Link to="/"> <img
                 src={logo}
                 alt="Logo"
                 className="lg:h-[127px] lg:w-[130px] h-[100px] w-[100px]"
-              />
+              /></Link>
             </div>
 
             {/* Desktop Menu */}
@@ -221,6 +221,7 @@ function Header() {
             </div>
 
             {/* Desktop CTA */}
+           
             <div className="hidden lg:flex">
               <Link
                 to="/login"
@@ -239,12 +240,21 @@ function Header() {
             </div>
 
             {/* Mobile Hamburger */}
-            <button
+            <div className="lg:hidden flex">
+              <Link
+                to="/login"
+                className="nav-link text-[15px] font-normal flex items-center mr-2 gap-1 text-[#00a34a]"
+              >
+                <i className="ri-login-box-line"></i> Login
+              </Link>
+                <button
               onClick={() => setIsOpen(true)}
-              className="lg:hidden text-[22px]"
+              className="text-[22px]"
             >
               <FontAwesomeIcon icon={faBars} />
             </button>
+            </div>
+            
           </div>
         </nav>
 

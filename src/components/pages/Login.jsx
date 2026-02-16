@@ -29,8 +29,10 @@ export default function Login() {
         "
       >
         {/* logo */}
-        <div className="flex justify-center mb-2">
-          <img src={logo} alt="logo" className="w-[100px] h-[100px]" />
+        <div className="flex justify-center mb-2 mt-4 md:mt-0">
+          <Link to="/">
+            <img src={logo} alt="logo" className="w-[100px] h-[100px]" />
+          </Link>
         </div>
 
         <h2 className="text-2xl font-semibold text-center text-white">

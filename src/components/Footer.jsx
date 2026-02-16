@@ -230,6 +230,13 @@ function Footer(){
             </ul>
           </div>
         </div>
+        <div>
+          <hr className="border-gray-800" />
+          <p className="text-center text-gray-500 text-sm py-4">
+            &copy; {new Date().getFullYear()} Green Gold Feeds. All rights
+            reserved. <span>| Designed &amp; Developed By <Link href="https://www.neonatetechnologies.com/" target="_blank" className="text-[#727272] hover:text-white">Neonate Technologies</Link></span>
+          </p>
+        </div>
       </footer>
     </>
   );
