@@ -2,6 +2,7 @@ import Footer from "../Footer";
 import Header from "../Header";
 
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft, faPhone } from "@fortawesome/free-solid-svg-icons";
@@ -43,6 +44,48 @@ import 'swiper/css/pagination';
 import './custom.css';
 import CertificateSlider from "./CertificateSlider";
 
+// Animation variants
+const fadeIn = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.8 } }
+};
+
+const slideInLeft = {
+    hidden: { x: -100, opacity: 0 },
+    visible: { x: 0, opacity: 1, transition: { duration: 0.8, ease: "easeOut" } }
+};
+
+const slideInRight = {
+    hidden: { x: 100, opacity: 0 },
+    visible: { x: 0, opacity: 1, transition: { duration: 0.8, ease: "easeOut" } }
+};
+
+const slideInUp = {
+    hidden: { y: 100, opacity: 0 },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: "easeOut" } }
+};
+
+const scaleIn = {
+    hidden: { scale: 0.8, opacity: 0 },
+    visible: { scale: 1, opacity: 1, transition: { duration: 0.6, ease: "easeOut" } }
+};
+
+const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.2,
+            delayChildren: 0.3
+        }
+    }
+};
+
+const itemVariant = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.5 } }
+};
+
 function Home(){
 
   const [activeTab, setActiveTab] = useState("tab1");
@@ -66,12 +109,24 @@ function Home(){
   return (
     <>
       <Header></Header>
-      <main className="pt-16 overflow-x-hidden">
+      <main className="pt-16">
         {/* <!-- Hero Section --> */}
-        <section className="relative z-0">
+        
+
+        
+        <motion.section
+                    className="relative z-0"
+                    initial="hidden"
+                    animate="visible"
+                    variants={fadeIn}
+                >
           <div className="grid grid-cols-4 md:h-[700px] h-[350px] w-full">
             {/* <!-- Banner Item 1 --> */}
-            <div className="relative">
+            <motion.div
+                                        className="relative"
+                                        variants={slideInLeft}
+                                        custom={1}
+                                    >
               <img src={banner1} className="w-full h-full object-cover" />
 
               {/* Overlay Layer (81%) */}
@@ -83,10 +138,14 @@ function Home(){
                 </h3>
                 <p className="text-white  text-[16px] md:text-[28px] ">FEED</p>
               </div>
-            </div>
+            </motion.div>
 
             {/* <!-- Banner Item 2 --> */}
-            <div className="relative">
+            <motion.div
+                                        className="relative"
+                                        variants={slideInLeft}
+                                        custom={2}
+                                    >
               <img src={banner2} className="w-full h-full object-cover" />
 
               {/* <!-- Overlay Layer (81%) --> */}
@@ -98,10 +157,14 @@ function Home(){
                 </h3>
                 <p className="text-white  text-[16px] md:text-[28px] ">FEED</p>
               </div>
-            </div>
+            </motion.div>
 
             {/* <!-- Banner Item 3 --> */}
-            <div className="relative">
+            <motion.div
+                                        className="relative"
+                                        variants={slideInLeft}
+                                        custom={3}
+                                    >
               <img src={banner3} className="w-full h-full object-cover" />
 
               {/* <!-- Overlay Layer (81%) --> */}
@@ -112,10 +175,14 @@ function Home(){
                 </h3>
                 <p className="text-white  text-[16px] md:text-[28px] ">FEED</p>
               </div>
-            </div>
+            </motion.div>
 
             {/* <!-- Banner Item 4 --> */}
-            <div className="relative">
+            <motion.div
+                                        className="relative"
+                                        variants={slideInLeft}
+                                        custom={4}
+                                    >
               <img src={banner4} className="w-full h-full object-cover" />
 
               {/* <!-- Overlay Layer (81%) --> */}
@@ -126,15 +193,11 @@ function Home(){
                 </h3>
                 <p className="text-white  text-[16px] md:text-[28px] ">FEED</p>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Quote Form Container */}
-          <div
-            className="relative lg:absolute mt-4 md:mt-0 lg:-bottom-[80px] left-0 lg:left-1/2 lg:-translate-x-1/2
-      z-[999]  gsap-fade-in "
-            data-delay="1"
-          >
+          <motion.div className="relative lg:absolute mt-4 md:mt-0 lg:-bottom-[80px] left-0 lg:left-1/2 lg:-translate-x-1/2 z-[999]" initial={{ y: 100, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8, delay: 1 }} >
             <div className="flex justify-center">
               {/* Card */}
               <div className="grid grid-cols-1 md:grid-cols-12 rounded-2xl overflow-hidden max-w-4xl w-full">
@@ -167,15 +230,18 @@ function Home(){
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-
+          </motion.div>
+        </motion.section>
+       
         {/* About Section */}
         <section className="w-full py-10 md:py-12 md:mt-12">
           <div className="max-w-7xl mx-auto px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center justify-center">
               {/* <!-- LEFT SIDE --> */}
-              <div className="space-y-5 ">
+              <motion.div className="space-y-5" initial="hidden"
+                                    whileInView="visible"
+                                    viewport={{ once: true, amount: 0.3 }}
+                                    variants={slideInUp}>
                 {/* <!-- Heading --> */}
                 <div className="mb-[0px] md:mb-[0px]   gsap-slide-in-left">
                   <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center md:text-left">
@@ -319,13 +385,13 @@ function Home(){
                     </button>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </section>
 
         {/* Why Choose Us Section */}
-        <section
+        <motion.section
           id="whygreengold"
           className="relative py-8 md:py-20 overflow-visible  gsap-fade-in scroll-mt-[100px]"
           style={{
@@ -333,6 +399,10 @@ function Home(){
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
+          initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    variants={fadeIn}
         >
           {/* <!-- overlay --> */}
           <div className="absolute inset-0 bg-black/60 pointer-events-none z-0"></div>
@@ -340,7 +410,10 @@ function Home(){
           <div className="relative z-10 max-w-7xl mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-12 items-center">
               {/* LEFT */}
-              <div className="lg:col-span-1 relative z-20  text-center md:text-left">
+              <motion.div className="lg:col-span-1 relative z-20  text-center md:text-left" initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
+                            variants={slideInUp}>
                 <h2 className="text-3xl md:text-5xl font-semibold text-white leanding-normal md:leading-snug">
                   Why Choose <br className="hidden md:block" />
                   <span className="text-yellow-400">Green Gold</span>
@@ -377,7 +450,7 @@ function Home(){
                     <FontAwesomeIcon icon={faArrowRight} />
                   </button>
                 </div>
-              </div>
+              </motion.div>
 
               {/* RIGHT : SLIDER */}
               <div className="lg:col-span-2">
@@ -539,59 +612,47 @@ function Home(){
             </div>
           </div>
 
-          <div className="hidden lg:block absolute  lg:-bottom-[130px] md:left-1/2 lg:-translate-x-1/2 px-3 sm:px-0 ">
-            <div className="w-full py-10">
-              <div className="max-w-6xl mx-auto flex flex-wrap justify-center gap-6">
-                {/* Circle 1 */}
-                <div className="w-36 h-36 2xl:w-40 2xl:h-40 rounded-full bg-emerald-300 flex flex-col items-center justify-center text-center shadow-md ring-2 ring-white">
-                  <span className="text-3xl font-bold text-black">25+</span>{" "}
-                  <span className="text-sm font-medium text-black leading-tight">
-                    {" "}
-                    Years
-                    <br />
-                    Experience{" "}
-                  </span>
-                </div>
-                {/* Circle 2 */}
-                <div className="w-36 h-36 2xl:w-40 2xl:h-40 rounded-full bg-yellow-400 flex flex-col items-center justify-center text-center shadow-md ring-2 ring-white">
-                  <span className="text-3xl font-bold text-black">500+</span>{" "}
-                  <span className="text-sm font-medium text-black leading-tight">
-                    {" "}
-                    Our
-                    <br />
-                    Products{" "}
-                  </span>
-                </div>
-                {/* Circle 3 */}
-                <div className="w-36 h-36 2xl:w-40 2xl:h-40 rounded-full bg-emerald-300 flex flex-col items-center justify-center text-center shadow-md ring-2 ring-white">
-                  <span className="text-3xl font-bold text-black">98%</span>{" "}
-                  <span className="text-sm font-medium text-black leading-tight">
-                    {" "}
-                    Farmer
-                    <br />
-                    Satisfaction{" "}
-                  </span>
-                </div>
-                {/* Circle 4 */}
-                <div className="w-36 h-36 2xl:w-40 2xl:h-40 rounded-full bg-yellow-400 flex flex-col items-center justify-center text-center shadow-md ring-2 ring-white">
-                  <span className="text-3xl font-bold text-black">50+</span>{" "}
-                  <span className="text-sm font-medium text-black leading-tight">
-                    {" "}
-                    Quality
-                    <br />
-                    Checks{" "}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+          <motion.div
+                        className="hidden lg:block absolute lg:-bottom-[120px] md:left-1/2 lg:-translate-x-1/2 px-3 sm:px-0"
+                        initial={{ y: 50, opacity: 0 }}
+                        whileInView={{ y: 0, opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.3 }}
+                    >
+                        <div className="w-full py-10">
+                            <div className="max-w-6xl mx-auto flex flex-wrap justify-center gap-6">
+                                {[
+                                    { number: "25+", text: "Years\nExperience" },
+                                    { number: "500+", text: "Our\nProducts" },
+                                    { number: "98%", text: "Farmer\nSatisfaction" },
+                                    { number: "50+", text: "Quality\nChecks" }
+                                ].map((item, index) => (
+                                    <motion.div
+                                        key={index}
+                                        className={`w-36 h-36 2xl:w-40 2xl:h-40 rounded-full flex flex-col items-center justify-center text-center shadow-md ring-2 ring-white ${index % 2 === 0 ? "bg-emerald-300" : "bg-yellow-400"
+                                            }`}
+                                        initial={{ scale: 0 }}
+                                        whileInView={{ scale: 1 }}
+                                        viewport={{ once: true }}
+                                        transition={{ type: "spring", stiffness: 200, delay: index * 0.1 }}
+                                        whileHover={{ scale: 1.1, rotate: 5 }}
+                                    >
+                                        <span className="text-3xl font-bold text-black">{item.number}</span>
+                                        <span className="text-sm font-medium text-black leading-tight whitespace-pre-line">
+                                            {item.text}
+                                        </span>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </div>
+                    </motion.div>
+        </motion.section>
 
         <div className="relative lg:hidden">
           <div className="w-full py-4">
             <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4  gap-2  justify-items-center text-center">
               {/* Circle 1 */}
-              <div className="w-36 h-36 2xl:w-40 2xl:h-40 rounded-full bg-emerald-300 flex flex-col items-center justify-center text-center shadow-md ring-2 ring-white">
+              <motion.div className="w-36 h-36 2xl:w-40 2xl:h-40 rounded-full bg-emerald-300 flex flex-col items-center justify-center text-center shadow-md ring-2 ring-white">
                 <span className="text-3xl font-bold text-black">25+</span>{" "}
                 <span className="text-sm font-medium text-black leading-tight">
                   {" "}
@@ -599,7 +660,7 @@ function Home(){
                   <br />
                   Experience{" "}
                 </span>
-              </div>
+              </motion.div>
               {/* Circle 2 */}
               <div className="w-36 h-36 2xl:w-40 2xl:h-40 rounded-full bg-yellow-400 flex flex-col items-center justify-center text-center shadow-md ring-2 ring-white">
                 <span className="text-3xl font-bold text-black">500+</span>{" "}
@@ -638,20 +699,25 @@ function Home(){
         <section className="w-full bg-white py-6 md:py-12 pt-0 lg:pt-20 mt-0 md:mt-8">
           <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-10 items-center">
             {/* <!-- LEFT : IMAGE CARDS --> */}
-            <div className="grid grid-cols-2 gap-2 md:gap-4 gsap-slide-in-left">
+            <motion.div className="grid grid-cols-2 gap-2 md:gap-4" initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.2 }}
+                            variants={staggerContainer}>
               {/* IMAGE 1 */}
-              <div className="place-self-start">
+              <motion.div className="place-self-start" variants={itemVariant}>
                 <div className="relative inline-block overflow-hidden">
-                  <img
+                  <motion.img
                     src={animal1}
                     className="block w-[280px] h-[280px] rounded-2xl  object-cover"
-                    alt=""
+                    alt="" whileHover={{ scale: 1.1 }}
+                                            transition={{ duration: 0.3 }}
                   />
-                  <div
+                  <motion.div
                     className="absolute inset-0 bg-black/60
                   opacity-0 hover:opacity-100
                   transition-opacity duration-300
-                  flex flex-col items-center justify-center"
+                  flex flex-col items-center justify-center" initial={{ opacity: 0 }}
+                                            whileHover={{ opacity: 1 }}
                   >
                     <h3 className="text-white text-xl font-semibold">
                       CATTLE <br /> Feed
@@ -669,23 +735,25 @@ function Home(){
                         />
                       </Link>
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* IMAGE 2 */}
-              <div className="place-self-start">
+              <motion.div className="place-self-start" variants={itemVariant}>
                 <div className="relative inline-block overflow-hidden">
-                  <img
+                  <motion.img
                     src={animal2}
                     className="block w-[280px] h-[280px] object-cover rounded-2xl "
-                    alt=""
+                    alt="" whileHover={{ scale: 1.1 }}
+                                            transition={{ duration: 0.3 }}
                   />
-                  <div
+                  <motion.div
                     className="absolute inset-0 bg-black/60
                   opacity-0 hover:opacity-100
                   transition-opacity duration-300
-                  flex flex-col items-center justify-center"
+                  flex flex-col items-center justify-center" initial={{ opacity: 0 }}
+                                            whileHover={{ opacity: 1 }}
                   >
                     <h3 className="text-white text-lg font-semibold ">
                       PIG <br /> FEED
@@ -702,23 +770,25 @@ function Home(){
                         />
                       </Link>
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* IMAGE 3 */}
-              <div className="place-self-start">
+              <motion.div className="place-self-start" variants={itemVariant}>
                 <div className="relative inline-block overflow-hidden">
-                  <img
+                  <motion.img
                     src={animal3}
                     className="block w-[280px] h-[280px]  rounded-2xl object-cover"
-                    alt=""
+                    alt="" whileHover={{ scale: 1.1 }}
+                                            transition={{ duration: 0.3 }}
                   />
-                  <div
+                  <motion.div
                     className="absolute inset-0 bg-black/60
                   opacity-0 hover:opacity-100
                   transition-opacity duration-300
-                  flex flex-col items-center justify-center"
+                  flex flex-col items-center justify-center" initial={{ opacity: 0 }}
+                                            whileHover={{ opacity: 1 }}
                   >
                     <h3 className="text-white text-lg font-semibold">
                       POULTRY <br /> FEED
@@ -735,23 +805,26 @@ function Home(){
                         />
                       </Link>
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* IMAGE 4 */}
-              <div className="place-self-start">
+              <motion.div className="place-self-start" variants={itemVariant}>
                 <div className="relative inline-block overflow-hidden">
-                  <img
+                  <motion.img
                     src={animal4}
                     className="block w-[280px] h-[280px]  rounded-2xl object-cover"
-                    alt=""
+                    alt="" whileHover={{ scale: 1.1 }}
+                                            transition={{ duration: 0.3 }}
                   />
-                  <div
+                  <motion.div
                     className="absolute inset-0 bg-black/60
                   opacity-0 hover:opacity-100
                   transition-opacity duration-300
                   flex flex-col items-center justify-center"
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
                   >
                     <h3 className="text-white text-lg font-semibold">
                       FISH <br /> FEED
@@ -768,13 +841,16 @@ function Home(){
                         />
                       </Link>
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
             {/* RIGHT : TEXT CONTENT */}
-            <div className="text-center   max-w-md mx-auto lg:mx-0 gsap-slide-in-right">
+            <motion.div className="text-center max-w-md mx-auto lg:mx-0 gsap-slide-in-right" initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
+                            variants={slideInUp}>
               <h2 className="text-3xl lg:text-5xl font-semibold text-gray-800">
                 Animals <br className="hidden md:block" />{" "}
                 <span className="text-[#ffa800]">Nutrition</span>
@@ -783,7 +859,7 @@ function Home(){
                 High quality animal nutrition solutions designed to improve
                 health, productivity and overall performance.
               </p>
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -800,7 +876,9 @@ function Home(){
           {/* <!-- Content wrapper --> */}
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-12 ">
             {/* <!-- Heading --> */}
-            <div className="text-center max-w-3xl mx-auto mb-6 md:mb-14 ">
+            <motion.div className="text-center max-w-3xl mx-auto mb-6 md:mb-14" initial="hidden"
+                                    whileInView="visible"
+                                    viewport={{ once: true, amount: 0.3 }} variants={slideInUp}>
               <h2 className="text-3xl sm:text-5xl font-semibold text-white">
                 Our Unwavering{" "}
                 <span className="text-yellow-400">Commitment</span>
@@ -809,12 +887,13 @@ function Home(){
                 Quality is our foundation. Every product reflects our dedication
                 to excellence, safety, and sustainable agriculture.
               </p>
-            </div>
+            </motion.div>
 
             {/* Main grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
               {/* LEFT CONTENT */}
-              <div className="text-white max-w-lg  ">
+              <motion.div className="text-white max-w-lg"  initial="hidden" whileInView="visible"
+                                    viewport={{ once: true, amount: 0.5 }} variants={slideInUp}>
                 <h3 className="text-3xl md:text-5xl font-light mb-4 text-center md:text-left">
                   Our{" "}
                   <span className="text-[#ffa800] font-normal">Promise</span>
@@ -854,10 +933,12 @@ function Home(){
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* RIGHT CARD */}
-              <div className="w-full max-w-xl">
+              <motion.div className="w-full max-w-xl" initial="hidden"
+                                    whileInView="visible"
+                                    viewport={{ once: true, amount: 0.5 }} variants={slideInUp}>
                 {/* Tabs */}
                 <div className="flex">
                   <button
@@ -987,7 +1068,7 @@ function Home(){
                     </div>
                   )}
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </section>
@@ -995,15 +1076,17 @@ function Home(){
         {/* Research & Development */}
         <section className="bg-white py-10 md:py-12  gsap-fade-in">
           <div className="max-w-5xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
-            <div className="relative">
+            <motion.div className="relative" initial="hidden"
+                                    whileInView="visible"
+                                    viewport={{ once: true, amount: 0.5 }} variants={slideInUp}>
               {" "}
               <img
                 src={research}
                 alt="Research and Development"
                 className="rounded-2xl w-full h-[300px] md:h-[500px] object-cover "
               />
-            </div>
-            <div>
+            </motion.div>
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} variants={slideInUp}>
               <h2 className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left">
                 {" "}
                 Research & <br className="hidden md:block" />{" "}
@@ -1027,7 +1110,7 @@ function Home(){
               >
                 Explore Our R&amp;D{" "}
               </Link>
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -1039,7 +1122,9 @@ function Home(){
           {/* Dark overlay */}
           <div className="absolute inset-0 bg-black/80"></div>
           {/* Content */}
-          <div className="relative z-10 max-w-5xl mx-auto px-4 md:px-6 text-center">
+          <motion.div className="relative z-10 max-w-5xl mx-auto px-4 md:px-6 text-center" initial="hidden"
+                                    whileInView="visible"
+                                    viewport={{ once: true, amount: 0.3 }} variants={slideInUp}>
             {/* Heading */}
             <h2 className="text-3xl md:text-5xl font-semibold tracking-wide text-white">
               Nationwide
@@ -1082,12 +1167,14 @@ function Home(){
               <span>Assam</span>
               <span>Uttar Pradesh</span>
             </div>
-          </div>
+          </motion.div>
         </section>
 
         {/* News & Event */}
         <section className="py-10 md:py-12 bg-white">
-          <div className="max-w-7xl mx-auto px-4">
+          <motion.div className="max-w-7xl mx-auto px-4" initial="hidden"
+                                    whileInView="visible"
+                                    viewport={{ once: true, amount: 0.3 }} variants={slideInUp}>
             {/* Header */}
             <div className="flex items-center justify-between mb-8 md:mb-12">
               <div>
@@ -1380,7 +1467,7 @@ function Home(){
                 </SwiperSlide>
               </Swiper>
             </div>
-          </div>
+          </motion.div>
         </section>
 
         <CertificateSlider></CertificateSlider>

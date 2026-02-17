@@ -3,6 +3,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { Fancybox } from "@fancyapps/ui";
 import "./custom.css";
+import { motion } from "framer-motion";
+
 import certificate1  from "../../assets/images/certificate1.png";
 import certificate2 from "../../assets/images/certificate2.png";
 import certificate3 from "../../assets/images/certificate3.png";
@@ -51,6 +53,11 @@ const certificates = [
   },
 ];
 
+const slideInUp = {
+    hidden: { y: 100, opacity: 0 },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: "easeOut" } }
+};
+
 export default function CertificateSlider() {
   useEffect(() => {
     Fancybox.bind("[data-fancybox='certificate-gallery']", {
@@ -75,7 +82,9 @@ export default function CertificateSlider() {
 
   return (
     <section className="py-10 md:py-12 bg-gray-100">
-      <div className="max-w-7xl mx-auto">
+      <motion.div className="max-w-7xl mx-auto" initial="hidden"
+                                    whileInView="visible"
+                                    viewport={{ once: true, amount: 0.3 }} variants={slideInUp}>
         <h2 className="text-3xl md:text-5xl font-semibold text-gray-900 text-center mb-10">
           Our <span className="text-yellow-500"> Certifications</span>
         </h2>
@@ -138,7 +147,7 @@ export default function CertificateSlider() {
             <FontAwesomeIcon icon={faArrowRight} />
           </button>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

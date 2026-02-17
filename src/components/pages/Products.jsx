@@ -19,6 +19,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Fancybox } from "@fancyapps/ui";
 import productbanner  from "../../assets/images/product-banner.jpeg";
+import { useNavigate } from "react-router-dom";
+import Quality from "./Quality";
 
 
 const products = [
@@ -69,6 +71,8 @@ export default function Products() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [maxPrice, setMaxPrice] = useState(3000); 
 
+ 
+
     useEffect(() => {
       Fancybox.bind("[data-fancybox='product-gallery']", {
         Image: {
@@ -103,9 +107,29 @@ export default function Products() {
     return matchSearch && matchCategory && matchPrice;
   });
 
+   const navigate = useNavigate();
+   const handleAddtoCart = (product) => {
+    const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+    const productExists = existingCart.find((item) => item.id === product.id )
+    let updatedCart;
+
+    if(productExists) {
+      updatedCart = existingCart.map((item) => item.id === product.id ? {...item, quantity: item.quantity + 1} : item  )
+    } else {
+      updatedCart = [
+        ...existingCart, {...product, quantity: 1},
+      ]
+    }
+
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+    navigate("/cart")
+
+   }
+
   return (
     <>
-      <Header />
+      <Header showLogout={true} />
       <main className="pt-16 overflow-x-hidden">
         {/* <section className="relative z-0">
           <div className="relative">
@@ -164,7 +188,7 @@ export default function Products() {
             </div> */}
             <div className="absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-4xl px-4 md:px-6  w-full">
               <h1 className="text-[#fff] text-4xl md:text-6xl font-bold text-center mb-4 md:mb-6">
-                Quality Feed <span className="text-[#ffa800]">  Solution</span>
+                Quality Feed <span className="text-[#ffa800]"> Solution</span>
               </h1>
               <p className="text-white text-[16px] md:text-xl text-center">
                 Empowering livestock productivity with scientifically balanced
@@ -257,7 +281,7 @@ export default function Products() {
             <div className="lg:col-span-3 ">
               {/* Search */}
               <div className="flex justify-end mb-6 md:mb-12 ">
-                <div className="relative w-full sm:w-72 " >
+                <div className="relative w-full sm:w-72 ">
                   <FontAwesomeIcon
                     icon={faMagnifyingGlass}
                     className="absolute left-4 top-1/2 -translate-y-1/2 text-[#009a62]"
@@ -312,6 +336,7 @@ export default function Products() {
                         </span>
                       </p>
                       <button
+                        onClick={() => handleAddtoCart(product)}
                         type="button"
                         className="mt-4 w-full bg-yellow-500 text-white
                                py-3 rounded-xl font-medium cursor-pointer hover:bg-yellow-400  text-[16px]"

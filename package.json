@@ -17,8 +17,10 @@
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
     "@fortawesome/react-fontawesome": "^3.1.1",
     "@tailwindcss/vite": "^4.1.18",
+    "motion": "^12.34.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-helmet": "^6.1.0",
     "react-router-dom": "^7.12.0",
     "swiper": "^12.0.3",
     "tailwindcss": "^4.1.18"
