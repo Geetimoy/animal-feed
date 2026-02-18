@@ -28,6 +28,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faNutritionix } from "@fortawesome/free-brands-svg-icons";
 import { Link, useLocation } from "react-router-dom";
+import AnimalFeedStory from "./AnimalFeedStory";
 
 // Animation variants
 const fadeIn = {
@@ -305,7 +306,7 @@ function AboutUs02() {
                 </motion.section>
 
                 {/* Animal Feed Story Section */}
-                <motion.section
+                {/* <motion.section
                     className="scroll-mt-[100px]"
                     id="ourstory"
                     initial="hidden"
@@ -454,7 +455,9 @@ function AboutUs02() {
                             </motion.div>
                         </div>
                     </div>
-                </motion.section>
+                </motion.section> */}
+
+                <AnimalFeedStory />
 
                 {/* Board of Directors */}
                 <motion.section
