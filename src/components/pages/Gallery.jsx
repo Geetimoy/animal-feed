@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Footer from "../Footer";
 import Header from "../Header";
 
@@ -37,6 +37,36 @@ const images =
 
 function Gallery() {
   const [selectedImg, setSelectedImg] = useState(null);
+
+  const videos = [
+    {
+      id: 1,
+      title: "Video 1",
+      src: "https://www.w3schools.com/html/mov_bbb.mp4",
+    },
+    {
+      id: 2,
+      title: "Video 2",
+      src: "https://www.w3schools.com/html/movie.mp4",
+    },
+    {
+      id: 3,
+      title: "Video 3",
+      src: "https://www.w3schools.com/html/mov_bbb.mp4",
+    },
+  ];
+
+  const [selectedVideo, setSelectedVideo] = useState(videos[0]);
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.load();
+      videoRef.current.play().catch((err) => {
+        console.log("Autoplay prevented:", err);
+      });
+    }
+  }, [selectedVideo]);
 
   return (
     <>
@@ -335,6 +365,80 @@ function Gallery() {
                 </video>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* New Video Gallery Section - Optional */}
+        <section className="pt-4 py-10 md:py-12">
+          <div className="container mx-auto px-4">
+             <h2 className="text-3xl md:text-5xl font-semibold mb-4 md:mb-8 text-center text-gray-800">
+              Video <span className="text-[#ffa800]">Gallery</span>
+            </h2>
+            <p className="mt-4 md:mt-6 text-gray-600 leading-normal md:leading-relaxed text-[16px] md:text-[18px] text-center">
+            These videos showcase our
+              state-of-the-art manufacturing processes, quality control
+              measures, and the positive impact our feed has on livestock health
+              and productivity. Experience firsthand how we prioritize
+              nutrition, safety, and excellence at every step, ensuring optimal
+              growth and performance for animals worldwide.
+            </p>
+
+            <div className="flex flex-col md:flex-row gap-6 max-w-6xl mx-auto p-6">
+      
+      {/* Left Panel - Real Video Thumbnails */}
+      <div className="md:w-1/4 w-full max-h-[400px] overflow-y-auto space-y-4">
+        {videos.map((video) => (
+          <div
+            key={video.id}
+            onClick={() => setSelectedVideo(video)}
+            className={`relative cursor-pointer rounded-lg overflow-hidden border-2 transition-all duration-300 
+              ${
+                selectedVideo.id === video.id
+                  ? "border-blue-600"
+                  : "border-gray-200 hover:border-blue-400"
+              }`}
+          >
+            {/* Video Thumbnail */}
+            {/* <video
+              src={video.src}
+              muted
+              className="w-full h-32 object-cover"
+            /> */}
+            <video
+  src={video.src}
+  muted
+  preload="auto"
+  playsInline
+  className="w-full h-32 object-cover"
+/>
+
+            {/* Play Overlay */}
+            <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+              <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                ▶
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Right Panel - Main Video */}
+      <div className="md:w-3/4 w-full">
+        <div className="rounded-xl overflow-hidden shadow-lg">
+          <video
+            ref={videoRef}
+            controls
+            className="w-full h-[400px] object-cover"
+          >
+            <source src={selectedVideo.src} type="video/mp4" />
+          </video>
+        </div>
+
+        {/* <h3 className="mt-4 text-xl font-semibold text-gray-800">
+          {selectedVideo.title}
+        </h3> */}
+      </div>
+    </div>
           </div>
         </section>
       </main>
