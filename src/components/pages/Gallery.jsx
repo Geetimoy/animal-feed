@@ -17,10 +17,7 @@ import featuredImg2 from "../../assets/images/featured-img2.jpg";
 import featuredImg3 from "../../assets/images/featured-img3.jpg";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faLocationDot,
-  faMagnifyingGlass,
-} from "@fortawesome/free-solid-svg-icons";
+import { faLocationDot, faMagnifyingGlass, faInfo } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 const images = 
@@ -58,6 +55,7 @@ function Gallery() {
 
   const [selectedVideo, setSelectedVideo] = useState(videos[0]);
   const videoRef = useRef(null);
+  const [showInfo, setShowInfo] = useState(false);
 
   useEffect(() => {
     if (videoRef.current) {
@@ -66,6 +64,7 @@ function Gallery() {
         console.log("Autoplay prevented:", err);
       });
     }
+    setShowInfo(false); // Hide info when video changes
   }, [selectedVideo]);
 
   return (
@@ -424,7 +423,7 @@ function Gallery() {
 
       {/* Right Panel - Main Video */}
       <div className="md:w-3/4 w-full">
-        <div className="rounded-xl overflow-hidden shadow-lg">
+        <div className="rounded-xl overflow-hidden shadow-lg relative">
           <video
             ref={videoRef}
             controls
@@ -432,6 +431,21 @@ function Gallery() {
           >
             <source src={selectedVideo.src} type="video/mp4" />
           </video>
+          {/* Info Button */}
+          <button
+            onClick={() => setShowInfo(!showInfo)}
+            className="absolute top-4 right-4 bg-white/80 backdrop-blur-sm hover:bg-white text-gray-800 w-8 h-8 rounded-full flex items-center justify-center shadow-md transition cursor-pointer">
+           <FontAwesomeIcon icon={faInfo} />
+          </button>
+           {/* Info Panel */}
+          <div className={`absolute bottom-0 left-0 w-full bg-black/70 text-white p-4 transition-all duration-300 ${showInfo ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"} `}>
+            <h3 className="text-lg font-semibold">
+              {selectedVideo.title}
+            </h3>
+            <p className="text-sm mt-2">
+              Experience firsthand how we prioritize nutrition, safety, and excellence at every step, ensuring optimal growth and performance for animals worldwide.
+            </p>
+          </div>
         </div>
 
         {/* <h3 className="mt-4 text-xl font-semibold text-gray-800">
