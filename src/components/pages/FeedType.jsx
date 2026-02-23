@@ -42,6 +42,7 @@ import {
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { Link } from "react-router-dom";
 import nutritionHero from "../../assets/images/nutrition-banner.png";
+import { Helmet } from "react-helmet";
 
 function FeedType(){
 
@@ -49,6 +50,9 @@ function FeedType(){
 
   return (
     <>
+      <Helmet>
+        <title>Feed Types -  Animal Feed</title>
+      </Helmet>
       <Header></Header>
       <main className="pt-16 overflow-x-hidden">
         {/* Hero Section */}

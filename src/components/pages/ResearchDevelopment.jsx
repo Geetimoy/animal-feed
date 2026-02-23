@@ -11,6 +11,7 @@ import { faLocationDot, faMagnifyingGlass, faArrowRight, faLightbulb, faMedal, f
 import { faResearchgate } from "@fortawesome/free-brands-svg-icons";
 import { faFedora } from "@fortawesome/free-brands-svg-icons";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 // Animation variants
 const fadeIn = {
@@ -57,6 +58,9 @@ const itemVariant = {
 function ResearchDevelopment() {
   return (
     <>
+      <Helmet>
+        <title>Research & Development -  Animal Feed</title>
+      </Helmet>
       <Header></Header>
       <main className="pt-16 overflow-hidden">
 

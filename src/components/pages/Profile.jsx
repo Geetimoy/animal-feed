@@ -7,6 +7,8 @@ import Header from "../Header";
 import Footer from "../Footer";
 import contactBaner from "../../assets/images/contact-banner.jpg";
 
+import { Helmet } from "react-helmet";
+
 export default function Profile() {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
@@ -104,6 +106,9 @@ export default function Profile() {
 
   return (
     <>
+      <Helmet>
+        <title>Profile -  Animal Feed</title>
+      </Helmet>
       <Header />
       <main className="pt-16 overflow-x-hidden">
         <section className="relative z-0">

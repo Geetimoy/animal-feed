@@ -22,6 +22,8 @@ import productbanner  from "../../assets/images/product-banner.jpeg";
 import { useNavigate } from "react-router-dom";
 import Quality from "./Quality";
 
+import { Helmet } from "react-helmet";
+
 
 const products = [
   {
@@ -129,6 +131,9 @@ export default function Products() {
 
   return (
     <>
+      <Helmet>
+        <title>Products -  Animal Feed</title>
+      </Helmet>
       <Header showLogout={true} />
       <main className="pt-16 overflow-x-hidden">
         {/* <section className="relative z-0">

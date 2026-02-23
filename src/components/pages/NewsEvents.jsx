@@ -17,6 +17,8 @@ import event2 from '../../assets/images/event2.jpg';
 
 import { Link } from 'react-router-dom';
 
+import { Helmet } from "react-helmet";
+
 function NewsEvents() {
 
   const [news, setNews] = useState([]); // All news
@@ -38,6 +40,9 @@ function NewsEvents() {
 
   return (
     <>
+      <Helmet>
+        <title>News & Events -  Animal Feed</title>
+      </Helmet>
       <Header></Header>
       <main className="pt-16 overflow-hidden">
         <section className="relative z-0">

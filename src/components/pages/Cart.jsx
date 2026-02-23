@@ -17,7 +17,7 @@ faMagnifyingGlass
 
 
 } from "@fortawesome/free-solid-svg-icons";
-
+import { Helmet } from "react-helmet";
 
 
 export default function Cart() {
@@ -64,6 +64,9 @@ export default function Cart() {
 
   return (
     <>
+      <Helmet>
+        <title>Cart -  Animal Feed</title>
+      </Helmet>
       <Header showLogout={true} />
 
       <main className="pt-16 overflow-x-hidden">
@@ -113,7 +116,7 @@ export default function Cart() {
           </div>
         </section>
         <div className="max-w-7xl mx-auto px-4 py-12 relative z-20">
-          <h2 className="text-4xl font-semibold text-center mb-12">
+          <h2 className="text-3xl md:text-5xl font-semibold text-center mb-12">
             Your <span className="text-[#ffa800]">Cart</span>
           </h2>
 
@@ -134,13 +137,13 @@ export default function Cart() {
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div className="grid grid-cols-1 md:grid-cols-3  gap-6 md:gap-12">
               {/* LEFT SIDE - CART ITEMS */}
               <div className="md:col-span-2 space-y-8">
                 {cartItems.map((item) => (
                   <div
                     key={item.id}
-                    className="bg-white rounded-xl shadow-md p-4 md:p-8 relative"
+                    className="bg-white rounded-xl shadow-md p-6 md:p-8 relative"
                   >
                     <button
                       onClick={() => removeItem(item.id)}
@@ -154,7 +157,7 @@ export default function Cart() {
                       <FontAwesomeIcon icon={faXmark} />
                     </button>
 
-                    <div className="flex flex-col md:flex-row gap-12 items-center">
+                    <div className="flex flex-col md:flex-row gap-6 md:gap-12 items-center mt-6 md:mt-0">
                       {/* Image */}
                       <img
                         src={item.image}
@@ -164,12 +167,12 @@ export default function Cart() {
 
                       {/* Info */}
                       <div className="flex-1 text-center md:text-left">
-                        <h3 className="text-[18px] md:text-[20px] font-semibold text-gray-800 mb-2">
+                        <h3 className="text-[20px] font-semibold text-gray-800 mb-2">
                           {item.name}
                         </h3>
 
                         {/* Unit Price */}
-                        <p className="text-gray-600 text-[16px]  mb-4 font-bold">
+                        <p className="text-gray-600 text-[16px]  mb-4 font-medium">
                           <FontAwesomeIcon icon={faIndianRupeeSign} />
                           {item.price.toFixed(2)}
                         </p>
@@ -178,8 +181,8 @@ export default function Cart() {
                         <div className="flex items-center justify-center md:justify-start  mb-4">
                           <button
                             onClick={() => updateQuantity(item.id, "dec")}
-                            className="w-8 h-8   bg-gradient-to-r from-[#00a34a] to-[#009a62]
-                                       text-white rounded-md text-md cursor-pointer"
+                            className=" px-2 bg-gradient-to-r from-[#00a34a] to-[#009a62]
+                                       text-white rounded-md cursor-pointer"
                           >
                             <FontAwesomeIcon
                               icon={faMinus}
@@ -192,18 +195,18 @@ export default function Cart() {
                           </span> */}
                           <span
                             className="inline-flex items-center justify-center
-                 min-w-[40px] h-8
+                 px-6 
                  border-t border-b border-gray-300
                  rounded-md
-                 text-lg font-medium"
+                 text-md font-normal"
                           >
                             {item.quantity}
                           </span>
 
                           <button
                             onClick={() => updateQuantity(item.id, "inc")}
-                            className="w-8 h-8   bg-gradient-to-r from-[#00a34a] to-[#009a62] cursor-pointer
-                                       text-white rounded-md"
+                            className=" px-2  bg-gradient-to-r from-[#00a34a] to-[#009a62]
+                                       text-white rounded-md cursor-pointer"
                           >
                             <FontAwesomeIcon
                               icon={faPlus}
@@ -213,9 +216,9 @@ export default function Cart() {
                         </div>
 
                         {/* Total */}
-                        <p className="text-[18px] font-semibold text-gray-800">
+                        <p className="text-[18px]  text-gray-800">
                           Total: <FontAwesomeIcon icon={faIndianRupeeSign} />
-                          <span className="font-bold">
+                          <span className="font-semibold">
                             {(item.price * item.quantity).toFixed(2)}
                           </span>
                         </p>
@@ -225,7 +228,7 @@ export default function Cart() {
                 ))}
 
                 {/* Continue Shopping */}
-                <div>
+                <div className="hidden md:block">
                   <button
                     onClick={() => navigate("/products")}
                     className="  bg-yellow-500 text-white
@@ -243,9 +246,9 @@ export default function Cart() {
                   Order Summary
                 </h3>
 
-                <div className="flex justify-between mb-4 text-[20px] font-semibold text-gray-800">
+                <div className="flex justify-between mb-4 text-[20px]  text-gray-800">
                   <span>Subtotal:</span>
-                  <span className="font-bold">
+                  <span className="font-semibold">
                     <FontAwesomeIcon icon={faIndianRupeeSign} />
                     {subtotal.toFixed(2)}
                   </span>
@@ -262,6 +265,18 @@ export default function Cart() {
                              hover:opacity-90 transition"
                 >
                   Proceed to Checkout
+                </button>
+              </div>
+
+              {/* Continue Shopping */}
+              <div className=" md:hidden">
+                <button
+                  onClick={() => navigate("/products")}
+                  className=" w-full bg-yellow-500 text-white
+                               py-3 rounded-xl font-medium cursor-pointer hover:bg-yellow-400  text-[16px] px-8
+                               hover:opacity-90 transition"
+                >
+                  Continue Shopping
                 </button>
               </div>
             </div>

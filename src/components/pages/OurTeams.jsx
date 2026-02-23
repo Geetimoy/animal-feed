@@ -9,9 +9,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faMagnifyingGlass, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
+import { Helmet } from "react-helmet";
+
+
 function OurTeams(){
   return(
     <>
+    <Helmet>
+      <title>Our Teams -  Animal Feed</title>
+    </Helmet>
     <Header></Header>
     <main className="pt-16 overflow-hidden">
       <section className="relative z-0">

@@ -44,6 +44,8 @@ import 'swiper/css/pagination';
 import './custom.css';
 import CertificateSlider from "./CertificateSlider";
 
+import { Helmet } from "react-helmet";
+
 // Animation variants
 const fadeIn = {
     hidden: { opacity: 0 },
@@ -108,6 +110,9 @@ function Home(){
 
   return (
     <>
+      <Helmet>
+        <title>Home -  Animal Feed</title>
+      </Helmet>
       <Header></Header>
       <main className="pt-16">
         {/* <!-- Hero Section --> */}

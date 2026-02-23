@@ -7,13 +7,16 @@ import distributorBanner from '../../assets/images/distributor-banner.jpg';
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faLocationDot, faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
-
+import { Helmet } from "react-helmet";
 
 
 
 function Distributor() {
   return (
     <>
+    <Helmet>
+        <title>Distributor -  Animal Feed</title>
+      </Helmet>
       <Header></Header>
       <main className="pt-16 overflow-hidden">
         <section className="relative z-0">

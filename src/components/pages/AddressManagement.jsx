@@ -7,6 +7,8 @@ import Header from "../Header";
 import Footer from "../Footer";
 import contactBaner from '../../assets/images/contact-banner.jpg';
 
+import { Helmet } from "react-helmet";
+
 export default function AddressManagement() {
   const location = useLocation();
   const { pathname } = useLocation();
@@ -100,6 +102,9 @@ export default function AddressManagement() {
 
   return (
     <>
+      <Helmet>
+        <title>Address Management -  Animal Feed</title>
+      </Helmet>
       <Header />
 
       <main className="pt-16 overflow-x-hidden">

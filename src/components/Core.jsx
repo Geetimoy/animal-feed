@@ -16,12 +16,15 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import ForgotPassword from "./pages/ForgotPassword";
 import Products from "./pages/Products";
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
 import Profile from "./pages/Profile";
 import ResetPassword from "./pages/ResetPassword";
 import MyOrder from "./pages/MyOrder";
 import AddressManagement from "./pages/AddressManagement";
 import Csr from "./pages/Csr";
 import Quality from "./pages/Quality";
+import Logout from "./pages/Logout";
 
 
 export default function Core() {
@@ -48,10 +51,13 @@ export default function Core() {
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/my-orders" element={<MyOrder />} />
           <Route path="/address-management" element={<AddressManagement />} />
           <Route path="/quality" element={<Quality />} />
           <Route path="/csr" element={<Csr />} />
+          <Route path="/logout" element={<Logout />} />
         </Routes>
       </BrowserRouter>
    

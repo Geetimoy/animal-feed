@@ -30,6 +30,8 @@ import { faNutritionix } from "@fortawesome/free-brands-svg-icons";
 import { Link, useLocation } from "react-router-dom";
 import AnimalFeedStory from "./AnimalFeedStory";
 
+import { Helmet } from "react-helmet";
+
 // Animation variants
 const fadeIn = {
     hidden: { opacity: 0 },
@@ -89,6 +91,9 @@ function AboutUs02() {
 
     return (
         <>
+            <Helmet>
+                <title>About Us -  Animal Feed</title>
+            </Helmet>
             <Header />
             <main className="pt-16 overflow-hidden">
                 {/* Hero Section */}

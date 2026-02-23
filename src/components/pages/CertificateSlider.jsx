@@ -85,9 +85,22 @@ export default function CertificateSlider() {
       <motion.div className="max-w-7xl mx-auto" initial="hidden"
                                     whileInView="visible"
                                     viewport={{ once: true, amount: 0.3 }} variants={slideInUp}>
-        <h2 className="text-3xl md:text-5xl font-semibold text-gray-900 text-center mb-10">
+        {/* <h2 className="text-3xl md:text-5xl font-semibold text-gray-900 text-center mb-10">
           Our <span className="text-yellow-500"> Certifications</span>
-        </h2>
+        </h2> */}
+        {/* <!-- Heading --> */}
+        <motion.div className="text-center max-w-3xl mx-auto mb-6 md:mb-14" initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }} variants={slideInUp}>
+          <h2 className="text-3xl sm:text-5xl font-semibold text-gray-900">
+            Our{" "}
+            <span className="text-yellow-400">Certifications</span>
+          </h2>
+          <p className="mt-4 text-gray-600 text-[16px] sm:text-[18px]">
+            Our animal feed products are developed with certified quality standards to ensure safe,
+            nutritious, and reliable feed for healthier livestock and improved farm performance.
+          </p>
+        </motion.div>
 
         <Swiper
           className="certificate-swiper"

@@ -6,10 +6,14 @@ import csrBanner from '../../assets/images/csr-banner.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 function Csr(){
   return(
     <>
+    <Helmet>
+        <title>Corporate Social Responsibility -  Animal Feed</title>
+    </Helmet>
     <Header></Header>
       <main className="pt-16">
       <section className="relative z-0">

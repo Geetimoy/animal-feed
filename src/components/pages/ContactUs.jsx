@@ -7,9 +7,14 @@ import { faArrowRight, faLocationDot, faEnvelope, faClock, faMagnifyingGlass } f
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { Link } from "react-router-dom";
 
+import { Helmet } from "react-helmet";
+
 function ContactUs(){
   return (
     <>
+      <Helmet>
+        <title>Contact Us -  Animal Feed</title>
+      </Helmet>
       <Header></Header>
       <main className="pt-16 overflow-x-hidden">
         <section className="relative z-0">

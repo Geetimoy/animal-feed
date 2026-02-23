@@ -20,6 +20,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faMagnifyingGlass, faInfo } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
+import { Helmet } from "react-helmet";
+
 const images = 
   // "./src/assets/images/gallery1.jpg",
   // "./src/assets/images/gallery2.jpg",
@@ -69,6 +71,9 @@ function Gallery() {
 
   return (
     <>
+      <Helmet>
+        <title>Gallery -  Animal Feed</title>
+      </Helmet>
       <Header></Header>
       <main className="pt-16 overflow-hidden">
         <section className="relative z-0">
@@ -320,7 +325,7 @@ function Gallery() {
         </section>
 
         {/* Video Gallery */}
-        <section className="pt-4 py-10 md:py-12">
+        {/* <section className="pt-4 py-10 md:py-12">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-5xl font-semibold mb-4 md:mb-8 text-center text-gray-800">
               Video <span className="text-[#ffa800]">Gallery</span>
@@ -335,7 +340,7 @@ function Gallery() {
               growth and performance for animals worldwide.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 mt-8">
-              {/* Sample videos - replace with actual videos */}
+              { Sample videos - replace with actual videos }
               <div className="overflow-hidden rounded-lg shadow-lg">
                 <video controls className="w-full h-auto rounded-lg">
                   <source
@@ -365,7 +370,7 @@ function Gallery() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* New Video Gallery Section - Optional */}
         <section className="pt-4 py-10 md:py-12">

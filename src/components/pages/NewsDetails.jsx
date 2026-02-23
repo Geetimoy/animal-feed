@@ -9,9 +9,14 @@ import newsEvents from "../../assets/images/news-banner.jpg";
 import newsslider from "../../assets/images/newfish.jpeg";
 import newsslider2 from "../../assets/images/news-details2.jpg";
 
+import { Helmet } from "react-helmet";
+
 function NewsDetails() {
   return (
     <>
+      <Helmet>
+        <title>News Details -  Animal Feed</title>
+      </Helmet>
       <Header></Header>
       <main className="pt-16 overflow-hidden">
         <section className="relative z-0">

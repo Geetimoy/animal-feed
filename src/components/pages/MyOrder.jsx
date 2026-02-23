@@ -6,6 +6,7 @@ import ProfileDashboard from "./ProfileDashboard";
 import Header from "../Header";
 import Footer from "../Footer";
 import specialproduct from "../../assets/images/special-product.jpeg";
+import { Helmet } from "react-helmet";
 
 export default function MyOrders() {
   const [open, setOpen] = useState(false);
@@ -27,6 +28,9 @@ export default function MyOrders() {
 
   return (
     <>
+      <Helmet>
+        <title>My Orders -  Animal Feed</title>
+      </Helmet>
       <Header />
       <main className="pt-16 overflow-x-hidden">
         <div className="flex  bg-[#f7f8fa] md:max-w-7xl md:mx-auto md:px-8 py-16">

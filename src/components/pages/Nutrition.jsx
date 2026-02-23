@@ -39,6 +39,8 @@ import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
 import nutritionHero from "../../assets/images/nutrition-banner.png";
 
+import { Helmet } from "react-helmet";
+
 // Animation variants
 const fadeIn = {
   hidden: { opacity: 0 },
@@ -84,6 +86,9 @@ const itemVariant = {
 function Nutrition() {
   return (
     <>
+      <Helmet>
+        <title>Nutrition -  Animal Feed</title>
+      </Helmet>
       <Header></Header>
       <main className="pt-16 overflow-x-hidden">
         {/* Hero Section */}
