@@ -1093,27 +1093,27 @@ function Home(){
             </motion.div>
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} variants={slideInUp}>
               <h2 className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left">
-                {" "}
-                Research & <br className="hidden md:block" />{" "}
-                <span className="text-yellow-500">Development</span>{" "}
+                
+                Research & <br className="hidden md:block" />
+                <span className="text-yellow-500">Development</span>
               </h2>
               <p className="mt-4 md:mt-6 text-gray-600 leading-normal md:leading-relaxed text-[16px] md:text-[18px] text-center md:text-left">
-                {" "}
+                
                 Our Research & Development team continuously works to improve
                 feed efficiency, nutritional balance, and animal health. Using
                 scientific research, modern laboratories, and field trials, we
-                develop feed solutions that deliver consistent results.{" "}
+                develop feed solutions that deliver consistent results.
               </p>
               <p className="mt-4 text-gray-600  leading-normal md:leading-relaxed text-[16px] md:text-[18px] text-center md:text-left">
-                {" "}
+               
                 Innovation, testing, and validation are at the core of every
-                formulation we create.{" "}
+                formulation we create.
               </p>
               <Link
                 to="/research-development"
                 className="mt-4 md:mt-8 inline-flex items-center justify-center md:justify-start gap-2 rounded-xl bg-yellow-500 px-6 py-3 text-[16px] font-medium text-black hover:bg-yellow-400 transition cursor-pointer w-full md:w-auto text-center"
               >
-                Explore Our R&amp;D{" "}
+                Explore Our R&amp;D
               </Link>
             </motion.div>
           </div>

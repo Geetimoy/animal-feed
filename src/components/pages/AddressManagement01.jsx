@@ -116,7 +116,7 @@ export default function AddressManagement() {
               className="w-full md:h-auto h-[250px] object-cover"
             />
             <div className="absolute inset-0  flex items-center justify-center">
-              <h1 className="text-white text-4xl md:text-6xl font-bold text-center">
+              <h1 className="text-white text-4xl md:text-6xl font-bold">
                 Address Management
               </h1>
             </div>
@@ -151,7 +151,7 @@ export default function AddressManagement() {
 
               {open && (
                 <div className="mt-2 bg-white rounded-[12px] shadow-lg p-2 space-y-1">
-                  {mobileItem("/profile", "Profile")}
+                  {mobileItem("/my-profile", "Profile")}
                   {mobileItem("/address-management", "Address")}
                   {mobileItem("/my-orders", "My Orders")}
                 </div>
@@ -162,15 +162,14 @@ export default function AddressManagement() {
 
             <div className="max-w-[860px] mx-auto bg-white rounded-[12px] shadow-[0_20px_40px_rgba(0,0,0,0.06)] p-4">
               <div className="flex items-center justify-between mb-4 ">
-                <h2 className="text-[18px] md:text-[22px] font-semibold text-gray-800">
+                <h2 className="text-[20px] md:text-[22px] font-semibold text-gray-800">
                   Address Management
                 </h2>
 
                 {!showForm && (
                   <button
                     onClick={handleAdd}
-                    className=" md:flex items-center px-2 md:px-4 py-1 md
-                    :py-3 rounded-[12px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white md:text-[14px] gap-1 cursor-pointer text-[12px]"
+                    className=" md:flex items-center px-4 py-3 rounded-[12px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white text-[14px] gap-1 cursor-pointer"
                   >
                     <FontAwesomeIcon icon={faPlus} />
                     Add New

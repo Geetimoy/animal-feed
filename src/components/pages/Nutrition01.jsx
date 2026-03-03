@@ -87,13 +87,12 @@ function Nutrition() {
   return (
     <>
       <Helmet>
-        <title>Nutrition - Animal Feed</title>
+        <title>Nutrition -  Animal Feed</title>
       </Helmet>
       <Header></Header>
       <main className="pt-16 overflow-x-hidden">
         {/* Hero Section */}
-        <motion.section
-          className="relative z-0"
+        <motion.section className="relative z-0"
           initial="hidden"
           animate="visible"
           variants={fadeIn}
@@ -108,21 +107,16 @@ function Nutrition() {
               transition={{ duration: 1.5 }}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-gray-900/60 to-transparent"></div>
-            <motion.div
-              className="absolute inset-0  flex items-center justify-center flex-col"
+            <motion.div className="absolute inset-0  flex items-center justify-center flex-col"
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <motion.h1
-                className="text-white text-4xl md:text-6xl font-bold max-w-6xl px-4"
-                variants={slideInUp}
-              >
+              <motion.h1 className="text-white text-4xl md:text-6xl font-bold max-w-6xl px-4" variants={slideInUp}>
                 Nutrition
               </motion.h1>
 
-              <motion.p
-                className="text-gray-200 text-[16px] md:text-xl text-center max-w-6xl px-4 mt-6"
+              <motion.p className="text-gray-200 text-[16px] md:text-xl text-center max-w-6xl mt-6"
                 variants={slideInUp}
                 transition={{ delay: 0.1 }}
               >
@@ -131,16 +125,15 @@ function Nutrition() {
                 (FCR), and performance calculations to deliver measurable
                 results for farmers.
               </motion.p>
-              <motion.div
-                className="flex flex-col md:flex-row gap-2 md:gap-4 w-full justify-center max-w-6xl px-4"
+              <motion.div className="flex flex-wrap gap-2 md:gap-4 justify-center"
                 variants={staggerContainer}
                 initial="hidden"
                 animate="visible"
               >
-                <motion.div variants={itemVariant} className="w-full md:w-auto">
+                <motion.div variants={itemVariant}>
                   <Link
                     to="/distributor"
-                    className="mt-4 md:mt-6 w-full md:w-[198px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
+                    className="mt-4 md:mt-6 w-full  md:w-[198px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
                   >
                     <span className="text-[20px] font-bold font-inter">
                       <FontAwesomeIcon icon={faMagnifyingGlass} /> Find
@@ -148,16 +141,19 @@ function Nutrition() {
                     </span>
                   </Link>
                 </motion.div>
+
+
                 <motion.div variants={itemVariant}>
                   <Link
                     to="/contact-us"
-                    className="mt-2 md:mt-6 w-full md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
+                    className="mt-3 md:mt-6  w-full  md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
                   >
                     <span className="text-[20px] font-bold font-inter">
                       <FontAwesomeIcon icon={faLocationDot} /> Contact Us
                     </span>
                   </Link>
                 </motion.div>
+
               </motion.div>
             </motion.div>
           </div>
@@ -173,14 +169,14 @@ function Nutrition() {
         >
           <div className="max-w-7xl mx-auto px-4 mb-4 md:hidden">
             <motion.h2
-              className="text-3xl md:text-5xl font-semibold text-gray-900 text-center md:text-left"
+              className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left"
               variants={slideInUp}
             >
               {" "}
               Cattle <span className="text-[#ffa800]">Nutrition</span>{" "}
             </motion.h2>
           </div>
-          <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 items-center">
+          <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <motion.div
               className="relative"
               variants={slideInLeft}
@@ -206,7 +202,7 @@ function Nutrition() {
               viewport={{ once: true }}
             >
               <motion.h2
-                className="text-3xl md:text-5xl font-semibold text-gray-900 text-center md:text-left hidden md:block"
+                className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left hidden md:block"
                 variants={slideInUp}
               >
                 {" "}
@@ -257,11 +253,7 @@ function Nutrition() {
                 <motion.div
                   className="bg-white rounded-2xl p-2 md:p-4 border border-gray-100 shadow-sm"
                   variants={scaleIn}
-                  whileHover={{
-                    scale: 1.05,
-                    y: -5,
-                    transition: { duration: 0.3 },
-                  }}
+                  whileHover={{ scale: 1.05, y: -5, transition: { duration: 0.3 } }}
                 >
                   <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center mx-auto leading-[40px] mb-4">
                     <FontAwesomeIcon icon={faCow} />
@@ -276,11 +268,7 @@ function Nutrition() {
                 <motion.div
                   className="bg-white rounded-2xl p-2 md:p-4 border border-gray-100 shadow-sm"
                   variants={scaleIn}
-                  whileHover={{
-                    scale: 1.05,
-                    y: -5,
-                    transition: { duration: 0.3 },
-                  }}
+                  whileHover={{ scale: 1.05, y: -5, transition: { duration: 0.3 } }}
                 >
                   <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center mx-auto leading-[40px] mb-4">
                     <FontAwesomeIcon icon={faDumbbell} />
@@ -295,11 +283,7 @@ function Nutrition() {
                 <motion.div
                   className="bg-white rounded-2xl p-2 md:p-4 border border-gray-100 shadow-sm"
                   variants={scaleIn}
-                  whileHover={{
-                    scale: 1.05,
-                    y: -5,
-                    transition: { duration: 0.3 },
-                  }}
+                  whileHover={{ scale: 1.05, y: -5, transition: { duration: 0.3 } }}
                 >
                   <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center mx-auto leading-[40px] mb-4">
                     <FontAwesomeIcon icon={faChartLine} />
@@ -314,11 +298,7 @@ function Nutrition() {
                 <motion.div
                   className="bg-white rounded-2xl p-2 md:p-4 border border-gray-100 shadow-sm"
                   variants={scaleIn}
-                  whileHover={{
-                    scale: 1.05,
-                    y: -5,
-                    transition: { duration: 0.3 },
-                  }}
+                  whileHover={{ scale: 1.05, y: -5, transition: { duration: 0.3 } }}
                 >
                   <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center mx-auto leading-[40px] mb-4 md:mb-6">
                     <FontAwesomeIcon icon={faLeaf} />
@@ -337,7 +317,7 @@ function Nutrition() {
 
         {/* ================= POULTRY ================= */}
         <motion.section
-          className="bg-white py-10 md:py-12 gsap-fade-in"
+          className="bg-white py-8 md:py-12 gsap-fade-in"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -345,7 +325,7 @@ function Nutrition() {
         >
           <div className="max-w-7xl mx-auto px-4 mb-4 md:hidden">
             <motion.h2
-              className="text-3xl md:text-5xl font-semibold text-gray-900 text-center md:text-left"
+              className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left"
               variants={slideInUp}
             >
               {" "}
@@ -480,11 +460,7 @@ function Nutrition() {
                 <motion.div
                   className="bg-white rounded-2xl p-2 md:p-4 border border-gray-100 shadow-sm"
                   variants={scaleIn}
-                  whileHover={{
-                    scale: 1.05,
-                    y: -5,
-                    transition: { duration: 0.3 },
-                  }}
+                  whileHover={{ scale: 1.05, y: -5, transition: { duration: 0.3 } }}
                 >
                   <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center mx-auto leading-[40px] mb-4">
                     <FontAwesomeIcon icon={faDumbbell} />
@@ -499,11 +475,7 @@ function Nutrition() {
                 <motion.div
                   className="bg-white rounded-2xl p-2 md:p-4 border border-gray-100 shadow-sm"
                   variants={scaleIn}
-                  whileHover={{
-                    scale: 1.05,
-                    y: -5,
-                    transition: { duration: 0.3 },
-                  }}
+                  whileHover={{ scale: 1.05, y: -5, transition: { duration: 0.3 } }}
                 >
                   <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center mx-auto leading-[40px] mb-4">
                     <FontAwesomeIcon icon={faChartLine} />
@@ -518,11 +490,7 @@ function Nutrition() {
                 <motion.div
                   className="bg-white rounded-2xl p-2 md:p-4 border border-gray-100 shadow-sm"
                   variants={scaleIn}
-                  whileHover={{
-                    scale: 1.05,
-                    y: -5,
-                    transition: { duration: 0.3 },
-                  }}
+                  whileHover={{ scale: 1.05, y: -5, transition: { duration: 0.3 } }}
                 >
                   <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center mx-auto leading-[40px] mb-4">
                     <FontAwesomeIcon icon={faEgg} />
@@ -560,7 +528,7 @@ function Nutrition() {
 
         {/* ================= PIG ================= */}
         <motion.section
-          className="bg-gray-100 py-10 md:py-12 gsap-fade-in"
+          className="bg-gray-100 py-8 md:py-12 gsap-fade-in"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -568,7 +536,7 @@ function Nutrition() {
         >
           <div className="max-w-7xl mx-auto px-4 mb-4 md:hidden">
             <motion.h2
-              className="text-3xl md:text-5xl font-semibold text-gray-900 text-center md:text-left mb-4"
+              className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left mb-4"
               variants={slideInUp}
             >
               {" "}
@@ -601,7 +569,7 @@ function Nutrition() {
               viewport={{ once: true }}
             >
               <motion.h2
-                className="text-3xl md:text-5xl font-semibold text-gray-900 text-center md:text-left mb-4 hidden md:block"
+                className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left mb-4 hidden md:block"
                 variants={slideInUp}
               >
                 {" "}
@@ -702,7 +670,7 @@ function Nutrition() {
         >
           <div className="max-w-7xl mx-auto px-4">
             <motion.h2
-              className="text-3xl  md:text-5xl font-semibold text-gray-900 text-center md:text-left md:hidden"
+              className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left md:hidden"
               variants={slideInUp}
             >
               {" "}
@@ -759,11 +727,7 @@ function Nutrition() {
                 <motion.div
                   className="bg-white rounded-2xl p-2 md:p-4 border border-gray-100 shadow-sm"
                   variants={scaleIn}
-                  whileHover={{
-                    scale: 1.05,
-                    y: -5,
-                    transition: { duration: 0.3 },
-                  }}
+                  whileHover={{ scale: 1.05, y: -5, transition: { duration: 0.3 } }}
                 >
                   <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center mx-auto leading-[40px] mb-4">
                     <FontAwesomeIcon icon={faDumbbell} />
@@ -778,11 +742,7 @@ function Nutrition() {
                 <motion.div
                   className="bg-white rounded-2xl p-2 md:p-4 border border-gray-100 shadow-sm"
                   variants={scaleIn}
-                  whileHover={{
-                    scale: 1.05,
-                    y: -5,
-                    transition: { duration: 0.3 },
-                  }}
+                  whileHover={{ scale: 1.05, y: -5, transition: { duration: 0.3 } }}
                 >
                   <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center mx-auto leading-[40px] mb-4">
                     <FontAwesomeIcon icon={faChartLine} />
@@ -797,11 +757,7 @@ function Nutrition() {
                 <motion.div
                   className="bg-white rounded-2xl p-2 md:p-4 border border-gray-100 shadow-sm"
                   variants={scaleIn}
-                  whileHover={{
-                    scale: 1.05,
-                    y: -5,
-                    transition: { duration: 0.3 },
-                  }}
+                  whileHover={{ scale: 1.05, y: -5, transition: { duration: 0.3 } }}
                 >
                   <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center mx-auto leading-[40px] mb-4">
                     <FontAwesomeIcon icon={faEgg} />
@@ -837,8 +793,7 @@ function Nutrition() {
           </div>
         </motion.section>
 
-        <motion.section
-          className="w-full bg-gray-100 py-8 md:py-12"
+        <motion.section className="w-full bg-gray-100 py-8 md:py-12"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -846,24 +801,19 @@ function Nutrition() {
         >
           <div className="max-w-7xl mx-auto px-4">
             {/* Heading */}
-            <motion.h2
-              className="text-3xl md:text-5xl font-semibold text-gray-800 text-center mb-4 md:mb-8"
-              variants={slideInUp}
-            >
+            <motion.h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center mb-4 md:mb-8" variants={slideInUp}>
               Why GGAF <span className="text-[#ffa800]">Nutrition Works</span>
             </motion.h2>
 
             {/* Cards */}
-            <motion.div
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5  gap-4 md:gap-8"
+            <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5  gap-4 md:gap-8"
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
             >
               {/* Card 1 */}
-              <motion.div
-                className="bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-lg transition"
+              <motion.div className="bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-lg transition"
                 variants={scaleIn}
                 whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
               >
@@ -881,8 +831,7 @@ function Nutrition() {
               </motion.div>
 
               {/* Card 2 */}
-              <motion.div
-                className="bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-lg transition"
+              <motion.div className="bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-lg transition"
                 variants={scaleIn}
                 whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
               >
@@ -897,8 +846,7 @@ function Nutrition() {
               </motion.div>
 
               {/* Card 3 */}
-              <motion.div
-                className="bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-lg transition"
+              <motion.div className="bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-lg transition"
                 variants={scaleIn}
                 whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
               >
@@ -914,8 +862,7 @@ function Nutrition() {
               </motion.div>
 
               {/* Card 4 */}
-              <motion.div
-                className="bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-lg transition"
+              <motion.div className="bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-lg transition"
                 variants={scaleIn}
                 whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
               >
@@ -930,8 +877,7 @@ function Nutrition() {
               </motion.div>
 
               {/* Card 5 */}
-              <motion.div
-                className="bg-white p-6 rounded-lg shadow text-center hover:shadow-lg transition"
+              <motion.div className="bg-white p-6 rounded-lg shadow text-center hover:shadow-lg transition"
                 variants={scaleIn}
                 whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
               >

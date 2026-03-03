@@ -100,37 +100,36 @@ function ResearchDevelopment() {
                 Research & Development laboratory, where science meets practical
                 farming needs to deliver superior animal nutrition.
               </motion.p>
-             <motion.div
-                               className="flex flex-col md:flex-row gap-2 md:gap-4 w-full justify-center"
-                               variants={staggerContainer}
-                               initial="hidden"
-                               animate="visible"
-                             >
-                               <motion.div
-                                 variants={itemVariant}
-                                 className="w-full md:w-auto"
-                               >
-                                 <Link
-                                   to="/distributor"
-                                   className="mt-4 md:mt-6 w-full md:w-[198px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
-                                 >
-                                   <span className="text-[20px] font-bold font-inter">
-                                     <FontAwesomeIcon icon={faMagnifyingGlass} /> Find
-                                     Distributor
-                                   </span>
-                                 </Link>
-                               </motion.div>
-                               <motion.div variants={itemVariant}>
-                                 <Link
-                                   to="/contact-us"
-                                   className="mt-2 md:mt-6 w-full md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
-                                 >
-                                   <span className="text-[20px] font-bold font-inter">
-                                     <FontAwesomeIcon icon={faLocationDot} /> Contact Us
-                                   </span>
-                                 </Link>
-                               </motion.div>
-                             </motion.div>
+              <motion.div className="flex flex-wrap gap-2 md:gap-4 justify-center"
+                variants={staggerContainer}
+                initial="hidden"
+                animate="visible"
+              >
+                <motion.div variants={itemVariant}>
+                  <Link
+                    to="/distributor"
+                    className="mt-4 md:mt-6 w-full  md:w-[198px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
+                  >
+                    <span className="text-[20px] font-bold font-inter">
+                      <FontAwesomeIcon icon={faMagnifyingGlass} /> Find
+                      Distributor
+                    </span>
+                  </Link>
+                </motion.div>
+
+
+                <motion.div variants={itemVariant}>
+                  <Link
+                    to="/contact-us"
+                    className="mt-3 md:mt-6  w-full  md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
+                  >
+                    <span className="text-[20px] font-bold font-inter">
+                      <FontAwesomeIcon icon={faLocationDot} /> Contact Us
+                    </span>
+                  </Link>
+                </motion.div>
+
+              </motion.div>
             </motion.div>
           </div>
         </motion.section>

@@ -125,7 +125,7 @@ function Distributor() {
                 <div className="flex flex-col md:flex-row gap-2 text-gray-600">
                   <div className="w-full md:w-2/3 text-sm">
                     <h3 className="text-xl font-bold mb-2 text-gray-800">
-                      Green Gold Animal{" "}
+                      <Link to="/distributor-details">Green Gold Animal</Link>{" "}
                     </h3>
                     <p className="text-gray-600 mb-0">
                       Green Gold Animal Feed Pvt Ltd.{" "}
@@ -167,7 +167,7 @@ function Distributor() {
                 <div className="flex  flex-col md:flex-row gap-2 text-gray-600">
                   <div className="w-full md:w-2/3 text-sm">
                     <h3 className="text-xl font-bold mb-2 text-[#009a62]">
-                      Green Gold Animal{" "}
+                      <Link to="/distributor-details">Green Gold Animal</Link>{" "}
                     </h3>
                     <p className="text-gray-600 mb-0">
                       Green Gold Animal Feed Pvt Ltd.{" "}
@@ -209,7 +209,7 @@ function Distributor() {
                 <div className="flex flex-col md:flex-row  gap-2 text-gray-600">
                   <div className="w-full md:w-2/3 text-sm">
                     <h3 className="text-xl font-bold mb-2 text-gray-800">
-                      Green Gold Animal{" "}
+                     <Link to="/distributor-details">Green Gold Animal</Link>{" "}
                     </h3>
                     <p className="text-gray-600 mb-0">
                       Green Gold Animal Feed Pvt Ltd.{" "}
@@ -251,7 +251,7 @@ function Distributor() {
                 <div className="flex flex-col md:flex-row  gap-2 text-gray-600">
                   <div className="w-full md:w-2/3 text-sm">
                     <h3 className="text-xl font-bold mb-2 text-[#009a62]">
-                      Green Gold Animal{" "}
+                      <Link to="/distributor-details">Green Gold Animal</Link>{" "}
                     </h3>
                     <p className="text-gray-600 mb-0">
                       Green Gold Animal Feed Pvt Ltd.{" "}
@@ -293,7 +293,7 @@ function Distributor() {
                 <div className="flex flex-col md:flex-row  gap-2 text-gray-600">
                   <div className="w-full md:w-2/3 text-sm">
                     <h3 className="text-xl font-bold mb-2 text-gray-800">
-                      Green Gold Animal{" "}
+                      <Link to="/distributor-details">Green Gold Animal</Link>{" "}
                     </h3>
                     <p className="text-gray-600 mb-0">
                       Green Gold Animal Feed Pvt Ltd.{" "}
@@ -335,7 +335,7 @@ function Distributor() {
                 <div className="flex flex-col md:flex-row  gap-2 text-gray-600">
                   <div className="w-full md:w-2/3 text-sm">
                     <h3 className="text-xl font-bold mb-2 text-[#009a62]">
-                      Green Gold Animal{" "}
+                      <Link to="/distributor-details">Green Gold Animal</Link>{" "}
                     </h3>
                     <p className="text-gray-600 mb-0">
                       Green Gold Animal Feed Pvt Ltd.{" "}

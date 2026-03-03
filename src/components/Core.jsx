@@ -25,6 +25,7 @@ import AddressManagement from "./pages/AddressManagement";
 import Csr from "./pages/Csr";
 import Quality from "./pages/Quality";
 import Logout from "./pages/Logout";
+import DistributorDetails from "./pages/DistributorDetails";
 
 
 export default function Core() {
@@ -58,6 +59,7 @@ export default function Core() {
           <Route path="/quality" element={<Quality />} />
           <Route path="/csr" element={<Csr />} />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/distributor-details" element={<DistributorDetails />} />
         </Routes>
       </BrowserRouter>
    
