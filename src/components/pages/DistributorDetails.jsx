@@ -1,6 +1,8 @@
 import Header from "../Header";
 import Footer from "../Footer";
 
+import { useState } from "react";
+
 import distributorDetailsBanner from '../../assets/images/distributor-details-banner.jpg';
 
 import { Link } from "react-router-dom";
@@ -43,6 +45,88 @@ import fishfeed4 from '../../assets/images/fish-feed4.jpg';
 import { Helmet } from "react-helmet";
 
 function DistributorDetails(){
+  const [count, setCount] = useState(0);
+
+  const categories = [
+  {
+    name: "Cattle Feed",
+    items: [
+      { id: "cattle1", name: "Cattle Feed Premium" },
+      { id: "cattle2", name: "Cattle Feed Grower" }
+    ]
+  },
+  {
+    name: "Pig Feed",
+    items: [
+      { id: "pig1", name: "Pig Feed Starter" },
+      { id: "pig2", name: "Pig Feed Finisher" }
+    ]
+  },
+  {
+    name: "Poultry Feed",
+    items: [
+      { id: "poultry1", name: "Poultry Feed Layer" },
+      { id: "poultry2", name: "Poultry Feed Broiler" }
+    ]
+  },
+  {
+    name: "Fish Feed",
+    items: [
+      { id: "fish1", name: "Fish Feed Floating" },
+      { id: "fish2", name: "Fish Feed Sinking" }
+    ]
+  }
+];
+
+const poultryProducts = [
+  { id: "poultry1", image: poultryfeed },
+  { id: "poultry2", image: poultryfeed1 },
+  { id: "poultry3", image: poultryfeed2 },
+  { id: "poultry4", image: poultryfeed3 },
+  { id: "poultry5", image: poultryfeed4 },
+];
+
+  const fishProducts = [
+  { id: "fish1", image: fishfeed },
+  { id: "fish2", image: fishfeed1 },
+  { id: "fish3", image: fishfeed2 },
+  { id: "fish4", image: fishfeed3 },
+  { id: "fish5", image: fishfeed4 },
+];
+
+ const cattleProducts = [
+  { id: "cattlefeed1", image: cattlefeed },
+  { id: "cattlefeed2", image: cattlefeed1 },
+  { id: "cattlefeed3", image: cattlefeed2 },
+  { id: "cattlefeed4", image: cattlefeed3 },
+  { id: "cattlefeed5", image: cattlefeed4 },
+];
+
+const pigProducts = [
+  { id: "pig1", image: pigfeed },
+  { id: "pig2", image: pigfeed1 },
+  { id: "pig3", image: pigfeed2 },
+  { id: "pig4", image: pigfeed3 },
+  { id: "pig5", image: pigfeed4 },
+];
+
+
+  const [cart, setCart] = useState({});
+
+  const increase = (id) => {
+  setCart((prev) => ({
+    ...prev,
+    [id]: (prev[id] || 0) + 1,
+  }));
+};
+
+const decrease = (id) => {
+  setCart((prev) => ({
+    ...prev,
+    [id]: Math.max((prev[id] || 0) - 1, 0),
+  }));
+};
+
   return(
     <>
       <Helmet>
@@ -68,7 +152,7 @@ function DistributorDetails(){
               <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
                 <Link
                   to="/distributor"
-                  className="mt-4 md:mt-6 w-full  md:w-[198px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
+                  className="mt-4 md:mt-6 w-full  md:w-[215px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
                 >
                   <span className="text-[20px] font-bold font-inter">
                     <FontAwesomeIcon icon={faMagnifyingGlass} /> Find
@@ -99,43 +183,43 @@ function DistributorDetails(){
                 <p className="text-gray-700 text-base leading-relaxed text-center md:text-left mb-4">Green Gold Animal Feed Suppliers specializes in nutritionally balanced animal feed formulations.
         With modern storage facilities and strong logistics support, we ensure timely
         delivery of high-quality feed products to farms and retailers.</p>
-        <p class="text-gray-600 mb-0 mb-2">
-          <span className="text-[#00a34a] mr-2"><FontAwesomeIcon icon={faMapPin} /></span>
-          Green Gold Animal Feed Pvt Ltd. Kolkata, West Bengal</p>
-        <p className="text-gray-600 mb-2">
-                      <span className="text-[#00a34a] mr-2">
-                        <FontAwesomeIcon icon={faPhone} />
-                      </span>
-                      (123) 456-7890
-                    </p>
-                    <p className="text-gray-600">
-                      <span>
-                        <FontAwesomeIcon
-                          className="text-[#00a34a] mr-2"
-                          icon={faEnvelope}
-                        />
-                      </span>
-                      <Link
-                        to="mailto:distributor@greengold.com"
-                        className="underline"
-                      >
-                        distributor@greengold.com
-                      </Link>
-                    </p>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-                    <div className="text-center flex-1 bg-white/70 py-3 px-1 rounded-2xl shadow-sm border border-dashed border-[#ffa800]/30">
-                      <div class="text-2xl font-black text-gray-800">100%</div>
-                      <span class="text-[11px] font-medium text-gray-500">Quality Focus</span>
-                    </div>
-                    <div className="text-center flex-1 bg-white/70 py-3 px-1 rounded-2xl shadow-sm border border-dashed border-[#ffa800]/30">
-                      <div class="text-2xl font-black text-gray-800">25+</div>
-                      <span class="text-[11px] font-medium text-gray-500">Years Legacy</span>
-                    </div>
-                    <div className="text-center flex-1 bg-white/70 py-3 px-1 rounded-2xl shadow-sm border border-dashed border-[#ffa800]/30">
-                      <div class="text-2xl font-black text-gray-800">150+</div>
-                      <span class="text-[11px] font-medium text-gray-500">Happy Farmers</span>
-                    </div>
+                <p class="text-gray-600 mb-0 mb-2 text-center md:text-left">
+                  <span className="text-[#00a34a] mr-2"><FontAwesomeIcon icon={faMapPin} /></span>
+                  Green Gold Animal Feed Pvt Ltd. Kolkata, West Bengal</p>
+                <p className="text-gray-600 mb-2 text-center md:text-left">
+                              <span className="text-[#00a34a] mr-2">
+                                <FontAwesomeIcon icon={faPhone} />
+                              </span>
+                              (123) 456-7890
+                </p>
+                <p className="text-gray-600 text-center md:text-left">
+                  <span>
+                    <FontAwesomeIcon
+                      className="text-[#00a34a] mr-2"
+                      icon={faEnvelope}
+                    />
+                  </span>
+                  <Link
+                    to="mailto:distributor@greengold.com"
+                    className="underline"
+                  >
+                    distributor@greengold.com
+                  </Link>
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                  <div className="text-center flex-1 bg-white/70 py-3 px-1 rounded-2xl shadow-sm border border-dashed border-[#ffa800]/30">
+                    <div class="text-2xl font-black text-gray-800">100%</div>
+                    <span class="text-[11px] font-medium text-gray-500">Quality Focus</span>
                   </div>
+                  <div className="text-center flex-1 bg-white/70 py-3 px-1 rounded-2xl shadow-sm border border-dashed border-[#ffa800]/30">
+                    <div class="text-2xl font-black text-gray-800">25+</div>
+                    <span class="text-[11px] font-medium text-gray-500">Years Legacy</span>
+                  </div>
+                  <div className="text-center flex-1 bg-white/70 py-3 px-1 rounded-2xl shadow-sm border border-dashed border-[#ffa800]/30">
+                    <div class="text-2xl font-black text-gray-800">150+</div>
+                    <span class="text-[11px] font-medium text-gray-500">Happy Farmers</span>
+                  </div>
+                </div>
               </div>
               <div className="bg-white p-4 rounded-lg shadow">
                 <iframe
@@ -156,7 +240,7 @@ function DistributorDetails(){
           <div className="max-w-7xl mx-auto px-4 md:px-8 relative">
             <h2 class="text-3xl md:text-4xl font-semibold text-gray-800 text-center">Poultry <span class="text-[#ffa800]">Feed</span></h2>
             <p class="text-gray-600 mt-3 max-w-2xl mx-auto text-[16px] md:text-[18px] text-center">Proper feeding at the right age and quantity ensures better growth, lower feed cost, and higher productivity.</p>
-            <div className="hidden md:flex items-center gap-3 absolute -bottom-[50px] left-[50%] -translate-x-1/2">
+            <div className="flex items-center gap-3 absolute -bottom-[50px] left-[50%] -translate-x-1/2">
               {/* <!-- Prev --> */}
               <button class="news-prev w-10 h-10 rounded-full border border-gray-300
             flex items-center justify-center  text-gray-600  hover:border-green-500 hover:text-green-500
@@ -197,105 +281,64 @@ function DistributorDetails(){
                   },
                 }}
               >
-                {/* <!-- Card --> */}
-                <SwiperSlide className="h-auto mb-2">
-                  <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md relative overflow-hidden h-full flex flex-col group">
-                    {/* <!-- Image --> */}
-                    <img
-                      src={poultryfeed4}
-                      className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 
-                      group-hover:opacity-100 transition duration-500 
-                      flex items-end p-6">
+                {poultryProducts.map((item) => {
 
-                      <div className="translate-y-6 group-hover:translate-y-0  transition duration-500">
-                        <Link to="/cart" className="text-sm mt-2 text-white text-center bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer inline-block text-center transform left-1/2 top-1/2 -translate-y-1/2 h-full relative">Order Book</Link>
+                  const count = cart[item.id] || 0;
+
+                  return (
+
+                    <SwiperSlide key={item.id} className="h-auto">
+
+                      <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
+
+                        <img
+                          src={item.image}
+                          className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
+                        />
+
+                        <div className="absolute inset-0 bg-black/60 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition duration-500 flex items-end p-6">
+
+                          <div className="translate-y-6 group-hover:translate-y-0 transition duration-500 absolute left-1/2 transform -translate-x-1/2 bottom-12 md:bottom-4">
+
+                            {count === 0 ? (
+
+                              <button onClick={() => increase(item.id)}
+                                className="text-sm text-white bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer" > Add </button>
+
+                            ) : (
+
+                              <div className="flex items-center gap-3 bg-white text-black px-3 py-2 rounded-xl">
+
+                                <button
+                                  onClick={() => decrease(item.id)}
+                                  className="w-7 h-7 bg-gray-200 rounded"
+                                >
+                                  -
+                                </button>
+
+                                <span className="font-semibold">{count}</span>
+
+                                <button
+                                  onClick={() => increase(item.id)}
+                                  className="w-7 h-7 bg-gray-200 rounded"
+                                >
+                                  +
+                                </button>
+
+                              </div>
+
+                            )}
+
+                          </div>
+
+                        </div>
+
                       </div>
 
-                    </div>
-                  </div>
-                </SwiperSlide>
-                {/* <!-- Card 2 --> */}
-                <SwiperSlide className="h-auto mb-2">
-                  <div className="bg-white group rounded-tr-2xl rounded-b-2xl shadow-md relative overflow-hidden h-full flex flex-col">
-                    {/* <!-- Image --> */}
-                    <img
-                      src={poultryfeed}
-                      className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 
-                      group-hover:opacity-100 transition duration-500 
-                      flex items-end p-6">
+                    </SwiperSlide>
 
-                      <div className="translate-y-6 group-hover:translate-y-0  transition duration-500">
-                        <Link to="/cart" className="text-sm mt-2 text-white text-center bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer inline-block text-center transform left-1/2 top-1/2 -translate-y-1/2 h-full relative">Order Book</Link>
-                      </div>
-
-                    </div>
-                    
-                  </div>
-                </SwiperSlide>
-                {/* <!-- Card 3 --> */}
-                <SwiperSlide className="h-auto mb-2">
-                  <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-                    {/* <!-- Image --> */}
-                    <img
-                      src={poultryfeed1}
-                      className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 
-                      group-hover:opacity-100 transition duration-500 
-                      flex items-end p-6">
-
-                      <div className="translate-y-6 group-hover:translate-y-0  transition duration-500">
-                        <Link to="/cart" className="text-sm mt-2 text-white text-center bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer inline-block text-center transform left-1/2 top-1/2 -translate-y-1/2 h-full relative">Order Book</Link>
-                      </div>
-
-                    </div>
-                    
-                  </div>
-                </SwiperSlide>
-                {/* <!-- Card 4 --> */}
-                <SwiperSlide className="h-auto mb-2">
-                  <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-                    {/* <!-- Image --> */}
-                    <img
-                      src={poultryfeed2}
-                      className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 
-                      group-hover:opacity-100 transition duration-500 
-                      flex items-end p-6">
-
-                      <div className="translate-y-6 group-hover:translate-y-0  transition duration-500">
-                        <Link to="/cart" className="text-sm mt-2 text-white text-center bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer inline-block text-center transform left-1/2 top-1/2 -translate-y-1/2 h-full relative">Order Book</Link>
-                      </div>
-
-                    </div>
-                    
-                  </div>
-                </SwiperSlide>
-                {/* <!-- Card 5 --> */}
-                <SwiperSlide className="h-auto mb-2">
-                  <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-                    {/* <!-- Image --> */}
-                    <img
-                      src={poultryfeed3}
-                      className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 
-                      group-hover:opacity-100 transition duration-500 
-                      flex items-end p-6">
-
-                      <div className="translate-y-6 group-hover:translate-y-0  transition duration-500">
-                        <Link to="/cart" className="text-sm mt-2 text-white text-center bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer inline-block text-center transform left-1/2 top-1/2 -translate-y-1/2 h-full relative">Order Book</Link>
-                      </div>
-
-                    </div>
-                    
-                  </div>
-                </SwiperSlide>
+                  );
+                })}
               </Swiper>
             </div>
           </div>
@@ -306,7 +349,7 @@ function DistributorDetails(){
           <div className="max-w-7xl mx-auto px-4 md:px-8 relative">
             <h2 class="text-3xl md:text-4xl font-semibold text-gray-800 text-center">Cattle <span class="text-[#ffa800]">Feed</span></h2>
             <p class="text-gray-600 mt-3 max-w-2xl mx-auto text-[16px] md:text-[18px] text-center">Nutritionally balanced feed designed to improve milk yield, digestion, and overall cattle health with high-quality protein and essential minerals.</p>
-            <div className="hidden md:flex items-center gap-3 absolute -bottom-[50px] left-[50%] -translate-x-1/2">
+            <div className="flex items-center gap-3 absolute -bottom-[50px] left-[50%] -translate-x-1/2">
               {/* <!-- Prev --> */}
               <button class="news-prev w-10 h-10 rounded-full border border-gray-300
             flex items-center justify-center  text-gray-600  hover:border-green-500 hover:text-green-500
@@ -325,7 +368,7 @@ function DistributorDetails(){
                 <FontAwesomeIcon icon={faArrowRight} />
               </button>
             </div>
-            <div className="distributionDetailsSwiper mt-10">
+            <div className="distributionDetailsSwiper mt-10 mb-10 md:mb-0">
               <Swiper
                 modules={[Navigation, Pagination]}
                 spaceBetween={30}
@@ -348,104 +391,69 @@ function DistributorDetails(){
                 }}
               >
                 {/* <!-- Card --> */}
-                <SwiperSlide className="h-auto mb-2">
-                  <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-                    {/* <!-- Image --> */}
-                    <img
-                      src={cattlefeed}
-                      className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 
-                      group-hover:opacity-100 transition duration-500 
-                      flex items-end p-6">
+                {cattleProducts.map((item) => {
 
-                      <div className="translate-y-6 group-hover:translate-y-0  transition duration-500">
-                        <Link to="/cart" className="text-sm mt-2 text-white text-center bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer inline-block text-center transform left-1/2 top-1/2 -translate-y-1/2 h-full relative">Order Book</Link>
+                  const count = cart[item.id] || 0;
+
+                  return (
+
+                    <SwiperSlide key={item.id} className="h-auto">
+
+                      <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
+
+                        <img
+                          src={item.image}
+                          className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
+                        />
+
+                        <div className="absolute inset-0 bg-black/60 opacity-100 md:opacity-0 
+                        group-hover:opacity-100 transition duration-500 flex items-end p-6">
+
+                          <div className="translate-y-6 group-hover:translate-y-0 transition duration-500 absolute left-1/2 transform -translate-x-1/2 bottom-12 md:bottom-4">
+
+                            {count === 0 ? (
+
+                              <button
+                                onClick={() => increase(item.id)}
+                                className="text-sm text-white bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium"
+                              >
+                                Add
+                              </button>
+
+                            ) : (
+
+                              <div className="flex items-center gap-3 bg-white text-black px-3 py-2 rounded-xl">
+
+                                <button
+                                  onClick={() => decrease(item.id)}
+                                  className="w-7 h-7 bg-gray-200 rounded"
+                                >
+                                  -
+                                </button>
+
+                                <span className="font-semibold">{count}</span>
+
+                                <button
+                                  onClick={() => increase(item.id)}
+                                  className="w-7 h-7 bg-gray-200 rounded"
+                                >
+                                  +
+                                </button>
+
+                              </div>
+
+                            )}
+
+                          </div>
+
+                        </div>
+
                       </div>
 
-                    </div>
-                  </div>
-                </SwiperSlide>
-                {/* <!-- Card 2 --> */}
-                <SwiperSlide className="h-auto mb-2">
-                  <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-                    {/* <!-- Image --> */}
-                    <img
-                      src={cattlefeed1}
-                      className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 
-                      group-hover:opacity-100 transition duration-500 
-                      flex items-end p-6">
+                    </SwiperSlide>
 
-                      <div className="translate-y-6 group-hover:translate-y-0  transition duration-500">
-                        <Link to="/cart" className="text-sm mt-2 text-white text-center bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer inline-block text-center transform left-1/2 top-1/2 -translate-y-1/2 h-full relative">Order Book</Link>
-                      </div>
-
-                    </div>
-                    
-                  </div>
-                </SwiperSlide>
-                {/* <!-- Card 3 --> */}
-                <SwiperSlide className="h-auto mb-2">
-                  <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-                    {/* <!-- Image --> */}
-                    <img
-                      src={cattlefeed2}
-                      className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 
-                      group-hover:opacity-100 transition duration-500 
-                      flex items-end p-6">
-
-                      <div className="translate-y-6 group-hover:translate-y-0  transition duration-500">
-                        <Link to="/cart" className="text-sm mt-2 text-white text-center bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer inline-block text-center transform left-1/2 top-1/2 -translate-y-1/2 h-full relative">Order Book</Link>
-                      </div>
-
-                    </div>
-                    
-                  </div>
-                </SwiperSlide>
-                {/* <!-- Card 4 --> */}
-                <SwiperSlide className="h-auto mb-2">
-                  <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-                    {/* <!-- Image --> */}
-                    <img
-                      src={cattlefeed3}
-                      className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 
-                      group-hover:opacity-100 transition duration-500 
-                      flex items-end p-6">
-
-                      <div className="translate-y-6 group-hover:translate-y-0  transition duration-500">
-                        <Link to="/cart" className="text-sm mt-2 text-white text-center bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer inline-block text-center transform left-1/2 top-1/2 -translate-y-1/2 h-full relative">Order Book</Link>
-                      </div>
-
-                    </div>
-                    
-                  </div>
-                </SwiperSlide>
-                {/* <!-- Card 5 --> */}
-                <SwiperSlide className="h-auto mb-2">
-                  <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-                    {/* <!-- Image --> */}
-                    <img
-                      src={cattlefeed4}
-                      className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 
-                      group-hover:opacity-100 transition duration-500 
-                      flex items-end p-6">
-
-                      <div className="translate-y-6 group-hover:translate-y-0  transition duration-500">
-                        <Link to="/cart" className="text-sm mt-2 text-white text-center bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer inline-block text-center transform left-1/2 top-1/2 -translate-y-1/2 h-full relative">Order Book</Link>
-                      </div>
-
-                    </div>
-
-                  </div>
-                </SwiperSlide>
+                  );
+                })}
               </Swiper>
             </div>
           </div>
@@ -457,7 +465,7 @@ function DistributorDetails(){
           <div className="max-w-7xl mx-auto px-4 md:px-8 relative">
             <h2 class="text-3xl md:text-4xl font-semibold text-gray-800 text-center">Fish <span class="text-[#ffa800]">Feed</span></h2>
             <p class="text-gray-600 mt-3 max-w-2xl mx-auto text-[16px] md:text-[18px] text-center">High-protein, nutrient-rich feed designed for faster growth, strong immunity, and improved survival rates in aquaculture.</p>
-            <div className="hidden md:flex items-center gap-3 absolute -bottom-[50px] left-[50%] -translate-x-1/2">
+            <div className="flex items-center gap-3 absolute -bottom-[50px] left-[50%] -translate-x-1/2">
               {/* <!-- Prev --> */}
               <button class="news-prev w-10 h-10 rounded-full border border-gray-300
             flex items-center justify-center  text-gray-600  hover:border-green-500 hover:text-green-500
@@ -498,105 +506,69 @@ function DistributorDetails(){
                   },
                 }}
               >
-                {/* <!-- Card --> */}
-                <SwiperSlide className="h-auto mb-2">
-                  <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-                    {/* <!-- Image --> */}
-                    <img
-                      src={fishfeed}
-                      className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 
-                      group-hover:opacity-100 transition duration-500 
-                      flex items-end p-6">
+                {fishProducts.map((item) => {
 
-                      <div className="translate-y-6 group-hover:translate-y-0  transition duration-500">
-                        <Link to="/cart" className="text-sm mt-2 text-white text-center bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer inline-block text-center transform left-1/2 top-1/2 -translate-y-1/2 h-full relative">Order Book</Link>
+                  const count = cart[item.id] || 0;
+
+                  return (
+
+                    <SwiperSlide key={item.id} className="h-auto">
+
+                      <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
+
+                        <img
+                          src={item.image}
+                          className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
+                        />
+
+                        <div className="absolute inset-0 bg-black/60 opacity-100 md:opacity-0 
+                        group-hover:opacity-100 transition duration-500 flex items-end p-6">
+
+                          <div className="translate-y-6 group-hover:translate-y-0 transition duration-500 absolute left-1/2 transform -translate-x-1/2 bottom-12 md:bottom-4">
+
+                            {count === 0 ? (
+
+                              <button
+                                onClick={() => increase(item.id)}
+                                className="text-sm text-white bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium"
+                              >
+                                Add
+                              </button>
+
+                            ) : (
+
+                              <div className="flex items-center gap-3 bg-white text-black px-3 py-2 rounded-xl">
+
+                                <button
+                                  onClick={() => decrease(item.id)}
+                                  className="w-7 h-7 bg-gray-200 rounded"
+                                >
+                                  -
+                                </button>
+
+                                <span className="font-semibold">{count}</span>
+
+                                <button
+                                  onClick={() => increase(item.id)}
+                                  className="w-7 h-7 bg-gray-200 rounded"
+                                >
+                                  +
+                                </button>
+
+                              </div>
+
+                            )}
+
+                          </div>
+
+                        </div>
+
                       </div>
 
-                    </div>
-                  </div>
-                </SwiperSlide>
-                {/* <!-- Card 2 --> */}
-                <SwiperSlide className="h-auto mb-2">
-                  <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-                    {/* <!-- Image --> */}
-                    <img
-                      src={fishfeed1}
-                      className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 
-                      group-hover:opacity-100 transition duration-500 
-                      flex items-end p-6">
+                    </SwiperSlide>
 
-                      <div className="translate-y-6 group-hover:translate-y-0  transition duration-500">
-                        <Link to="/cart" className="text-sm mt-2 text-white text-center bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer inline-block text-center transform left-1/2 top-1/2 -translate-y-1/2 h-full relative">Order Book</Link>
-                      </div>
-
-                    </div>
-                    
-                  </div>
-                </SwiperSlide>
-                {/* <!-- Card 3 --> */}
-                <SwiperSlide className="h-auto mb-2">
-                  <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-                    {/* <!-- Image --> */}
-                    <img
-                      src={fishfeed2}
-                      className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 
-                      group-hover:opacity-100 transition duration-500 
-                      flex items-end p-6">
-
-                      <div className="translate-y-6 group-hover:translate-y-0  transition duration-500">
-                        <Link to="/cart" className="text-sm mt-2 text-white text-center bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer inline-block text-center transform left-1/2 top-1/2 -translate-y-1/2 h-full relative">Order Book</Link>
-                      </div>
-
-                    </div>
-                    
-                  </div>
-                </SwiperSlide>
-                {/* <!-- Card 4 --> */}
-                <SwiperSlide className="h-auto mb-2">
-                  <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-                    {/* <!-- Image --> */}
-                    <img
-                      src={fishfeed3}
-                      className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 
-                      group-hover:opacity-100 transition duration-500 
-                      flex items-end p-6">
-
-                      <div className="translate-y-6 group-hover:translate-y-0  transition duration-500">
-                        <Link to="/cart" className="text-sm mt-2 text-white text-center bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer inline-block text-center transform left-1/2 top-1/2 -translate-y-1/2 h-full relative">Order Book</Link>
-                      </div>
-
-                    </div>
-                    
-                  </div>
-                </SwiperSlide>
-                {/* <!-- Card 5 --> */}
-                <SwiperSlide className="h-auto mb-2">
-                  <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-                    {/* <!-- Image --> */}
-                    <img
-                      src={fishfeed4}
-                      className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 
-                      group-hover:opacity-100 transition duration-500 
-                      flex items-end p-6">
-
-                      <div className="translate-y-6 group-hover:translate-y-0  transition duration-500">
-                        <Link to="/cart" className="text-sm mt-2 text-white text-center bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer inline-block text-center transform left-1/2 top-1/2 -translate-y-1/2 h-full relative">Order Book</Link>
-                      </div>
-
-                    </div>
-                    
-                  </div>
-                </SwiperSlide>
+                  );
+                })}
               </Swiper>
             </div>
           </div>
@@ -608,7 +580,7 @@ function DistributorDetails(){
           <div className="max-w-7xl mx-auto px-4 md:px-8 relative">
             <h2 class="text-3xl md:text-4xl font-semibold text-gray-800 text-center">Pig <span class="text-[#ffa800]">Feed</span></h2>
             <p class="text-gray-600 mt-3 max-w-2xl mx-auto text-[16px] md:text-[18px] text-center">Nutrient-rich, protein-balanced feed designed for faster growth, improved immunity, and better feed efficiency in pigs.</p>
-            <div className="hidden md:flex items-center gap-3 absolute -bottom-[50px] left-[50%] -translate-x-1/2">
+            <div className="flex items-center gap-3 absolute -bottom-[50px] left-[50%] -translate-x-1/2">
               {/* <!-- Prev --> */}
               <button class="news-prev w-10 h-10 rounded-full border border-gray-300
             flex items-center justify-center  text-gray-600  hover:border-green-500 hover:text-green-500
@@ -627,7 +599,7 @@ function DistributorDetails(){
                 <FontAwesomeIcon icon={faArrowRight} />
               </button>
             </div>
-            <div className="distributionDetailsSwiper mt-10">
+            <div className="distributionDetailsSwiper mt-10 mb-10 md:mb-0">
               <Swiper
                 modules={[Navigation, Pagination]}
                 spaceBetween={30}
@@ -649,105 +621,69 @@ function DistributorDetails(){
                   },
                 }}
               >
-                {/* <!-- Card --> */}
-                <SwiperSlide className="h-auto mb-2">
-                  <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-                    {/* <!-- Image --> */}
-                    <img
-                      src={pigfeed}
-                      className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 
-                      group-hover:opacity-100 transition duration-500 
-                      flex items-end p-6">
+                {pigProducts.map((item) => {
 
-                      <div className="translate-y-6 group-hover:translate-y-0  transition duration-500">
-                        <Link to="/cart" className="text-sm mt-2 text-white text-center bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer inline-block text-center transform left-1/2 top-1/2 -translate-y-1/2 h-full relative">Order Book</Link>
+                  const count = cart[item.id] || 0;
+
+                  return (
+
+                    <SwiperSlide key={item.id} className="h-auto">
+
+                      <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
+
+                        <img
+                          src={item.image}
+                          className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
+                        />
+
+                        <div className="absolute inset-0 bg-black/60 opacity-100 md:opacity-0 
+                        group-hover:opacity-100 transition duration-500 flex items-end p-6">
+
+                          <div className="translate-y-6 group-hover:translate-y-0 transition duration-500 absolute left-1/2 transform -translate-x-1/2 bottom-12 md:bottom-4">
+
+                            {count === 0 ? (
+
+                              <button
+                                onClick={() => increase(item.id)}
+                                className="text-sm text-white bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium"
+                              >
+                                Add
+                              </button>
+
+                            ) : (
+
+                              <div className="flex items-center gap-3 bg-white text-black px-3 py-2 rounded-xl">
+
+                                <button
+                                  onClick={() => decrease(item.id)}
+                                  className="w-7 h-7 bg-gray-200 rounded"
+                                >
+                                  -
+                                </button>
+
+                                <span className="font-semibold">{count}</span>
+
+                                <button
+                                  onClick={() => increase(item.id)}
+                                  className="w-7 h-7 bg-gray-200 rounded"
+                                >
+                                  +
+                                </button>
+
+                              </div>
+
+                            )}
+
+                          </div>
+
+                        </div>
+
                       </div>
 
-                    </div>
-                  </div>
-                </SwiperSlide>
-                {/* <!-- Card 2 --> */}
-                <SwiperSlide className="h-auto mb-2">
-                  <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-                    {/* <!-- Image --> */}
-                    <img
-                      src={pigfeed1}
-                      className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500" 
-                    />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 
-                      group-hover:opacity-100 transition duration-500 
-                      flex items-end p-6">
+                    </SwiperSlide>
 
-                      <div className="translate-y-6 group-hover:translate-y-0  transition duration-500">
-                        <Link to="/cart" className="text-sm mt-2 text-white text-center bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer inline-block text-center transform left-1/2 top-1/2 -translate-y-1/2 h-full relative">Order Book</Link>
-                      </div>
-
-                    </div>
-                    
-                  </div>
-                </SwiperSlide>
-                {/* <!-- Card 3 --> */}
-                <SwiperSlide className="h-auto mb-2">
-                  <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-                    {/* <!-- Image --> */}
-                    <img
-                      src={pigfeed2}
-                      className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 
-                      group-hover:opacity-100 transition duration-500 
-                      flex items-end p-6">
-
-                      <div className="translate-y-6 group-hover:translate-y-0  transition duration-500">
-                        <Link to="/cart" className="text-sm mt-2 text-white text-center bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer inline-block text-center transform left-1/2 top-1/2 -translate-y-1/2 h-full relative">Order Book</Link>
-                      </div>
-
-                    </div>
-                    
-                  </div>
-                </SwiperSlide>
-                {/* <!-- Card 4 --> */}
-                <SwiperSlide className="h-auto mb-2">
-                  <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-                    {/* <!-- Image --> */}
-                    <img
-                      src={pigfeed3}
-                      className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 
-                      group-hover:opacity-100 transition duration-500 
-                      flex items-end p-6">
-
-                      <div className="translate-y-6 group-hover:translate-y-0  transition duration-500">
-                        <Link to="/cart" className="text-sm mt-2 text-white text-center bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer inline-block text-center transform left-1/2 top-1/2 -translate-y-1/2 h-full relative">Order Book</Link>
-                      </div>
-
-                    </div>
-                    
-                  </div>
-                </SwiperSlide>
-                {/* <!-- Card 5 --> */}
-                <SwiperSlide className="h-auto mb-2">
-                  <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-                    {/* <!-- Image --> */}
-                    <img
-                      src={pigfeed4}
-                      className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 
-                      group-hover:opacity-100 transition duration-500 
-                      flex items-end p-6">
-
-                      <div className="translate-y-6 group-hover:translate-y-0  transition duration-500">
-                        <Link to="/cart" className="text-sm mt-2 text-white text-center bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer inline-block text-center transform left-1/2 top-1/2 -translate-y-1/2 h-full relative">Order Book</Link>
-                      </div>
-
-                    </div>
-                    
-                  </div>
-                </SwiperSlide>
+                  );
+                })}
               </Swiper>
             </div>
           </div>

@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faIndianRupeeSign,
   faXmark,
+  faTrashCan,
   faPlus,
   faMinus,
   faLocationDot,
@@ -59,7 +60,6 @@ export default function Cart() {
     navigate("/checkout")
   }
 
-  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -88,14 +88,14 @@ export default function Cart() {
               <h1 className="text-[#fff] text-4xl md:text-6xl font-bold text-center mb-4 md:mb-6">
                 Add to <span className="text-[#ffa800]"> Cart</span>
               </h1>
-              {/* <p className="text-white text-[16px] md:text-xl text-center">
+              <p className="text-white text-[16px] md:text-xl text-center">
                 Empowering livestock productivity with scientifically balanced
                 nutrition for healthier animals and better returns.
-              </p> */}
+              </p>
               <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
                 <Link
                   to="/distributor"
-                  className="mt-4 md:mt-6 w-full  md:w-[198px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
+                  className="mt-4 md:mt-6 w-full  md:w-[215px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
                 >
                   <span className="text-[20px] font-bold font-inter">
                     <FontAwesomeIcon icon={faMagnifyingGlass} /> Find
@@ -153,7 +153,7 @@ export default function Cart() {
                                  justify-center 
                                  hover:opacity-90 transition"
                     >
-                      <FontAwesomeIcon icon={faXmark} />
+                      <FontAwesomeIcon icon={faTrashCan} />
                     </button>
 
                     <div className="flex flex-col md:flex-row gap-6 md:gap-12 items-center mt-6 md:mt-0">
@@ -171,10 +171,10 @@ export default function Cart() {
                         </h3>
 
                         {/* Unit Price */}
-                        {/* <p className="text-gray-600 text-[16px]  mb-4 font-medium">
+                        <p className="text-gray-600 text-[16px]  mb-4 font-medium">
                           <FontAwesomeIcon icon={faIndianRupeeSign} />
                           {item.price.toFixed(2)}
-                        </p> */}
+                        </p>
 
                         {/* Quantity */}
                         <div className="flex items-center justify-center md:justify-start  mb-4">
@@ -215,12 +215,12 @@ export default function Cart() {
                         </div>
 
                         {/* Total */}
-                        {/* <p className="text-[18px]  text-gray-800">
+                        <p className="text-[18px]  text-gray-800">
                           Total: <FontAwesomeIcon icon={faIndianRupeeSign} />
                           <span className="font-semibold">
                             {(item.price * item.quantity).toFixed(2)}
                           </span>
-                        </p> */}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -245,20 +245,20 @@ export default function Cart() {
                   Order Summary
                 </h3>
 
-                {/* <div className="flex justify-between mb-4 text-[20px]  text-gray-800">
+                <div className="flex justify-between mb-4 text-[20px]  text-gray-800">
                   <span>Subtotal:</span>
                   <span className="font-semibold">
                     <FontAwesomeIcon icon={faIndianRupeeSign} />
                     {subtotal.toFixed(2)}
                   </span>
-                </div> */}
+                </div>
 
-                {/* <p className="text-gray-500 text-sm mb-6">
+                <p className="text-gray-500 text-sm mb-6">
                   Shipping, taxes and discounts will be calculated at checkout.
-                </p> */}
+                </p>
 
                 <button
-                  onClick={() => setOpen(true)}
+                   onClick={() => navigate("/checkout")}
                   className=" w-full bg-yellow-500 text-white
                                py-3 rounded-xl font-medium cursor-pointer hover:bg-yellow-400  text-[16px]
                              hover:opacity-90 transition"
@@ -284,55 +284,6 @@ export default function Cart() {
       </main>
 
       <Footer />
-
-       {open && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-20">
-
-          <div className="bg-white p-6 rounded-xl shadow-xl w-[50%] relative">
-            <button onClick={() => setOpen(false)} className="absolute top-3 right-3 text-gray-500 hover:text-black text-xl cursor-pointer"> &times; </button>
-            <h2 className="text-2xl font-semibold mb-3 text-center">Order Product</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-10">
-              <input
-                type="text"
-                placeholder="Name"
-                className="border border-gray-300 rounded-md px-4 py-3 text-md focus:ring-2 focus:ring-green-600 focus:outline-none"
-              />
-            
-              <input
-                type="tel"
-                placeholder="Phone Number"
-                className="border border-gray-300 rounded-md px-4 py-3 text-md focus:ring-2 focus:ring-green-600 focus:outline-none"
-              />
-            
-              <textarea
-                rows="4"
-                placeholder="Message"
-                className="md:col-span-2 border border-gray-300 rounded-md px-4 py-3 text-md focus:ring-2 focus:ring-green-600 focus:outline-none"
-              ></textarea>
-            
-              {/* <button className="md:col-span-2 px-4 py-3 bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center  text-[18px] cursor-pointer">
-                Submit{" "}
-                <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
-              </button> */}
-            </div>
-            <div className="flex justify-center mt-10">
-              <button
-              onClick={() => setOpen(false)}
-              className="px-4 py-2 bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white text-white rounded-lg hover:opacity-90 transition mx-2 cursor-pointer"
-            >
-              Order Now
-            </button>
-            <button
-              onClick={() => setOpen(false)}
-              className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 mx-2 cursor-pointer"
-            >
-              Close
-            </button>
-            </div>
-          </div>
-
-        </div>
-      )}
     </>
   );
 }

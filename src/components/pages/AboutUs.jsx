@@ -148,7 +148,7 @@ function AboutUs02() {
                                <motion.div variants={itemVariant} className="w-full md:w-auto">
                                  <Link
                                    to="/distributor"
-                                   className="mt-4 md:mt-6 w-full md:w-[198px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
+                                   className="mt-4 md:mt-6 w-full md:w-[215px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
                                  >
                                    <span className="text-[20px] font-bold font-inter">
                                      <FontAwesomeIcon icon={faMagnifyingGlass} /> Find

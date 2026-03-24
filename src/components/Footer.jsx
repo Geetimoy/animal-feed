@@ -10,7 +10,7 @@ function Footer(){
   return (
     <>
       <footer className="bg-gradient-to-b from-[#0a1424] via-[#0b1628] to-[#0a1322] text-gray-300 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 py-10 md:py-16 grid grid-cols-1 md:grid-cols-4 gap-12 md:text-left text-center ">
+        <div className="max-w-7xl mx-auto px-6 py-10 md:py-16 grid grid-cols-1 md:grid-cols-4 md:gap-12 gap-6 md:text-left text-center ">
           {/* <!-- Brand / About --> */}
           <div className="space-y-6  md:text-left text-center">
             <img src={logo} alt="Logo" className="w-24 block mx-auto md:mx-0" />
@@ -68,7 +68,7 @@ function Footer(){
               </span>{" "}
               Quick Links
             </h3>
-            <ul className="mt-[30px]  ">
+            <ul className="md:mt-[30px] mt-[20px]">
               <li className="flex items-center md:items-start justify-center md:justify-start  gap-3 mb-3">
                 <span className="mt-2 w-[9px] h-[9px] rounded-full bg-gray-800"></span>
                 <span>
@@ -199,23 +199,20 @@ function Footer(){
               Contact Us
             </h3>
             <ul className="mt-[30px]">
-              <li className="flex items-center md:items-start justify-center md:justify-start mb-3">
+              <li className="flex md:items-start justify-center md:justify-start mb-3">
                 <span className="mr-2 text-[#00de55] text-lg">
                   <FontAwesomeIcon icon={faLocationDot} />
                 </span>
-                <span className="text-[#7f979f] text-lg font-medium">
-                  Rongoge Mega Food Park
-                  <br className="hidden md:block" />
-                  Dolikoto Banderdewa,
-                  <br className="hidden md:block" />
-                  Arunachal Pradesh 791123 
+                <span className="text-[#7f979f] md:text-lg text-md font-medium">
+                  Rongoge Mega Food Park <br className="hidden md:block" /> Dolikoto Banderdewa, 
+                  <br className="hidden md:block" /> Arunachal Pradesh 791123 
                 </span>
               </li>
               <li className="flex items-center md:items-start justify-center md:justify-start mb-3">
                 <span className="mr-2 text-[#00de55] text-lg">
                   <FontAwesomeIcon icon={faPhone} />
                 </span>
-                <span className="text-[#7f979f] text-lg font-medium">
+                <span className="text-[#7f979f] md:text-lg text-md font-medium">
                   <Link to="tel:+919999999999" className="inline-block transition-transform duration-300 ease-in-out hover:text-[#cfcfcf]">+91 9999999999</Link>
                 </span>
               </li>
@@ -223,7 +220,7 @@ function Footer(){
                 <span className="mr-2 text-[#00de55] text-lg">
                   <FontAwesomeIcon icon={faEnvelope} />
                 </span>
-                <span className="text-[#7f979f] text-lg font-medium">
+                <span className="text-[#7f979f] md:text-lg text-md font-medium">
                   <Link to="mailto:info@greengold.com" className="inline-block transition-transform duration-300 ease-in-out hover:text-[#cfcfcf]">info@greengold.com</Link>
                 </span>
               </li>

@@ -8,7 +8,6 @@ import {
   faPlus,
   faLocationDot,
   faMagnifyingGlass,
-  faArrowRight
 } from "@fortawesome/free-solid-svg-icons";
 import cartbanner from "../../assets/images/cart-banner.jpg";
 import { Link } from "react-router-dom";
@@ -31,6 +30,7 @@ export default function Checkout() {
 
   const [panelopen, setPanelOpen] = useState(false);
   const [selected, setSelected] = useState(1);
+  const [tempSelected, setTempSelected] = useState(1);
 
   const addresses = [
     {
@@ -50,6 +50,11 @@ export default function Checkout() {
   ];
 
   const current = addresses.find((a) => a.id === selected);
+
+  const handleDeliver = () => {
+    setSelected(tempSelected);
+    setPanelOpen(false);
+  };
 
   return (
     <>
@@ -85,7 +90,7 @@ export default function Checkout() {
               <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
                 <Link
                   to="/distributor"
-                  className="mt-4 md:mt-6 w-full  md:w-[215px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
+                  className="mt-4 md:mt-6 w-full  md:w-[198px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
                 >
                   <span className="text-[20px] font-bold font-inter">
                     <FontAwesomeIcon icon={faMagnifyingGlass} /> Find
@@ -118,7 +123,7 @@ export default function Checkout() {
         <div className="flex justify-between items-start p-4">
 
           <div>
-            <h2 className="text-[20px] md:text-[20px] font-semibold text-gray-800 mb-3">Shipping Address</h2>
+            <h2 className="text-[20px] md:text-[20px] font-semibold text-gray-800 mb-3">Billing Address</h2>
             <p className="text-sm text-gray-500">Deliver to</p>
             <p className="text-lg font-semibold">{current.position}</p>
             <h2 className="normal text-gray-800 text-[16px] md:text-[20px]">
@@ -129,7 +134,8 @@ export default function Checkout() {
           </div>
 
           <button
-            onClick={() => setPanelOpen(!panelopen)}
+            onClick={() => {setTempSelected(selected);
+              setPanelOpen(!open);}}
             className="text-green-700 font-medium cursor-pointer"
           >
             Change
@@ -138,25 +144,27 @@ export default function Checkout() {
         </div>
 
         {/* Sliding Panel */}
-        <div className={`transition-all duration-300 overflow-hidden ${
-            panelopen ? "max-h-auto p-4" : "max-h-0"
-          }`} >
+        <div
+          className={`transition-all duration-300 overflow-hidden ${
+            panelopen ? "max-h-80 p-4" : "max-h-0"
+          }`}
+        >
 
           {addresses.map((item) => (
 
             <label
               key={item.id}
               className={`flex gap-3 p-3 border border-blue-500 rounded-lg mb-3 cursor-pointer
-              ${selected === item.id ? "border-green-500 bg-blue-50" : ""}`}
+              ${tempSelected === item.id
+                  ? "border-blue-500 bg-blue-50"
+                  : "border-gray-200"
+                }`}
             >
 
               <input
                 type="radio"
-                checked={selected === item.id}
-                onChange={() => {
-                  setSelected(item.id);
-                  setPanelOpen(false);
-                }}
+               checked={tempSelected === item.id}
+                  onChange={() => setTempSelected(item.id)}
               />
 
               <div>
@@ -168,43 +176,12 @@ export default function Checkout() {
             </label>
 
           ))}
-          <div className="mt-10">
-            <h2 className="text-2xl text-center font-semibold text-gray-800">OR</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-10">
-              <input
-                type="text"
-                placeholder="Name"
-                className="border border-gray-300 rounded-md px-4 py-3 text-md focus:ring-2 focus:ring-green-600 focus:outline-none"
-              />
-            
-              <input
-                type="tel"
-                placeholder="Phone Number"
-                className="border border-gray-300 rounded-md px-4 py-3 text-md focus:ring-2 focus:ring-green-600 focus:outline-none"
-              />
-              <input
-                type="pin"
-                placeholder="Pin"
-                className="border border-gray-300 rounded-md px-4 py-3 text-md focus:ring-2 focus:ring-green-600 focus:outline-none"
-              />
-              <input
-                type="city"
-                placeholder="City/Town/District"
-                className="border border-gray-300 rounded-md px-4 py-3 text-md focus:ring-2 focus:ring-green-600 focus:outline-none"
-              />
-            
-              <textarea
-                rows="4"
-                placeholder="Address"
-                className="md:col-span-2 border border-gray-300 rounded-md px-4 py-3 text-md focus:ring-2 focus:ring-green-600 focus:outline-none"
-              ></textarea>
-            
-              <button className="md:col-span-2 px-4 py-3 bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center  text-[18px] cursor-pointer w-36">
-                Save
-                <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
-              </button>
-            </div>
-          </div>
+         <button
+            onClick={handleDeliver}
+            className="w-full mt-4 bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-2 rounded-lg"
+          >
+            Deliver to this address
+          </button>
         </div>
 
       </div>

@@ -16,8 +16,6 @@ import {
   faLayerGroup,
   faFileImage,
   faImage,
-  faCartArrowDown,
-  faCircleNotch
 } from "@fortawesome/free-solid-svg-icons";
 
 import { Link, useNavigate } from "react-router-dom";
@@ -36,17 +34,22 @@ function Header({ showLogout = false }) {
   return (
     <>
       <header className="fixed top-0 left-0 w-full z-50 overflow-hidden lg:overflow-visible">
-        <nav className="md:h-[100px] bg-white flex items-center transition-all duration-300 justify-between shadow-sm">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between w-full py-2">
+        <nav className="h-[100px] bg-white flex items-center transition-all duration-300 justify-between shadow-sm">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between w-full">
             {/* Logo */}
             <div className="flex-shrink-0 flex items-center justify-center bg-white rounded-full lg:h-[156px] lg:w-[156px] md:h-[120px] md:w-[120px] h-[100px] w-[100px] lg:mt-10 mt-0 relative z-50">
               <Link to="/">
-                <img src={logo} alt="Logo" className="lg:h-[127px] lg:w-[130px] h-[100px] w-[100px]" />
+                {" "}
+                <img
+                  src={logo}
+                  alt="Logo"
+                  className="lg:h-[127px] lg:w-[130px] h-[100px] w-[100px]"
+                />
               </Link>
             </div>
 
             {/* Desktop Menu */}
-            <div className="hidden lg:flex space-x-6">
+            <div className="hidden lg:flex space-x-6 absolute left-1/2 transform -translate-x-1/2">
               <Link
                 to="/"
                 className="nav-link text-[15px] font-normal flex items-center gap-2"
@@ -220,18 +223,14 @@ function Header({ showLogout = false }) {
             </div>
 
             {/* Desktop CTA */}
-            <div className="flex relative cursor-pointer md:flex-0 flex-1 justify-end mr-2">
-              <Link to="/cart" className="inline-block"><span className="absolute text-sm right-[0] -top-[7px]">3</span>
-              <span className="bg-[#ffe7a3] w-[30px] h-[30px] rounded-full text-center text-sm leading-[30px] inline-block"><FontAwesomeIcon icon={faCartArrowDown} /></span></Link>
-            </div>
+            
             <div className="hidden lg:flex">
               {showLogout ? (
                 <Link
                   to="/logout"
-                  className="nav-link text-[15px] font-normal flex items-center mr-2 gap-1 text-[#00a34a] mr-4"
+                  className="nav-link text-[15px] font-normal flex items-center mr-2 gap-1 text-[#00a34a]"
                 >
-                  <span className="bg-[#e2f2e7] w-[30px] h-[30px] rounded-full text-center leading-[30px] "><FontAwesomeIcon icon={faCircleNotch} /></span> 
-                  {/* Logout */}
+                  <i className="ri-login-box-line"></i> Logout
                 </Link>
               ) : (
                 <Link

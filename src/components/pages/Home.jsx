@@ -1193,7 +1193,7 @@ function Home(){
               </div>
 
               {/* Navigation */}
-              <div className="hidden md:flex items-center gap-3">
+              <div className="md:flex items-center gap-3">
                 {/* <!-- Prev --> */}
                 <button
                   class="news-prev w-10 h-10 rounded-full border border-gray-300
