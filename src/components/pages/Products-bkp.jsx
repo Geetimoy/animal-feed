@@ -39,200 +39,194 @@ import all from "../../assets/images/poultry-feed4.jpg";
 import layer from "../../assets/images/poultry-feed1.jpg";
 import special from "../../assets/images/poultry-feed2.jpg";
 import { icon } from "@fortawesome/fontawesome-svg-core";
-import axios from "axios";
 
 
 // PRODUCTS
-// const products = [
-//   {
-//     id: 1,
-//     name: "Calf Feed",
-//     category: "Cattle Feed",
-//     type: "Calf Feed",
-//     image: cattleProduct,
-//     icon: cattle,
-//     link: "/calf-products",
-//   },
-//   {
-//     id: 2,
-//     name: "Cattle Adult Feed",
-//     category: "Cattle Feed",
-//     type: "Adult Feed",
-//     image: cattleProduct1,
-//     icon: cattle,
-//     link: "/adult-products",
-//   },
-//   {
-//     id: 3,
-//     name: "Goat Feed",
-//     category: "Cattle Feed",
-//     type: "Goat Feed",
-//     image: cattleProduct,
-//     icon: cattle,
-//     link: "/goat-products",
-//   },
-//   {
-//     id: 4,
-//     name: "Yak Feed",
-//     category: "Cattle Feed",
-//     type: "Yak Feed",
-//     image: cattleProduct,
-//     icon: cattle,
-//     link: "/yak-products",
-//   },
+const products = [
+  {
+    id: 1,
+    name: "Calf Feed",
+    category: "Cattle Feed",
+    type: "Calf Feed",
+    image: cattleProduct,
+    icon: cattle,
+    link: "/calf-products",
+  },
+  {
+    id: 2,
+    name: "Cattle Adult Feed",
+    category: "Cattle Feed",
+    type: "Adult Feed",
+    image: cattleProduct1,
+    icon: cattle,
+    link: "/adult-products",
+  },
+  {
+    id: 3,
+    name: "Goat Feed",
+    category: "Cattle Feed",
+    type: "Goat Feed",
+    image: cattleProduct,
+    icon: cattle,
+    link: "/goat-products",
+  },
+  {
+    id: 4,
+    name: "Yak Feed",
+    category: "Cattle Feed",
+    type: "Yak Feed",
+    image: cattleProduct,
+    icon: cattle,
+    link: "/yak-products",
+  },
 
-//   {
-//     id: 5,
-//     name: "Poultry Pre-Starter",
-//     category: "Poultry Feed",
-//     type: "Pre-Starter",
-//     image: broilerProduct,
-//     icon: broiler,
-//     link: "/poultryprestarter-products",
-//   },
-//   {
-//     id: 6,
-//     name: "Poultry Starter",
-//     category: "Poultry Feed",
-//     type: "Starter",
-//     image: broilerProduct,
-//     icon: broiler,
-//     link: "/poultrystarter-products",
-//   },
-//   {
-//     id: 7,
-//     name: "Poultry Grower",
-//     category: "Poultry Feed",
-//     type: "Grower",
-//     image: broilerProduct,
-//     icon: broiler,
+  {
+    id: 5,
+    name: "Poultry Pre-Starter",
+    category: "Poultry Feed",
+    type: "Pre-Starter",
+    image: broilerProduct,
+    icon: broiler,
+    link: "/poultryprestarter-products",
+  },
+  {
+    id: 6,
+    name: "Poultry Starter",
+    category: "Poultry Feed",
+    type: "Starter",
+    image: broilerProduct,
+    icon: broiler,
+    link: "/poultrystarter-products",
+  },
+  {
+    id: 7,
+    name: "Poultry Grower",
+    category: "Poultry Feed",
+    type: "Grower",
+    image: broilerProduct,
+    icon: broiler,
 
-//     link: "/poultrygrower-products",
-//   },
-//   {
-//     id: 8,
-//     name: "Poultry Finisher",
-//     category: "Poultry Feed",
-//     type: "Finisher",
-//     image: broilerProduct,
-//     icon: broiler,
-//     link: "/poultryfinisher-products",
-//   },
-//   {
-//     id: 9,
-//     name: "Layer Pre-Starter",
-//     category: "Layer Poultry Feed",
-//     type: "Pre-Starter",
-//     image: broilerProduct,
-//     icon: layer,
-//     link: "/layerorestarter-products",
-//   },
+    link: "/poultrygrower-products",
+  },
+  {
+    id: 8,
+    name: "Poultry Finisher",
+    category: "Poultry Feed",
+    type: "Finisher",
+    image: broilerProduct,
+    icon: broiler,
+    link: "/poultryfinisher-products",
+  },
+  {
+    id: 9,
+    name: "Layer Pre-Starter",
+    category: "Layer Poultry Feed",
+    type: "Pre-Starter",
+    image: broilerProduct,
+    icon: layer,
+    link: "/layerorestarter-products",
+  },
 
-//   {
-//     id: 10,
-//     name: "Layer Poultry Starter",
-//     category: "Layer Poultry Feed",
-//     type: "Starter",
-//     image: broilerProduct,
-//     icon: layer,
-//     link: "/layerstarter-products",
-//   },
-//   {
-//     id: 11,
-//     name: "Layer Poultry Finisher",
-//     category: "Layer Poultry Feed",
-//     type: "Finisher",
-//     image: broilerProduct,
-//     image: layer,
-//     link: "/layerfinisher-products",
-//   },
-//   {
-//     id: 12,
-//     name: "Pig Feed",
-//     category: "Pig Feed",
-//     type: "Finisher",
-//     image: broilerProduct,
-//     icon: pig,
-//     link: "/pigfinisher-products",
-//   },
+  {
+    id: 10,
+    name: "Layer Poultry Starter",
+    category: "Layer Poultry Feed",
+    type: "Starter",
+    image: broilerProduct,
+    icon: layer,
+    link: "/layerstarter-products",
+  },
+  {
+    id: 11,
+    name: "Layer Poultry Finisher",
+    category: "Layer Poultry Feed",
+    type: "Finisher",
+    image: broilerProduct,
+    image: layer,
+    link: "/layerfinisher-products",
+  },
+  {
+    id: 12,
+    name: "Pig Feed",
+    category: "Pig Feed",
+    type: "Finisher",
+    image: broilerProduct,
+    icon: pig,
+    link: "/pigfinisher-products",
+  },
 
-//   {
-//     id: 13,
-//     name: "Jubenile",
-//     category: "Fish Feed",
-//     type: "Jubenile",
-//     image: broilerProduct,
-//     icon: fish,
-//     link: "/juvenilefish-products",
-//   },
-//   {
-//     id: 14,
-//     name: "Fish Starter",
-//     category: "Fish Feed",
-//     type: "Starter",
-//     image: broilerProduct,
-//     icon: fish,
-//     link: "/starterfish-products",
-//   },
-//   {
-//     id: 15,
-//     name: "Fish Grower",
-//     category: "Fish Feed",
-//     type: "Grower",
-//     image: broilerProduct,
-//     icon: fish,
-//     link: "/growerfish-products",
-//   },
-//   {
-//     id: 16,
-//     name: "Fish Finisher",
-//     category: "Fish Feed",
-//     type: "Finisher",
-//     image: broilerProduct,
-//     icon: fish,
-//     link: "/finisherfish-products",
-//   },
-//   {
-//     id: 17,
-//     name: "Fish Maintenance",
-//     category: "Fish Feed",
-//     type: "Maintenance",
-//     image: broilerProduct,
-//     icon: fish,
-//     link: "/maintenancefish-products",
-//   },
-//   {
-//     id: 17,
-//     // name: "Specialty Feed",
-//     // category: "Specialty Feed",
-//     // type: "Special",
-//     // image: broilerProduct,
-//     icon: special,
-//   },
-// ];
+  {
+    id: 13,
+    name: "Jubenile",
+    category: "Fish Feed",
+    type: "Jubenile",
+    image: broilerProduct,
+    icon: fish,
+    link: "/juvenilefish-products",
+  },
+  {
+    id: 14,
+    name: "Fish Starter",
+    category: "Fish Feed",
+    type: "Starter",
+    image: broilerProduct,
+    icon: fish,
+    link: "/starterfish-products",
+  },
+  {
+    id: 15,
+    name: "Fish Grower",
+    category: "Fish Feed",
+    type: "Grower",
+    image: broilerProduct,
+    icon: fish,
+    link: "/growerfish-products",
+  },
+  {
+    id: 16,
+    name: "Fish Finisher",
+    category: "Fish Feed",
+    type: "Finisher",
+    image: broilerProduct,
+    icon: fish,
+    link: "/finisherfish-products",
+  },
+  {
+    id: 17,
+    name: "Fish Maintenance",
+    category: "Fish Feed",
+    type: "Maintenance",
+    image: broilerProduct,
+    icon: fish,
+    link: "/maintenancefish-products",
+  },
+  {
+    id: 17,
+    // name: "Specialty Feed",
+    // category: "Specialty Feed",
+    // type: "Special",
+    // image: broilerProduct,
+    icon: special,
+  },
+];
 
 // CATEGORY
-// const categories = [
-//   // { name: "All", icon: all },
-//   { name: "Cattle Feed", icon: cattle },
-//   { name: "Poultry Feed", icon: broiler },
-//   { name: "Layer Poultry Feed", icon: layer },
-//   { name: "Pig Feed", icon: pig },
-//   { name: "Fish Feed", icon: fish },
-//   { name: "Specialty Feed", icon: special },
-// ];
-
-import { API_URL } from "../../config/api";
+const categories = [
+  // { name: "All", icon: all },
+  { name: "Cattle Feed", icon: cattle },
+  { name: "Poultry Feed", icon: broiler },
+  { name: "Layer Poultry Feed", icon: layer },
+  { name: "Pig Feed", icon: pig },
+  { name: "Fish Feed", icon: fish },
+  { name: "Specialty Feed", icon: special },
+];
 
 export default function Products() {
   const [search, setSearch] = useState("");
-  // const [activeCategory, setActiveCategory] = useState(categories[0].name);
-  const [activeCategory, setActiveCategory] = useState("");
+  const [activeCategory, setActiveCategory] = useState(categories[0].name);
   const [activeType, setActiveType] = useState("");
 
-  const [categories, setCategories] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+
   
   // CATEGORY FILTER
   // const categoryProducts =
@@ -240,74 +234,32 @@ export default function Products() {
   //     ? products
   //     : products.filter((p) => p.category === activeCategory);
 
-  // const categoryProducts = products.filter(
-  //   (p) => p.category === activeCategory,
-  // );
+  const categoryProducts = products.filter(
+    (p) => p.category === activeCategory,
+  );
 
   // TYPES
-  //const typeCards = [ ...new Set(categoryProducts.map((p) => p.type))];
-const typeCards = [
-  ...new Set(filteredProducts.map((p) => p.type)),
-];
+  const typeCards = [ ...new Set(categoryProducts.map((p) => p.type))];
+
   // FINAL FILTER
-  //   const filteredProducts = categoryProducts.filter(
-  //     (p) =>
-  //       (activeType === "All" || p.type === activeType) &&
-  //       p.name.toLowerCase().includes(search.toLowerCase()),
-  //   );
-  // const filteredProducts = categoryProducts.filter((p) => {
-  //   const text = search.trim().toLowerCase();
+//   const filteredProducts = categoryProducts.filter(
+//     (p) =>
+//       (activeType === "All" || p.type === activeType) &&
+//       p.name.toLowerCase().includes(search.toLowerCase()),
+//   );
+const filteredProducts = categoryProducts.filter((p) => {
+  const text = search.trim().toLowerCase();
 
-  //   const matchSearch =
-  //     p.name.toLowerCase().includes(text) ||
-  //     p.category.toLowerCase().includes(text) ||
-  //     p.type.toLowerCase().includes(text);
+  const matchSearch =
+    p.name.toLowerCase().includes(text) ||
+    p.category.toLowerCase().includes(text) ||
+    p.type.toLowerCase().includes(text);
 
-  //   // const matchType = activeType === "All" || p.type === activeType;
-  //   const matchType = activeType ? p.type === activeType : true;
+  // const matchType = activeType === "All" || p.type === activeType;
+  const matchType = activeType ? p.type === activeType : true;
 
-  //   return matchSearch && matchType;
-  // });
-
-    useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  const fetchCategories = async () => {
-  try {
-    const response = await axios.get(
-      `${API_URL}/categories`
-    );
-
-    const data = response.data.data;
-
-    setCategories(data);
-
-    // auto select first category
-    if (data.length > 0) {
-      handleCategoryClick(data[0]);
-    }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleCategoryClick = async (category) => {
-    try {
-      setActiveCategory(category.id);
-
-      const response = await axios.get(
-        `${API_URL}/categories/${category.id}/sub-categories`
-      );
-
-      console.log(response.data);
-
-      setFilteredProducts(response.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+  return matchSearch && matchType;
+});
 
   return (
     <>
@@ -483,27 +435,30 @@ const typeCards = [
                 }}
               >
                 {categories.map((cat) => (
-                  <SwiperSlide key={cat.id}>
+                  <SwiperSlide key={cat.name}>
                     <div
-                      onClick={() => handleCategoryClick(cat)}
+                      onClick={() => {
+                        setActiveCategory(cat.name);
+                        setActiveType("");
+                      }}
                       className="flex flex-col items-center cursor-pointer pt-6"
                     >
                       <div
                         className={`w-[180px] h-[180px] rounded-full overflow-hidden transition-all duration-200 ${
-                          activeCategory === cat.id
+                          activeCategory === cat.name
                             ? "border-[4px] border-green-600 shadow-md scale-105"
                             : "border border-gray-300"
                         }`}
                       >
                         <img
-                          src={cat.image} alt={cat.name}
+                          src={cat.icon}
                           className="w-full h-full object-cover"
                         />
                       </div>
 
                       <p
                         className={`text-md mt-2 ${
-                          activeCategory === cat.id
+                          activeCategory === cat.name
                             ? "text-green-600 font-semibold"
                             : "text-gray-700"
                         }`}
@@ -590,7 +545,7 @@ const typeCards = [
                     {p.name}
                   </h3>
 
-                  <Link to={`/products/${p.id}`}>
+                  <Link to={p.link}>
                     <button
                       type="button"
                       className="mt-4 w-full bg-yellow-500 text-white

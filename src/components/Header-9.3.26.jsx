@@ -1,5 +1,5 @@
 import logo from "../assets/images/logo.png";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -33,49 +33,15 @@ function Header({ showLogout = false }) {
     navigate("/", { state: { scrollTo: section } });
   };
 
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50); // trigger after 50px scroll
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <>
       <header className="fixed top-0 left-0 w-full z-50 overflow-hidden lg:overflow-visible">
         <nav className="md:h-[100px] bg-white flex items-center transition-all duration-300 justify-between shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between w-full py-2">
             {/* Logo */}
-            {/* <div className="flex-shrink-0 flex items-center justify-center bg-white rounded-full lg:h-[156px] lg:w-[156px] md:h-[120px] md:w-[120px] h-[100px] w-[100px] lg:mt-10 mt-0 relative z-50">
-             */}
-            <div
-              className={`flex-shrink-0 flex items-center justify-center bg-white rounded-full relative z-50 transition-all duration-300
-  ${
-    scrolled
-      ? "lg:h-[90px] lg:w-[90px] md:h-[80px] md:w-[80px] h-[70px] w-[70px] mt-0"
-      : "lg:h-[156px] lg:w-[156px] md:h-[120px] md:w-[120px] h-[100px] w-[100px] lg:mt-10 mt-0"
-  }`}
-            >
+            <div className="flex-shrink-0 flex items-center justify-center bg-white rounded-full lg:h-[156px] lg:w-[156px] md:h-[120px] md:w-[120px] h-[100px] w-[100px] lg:mt-10 mt-0 relative z-50">
               <Link to="/">
-                {/* <img
-                  src={logo}
-                  alt="Logo"
-                  className="lg:h-[127px] lg:w-[130px] h-[100px] w-[100px]"
-                /> */}
-                <img
-                  src={logo}
-                  alt="Logo"
-                  className={`transition-all duration-300
-    ${
-      scrolled
-        ? "lg:h-[90px] lg:w-[90px] h-[60px] w-[60px]"
-        : "lg:h-[127px] lg:w-[127px] h-[100px] w-[100px]"
-    }`}
-                />
+                <img src={logo} alt="Logo" className="lg:h-[127px] lg:w-[130px] h-[100px] w-[100px]" />
               </Link>
             </div>
 
@@ -255,12 +221,8 @@ function Header({ showLogout = false }) {
 
             {/* Desktop CTA */}
             <div className="flex relative cursor-pointer md:flex-0 flex-1 justify-end mr-2">
-              <Link to="/cart" className="inline-block">
-                <span className="absolute text-sm right-[0] -top-[7px]">3</span>
-                <span className="bg-[#ffe7a3] w-[30px] h-[30px] rounded-full text-center text-sm leading-[30px] inline-block">
-                  <FontAwesomeIcon icon={faCartArrowDown} />
-                </span>
-              </Link>
+              <Link to="/cart" className="inline-block"><span className="absolute text-sm right-[0] -top-[7px]">3</span>
+              <span className="bg-[#ffe7a3] w-[30px] h-[30px] rounded-full text-center text-sm leading-[30px] inline-block"><FontAwesomeIcon icon={faCartArrowDown} /></span></Link>
             </div>
             <div className="hidden lg:flex">
               {showLogout ? (
@@ -268,9 +230,7 @@ function Header({ showLogout = false }) {
                   to="/logout"
                   className="nav-link text-[15px] font-normal flex items-center mr-2 gap-1 text-[#00a34a] mr-4"
                 >
-                  <span className="bg-[#e2f2e7] w-[30px] h-[30px] rounded-full text-center leading-[30px] ">
-                    <FontAwesomeIcon icon={faCircleNotch} />
-                  </span>
+                  <span className="bg-[#e2f2e7] w-[30px] h-[30px] rounded-full text-center leading-[30px] "><FontAwesomeIcon icon={faCircleNotch} /></span> 
                   {/* Logout */}
                 </Link>
               ) : (
@@ -307,16 +267,13 @@ function Header({ showLogout = false }) {
         </nav>
 
         {/* Mobile Overlay */}
-        <div
-          className={`fixed inset-0 transition-opacity duration-300 lg:hidden ${
+        <div className={`fixed inset-0 transition-opacity duration-300 lg:hidden ${
             isOpen ? "opacity-100 visible" : "opacity-0 invisible"
           }`}
-          onClick={() => setIsOpen(false)}
-        />
+          onClick={() => setIsOpen(false)} />
 
         {/* Mobile Slide Menu */}
-        <div
-          className={`fixed top-[100px] left-0 w-[280px] bg-white transform transition-transform duration-300 h-full z-[999] lg:hidden ${
+        <div className={`fixed top-[100px] left-0 w-[280px] bg-white transform transition-transform duration-300 h-full z-[999] lg:hidden ${
             isOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >

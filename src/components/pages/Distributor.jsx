@@ -1,21 +1,28 @@
 import Header from "../Header";
 import Footer from "../Footer";
 
-
-import distributorBanner from '../../assets/images/distributor-banner.jpg';
+import distributorBanner from "../../assets/images/distributor-banner.jpg";
 
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass, faLocationDot, faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMagnifyingGlass,
+  faLocationDot,
+  faPhone,
+  faEnvelope,
+  faDrumstickBite,
+  faFish,
+  faCow,
+  faPiggyBank,
+  faEgg,
+} from "@fortawesome/free-solid-svg-icons";
 import { Helmet } from "react-helmet";
-
-
 
 function Distributor() {
   return (
     <>
-    <Helmet>
-        <title>Distributor -  Animal Feed</title>
+      <Helmet>
+        <title>Distributor - Animal Feed</title>
       </Helmet>
       <Header></Header>
       <main className="pt-16 overflow-hidden">
@@ -119,257 +126,213 @@ function Distributor() {
           </div>
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* Distributor Cards */}
-              {/* Example Card */}
+              {/* Card 1 */}
               <div className="bg-white p-4 rounded-lg shadow">
-                <div className="flex flex-col md:flex-row gap-2 text-gray-600">
-                  <div className="w-full md:w-2/3 text-sm">
-                    <h3 className="text-xl font-bold mb-2 text-gray-800">
-                      <Link to="/distributor-details">Green Gold Animal</Link>{" "}
-                    </h3>
-                    <p className="text-gray-600 mb-0">
-                      Green Gold Animal Feed Pvt Ltd.{" "}
-                    </p>
-                    <p className="text-gray-600 mb-3">Kolkata, West Bengal</p>
-                    <p className="text-gray-600 mb-1">
-                      <span className="text-[#00a34a] mr-2">
-                        <FontAwesomeIcon icon={faPhone} />
-                      </span>{" "}
-                      (123) 456-7890
-                    </p>
-                    <p className="text-gray-600">
-                      <span>
+                <div className="text-gray-600 text-sm">
+                  <h3 className="text-xl font-bold mb-2 text-gray-800">
+                    <Link to="/distributor-details">
+                      Kalabari Livestock Supply
+                    </Link>
+                  </h3>
+                  <p className="mb-1">Green Gold Animal Feed Pvt Ltd.</p>
+                  <div className="mt-4 space-y-2">
+                    <div className="grid grid-cols-3 gap-4">
+                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-green-100 text-green-700 rounded-md text-center justify-center">
                         <FontAwesomeIcon
-                          className="text-[#00a34a] mr-2"
-                          icon={faEnvelope}
+                          icon={faDrumstickBite}
+                          className="text-[14px]"
                         />
-                      </span>{" "}
-                      <Link
-                        to="mailto:distributor@greengold.com"
-                        className="underline"
-                      >
-                        distributor@greengold.com
-                      </Link>
-                    </p>
-                  </div>
-                  <div className="w-full md:w-1/3 md:border md:border-gray-200 overflow-hidden rounded-xl p-1">
-                    <iframe
-                      title="Kolkata Location"
-                      src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28415.468456355145!2d93.80497037525176!3d27.095390854376515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDolikoto%2C%20Banderdewa%2C%20Arunachal%20Pradesh%20%E2%80%93%20791123!5e0!3m2!1sen!2sin!4v1769078245418!5m2!1sen!2sin"
-                      className="w-full h-full border-0"
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                    />
+                        Poultry
+                      </span>
+
+
+                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-yellow-100 text-yellow-700 rounded-md justify-center">
+                        <FontAwesomeIcon icon={faCow} className="text-[14px]" />
+                        Cattle
+                      </span>
+
+                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-green-50 text-green-600 rounded-md justify-center">
+                        <FontAwesomeIcon icon={faEgg} className="text-[14px]" />
+                        Layer
+                      </span>
+
+                
+                    </div>
                   </div>
                 </div>
               </div>
+
+              {/* Card 2 */}
               <div className="bg-white p-4 rounded-lg shadow">
-                <div className="flex  flex-col md:flex-row gap-2 text-gray-600">
-                  <div className="w-full md:w-2/3 text-sm">
-                    <h3 className="text-xl font-bold mb-2 text-[#009a62]">
-                      <Link to="/distributor-details">Green Gold Animal</Link>{" "}
-                    </h3>
-                    <p className="text-gray-600 mb-0">
-                      Green Gold Animal Feed Pvt Ltd.{" "}
-                    </p>
-                    <p className="text-gray-600 mb-3">Kolkata, West Bengal</p>
-                    <p className="text-gray-600 mb-1">
-                      <span className="text-[#00a34a] mr-2">
-                        <FontAwesomeIcon icon={faPhone} />
-                      </span>{" "}
-                      (123) 456-7890
-                    </p>
-                    <p className="text-gray-600">
-                      <span>
+                <div className="text-gray-600 text-sm">
+                  <h3 className="text-xl font-bold mb-2 text-[#009a62]">
+                    <Link to="/distributor-details">Agartala Feed Center</Link>
+                  </h3>
+                  <p className="mb-1">Green Gold Animal Feed Pvt Ltd.</p>
+                  {/* <p className="mb-3">Poultry • Cattle</p> */}
+                  <div className="mt-4 space-y-2">
+                    <div className="grid grid-cols-3 gap-4">
+                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-green-100 text-green-700 rounded-md text-center justify-center">
                         <FontAwesomeIcon
-                          className="text-[#00a34a] mr-2"
-                          icon={faEnvelope}
+                          icon={faDrumstickBite}
+                          className="text-[14px]"
                         />
-                      </span>{" "}
-                      <Link
-                        to="mailto:distributor@greengold.com"
-                        className="underline"
-                      >
-                        distributor@greengold.com
-                      </Link>
-                    </p>
-                  </div>
-                  <div className="w-full md:w-1/3  md:border md:border-gray-200 overflow-hidden rounded-xl p-1">
-                    <iframe
-                      title="Kolkata Location"
-                      src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28415.468456355145!2d93.80497037525176!3d27.095390854376515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDolikoto%2C%20Banderdewa%2C%20Arunachal%20Pradesh%20%E2%80%93%20791123!5e0!3m2!1sen!2sin!4v1769078245418!5m2!1sen!2sin"
-                      className="w-full h-full border-0"
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                    />
+                        Poultry
+                      </span>
+
+                      <span className="flex items-center  gap-2 px-2 py-1 text-sm bg-blue-100 text-blue-700 rounded-md justify-center">
+                        <FontAwesomeIcon
+                          icon={faFish}
+                          className="text-[14px]"
+                        />
+                        Fish
+                      </span>
+
+                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-green-50 text-green-600 rounded-md justify-center">
+                        <FontAwesomeIcon icon={faEgg} className="text-[14px]" />
+                        Layer
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
+
+              {/* Card 3 */}
               <div className="bg-white p-4 rounded-lg shadow">
-                <div className="flex flex-col md:flex-row  gap-2 text-gray-600">
-                  <div className="w-full md:w-2/3 text-sm">
-                    <h3 className="text-xl font-bold mb-2 text-gray-800">
-                     <Link to="/distributor-details">Green Gold Animal</Link>{" "}
-                    </h3>
-                    <p className="text-gray-600 mb-0">
-                      Green Gold Animal Feed Pvt Ltd.{" "}
-                    </p>
-                    <p className="text-gray-600 mb-3">Kolkata, West Bengal</p>
-                    <p className="text-gray-600 mb-1">
-                      <span className="text-[#00a34a] mr-2">
-                        <FontAwesomeIcon icon={faPhone} />
-                      </span>{" "}
-                      (123) 456-7890
-                    </p>
-                    <p className="text-gray-600">
-                      <span>
+                <div className="text-gray-600 text-sm">
+                  <h3 className="text-xl font-bold mb-2 text-gray-800">
+                    <Link to="/distributor-details">Guwahati Agro Supply</Link>
+                  </h3>
+                  <p className="mb-1">Green Gold Animal Feed Pvt Ltd.</p>
+                  {/* <p className="mb-3">Fish • Cattle</p> */}{" "}
+                  <div className="mt-4 space-y-2">
+                    <div className="grid grid-cols-3 gap-4">
+                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-green-100 text-green-700 rounded-md text-center justify-center">
                         <FontAwesomeIcon
-                          className="text-[#00a34a] mr-2"
-                          icon={faEnvelope}
+                          icon={faDrumstickBite}
+                          className="text-[14px]"
                         />
-                      </span>{" "}
-                      <Link
-                        to="mailto:distributor@greengold.com"
-                        className="underline"
-                      >
-                        distributor@greengold.com
-                      </Link>
-                    </p>
-                  </div>
-                  <div className="w-full md:w-1/3  md:border md:border-gray-200 overflow-hidden rounded-xl p-1">
-                    <iframe
-                      title="Kolkata Location"
-                      src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28415.468456355145!2d93.80497037525176!3d27.095390854376515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDolikoto%2C%20Banderdewa%2C%20Arunachal%20Pradesh%20%E2%80%93%20791123!5e0!3m2!1sen!2sin!4v1769078245418!5m2!1sen!2sin"
-                      className="w-full h-full border-0"
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                    />
+                        Poultry
+                      </span>
+
+                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-yellow-100 text-yellow-700 rounded-md justify-center">
+                        <FontAwesomeIcon icon={faCow} className="text-[14px]" />
+                        Cattle
+                      </span>
+
+                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-pink-100 text-pink-700 rounded-md justify-center">
+                        <FontAwesomeIcon
+                          icon={faPiggyBank}
+                          className="text-[14px]"
+                        />
+                        Pig
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
+
+              {/* Card 4 */}
               <div className="bg-white p-4 rounded-lg shadow">
-                <div className="flex flex-col md:flex-row  gap-2 text-gray-600">
-                  <div className="w-full md:w-2/3 text-sm">
-                    <h3 className="text-xl font-bold mb-2 text-[#009a62]">
-                      <Link to="/distributor-details">Green Gold Animal</Link>{" "}
-                    </h3>
-                    <p className="text-gray-600 mb-0">
-                      Green Gold Animal Feed Pvt Ltd.{" "}
-                    </p>
-                    <p className="text-gray-600 mb-3">Kolkata, West Bengal</p>
-                    <p className="text-gray-600 mb-1">
-                      <span className="text-[#00a34a] mr-2">
-                        <FontAwesomeIcon icon={faPhone} />
-                      </span>{" "}
-                      (123) 456-7890
-                    </p>
-                    <p className="text-gray-600">
-                      <span>
+                <div className="text-gray-600 text-sm">
+                  <h3 className="text-xl font-bold mb-2 text-[#009a62]">
+                    <Link to="/distributor-details">Siliguri Feed Hub</Link>
+                  </h3>
+                  <p className="mb-1">Green Gold Animal Feed Pvt Ltd.</p>
+                  {/* <p className="mb-3">Poultry • Fish • Cattle</p>
+                   */}
+                  <div className="mt-4 space-y-2">
+                    <div className="grid grid-cols-3 gap-4">
+                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-green-100 text-green-700 rounded-md text-center justify-center">
                         <FontAwesomeIcon
-                          className="text-[#00a34a] mr-2"
-                          icon={faEnvelope}
+                          icon={faDrumstickBite}
+                          className="text-[14px]"
                         />
-                      </span>{" "}
-                      <Link
-                        to="mailto:distributor@greengold.com"
-                        className="underline"
-                      >
-                        distributor@greengold.com
-                      </Link>
-                    </p>
-                  </div>
-                  <div className="w-full md:w-1/3  md:border md:border-gray-200 overflow-hidden rounded-xl p-1">
-                    <iframe
-                      title="Kolkata Location"
-                      src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28415.468456355145!2d93.80497037525176!3d27.095390854376515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDolikoto%2C%20Banderdewa%2C%20Arunachal%20Pradesh%20%E2%80%93%20791123!5e0!3m2!1sen!2sin!4v1769078245418!5m2!1sen!2sin"
-                      className="w-full h-full border-0"
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                    />
+                        Poultry
+                      </span>
+
+                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-green-50 text-green-600 rounded-md justify-center">
+                        <FontAwesomeIcon icon={faEgg} className="text-[14px]" />
+                        Layer
+                      </span>
+
+                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-pink-100 text-pink-700 rounded-md justify-center">
+                        <FontAwesomeIcon
+                          icon={faPiggyBank}
+                          className="text-[14px]"
+                        />
+                        Pig
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
+
+              {/* Card 5 */}
               <div className="bg-white p-4 rounded-lg shadow">
-                <div className="flex flex-col md:flex-row  gap-2 text-gray-600">
-                  <div className="w-full md:w-2/3 text-sm">
-                    <h3 className="text-xl font-bold mb-2 text-gray-800">
-                      <Link to="/distributor-details">Green Gold Animal</Link>{" "}
-                    </h3>
-                    <p className="text-gray-600 mb-0">
-                      Green Gold Animal Feed Pvt Ltd.{" "}
-                    </p>
-                    <p className="text-gray-600 mb-3">Kolkata, West Bengal</p>
-                    <p className="text-gray-600 mb-1">
-                      <span className="text-[#00a34a] mr-2">
-                        <FontAwesomeIcon icon={faPhone} />
-                      </span>{" "}
-                      (123) 456-7890
-                    </p>
-                    <p className="text-gray-600">
-                      <span>
+                <div className="text-gray-600 text-sm">
+                  <h3 className="text-xl font-bold mb-2 text-gray-800">
+                    <Link to="/distributor-details">Ranchi Animal Feed</Link>
+                  </h3>
+                  <p className="mb-1">Green Gold Animal Feed Pvt Ltd.</p>
+                  {/* <p className="mb-3">Poultry</p> */}
+                  <div className="mt-4 space-y-2">
+                    <div className="grid grid-cols-3 gap-4">
+                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-yellow-100 text-yellow-700 rounded-md justify-center">
+                        <FontAwesomeIcon icon={faCow} className="text-[14px]" />
+                        Cattle
+                      </span>
+
+                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-green-50 text-green-600 rounded-md justify-center">
+                        <FontAwesomeIcon icon={faEgg} className="text-[14px]" />
+                        Layer
+                      </span>
+
+                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-pink-100 text-pink-700 rounded-md justify-center">
                         <FontAwesomeIcon
-                          className="text-[#00a34a] mr-2"
-                          icon={faEnvelope}
+                          icon={faPiggyBank}
+                          className="text-[14px]"
                         />
-                      </span>{" "}
-                      <Link
-                        to="mailto:distributor@greengold.com"
-                        className="underline"
-                      >
-                        distributor@greengold.com
-                      </Link>
-                    </p>
-                  </div>
-                  <div className="w-full md:w-1/3  md:border md:border-gray-200 overflow-hidden rounded-xl p-1">
-                    <iframe
-                      title="Kolkata Location"
-                      src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28415.468456355145!2d93.80497037525176!3d27.095390854376515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDolikoto%2C%20Banderdewa%2C%20Arunachal%20Pradesh%20%E2%80%93%20791123!5e0!3m2!1sen!2sin!4v1769078245418!5m2!1sen!2sin"
-                      className="w-full h-full border-0"
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                    />
+                        Pig
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
+
+              {/* Card 6 */}
               <div className="bg-white p-4 rounded-lg shadow">
-                <div className="flex flex-col md:flex-row  gap-2 text-gray-600">
-                  <div className="w-full md:w-2/3 text-sm">
-                    <h3 className="text-xl font-bold mb-2 text-[#009a62]">
-                      <Link to="/distributor-details">Green Gold Animal</Link>{" "}
-                    </h3>
-                    <p className="text-gray-600 mb-0">
-                      Green Gold Animal Feed Pvt Ltd.{" "}
-                    </p>
-                    <p className="text-gray-600 mb-3">Kolkata, West Bengal</p>
-                    <p className="text-gray-600 mb-1">
-                      <span className="text-[#00a34a] mr-2">
-                        <FontAwesomeIcon icon={faPhone} />
-                      </span>{" "}
-                      (123) 456-7890
-                    </p>
-                    <p className="text-gray-600">
-                      <span>
+                <div className="text-gray-600 text-sm">
+                  <h3 className="text-xl font-bold mb-2 text-[#009a62]">
+                    <Link to="/distributor-details">
+                      Patna Feed Distributor
+                    </Link>
+                  </h3>
+                  <p className="mb-1">Green Gold Animal Feed Pvt Ltd.</p>
+
+                  <div className="mt-4 space-y-2">
+                    <div className="grid grid-cols-3 gap-4">
+                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-green-100 text-green-700 rounded-md text-center justify-center">
                         <FontAwesomeIcon
-                          className="text-[#00a34a] mr-2"
-                          icon={faEnvelope}
+                          icon={faDrumstickBite}
+                          className="text-[14px]"
                         />
-                      </span>{" "}
-                      <Link
-                        to="mailto:distributor@greengold.com"
-                        className="underline"
-                      >
-                        distributor@greengold.com
-                      </Link>
-                    </p>
-                  </div>
-                  <div className="w-full md:w-1/3  md:border md:border-gray-200 overflow-hidden rounded-xl p-1">
-                    <iframe
-                      title="Kolkata Location"
-                      src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28415.468456355145!2d93.80497037525176!3d27.095390854376515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDolikoto%2C%20Banderdewa%2C%20Arunachal%20Pradesh%20%E2%80%93%20791123!5e0!3m2!1sen!2sin!4v1769078245418!5m2!1sen!2sin"
-                      className="w-full h-full border-0"
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                    />
+                        Poultry
+                      </span>
+
+                      <span className="flex items-center  gap-2 px-2 py-1 text-sm bg-blue-100 text-blue-700 rounded-md justify-center">
+                        <FontAwesomeIcon
+                          icon={faFish}
+                          className="text-[14px]"
+                        />
+                        Fish
+                      </span>
+
+                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-yellow-100 text-yellow-700 rounded-md justify-center">
+                        <FontAwesomeIcon icon={faCow} className="text-[14px]" />
+                        Cattle
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>

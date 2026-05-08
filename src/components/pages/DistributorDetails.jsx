@@ -39,8 +39,11 @@ import fishfeed1 from '../../assets/images/fish-feed1.jpg';
 import fishfeed2 from '../../assets/images/fish-feed2.jpg';
 import fishfeed3 from '../../assets/images/fish-feed3.jpg';
 import fishfeed4 from '../../assets/images/fish-feed4.jpg';
-
-
+import research from "../../assets/images/Layer25.png";
+import animal1 from "../../assets/images/cattle1.png";
+import animal2 from "../../assets/images/pig2.png";
+import animal3 from "../../assets/images/poultry2.png";
+import animal4 from "../../assets/images/fish2.png";
 
 import { Helmet } from "react-helmet";
 
@@ -127,10 +130,10 @@ const decrease = (id) => {
   }));
 };
 
-  return(
+  return (
     <>
       <Helmet>
-        <title>Distributor Details -  Animal Feed</title>
+        <title>Distributor Details - Animal Feed</title>
       </Helmet>
       <Header></Header>
       <main className="pt-16 overflow-hidden">
@@ -171,26 +174,143 @@ const decrease = (id) => {
             </div>
           </div>
         </section>
+
+        {/* About*/}
+        <section className="py-10 md:py-12 bg-gray-100">
+          <div className="max-w-7xl mx-auto px-4 md:px-8  ">
+            <h2 className="text-3xl md:text-5xl text-gray-800 font-semibold mb-4 text-center">
+              Green Gold <span className="text-[#ffa800]">Animal</span>
+            </h2>
+            <p className="text-gray-600 mb-3 text-center">
+              Premium Animal Feed Supplier Since 2010
+            </p>
+            <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+              <div className="bg-white p-4 rounded-lg shadow">
+                <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+                  About the <span className="text-[#ffa800]">Distributor</span>
+                </h3>
+                <p className="text-gray-700 text-base leading-relaxed text-center md:text-left mb-4">
+                  Green Gold Animal Feed Suppliers specializes in nutritionally
+                  balanced animal feed formulations. With modern storage
+                  facilities and strong logistics support, we ensure timely
+                  delivery of high-quality feed products to farms and retailers.
+                </p>
+            
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                  <div className="text-center flex-1 bg-white/70 py-3 px-1 rounded-2xl shadow-sm border border-dashed border-[#ffa800]/30">
+                    <div class="text-2xl font-black text-gray-800">100%</div>
+                    <span class="text-[11px] font-medium text-gray-500">
+                      Quality Focus
+                    </span>
+                  </div>
+                  <div className="text-center flex-1 bg-white/70 py-3 px-1 rounded-2xl shadow-sm border border-dashed border-[#ffa800]/30">
+                    <div class="text-2xl font-black text-gray-800">25+</div>
+                    <span class="text-[11px] font-medium text-gray-500">
+                      Years Legacy
+                    </span>
+                  </div>
+                  <div className="text-center flex-1 bg-white/70 py-3 px-1 rounded-2xl shadow-sm border border-dashed border-[#ffa800]/30">
+                    <div class="text-2xl font-black text-gray-800">150+</div>
+                    <span class="text-[11px] font-medium text-gray-500">
+                      Happy Farmers
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* <div className="relative">
+                {" "}
+                <img
+                  src={research}
+                  alt="Research and Development"
+                  className="rounded-2xl w-full h-[300px] md:h-[400px]  object-cover object-contain "
+                />
+              </div> */}
+                  {/* <!-- LEFT : IMAGE CARDS --> */}
+                          <div className="grid grid-cols-2 gap-2 md:gap-4" >
+                            {/* IMAGE 1 */}
+                            <div className="place-self-start" >
+                              <div className="relative inline-block overflow-hidden">
+                                <img
+                                  src={animal1}
+                                  className="block w-[280px] h-[180px] rounded-2xl  object-cover"
+                                  alt="" 
+                                />
+                               
+                              </div>
+                            </div>
+              
+                            {/* IMAGE 2 */}
+                            <div className="place-self-start">
+                              <div className="relative inline-block overflow-hidden">
+                                <img
+                                  src={animal2}
+                                  className="block w-[280px] h-[180px] object-cover rounded-2xl "
+                                  alt="" 
+                                />
+                               
+                              </div>
+                            </div>
+              
+                            {/* IMAGE 3 */}
+                            <div className="place-self-start" >
+                              <div className="relative inline-block overflow-hidden">
+                                <img
+                                  src={animal3}
+                                  className="block w-[280px] h-[180px]  rounded-2xl object-cover"
+                                  alt=""
+                                />
+                              
+                              </div>
+                            </div>
+              
+                            {/* IMAGE 4 */}
+                            <div className="place-self-start" >
+                              <div className="relative inline-block overflow-hidden">
+                                <img
+                                  src={animal4}
+                                  className="block w-[280px] h-[180px]  rounded-2xl object-cover"
+                                  alt=""
+                                />
+                               
+                              </div>
+                            </div>
+                          </div>
+            </div>
+         
+          </div>
+        </section>
+{/* 
         <section className="py-10 md:py-12 bg-gray-100">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <h2 className="text-3xl md:text-5xl text-gray-800 font-semibold mb-4 text-center">
               Green Gold <span className="text-[#ffa800]">Animal</span>
             </h2>
-            <p className="text-gray-600 mb-3 text-center">Premium Animal Feed Supplier Since 2010</p>
+            <p className="text-gray-600 mb-3 text-center">
+              Premium Animal Feed Supplier Since 2010
+            </p>
             <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-white p-4 rounded-lg shadow">
-                <h3 className="text-2xl font-semibold text-gray-800 mb-4">About the <span className="text-[#ffa800]">Distributor</span></h3>
-                <p className="text-gray-700 text-base leading-relaxed text-center md:text-left mb-4">Green Gold Animal Feed Suppliers specializes in nutritionally balanced animal feed formulations.
-        With modern storage facilities and strong logistics support, we ensure timely
-        delivery of high-quality feed products to farms and retailers.</p>
+                <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+                  About the <span className="text-[#ffa800]">Distributor</span>
+                </h3>
+                <p className="text-gray-700 text-base leading-relaxed text-center md:text-left mb-4">
+                  Green Gold Animal Feed Suppliers specializes in nutritionally
+                  balanced animal feed formulations. With modern storage
+                  facilities and strong logistics support, we ensure timely
+                  delivery of high-quality feed products to farms and retailers.
+                </p>
                 <p class="text-gray-600 mb-0 mb-2 text-center md:text-left">
-                  <span className="text-[#00a34a] mr-2"><FontAwesomeIcon icon={faMapPin} /></span>
-                  Green Gold Animal Feed Pvt Ltd. Kolkata, West Bengal</p>
+                  <span className="text-[#00a34a] mr-2">
+                    <FontAwesomeIcon icon={faMapPin} />
+                  </span>
+                  Green Gold Animal Feed Pvt Ltd. Kolkata, West Bengal
+                </p>
                 <p className="text-gray-600 mb-2 text-center md:text-left">
                               <span className="text-[#00a34a] mr-2">
                                 <FontAwesomeIcon icon={faPhone} />
                               </span>
-                              (123) 456-7890
+                              (123) 456-7890/
                 </p>
                 <p className="text-gray-600 text-center md:text-left">
                   <span>
@@ -209,45 +329,58 @@ const decrease = (id) => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
                   <div className="text-center flex-1 bg-white/70 py-3 px-1 rounded-2xl shadow-sm border border-dashed border-[#ffa800]/30">
                     <div class="text-2xl font-black text-gray-800">100%</div>
-                    <span class="text-[11px] font-medium text-gray-500">Quality Focus</span>
+                    <span class="text-[11px] font-medium text-gray-500">
+                      Quality Focus
+                    </span>
                   </div>
                   <div className="text-center flex-1 bg-white/70 py-3 px-1 rounded-2xl shadow-sm border border-dashed border-[#ffa800]/30">
                     <div class="text-2xl font-black text-gray-800">25+</div>
-                    <span class="text-[11px] font-medium text-gray-500">Years Legacy</span>
+                    <span class="text-[11px] font-medium text-gray-500">
+                      Years Legacy
+                    </span>
                   </div>
                   <div className="text-center flex-1 bg-white/70 py-3 px-1 rounded-2xl shadow-sm border border-dashed border-[#ffa800]/30">
                     <div class="text-2xl font-black text-gray-800">150+</div>
-                    <span class="text-[11px] font-medium text-gray-500">Happy Farmers</span>
+                    <span class="text-[11px] font-medium text-gray-500">
+                      Happy Farmers
+                    </span>
                   </div>
                 </div>
               </div>
               <div className="bg-white p-4 rounded-lg shadow">
                 <iframe
-                      title="Kolkata Location"
-                      src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28415.468456355145!2d93.80497037525176!3d27.095390854376515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDolikoto%2C%20Banderdewa%2C%20Arunachal%20Pradesh%20%E2%80%93%20791123!5e0!3m2!1sen!2sin!4v1769078245418!5m2!1sen!2sin"
-                      className="w-full h-full border-0"
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                    />
+                  title="Kolkata Location"
+                  src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28415.468456355145!2d93.80497037525176!3d27.095390854376515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDolikoto%2C%20Banderdewa%2C%20Arunachal%20Pradesh%20%E2%80%93%20791123!5e0!3m2!1sen!2sin!4v1769078245418!5m2!1sen!2sin"
+                  className="w-full h-full border-0"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Poultry Feed */}
 
         <section className="py-10 md:py-12 mb-10">
           <div className="max-w-7xl mx-auto px-4 md:px-8 relative">
-            <h2 class="text-3xl md:text-4xl font-semibold text-gray-800 text-center">Poultry <span class="text-[#ffa800]">Feed</span></h2>
-            <p class="text-gray-600 mt-3 max-w-2xl mx-auto text-[16px] md:text-[18px] text-center">Proper feeding at the right age and quantity ensures better growth, lower feed cost, and higher productivity.</p>
+            <h2 class="text-3xl md:text-4xl font-semibold text-gray-800 text-center">
+              Poultry <span class="text-[#ffa800]">Feed</span>
+            </h2>
+            <p class="text-gray-600 mt-3 max-w-2xl mx-auto text-[16px] md:text-[18px] text-center">
+              Proper feeding at the right age and quantity ensures better
+              growth, lower feed cost, and higher productivity.
+            </p>
             <div className="flex items-center gap-3 absolute -bottom-[50px] left-[50%] -translate-x-1/2">
               {/* <!-- Prev --> */}
-              <button class="news-prev w-10 h-10 rounded-full border border-gray-300
+              <button
+                class="news-prev w-10 h-10 rounded-full border border-gray-300
             flex items-center justify-center  text-gray-600  hover:border-green-500 hover:text-green-500
-            transition-colors duration-300 cursor-pointer swiper-prev1  transition-transform duration-300 easy-in-out hover:-translate-x-1" >
+            transition-colors duration-300 cursor-pointer swiper-prev1  transition-transform duration-300 easy-in-out hover:-translate-x-1"
+              >
                 <FontAwesomeIcon icon={faArrowLeft} />
               </button>
-          
+
               {/* <!-- Next --> */}
               <button
                 class=" news-next w-10 h-10 rounded-full border border-gray-300
@@ -282,33 +415,28 @@ const decrease = (id) => {
                 }}
               >
                 {poultryProducts.map((item) => {
-
                   const count = cart[item.id] || 0;
 
                   return (
-
                     <SwiperSlide key={item.id} className="h-auto">
-
                       <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-
                         <img
                           src={item.image}
                           className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
                         />
 
                         <div className="absolute inset-0 bg-black/60 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition duration-500 flex items-end p-6">
-
                           <div className="translate-y-6 group-hover:translate-y-0 transition duration-500 absolute left-1/2 transform -translate-x-1/2 bottom-12 md:bottom-4">
-
                             {count === 0 ? (
-
-                              <button onClick={() => increase(item.id)}
-                                className="text-sm text-white bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer" > Add </button>
-
+                              <button
+                                onClick={() => increase(item.id)}
+                                className="text-sm text-white bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer"
+                              >
+                                {" "}
+                                Add{" "}
+                              </button>
                             ) : (
-
                               <div className="flex items-center gap-3 bg-white text-black px-3 py-2 rounded-xl">
-
                                 <button
                                   onClick={() => decrease(item.id)}
                                   className="w-7 h-7 bg-gray-200 rounded"
@@ -324,19 +452,12 @@ const decrease = (id) => {
                                 >
                                   +
                                 </button>
-
                               </div>
-
                             )}
-
                           </div>
-
                         </div>
-
                       </div>
-
                     </SwiperSlide>
-
                   );
                 })}
               </Swiper>
@@ -347,16 +468,24 @@ const decrease = (id) => {
         {/* Cattle Feed */}
         <section className="py-10 md:pt-12 md:pb-20 bg-gray-100">
           <div className="max-w-7xl mx-auto px-4 md:px-8 relative">
-            <h2 class="text-3xl md:text-4xl font-semibold text-gray-800 text-center">Cattle <span class="text-[#ffa800]">Feed</span></h2>
-            <p class="text-gray-600 mt-3 max-w-2xl mx-auto text-[16px] md:text-[18px] text-center">Nutritionally balanced feed designed to improve milk yield, digestion, and overall cattle health with high-quality protein and essential minerals.</p>
+            <h2 class="text-3xl md:text-4xl font-semibold text-gray-800 text-center">
+              Cattle <span class="text-[#ffa800]">Feed</span>
+            </h2>
+            <p class="text-gray-600 mt-3 max-w-2xl mx-auto text-[16px] md:text-[18px] text-center">
+              Nutritionally balanced feed designed to improve milk yield,
+              digestion, and overall cattle health with high-quality protein and
+              essential minerals.
+            </p>
             <div className="flex items-center gap-3 absolute -bottom-[50px] left-[50%] -translate-x-1/2">
               {/* <!-- Prev --> */}
-              <button class="news-prev w-10 h-10 rounded-full border border-gray-300
+              <button
+                class="news-prev w-10 h-10 rounded-full border border-gray-300
             flex items-center justify-center  text-gray-600  hover:border-green-500 hover:text-green-500
-            transition-colors duration-300 cursor-pointer swiper-prev2  transition-transform duration-300 easy-in-out hover:-translate-x-1" >
+            transition-colors duration-300 cursor-pointer swiper-prev2  transition-transform duration-300 easy-in-out hover:-translate-x-1"
+              >
                 <FontAwesomeIcon icon={faArrowLeft} />
               </button>
-          
+
               {/* <!-- Next --> */}
               <button
                 class=" news-next w-10 h-10 rounded-full border border-gray-300
@@ -392,38 +521,30 @@ const decrease = (id) => {
               >
                 {/* <!-- Card --> */}
                 {cattleProducts.map((item) => {
-
                   const count = cart[item.id] || 0;
 
                   return (
-
                     <SwiperSlide key={item.id} className="h-auto">
-
                       <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-
                         <img
                           src={item.image}
                           className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
                         />
 
-                        <div className="absolute inset-0 bg-black/60 opacity-100 md:opacity-0 
-                        group-hover:opacity-100 transition duration-500 flex items-end p-6">
-
+                        <div
+                          className="absolute inset-0 bg-black/60 opacity-100 md:opacity-0 
+                        group-hover:opacity-100 transition duration-500 flex items-end p-6"
+                        >
                           <div className="translate-y-6 group-hover:translate-y-0 transition duration-500 absolute left-1/2 transform -translate-x-1/2 bottom-12 md:bottom-4">
-
                             {count === 0 ? (
-
                               <button
                                 onClick={() => increase(item.id)}
                                 className="text-sm text-white bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium"
                               >
                                 Add
                               </button>
-
                             ) : (
-
                               <div className="flex items-center gap-3 bg-white text-black px-3 py-2 rounded-xl">
-
                                 <button
                                   onClick={() => decrease(item.id)}
                                   className="w-7 h-7 bg-gray-200 rounded"
@@ -439,19 +560,12 @@ const decrease = (id) => {
                                 >
                                   +
                                 </button>
-
                               </div>
-
                             )}
-
                           </div>
-
                         </div>
-
                       </div>
-
                     </SwiperSlide>
-
                   );
                 })}
               </Swiper>
@@ -459,20 +573,26 @@ const decrease = (id) => {
           </div>
         </section>
 
-
         {/* Fish Feed */}
         <section className="py-10 md:py-12 mb-10">
           <div className="max-w-7xl mx-auto px-4 md:px-8 relative">
-            <h2 class="text-3xl md:text-4xl font-semibold text-gray-800 text-center">Fish <span class="text-[#ffa800]">Feed</span></h2>
-            <p class="text-gray-600 mt-3 max-w-2xl mx-auto text-[16px] md:text-[18px] text-center">High-protein, nutrient-rich feed designed for faster growth, strong immunity, and improved survival rates in aquaculture.</p>
+            <h2 class="text-3xl md:text-4xl font-semibold text-gray-800 text-center">
+              Fish <span class="text-[#ffa800]">Feed</span>
+            </h2>
+            <p class="text-gray-600 mt-3 max-w-2xl mx-auto text-[16px] md:text-[18px] text-center">
+              High-protein, nutrient-rich feed designed for faster growth,
+              strong immunity, and improved survival rates in aquaculture.
+            </p>
             <div className="flex items-center gap-3 absolute -bottom-[50px] left-[50%] -translate-x-1/2">
               {/* <!-- Prev --> */}
-              <button class="news-prev w-10 h-10 rounded-full border border-gray-300
+              <button
+                class="news-prev w-10 h-10 rounded-full border border-gray-300
             flex items-center justify-center  text-gray-600  hover:border-green-500 hover:text-green-500
-            transition-colors duration-300 cursor-pointer swiper-prev3  transition-transform duration-300 easy-in-out hover:-translate-x-1" >
+            transition-colors duration-300 cursor-pointer swiper-prev3  transition-transform duration-300 easy-in-out hover:-translate-x-1"
+              >
                 <FontAwesomeIcon icon={faArrowLeft} />
               </button>
-          
+
               {/* <!-- Next --> */}
               <button
                 class=" news-next w-10 h-10 rounded-full border border-gray-300
@@ -507,38 +627,30 @@ const decrease = (id) => {
                 }}
               >
                 {fishProducts.map((item) => {
-
                   const count = cart[item.id] || 0;
 
                   return (
-
                     <SwiperSlide key={item.id} className="h-auto">
-
                       <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-
                         <img
                           src={item.image}
                           className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
                         />
 
-                        <div className="absolute inset-0 bg-black/60 opacity-100 md:opacity-0 
-                        group-hover:opacity-100 transition duration-500 flex items-end p-6">
-
+                        <div
+                          className="absolute inset-0 bg-black/60 opacity-100 md:opacity-0 
+                        group-hover:opacity-100 transition duration-500 flex items-end p-6"
+                        >
                           <div className="translate-y-6 group-hover:translate-y-0 transition duration-500 absolute left-1/2 transform -translate-x-1/2 bottom-12 md:bottom-4">
-
                             {count === 0 ? (
-
                               <button
                                 onClick={() => increase(item.id)}
                                 className="text-sm text-white bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium"
                               >
                                 Add
                               </button>
-
                             ) : (
-
                               <div className="flex items-center gap-3 bg-white text-black px-3 py-2 rounded-xl">
-
                                 <button
                                   onClick={() => decrease(item.id)}
                                   className="w-7 h-7 bg-gray-200 rounded"
@@ -554,40 +666,39 @@ const decrease = (id) => {
                                 >
                                   +
                                 </button>
-
                               </div>
-
                             )}
-
                           </div>
-
                         </div>
-
                       </div>
-
                     </SwiperSlide>
-
                   );
                 })}
               </Swiper>
             </div>
           </div>
         </section>
-        
 
         {/* Pig Feed */}
-         <section className="py-10 md:pt-12 md:pb-20 bg-gray-100">
+        <section className="py-10 md:pt-12 md:pb-20 bg-gray-100">
           <div className="max-w-7xl mx-auto px-4 md:px-8 relative">
-            <h2 class="text-3xl md:text-4xl font-semibold text-gray-800 text-center">Pig <span class="text-[#ffa800]">Feed</span></h2>
-            <p class="text-gray-600 mt-3 max-w-2xl mx-auto text-[16px] md:text-[18px] text-center">Nutrient-rich, protein-balanced feed designed for faster growth, improved immunity, and better feed efficiency in pigs.</p>
+            <h2 class="text-3xl md:text-4xl font-semibold text-gray-800 text-center">
+              Pig <span class="text-[#ffa800]">Feed</span>
+            </h2>
+            <p class="text-gray-600 mt-3 max-w-2xl mx-auto text-[16px] md:text-[18px] text-center">
+              Nutrient-rich, protein-balanced feed designed for faster growth,
+              improved immunity, and better feed efficiency in pigs.
+            </p>
             <div className="flex items-center gap-3 absolute -bottom-[50px] left-[50%] -translate-x-1/2">
               {/* <!-- Prev --> */}
-              <button class="news-prev w-10 h-10 rounded-full border border-gray-300
+              <button
+                class="news-prev w-10 h-10 rounded-full border border-gray-300
             flex items-center justify-center  text-gray-600  hover:border-green-500 hover:text-green-500
-            transition-colors duration-300 cursor-pointer swiper-prev4  transition-transform duration-300 easy-in-out hover:-translate-x-1" >
+            transition-colors duration-300 cursor-pointer swiper-prev4  transition-transform duration-300 easy-in-out hover:-translate-x-1"
+              >
                 <FontAwesomeIcon icon={faArrowLeft} />
               </button>
-          
+
               {/* <!-- Next --> */}
               <button
                 class=" news-next w-10 h-10 rounded-full border border-gray-300
@@ -622,38 +733,30 @@ const decrease = (id) => {
                 }}
               >
                 {pigProducts.map((item) => {
-
                   const count = cart[item.id] || 0;
 
                   return (
-
                     <SwiperSlide key={item.id} className="h-auto">
-
                       <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-
                         <img
                           src={item.image}
                           className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
                         />
 
-                        <div className="absolute inset-0 bg-black/60 opacity-100 md:opacity-0 
-                        group-hover:opacity-100 transition duration-500 flex items-end p-6">
-
+                        <div
+                          className="absolute inset-0 bg-black/60 opacity-100 md:opacity-0 
+                        group-hover:opacity-100 transition duration-500 flex items-end p-6"
+                        >
                           <div className="translate-y-6 group-hover:translate-y-0 transition duration-500 absolute left-1/2 transform -translate-x-1/2 bottom-12 md:bottom-4">
-
                             {count === 0 ? (
-
                               <button
                                 onClick={() => increase(item.id)}
                                 className="text-sm text-white bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium"
                               >
                                 Add
                               </button>
-
                             ) : (
-
                               <div className="flex items-center gap-3 bg-white text-black px-3 py-2 rounded-xl">
-
                                 <button
                                   onClick={() => decrease(item.id)}
                                   className="w-7 h-7 bg-gray-200 rounded"
@@ -669,26 +772,18 @@ const decrease = (id) => {
                                 >
                                   +
                                 </button>
-
                               </div>
-
                             )}
-
                           </div>
-
                         </div>
-
                       </div>
-
                     </SwiperSlide>
-
                   );
                 })}
               </Swiper>
             </div>
           </div>
         </section>
-
       </main>
       <Footer></Footer>
     </>

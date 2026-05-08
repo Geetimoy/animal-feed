@@ -1,63 +1,11 @@
-import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 import bgImage from "../../assets/images/slider-bg.png";
 import logo from "../../assets/images/logo.png";
-import { API_URL } from "../../config/api";
 
 export default function SignUp() {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setLoading(true);
-    setError("");
-    setSuccess("");
-
-    try {
-      const response = await fetch(`${API_URL}/customers/signup`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(form),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        if (data?.errors) {
-          const firstField = Object.keys(data.errors)[0];
-          throw new Error(data.errors[firstField]?.[0] || "Signup failed.");
-        }
-
-        throw new Error(data?.message || "Signup failed.");
-      }
-
-      setSuccess("Account created successfully. You can sign in now.");
-      setForm({ name: "", email: "", password: "" });
-    } catch (err) {
-      setError(err.message || "Something went wrong.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <div
       className="min-h-screen w-full flex items-center justify-center bg-cover bg-center relative"
@@ -117,8 +65,7 @@ export default function SignUp() {
               Create your account to get started.
             </p>
 
-            <form
-              onSubmit={handleSubmit}
+            <div
               className="
                 bg-white/70
                 backdrop-blur-xl
@@ -135,12 +82,8 @@ export default function SignUp() {
                   className="absolute left-4 top-1/2 -translate-y-1/2 text-green-600"
                 />
                 <input
-                  name="name"
                   type="text"
                   placeholder="Full Name"
-                  value={form.name}
-                  onChange={handleChange}
-                  required
                   className="
                 w-full pl-11 pr-4 py-3
                 rounded-xl
@@ -160,12 +103,8 @@ export default function SignUp() {
                   className="absolute left-4 top-1/2 -translate-y-1/2 text-green-600"
                 />
                 <input
-                  name="email"
                   type="email"
                   placeholder="Enter your Email"
-                  value={form.email}
-                  onChange={handleChange}
-                  required
                   className="
                 w-full pl-11 pr-4 py-3
                 rounded-xl
@@ -186,12 +125,8 @@ export default function SignUp() {
                   className="absolute left-4 top-1/2 -translate-y-1/2 text-green-600"
                 />
                 <input
-                  name="password"
                   type="password"
                   placeholder="Password"
-                  value={form.password}
-                  onChange={handleChange}
-                  required
                   className="
                 w-full pl-11 pr-4 py-3
                 rounded-xl
@@ -206,8 +141,6 @@ export default function SignUp() {
               </div>
               {/* Button */}
               <button
-                type="submit"
-                disabled={loading}
                 className="
                    w-full py-3
              
@@ -218,19 +151,10 @@ export default function SignUp() {
                   shadow-[0_10px_30px_rgba(0,0,0,0.25)]
                   hover:opacity-90
                   transition cursor-pointer
-                  disabled:opacity-60 disabled:cursor-not-allowed
                 "
               >
-                {loading ? "Creating..." : "Sign Up"}
+                Sign Up
               </button>
-
-              {error ? (
-                <p className="mt-3 text-center text-sm text-red-600">{error}</p>
-              ) : null}
-
-              {success ? (
-                <p className="mt-3 text-center text-sm text-green-700">{success}</p>
-              ) : null}
 
               {/* divider */}
           <div className="flex items-center gap-3 my-3">
@@ -248,7 +172,7 @@ export default function SignUp() {
                   Sign in
                 </Link>
               </p>
-            </form>
+            </div>
           </div>
         </div>
       </div>
