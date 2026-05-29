@@ -1,12 +1,84 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
-import { faGoogle, faFacebookF } from "@fortawesome/free-brands-svg-icons";
 
 import bgImage from "../../assets/images/slider-bg.png";
 import logo from "../../assets/images/logo.png";
 
+import { API_URL } from "../../config/api";
+
 export default function Login() {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  // input change
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // login submit
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    setLoading(true);
+    setError("");
+
+    try {
+      const response = await axios.post(
+        `${API_URL}/customers/login`,
+        {
+          email: formData.email,
+          password: formData.password,
+        }
+      );
+
+      console.log("Login Response:", response.data);
+
+      // success check
+      if (response.data.access_token) {
+
+        // save user data
+        localStorage.setItem(
+          "user",
+          JSON.stringify(response.data.user)
+        );
+
+        // save token separately
+        localStorage.setItem(
+          "token",
+          response.data.access_token
+        );
+
+        // redirect
+        navigate("/profile");
+
+      } else {
+        setError(response.data.message || "Login failed");
+      }
+    } catch (err) {
+      console.log(err);
+
+      setError(
+        err.response?.data?.message || "Something went wrong"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div
       className="min-h-screen w-full flex items-center justify-center bg-cover bg-center relative"
@@ -20,12 +92,10 @@ export default function Login() {
           w-[92%] max-w-[460px]
           bg-white/35
           backdrop-blur-[20px]
-          rounded-2xl
-          backdrop-blur-2xl
           rounded-[32px]
           border border-white/30
           shadow-[0_30px_80px_rgba(0,0,0,0.18)]
-        md:px-4 md:py-4    md:px-6 md:py-8
+          md:px-6 md:py-8
         "
       >
         {/* logo */}
@@ -38,11 +108,13 @@ export default function Login() {
         <h2 className="text-2xl font-semibold text-center text-white">
           Welcome to GGAF
         </h2>
+
         <p className="text-center text-white text-sm mb-4">
           Please login to continue
         </p>
 
-        <div
+        <form
+          onSubmit={handleLogin}
           className="
             bg-white/75
             rounded-[26px]
@@ -56,9 +128,13 @@ export default function Login() {
               icon={faUser}
               className="absolute left-4 top-1/2 -translate-y-1/2 text-green-600"
             />
+
             <input
               type="text"
-              placeholder="Enter your username"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Enter your email"
               className="
                 w-full pl-11 pr-4 py-3
                 rounded-xl
@@ -69,6 +145,7 @@ export default function Login() {
                 focus:outline-none
                 focus:border-blue-400
               "
+              required
             />
           </div>
 
@@ -78,8 +155,12 @@ export default function Login() {
               icon={faLock}
               className="absolute left-4 top-1/2 -translate-y-1/2 text-green-600"
             />
+
             <input
               type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
               placeholder="Enter your password"
               className="
                 w-full pl-11 pr-4 py-3
@@ -91,26 +172,38 @@ export default function Login() {
                 focus:outline-none
                 focus:border-blue-400
               "
+              required
             />
           </div>
 
+          {/* error message */}
+          {error && (
+            <p className="text-red-500 text-sm mb-3">
+              {error}
+            </p>
+          )}
+
           <div className="text-right text-sm text-green-600 hover:underline cursor-pointer mb-4">
-            <Link to="/forgot-password"> Forgot Password?</Link>
+            <Link to="/forgot-password">
+              Forgot Password?
+            </Link>
           </div>
 
-          {/* login button  */}
+          {/* login button */}
           <button
+            type="submit"
+            disabled={loading}
             className="
               w-full py-3
-             
-              bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px]
-              text-white font-semibold
+              bg-gradient-to-r from-[#00a34a] to-[#009a62]
+              text-white rounded-[12px]
+              font-semibold
               shadow-md
               hover:opacity-90
               transition cursor-pointer
             "
           >
-            <Link to="/profile">Log In</Link>
+            {loading ? "Logging in..." : "Log In"}
           </button>
 
           {/* divider */}
@@ -124,12 +217,12 @@ export default function Login() {
             Don&apos;t have an account?{" "}
             <Link
               to="/sign-up"
-              className="text-green-600 font-medium cursor-pointer hover:underline"
+              className="text-green-600 font-medium hover:underline"
             >
               Sign up
             </Link>
           </p>
-        </div>
+        </form>
       </div>
     </div>
   );

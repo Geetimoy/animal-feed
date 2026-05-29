@@ -26,6 +26,7 @@ import { Link } from "react-router-dom";
 // import pig from "../../assets/images/pig-starter-product.png";
 // import special from "../../assets/images/special-product.jpeg";
 import banner from "../../assets/images/product-banner.jpeg";
+import { Fancybox } from "@fancyapps/ui";
 import productbanner from "../../assets/images/product-banner.jpeg";
 
 import cattle from "../../assets/images/cattle1.png";
@@ -233,6 +234,30 @@ export default function Products() {
   const [categories, setCategories] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const [activeCategorySlug, setActiveCategorySlug] = useState("");
+
+
+  useEffect(() => {
+      Fancybox.bind("[data-fancybox='product-gallery']", {
+        Image: {
+          zoom: true,
+          click: "zoom",
+          wheel: "slide",
+        },
+        Carousel: {
+          infinite: true,
+        },
+      //   caption: (fancybox, slide) => `
+      //     <div>
+      //       <h3>${slide.title}</h3>
+          
+      //     </div>
+      //   `,
+      });
+  
+      return () => Fancybox.destroy();
+    }, []);
   
   // CATEGORY FILTER
   // const categoryProducts =
@@ -295,9 +320,10 @@ const typeCards = [
   const handleCategoryClick = async (category) => {
     try {
       setActiveCategory(category.id);
+      setActiveCategorySlug(category.slug);
 
       const response = await axios.get(
-        `${API_URL}/categories/${category.id}/sub-categories`
+        `${API_URL}/categories/${category.slug}/sub-categories`
       );
 
       console.log(response.data);
@@ -496,7 +522,7 @@ const typeCards = [
                         }`}
                       >
                         <img
-                          src={cat.image} alt={cat.name}
+                          src={cat.image_url} alt={cat.name}
                           className="w-full h-full object-cover"
                         />
                       </div>
@@ -578,9 +604,9 @@ const typeCards = [
                   className="bg-[#efefef] rounded-lg p-6 shadow-sm"
                 >
                   <span className="mx-auto w-[200px]   bg-[#fff] block p-2 rounded-2xl shadow-xl mt-0 md:-mt-[60px] mb-4">
-                    <a href={p.image} data-fancybox="product-gallery">
+                    <a href={p.image_url} data-fancybox="product-gallery">
                       <img
-                        src={p.image}
+                        src={p.image_url}
                         alt={p.name}
                         className="w-full rounded-lg object-cover h-[180px]"
                       />
@@ -590,7 +616,7 @@ const typeCards = [
                     {p.name}
                   </h3>
 
-                  <Link to={`/products/${p.id}`}>
+                  <Link to={`/${activeCategorySlug}/${p.slug}`}>
                     <button
                       type="button"
                       className="mt-4 w-full bg-yellow-500 text-white

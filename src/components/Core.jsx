@@ -46,6 +46,8 @@ import FishFinisher from "./pages/FishFinisher";
 import FishMaintenance from "./pages/FishMaintenance";
 import FishGrower from "./pages/FishGrower";
 
+import ProductListing from "./pages/ProductListing";
+
 
 
 
@@ -101,6 +103,8 @@ export default function Core() {
         <Route path="/growerfish-products" element={<FishGrower />} />
         <Route path="/finisherfish-products" element={<FishFinisher />} />
         <Route path="/maintenancefish-products" element={<FishMaintenance />} />
+
+        <Route path="/:categorySlug/:subCategorySlug" element={<ProductListing />} />
       </Routes>
     </BrowserRouter>
   );
