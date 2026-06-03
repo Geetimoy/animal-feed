@@ -1,6 +1,11 @@
 import Header from "../Header";
 import Footer from "../Footer";
 
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+import { API_URL } from "../../config/api";
+
 import distributorBanner from "../../assets/images/distributor-banner.jpg";
 
 import { Link } from "react-router-dom";
@@ -19,6 +24,123 @@ import {
 import { Helmet } from "react-helmet";
 
 function Distributor() {
+
+  const [distributors, setDistributors] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const [statesList, setStatesList] = useState([]);
+  const [regionsList, setRegionsList] = useState([]);
+  const [categoriesList, setCategoriesList] = useState([]);
+  const [typesList, setTypesList] = useState([]);
+
+  const [selectedState, setSelectedState] = useState("");
+  const [selectedRegion, setSelectedRegion] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedType, setSelectedType] = useState("");
+
+  const [filteredDistributors, setFilteredDistributors] = useState([]);
+
+    useEffect(() => {
+      fetchDistributors();
+      fetchFilters();
+    }, []);
+
+  const fetchDistributors = async () => {
+    try {
+      const response = await axios.get(
+        `${API_URL}/distributors`
+      );
+
+      console.log(response.data);
+
+      setDistributors(response.data.data);
+      setFilteredDistributors(response.data.data);
+    } catch (error) {
+      console.error("Error fetching distributors:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+  const getTagData = (categories) => {
+  switch (categories.toLowerCase()) {
+    case "poultry feed":
+      return {
+        icon: faDrumstickBite,
+        className: "bg-green-100 text-green-700",
+      };
+
+    case "fish feed":
+      return {
+        icon: faFish,
+        className: "bg-blue-100 text-blue-700",
+      };
+
+    case "cattle feed":
+      return {
+        icon: faCow,
+        className: "bg-yellow-100 text-yellow-700",
+      };
+
+    case "pig feed":
+      return {
+        icon: faPiggyBank,
+        className: "bg-pink-100 text-pink-700",
+      };
+
+    case "layer feed":
+      return {
+        icon: faEgg,
+        className: "bg-green-50 text-green-600",
+      };
+
+    default:
+      return {
+        icon: faDrumstickBite,
+        className: "bg-gray-100 text-gray-700",
+      };
+  }
+  };
+
+  const fetchFilters = async () => {
+    try {
+      const response = await axios.get(
+        `${API_URL}/distributor-filters`
+      );
+
+      setStatesList(response.data.states || []);
+      setRegionsList(response.data.regions || []);
+      setCategoriesList(response.data.categories || []);
+      setTypesList(response.data.types || []);
+    } catch (error) {
+      console.error("Filter API Error:", error);
+    }
+  };
+
+
+  const handleSearch = (e) => {
+  e.preventDefault();
+  
+
+  const filtered = distributors.filter((item) => {
+    return (
+      (!selectedState || item.state === selectedState) &&
+      (!selectedRegion || item.region === selectedRegion) &&
+      (!selectedType || item.distributor_type === selectedType) &&
+      (!selectedCategory ||
+        item.categories?.some(
+          (cat) => cat.slug === selectedCategory
+        ))
+    );
+  });
+
+  setFilteredDistributors(filtered);
+};
+
+
+
+
   return (
     <>
       <Helmet>
@@ -69,47 +191,70 @@ function Distributor() {
               Our Distributor <span className="text-[#ffa800]">Network</span>
             </h2>
             <div className="bg-white p-4 md:p-6 rounded-lg shadow mt-4 md:mt-8">
-              <form action="" className="">
+              <form action="" className="" onSubmit={handleSearch}>
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-4 ">
                   <div>
                     <select
-                      name="state"
-                      id="state"
-                      className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm
-        focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      value={selectedState}
+                      onChange={(e) => setSelectedState(e.target.value)}
+                      className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm"
                     >
                       <option value="">Select State</option>
+
+                      {statesList.map((state, index) => (
+                        <option key={index} value={state}>
+                          {state}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <div>
                     <select
-                      name="region"
-                      id="region"
-                      className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm
-        focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      value={selectedRegion}
+                      onChange={(e) => setSelectedRegion(e.target.value)}
+                      className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm"
                     >
                       <option value="">Select Region</option>
+
+                      {regionsList.map((region, index) => (
+                        <option key={index} value={region}>
+                          {region}
+                        </option>
+                      ))}
                     </select>
                   </div>
 
                   <div>
                     <select
-                      name="category"
-                      id="category"
-                      className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm
-        focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      value={selectedCategory}
+                      onChange={(e) => setSelectedCategory(e.target.value)}
+                      className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm"
                     >
                       <option value="">Category</option>
+
+                      {categoriesList.map((category) => (
+                        <option
+                          key={category.id}
+                          value={category.slug}
+                        >
+                          {category.name}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <div>
                     <select
-                      name="distributor"
-                      id="distributor"
-                      className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm
-        focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      value={selectedType}
+                      onChange={(e) => setSelectedType(e.target.value)}
+                      className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm"
                     >
                       <option value="">Distributor Type</option>
+
+                      {typesList.map((type, index) => (
+                        <option key={index} value={type}>
+                          {type}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <div>
@@ -126,217 +271,61 @@ function Distributor() {
           </div>
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* Card 1 */}
-              <div className="bg-white p-4 rounded-lg shadow">
-                <div className="text-gray-600 text-sm">
-                  <h3 className="text-xl font-bold mb-2 text-gray-800">
-                    <Link to="/distributor-details">
-                      Kalabari Livestock Supply
-                    </Link>
-                  </h3>
-                  <p className="mb-1">Green Gold Animal Feed Pvt Ltd.</p>
-                  <div className="mt-4 space-y-2">
-                    <div className="grid grid-cols-3 gap-4">
-                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-green-100 text-green-700 rounded-md text-center justify-center">
-                        <FontAwesomeIcon
-                          icon={faDrumstickBite}
-                          className="text-[14px]"
-                        />
-                        Poultry
-                      </span>
+  {loading ? (
+    <p>Loading...</p>
+  ) : (
+    filteredDistributors.map((item) => (
+      <div
+        key={item.id}
+        className="bg-white p-4 rounded-lg shadow"
+      >
+        <div className="text-gray-600 text-sm">
+          <h3 className="text-xl font-bold mb-2 text-gray-800">
+            <Link to={`/distributors/${item.slug}`}>
+              {item.name}
+            </Link>
+          </h3>
 
+          <p className="mb-1">{item.company_name}</p>
 
-                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-yellow-100 text-yellow-700 rounded-md justify-center">
-                        <FontAwesomeIcon icon={faCow} className="text-[14px]" />
-                        Cattle
-                      </span>
+          {/* <div className="mt-2 space-y-1">
+            <p>
+              <FontAwesomeIcon icon={faLocationDot} /> {item.region},{" "}
+              {item.state}
+            </p>
 
-                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-green-50 text-green-600 rounded-md justify-center">
-                        <FontAwesomeIcon icon={faEgg} className="text-[14px]" />
-                        Layer
-                      </span>
+            <p>
+              <FontAwesomeIcon icon={faPhone} /> {item.phone}
+            </p>
 
-                
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <p>
+              <FontAwesomeIcon icon={faEnvelope} /> {item.email}
+            </p>
+          </div> */}
 
-              {/* Card 2 */}
-              <div className="bg-white p-4 rounded-lg shadow">
-                <div className="text-gray-600 text-sm">
-                  <h3 className="text-xl font-bold mb-2 text-[#009a62]">
-                    <Link to="/distributor-details">Agartala Feed Center</Link>
-                  </h3>
-                  <p className="mb-1">Green Gold Animal Feed Pvt Ltd.</p>
-                  {/* <p className="mb-3">Poultry • Cattle</p> */}
-                  <div className="mt-4 space-y-2">
-                    <div className="grid grid-cols-3 gap-4">
-                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-green-100 text-green-700 rounded-md text-center justify-center">
-                        <FontAwesomeIcon
-                          icon={faDrumstickBite}
-                          className="text-[14px]"
-                        />
-                        Poultry
-                      </span>
+          {/* Tags */}
+          <div className="mt-4">
+            <div className="grid grid-cols-3 gap-2">
+              {item.categories?.map((categories) => {
+                const { icon, className } = getTagData(categories.name);
 
-                      <span className="flex items-center  gap-2 px-2 py-1 text-sm bg-blue-100 text-blue-700 rounded-md justify-center">
-                        <FontAwesomeIcon
-                          icon={faFish}
-                          className="text-[14px]"
-                        />
-                        Fish
-                      </span>
-
-                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-green-50 text-green-600 rounded-md justify-center">
-                        <FontAwesomeIcon icon={faEgg} className="text-[14px]" />
-                        Layer
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 3 */}
-              <div className="bg-white p-4 rounded-lg shadow">
-                <div className="text-gray-600 text-sm">
-                  <h3 className="text-xl font-bold mb-2 text-gray-800">
-                    <Link to="/distributor-details">Guwahati Agro Supply</Link>
-                  </h3>
-                  <p className="mb-1">Green Gold Animal Feed Pvt Ltd.</p>
-                  {/* <p className="mb-3">Fish • Cattle</p> */}{" "}
-                  <div className="mt-4 space-y-2">
-                    <div className="grid grid-cols-3 gap-4">
-                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-green-100 text-green-700 rounded-md text-center justify-center">
-                        <FontAwesomeIcon
-                          icon={faDrumstickBite}
-                          className="text-[14px]"
-                        />
-                        Poultry
-                      </span>
-
-                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-yellow-100 text-yellow-700 rounded-md justify-center">
-                        <FontAwesomeIcon icon={faCow} className="text-[14px]" />
-                        Cattle
-                      </span>
-
-                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-pink-100 text-pink-700 rounded-md justify-center">
-                        <FontAwesomeIcon
-                          icon={faPiggyBank}
-                          className="text-[14px]"
-                        />
-                        Pig
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 4 */}
-              <div className="bg-white p-4 rounded-lg shadow">
-                <div className="text-gray-600 text-sm">
-                  <h3 className="text-xl font-bold mb-2 text-[#009a62]">
-                    <Link to="/distributor-details">Siliguri Feed Hub</Link>
-                  </h3>
-                  <p className="mb-1">Green Gold Animal Feed Pvt Ltd.</p>
-                  {/* <p className="mb-3">Poultry • Fish • Cattle</p>
-                   */}
-                  <div className="mt-4 space-y-2">
-                    <div className="grid grid-cols-3 gap-4">
-                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-green-100 text-green-700 rounded-md text-center justify-center">
-                        <FontAwesomeIcon
-                          icon={faDrumstickBite}
-                          className="text-[14px]"
-                        />
-                        Poultry
-                      </span>
-
-                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-green-50 text-green-600 rounded-md justify-center">
-                        <FontAwesomeIcon icon={faEgg} className="text-[14px]" />
-                        Layer
-                      </span>
-
-                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-pink-100 text-pink-700 rounded-md justify-center">
-                        <FontAwesomeIcon
-                          icon={faPiggyBank}
-                          className="text-[14px]"
-                        />
-                        Pig
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 5 */}
-              <div className="bg-white p-4 rounded-lg shadow">
-                <div className="text-gray-600 text-sm">
-                  <h3 className="text-xl font-bold mb-2 text-gray-800">
-                    <Link to="/distributor-details">Ranchi Animal Feed</Link>
-                  </h3>
-                  <p className="mb-1">Green Gold Animal Feed Pvt Ltd.</p>
-                  {/* <p className="mb-3">Poultry</p> */}
-                  <div className="mt-4 space-y-2">
-                    <div className="grid grid-cols-3 gap-4">
-                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-yellow-100 text-yellow-700 rounded-md justify-center">
-                        <FontAwesomeIcon icon={faCow} className="text-[14px]" />
-                        Cattle
-                      </span>
-
-                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-green-50 text-green-600 rounded-md justify-center">
-                        <FontAwesomeIcon icon={faEgg} className="text-[14px]" />
-                        Layer
-                      </span>
-
-                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-pink-100 text-pink-700 rounded-md justify-center">
-                        <FontAwesomeIcon
-                          icon={faPiggyBank}
-                          className="text-[14px]"
-                        />
-                        Pig
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 6 */}
-              <div className="bg-white p-4 rounded-lg shadow">
-                <div className="text-gray-600 text-sm">
-                  <h3 className="text-xl font-bold mb-2 text-[#009a62]">
-                    <Link to="/distributor-details">
-                      Patna Feed Distributor
-                    </Link>
-                  </h3>
-                  <p className="mb-1">Green Gold Animal Feed Pvt Ltd.</p>
-
-                  <div className="mt-4 space-y-2">
-                    <div className="grid grid-cols-3 gap-4">
-                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-green-100 text-green-700 rounded-md text-center justify-center">
-                        <FontAwesomeIcon
-                          icon={faDrumstickBite}
-                          className="text-[14px]"
-                        />
-                        Poultry
-                      </span>
-
-                      <span className="flex items-center  gap-2 px-2 py-1 text-sm bg-blue-100 text-blue-700 rounded-md justify-center">
-                        <FontAwesomeIcon
-                          icon={faFish}
-                          className="text-[14px]"
-                        />
-                        Fish
-                      </span>
-
-                      <span className="flex items-center gap-2 px-2 py-1 text-sm bg-yellow-100 text-yellow-700 rounded-md justify-center">
-                        <FontAwesomeIcon icon={faCow} className="text-[14px]" />
-                        Cattle
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                return (
+                  <span
+                    key={categories.id}
+                    className={`flex items-center gap-2 px-2 py-1 text-sm rounded-md justify-center ${className}`}
+                  >
+                    <FontAwesomeIcon icon={icon} className="text-[14px]" />
+                    {categories.name}
+                  </span>
+                );
+              })}
             </div>
+          </div>
+        </div>
+      </div>
+    ))
+  )}
+</div>
           </div>
         </section>
       </main>

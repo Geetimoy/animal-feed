@@ -256,7 +256,7 @@ function Header({ showLogout = false }) {
             {/* Desktop CTA */}
             <div className="flex relative cursor-pointer md:flex-0 flex-1 justify-end mr-2">
               <Link to="/cart" className="inline-block">
-                <span className="absolute text-sm right-[0] -top-[7px]">3</span>
+                <span className="absolute text-sm right-[0] -top-[7px]">0</span>
                 <span className="bg-[#ffe7a3] w-[30px] h-[30px] rounded-full text-center text-sm leading-[30px] inline-block">
                   <FontAwesomeIcon icon={faCartArrowDown} />
                 </span>

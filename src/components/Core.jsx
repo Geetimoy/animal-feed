@@ -47,6 +47,7 @@ import FishMaintenance from "./pages/FishMaintenance";
 import FishGrower from "./pages/FishGrower";
 
 import ProductListing from "./pages/ProductListing";
+import ProductDetails from "./pages/ProductDetails";
 
 
 
@@ -81,7 +82,7 @@ export default function Core() {
         <Route path="/quality" element={<Quality />} />
         <Route path="/csr" element={<Csr />} />
         <Route path="/logout" element={<Logout />} />
-        <Route path="/distributor-details" element={<DistributorDetails />} />
+        <Route path="/distributors/:slug" element={<DistributorDetails />} />
         {/* <Route path="/product-category" element={<Category />} /> */}
         <Route path="/calf-products" element={<CalfProduct />} />
         <Route path="/adult-products" element={<AdultProduct />} />
@@ -105,6 +106,7 @@ export default function Core() {
         <Route path="/maintenancefish-products" element={<FishMaintenance />} />
 
         <Route path="/:categorySlug/:subCategorySlug" element={<ProductListing />} />
+        <Route path="/product-details" element={<ProductDetails />} />
       </Routes>
     </BrowserRouter>
   );

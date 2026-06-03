@@ -1,794 +1,586 @@
 import Header from "../Header";
 import Footer from "../Footer";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 import distributorDetailsBanner from '../../assets/images/distributor-details-banner.jpg';
 
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass, faLocationDot, faPhone, faEnvelope, faMapPin, faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMagnifyingGlass,
+  faLocationDot,
+  faPhone,
+  faEnvelope,
+  faMapPin,
+  faArrowLeft,
+  faArrowRight,
+  faTag,
+  faBox,
+} from "@fortawesome/free-solid-svg-icons";
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
 
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-
-import pigfeed from '../../assets/images/pig2.png';
-import pigfeed1 from '../../assets/images/pig-feed1.jpg';
-import pigfeed2 from '../../assets/images/pig-feed2.jpg';
-import pigfeed3 from '../../assets/images/pig-feed3.jpg';
-import pigfeed4 from '../../assets/images/pig-feed4.jpg';
-
-import poultryfeed from '../../assets/images/poultry2.png';
-import poultryfeed1 from '../../assets/images/poultry-feed1.jpg';
-import poultryfeed2 from '../../assets/images/poultry-feed2.jpg';
-import poultryfeed3 from '../../assets/images/poultry-feed3.jpg';
-import poultryfeed4 from '../../assets/images/poultry-feed4.jpg';
-
-import cattlefeed from '../../assets/images/cattle1.png';
-import cattlefeed1 from '../../assets/images/cattle-feed1.jpg';
-import cattlefeed2 from '../../assets/images/cattle-feed2.jpg';
-import cattlefeed3 from '../../assets/images/cattle-feed3.jpg';
-import cattlefeed4 from '../../assets/images/cattle-feed4.jpg';
-
-import fishfeed from '../../assets/images/fish2.png';
-import fishfeed1 from '../../assets/images/fish-feed1.jpg';
-import fishfeed2 from '../../assets/images/fish-feed2.jpg';
-import fishfeed3 from '../../assets/images/fish-feed3.jpg';
-import fishfeed4 from '../../assets/images/fish-feed4.jpg';
-import research from "../../assets/images/Layer25.png";
-import animal1 from "../../assets/images/cattle1.png";
-import animal2 from "../../assets/images/pig2.png";
-import animal3 from "../../assets/images/poultry2.png";
-import animal4 from "../../assets/images/fish2.png";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 import { Helmet } from "react-helmet";
+import { API_URL } from "../../config/api";
 
-function DistributorDetails(){
-  const [count, setCount] = useState(0);
-
-  const categories = [
-  {
-    name: "Cattle Feed",
-    items: [
-      { id: "cattle1", name: "Cattle Feed Premium" },
-      { id: "cattle2", name: "Cattle Feed Grower" }
-    ]
-  },
-  {
-    name: "Pig Feed",
-    items: [
-      { id: "pig1", name: "Pig Feed Starter" },
-      { id: "pig2", name: "Pig Feed Finisher" }
-    ]
-  },
-  {
-    name: "Poultry Feed",
-    items: [
-      { id: "poultry1", name: "Poultry Feed Layer" },
-      { id: "poultry2", name: "Poultry Feed Broiler" }
-    ]
-  },
-  {
-    name: "Fish Feed",
-    items: [
-      { id: "fish1", name: "Fish Feed Floating" },
-      { id: "fish2", name: "Fish Feed Sinking" }
-    ]
-  }
-];
-
-const poultryProducts = [
-  { id: "poultry1", image: poultryfeed },
-  { id: "poultry2", image: poultryfeed1 },
-  { id: "poultry3", image: poultryfeed2 },
-  { id: "poultry4", image: poultryfeed3 },
-  { id: "poultry5", image: poultryfeed4 },
-];
-
-  const fishProducts = [
-  { id: "fish1", image: fishfeed },
-  { id: "fish2", image: fishfeed1 },
-  { id: "fish3", image: fishfeed2 },
-  { id: "fish4", image: fishfeed3 },
-  { id: "fish5", image: fishfeed4 },
-];
-
- const cattleProducts = [
-  { id: "cattlefeed1", image: cattlefeed },
-  { id: "cattlefeed2", image: cattlefeed1 },
-  { id: "cattlefeed3", image: cattlefeed2 },
-  { id: "cattlefeed4", image: cattlefeed3 },
-  { id: "cattlefeed5", image: cattlefeed4 },
-];
-
-const pigProducts = [
-  { id: "pig1", image: pigfeed },
-  { id: "pig2", image: pigfeed1 },
-  { id: "pig3", image: pigfeed2 },
-  { id: "pig4", image: pigfeed3 },
-  { id: "pig5", image: pigfeed4 },
-];
-
-
+function DistributorDetails() {
+  const { slug } = useParams();
+  const [distributor, setDistributor] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [cart, setCart] = useState({});
 
   const increase = (id) => {
-  setCart((prev) => ({
-    ...prev,
-    [id]: (prev[id] || 0) + 1,
-  }));
-};
+    setCart((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
+  };
 
-const decrease = (id) => {
-  setCart((prev) => ({
-    ...prev,
-    [id]: Math.max((prev[id] || 0) - 1, 0),
-  }));
-};
+  const decrease = (id) => {
+    setCart((prev) => ({ ...prev, [id]: Math.max((prev[id] || 0) - 1, 0) }));
+  };
+
+  useEffect(() => {
+    fetchDistributorDetails();
+  }, [slug]);
+
+  const fetchDistributorDetails = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/distributors/${slug}`);
+      console.log("API Response:", response.data);
+
+      // Handle both response shapes: { data: {...} } and { data: { data: {...} } }
+      const raw = response.data;
+      let dist = null;
+
+      if (raw?.data && !Array.isArray(raw.data)) {
+        // Shape: { data: { id, slug, ... } }
+        dist = raw.data;
+      } else if (raw?.data?.data) {
+        // Shape: { data: { data: [{...}] } } or { data: { data: {...} } }
+        dist = Array.isArray(raw.data.data)
+          ? raw.data.data[0]
+          : raw.data.data;
+      } else if (raw?.data?.[0]) {
+        dist = raw.data[0];
+      }
+
+      if (!dist) throw new Error("Distributor data not found in response");
+      setDistributor(dist);
+    } catch (err) {
+      console.error("Fetch error:", err);
+      setError(err.message || "Failed to load distributor.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // ── Product card ────────────────────────────────────────────────────────────
+  const ProductCard = ({ product }) => {
+    const count = cart[product.id] || 0;
+    const discount =
+      product.mrp && product.price
+        ? Math.round(((product.mrp - product.price) / product.mrp) * 100)
+        : null;
+
+    return (
+      <div className="bg-white rounded-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
+        {/* Image */}
+        <div className="relative overflow-hidden h-48">
+          <img
+            src={product.image_url}
+            alt={product.name}
+            className="h-full w-full object-cover transform group-hover:scale-110 transition duration-500"
+            onError={(e) => {
+              e.target.src =
+                "https://placehold.co/400x300/e2e8f0/64748b?text=No+Image";
+            }}
+          />
+          {discount > 0 && (
+            <span className="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+              {discount}% OFF
+            </span>
+          )}
+          {product.stock === 0 && (
+            <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+              <span className="text-white font-semibold text-sm bg-red-500 px-3 py-1 rounded-full">
+                Out of Stock
+              </span>
+            </div>
+          )}
+        </div>
+
+          <div className="absolute inset-0 bg-black/60 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition duration-500 flex items-end p-6">
+            <div className="translate-y-6 group-hover:translate-y-0 transition duration-500 absolute transform  bottom-12 md:bottom-4">
+            <h4 className="text-sm font-semibold text-white mb-1 line-clamp-2">
+            {product.name}
+          </h4>
+          <div className="flex items-center gap-2 mb-2">
+              <span className="text-base font-bold text-white">
+                ₹{parseFloat(product.price).toLocaleString("en-IN")}
+              </span>
+              {product.mrp && parseFloat(product.mrp) > parseFloat(product.price) && (
+                <span className="text-xs text-white line-through">
+                  ₹{parseFloat(product.mrp).toLocaleString("en-IN")}
+                </span>
+              )}
+            </div>
+              {/* <button className="text-sm text-white bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer"> Add </button> */}
+              <div className="flex items-center gap-2 mt-2">
+  <button
+    onClick={() => increase(product)}
+    className="text-sm text-white bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium"
+  >
+    Add
+  </button>
+
+  <div className="flex items-center bg-white rounded-lg overflow-hidden">
+    <button
+      onClick={() => decrease(product.id)}
+      className="w-8 h-8 bg-red-500 text-white font-bold"
+    >
+      -
+    </button>
+
+    <span className="px-3 text-blak font-semibold">
+      {count}
+    </span>
+
+    <button
+      onClick={() => increase(product)}
+      className="w-8 h-8 bg-green-500 text-white font-bold"
+    >
+      +
+    </button>
+  </div>
+</div>
+            </div>
+          </div>
+        {/* Body */}
+        <div className="p-0 flex flex-col flex-1">
+          {/* <p className="text-xs text-green-600 font-medium mb-1">
+            {product.sub_category_name}
+          </p> */}
+          {/* <h4 className="text-sm font-semibold text-gray-800 mb-1 line-clamp-2">
+            {product.name}
+          </h4> */}
+
+          {/* Nutrition badges */}
+          {/* {product.nutrition_values?.length > 0 && (
+            <div className="flex flex-wrap gap-1 mb-2">
+              {product.nutrition_values.map((n, i) => (
+                <span
+                  key={i}
+                  className="text-[10px] bg-amber-50 text-amber-700 border border-amber-200 px-2 py-0.5 rounded-full"
+                >
+                  {n.name}: {n.value}
+                </span>
+              ))}
+            </div>
+          )} */}
+
+          {/* Price */}
+          <div className="mt-auto">
+            {/* <div className="flex items-center gap-2 mb-2">
+              <span className="text-base font-bold text-gray-900">
+                ₹{parseFloat(product.price).toLocaleString("en-IN")}
+              </span>
+              {product.mrp && parseFloat(product.mrp) > parseFloat(product.price) && (
+                <span className="text-xs text-gray-400 line-through">
+                  ₹{parseFloat(product.mrp).toLocaleString("en-IN")}
+                </span>
+              )}
+            </div> */}
+
+            {/* Cart controls */}
+            {/* {product.stock > 0 ? (
+              count === 0 ? (
+                <button
+                  onClick={() => increase(product.id)}
+                  className="w-full text-sm text-white bg-gradient-to-r from-[#00a34a] to-[#009a62] hover:opacity-90 px-4 py-2 rounded-xl font-medium transition"
+                >
+                  Add to Cart
+                </button>
+              ) : (
+                <div className="flex items-center justify-between bg-gray-100 px-3 py-2 rounded-xl">
+                  <button
+                    onClick={() => decrease(product.id)}
+                    className="w-7 h-7 bg-white shadow rounded-lg text-gray-700 font-bold"
+                  >
+                    −
+                  </button>
+                  <span className="font-semibold text-gray-800">{count}</span>
+                  <button
+                    onClick={() => increase(product.id)}
+                    className="w-7 h-7 bg-green-500 text-white shadow rounded-lg font-bold"
+                  >
+                    +
+                  </button>
+                </div>
+              )
+            ) : (
+              <button
+                disabled
+                className="w-full text-sm text-gray-400 bg-gray-100 px-4 py-2 rounded-xl font-medium cursor-not-allowed"
+              >
+                Out of Stock
+              </button>
+            )} */}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  // ── Category section ────────────────────────────────────────────────────────
+  const CategorySection = ({ categoryData, index }) => {
+    const prevClass = `swiper-prev-cat-${index}`;
+    const nextClass = `swiper-next-cat-${index}`;
+    const isEven = index % 2 === 0;
+
+    return (
+      <section className={`py-10 md:py-16 ${isEven ? "bg-white" : "bg-gray-50"}`}>
+        <div className="max-w-7xl mx-auto px-4 md:px-8 relative">
+          <h2 className="text-3xl md:text-4xl font-semibold text-gray-800 text-center">
+            {categoryData.category.name.split(" ").slice(0, -1).join(" ")}{" "}
+            <span className="text-[#ffa800]">
+              {categoryData.category.name.split(" ").slice(-1)}
+            </span>
+          </h2>
+          {categoryData.category.description && (
+            <p className="text-gray-500 mt-3 max-w-2xl mx-auto text-center text-sm md:text-base">
+              {categoryData.category.description}
+            </p>
+          )}
+
+          {/* Nav buttons */}
+          <div className="flex items-center gap-3 justify-center mt-4">
+            <button
+              className={`${prevClass} w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center text-gray-600 hover:border-green-500 hover:text-green-500 transition-colors duration-300 cursor-pointer hover:-translate-x-1 transition-transform`}
+            >
+              <FontAwesomeIcon icon={faArrowLeft} />
+            </button>
+            <button
+              className={`${nextClass} w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center text-gray-600 hover:border-green-500 hover:text-green-500 transition-colors duration-300 cursor-pointer hover:translate-x-1 transition-transform`}
+            >
+              <FontAwesomeIcon icon={faArrowRight} />
+            </button>
+          </div>
+
+          <div className="mt-6">
+            <Swiper
+              modules={[Navigation, Pagination]}
+              spaceBetween={24}
+              slidesPerView={1}
+              navigation={{
+                prevEl: `.${prevClass}`,
+                nextEl: `.${nextClass}`,
+              }}
+              breakpoints={{
+                480: { slidesPerView: 1 },
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+                1280: { slidesPerView: 4 },
+              }}
+            >
+              {categoryData.products.map((product) => (
+                <SwiperSlide key={product.id} className="h-auto pb-2">
+                  <ProductCard product={product} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </div>
+      </section>
+    );
+  };
+
+  // ── Render states ───────────────────────────────────────────────────────────
+  if (loading) {
+    return (
+      <>
+        <Header />
+        <main className="pt-16 min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <div className="w-12 h-12 border-4 border-green-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+            <p className="text-gray-500 text-lg">Loading distributor details…</p>
+          </div>
+        </main>
+        <Footer />
+      </>
+    );
+  }
+
+  if (error || !distributor) {
+    return (
+      <>
+        <Header />
+        <main className="pt-16 min-h-screen flex items-center justify-center">
+          <div className="text-center px-4">
+            <div className="text-6xl mb-4">⚠️</div>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+              {error ? "Something went wrong" : "Distributor not found"}
+            </h2>
+            <p className="text-gray-500 mb-6">
+              {error || "We couldn't find the distributor you're looking for."}
+            </p>
+            <Link
+              to="/distributor"
+              className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-xl hover:bg-green-700 transition"
+            >
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
+              Browse Distributors
+            </Link>
+          </div>
+        </main>
+        <Footer />
+      </>
+    );
+  }
+
+  const totalCartItems = Object.values(cart).reduce((a, b) => a + b, 0);
 
   return (
     <>
       <Helmet>
-        <title>Distributor Details - Animal Feed</title>
+        <title>{distributor.company_name || distributor.name} — Distributor Details</title>
       </Helmet>
-      <Header></Header>
+      <Header />
+
       <main className="pt-16 overflow-hidden">
+        {/* ── Hero Banner ── */}
         <section className="relative z-0">
           <div className="relative">
             <img
               src={distributorDetailsBanner}
               alt="Distributor Banner"
-              className="w-full md:h-auto h-[450px]  object-cover"
+              className="w-full md:h-auto h-[450px] object-cover"
             />
-
-            <div className="absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-4xl px-4 md:px-6  w-full">
-              <h1 className="text-[#fff] text-4xl md:text-6xl font-bold text-center mb-4 md:mb-6">
+            <div className="absolute inset-0 bg-black/40" />
+            <div className="absolute inset-0 flex flex-col items-center justify-center px-4 md:px-6">
+              <h1 className="text-white text-4xl md:text-6xl font-bold text-center mb-4">
                 Distributor Details
               </h1>
-              <p className="text-white text-[16px] md:text-xl text-center">
+              <p className="text-white/90 text-base md:text-xl text-center mb-6">
                 Building Strong Distribution Partnerships Across Regions
               </p>
-              <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
+              <div className="flex flex-wrap gap-3 justify-center">
                 <Link
                   to="/distributor"
-                  className="mt-4 md:mt-6 w-full  md:w-[215px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-xl font-semibold hover:opacity-90 transition"
                 >
-                  <span className="text-[20px] font-bold font-inter">
-                    <FontAwesomeIcon icon={faMagnifyingGlass} /> Find
-                    Distributor
-                  </span>
+                  <FontAwesomeIcon icon={faMagnifyingGlass} />
+                  Find Distributor
                 </Link>
                 <Link
                   to="/contact-us"
-                  className="mt-3 md:mt-6  w-full  md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
+                  className="inline-flex items-center gap-2 px-6 py-3 border-2 border-white text-white rounded-xl font-semibold hover:bg-white hover:text-gray-900 transition"
                 >
-                  <span className="text-[20px] font-bold font-inter">
-                    <FontAwesomeIcon icon={faLocationDot} /> Contact Us
-                  </span>
+                  <FontAwesomeIcon icon={faLocationDot} />
+                  Contact Us
                 </Link>
               </div>
             </div>
           </div>
         </section>
 
-        {/* About*/}
-        <section className="py-10 md:py-12 bg-gray-100">
-          <div className="max-w-7xl mx-auto px-4 md:px-8  ">
-            <h2 className="text-3xl md:text-5xl text-gray-800 font-semibold mb-4 text-center">
-              Green Gold <span className="text-[#ffa800]">Animal</span>
-            </h2>
-            <p className="text-gray-600 mb-3 text-center">
-              Premium Animal Feed Supplier Since 2010
-            </p>
-            <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-              <div className="bg-white p-4 rounded-lg shadow">
-                <h3 className="text-2xl font-semibold text-gray-800 mb-4">
-                  About the <span className="text-[#ffa800]">Distributor</span>
-                </h3>
-                <p className="text-gray-700 text-base leading-relaxed text-center md:text-left mb-4">
-                  Green Gold Animal Feed Suppliers specializes in nutritionally
-                  balanced animal feed formulations. With modern storage
-                  facilities and strong logistics support, we ensure timely
-                  delivery of high-quality feed products to farms and retailers.
-                </p>
-            
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-                  <div className="text-center flex-1 bg-white/70 py-3 px-1 rounded-2xl shadow-sm border border-dashed border-[#ffa800]/30">
-                    <div class="text-2xl font-black text-gray-800">100%</div>
-                    <span class="text-[11px] font-medium text-gray-500">
-                      Quality Focus
-                    </span>
-                  </div>
-                  <div className="text-center flex-1 bg-white/70 py-3 px-1 rounded-2xl shadow-sm border border-dashed border-[#ffa800]/30">
-                    <div class="text-2xl font-black text-gray-800">25+</div>
-                    <span class="text-[11px] font-medium text-gray-500">
-                      Years Legacy
-                    </span>
-                  </div>
-                  <div className="text-center flex-1 bg-white/70 py-3 px-1 rounded-2xl shadow-sm border border-dashed border-[#ffa800]/30">
-                    <div class="text-2xl font-black text-gray-800">150+</div>
-                    <span class="text-[11px] font-medium text-gray-500">
-                      Happy Farmers
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* <div className="relative">
-                {" "}
-                <img
-                  src={research}
-                  alt="Research and Development"
-                  className="rounded-2xl w-full h-[300px] md:h-[400px]  object-cover object-contain "
-                />
-              </div> */}
-                  {/* <!-- LEFT : IMAGE CARDS --> */}
-                          <div className="grid grid-cols-2 gap-2 md:gap-4" >
-                            {/* IMAGE 1 */}
-                            <div className="place-self-start" >
-                              <div className="relative inline-block overflow-hidden">
-                                <img
-                                  src={animal1}
-                                  className="block w-[280px] h-[180px] rounded-2xl  object-cover"
-                                  alt="" 
-                                />
-                               
-                              </div>
-                            </div>
-              
-                            {/* IMAGE 2 */}
-                            <div className="place-self-start">
-                              <div className="relative inline-block overflow-hidden">
-                                <img
-                                  src={animal2}
-                                  className="block w-[280px] h-[180px] object-cover rounded-2xl "
-                                  alt="" 
-                                />
-                               
-                              </div>
-                            </div>
-              
-                            {/* IMAGE 3 */}
-                            <div className="place-self-start" >
-                              <div className="relative inline-block overflow-hidden">
-                                <img
-                                  src={animal3}
-                                  className="block w-[280px] h-[180px]  rounded-2xl object-cover"
-                                  alt=""
-                                />
-                              
-                              </div>
-                            </div>
-              
-                            {/* IMAGE 4 */}
-                            <div className="place-self-start" >
-                              <div className="relative inline-block overflow-hidden">
-                                <img
-                                  src={animal4}
-                                  className="block w-[280px] h-[180px]  rounded-2xl object-cover"
-                                  alt=""
-                                />
-                               
-                              </div>
-                            </div>
-                          </div>
-            </div>
-         
-          </div>
-        </section>
-{/* 
-        <section className="py-10 md:py-12 bg-gray-100">
+        {/* ── About Section ── */}
+        <section className="py-12 md:py-16 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
-            <h2 className="text-3xl md:text-5xl text-gray-800 font-semibold mb-4 text-center">
-              Green Gold <span className="text-[#ffa800]">Animal</span>
+            <h2 className="text-3xl md:text-5xl text-gray-800 font-bold mb-2 text-center">
+              {distributor.company_name || distributor.name}
             </h2>
-            <p className="text-gray-600 mb-3 text-center">
-              Premium Animal Feed Supplier Since 2010
-            </p>
-            <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-white p-4 rounded-lg shadow">
+            {distributor.tagline && (
+              <p className="text-gray-500 mb-8 text-center text-lg">
+                {distributor.tagline}
+              </p>
+            )}
+
+            <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+              {/* Info Card */}
+              <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
                 <h3 className="text-2xl font-semibold text-gray-800 mb-4">
                   About the <span className="text-[#ffa800]">Distributor</span>
                 </h3>
-                <p className="text-gray-700 text-base leading-relaxed text-center md:text-left mb-4">
-                  Green Gold Animal Feed Suppliers specializes in nutritionally
-                  balanced animal feed formulations. With modern storage
-                  facilities and strong logistics support, we ensure timely
-                  delivery of high-quality feed products to farms and retailers.
+
+                <p className="text-gray-600 leading-relaxed mb-5">
+                  {distributor.description ||
+                    "A trusted partner in quality animal feed distribution, committed to supporting farmers with reliable, nutritionally balanced feed solutions."}
                 </p>
-                <p class="text-gray-600 mb-0 mb-2 text-center md:text-left">
-                  <span className="text-[#00a34a] mr-2">
-                    <FontAwesomeIcon icon={faMapPin} />
-                  </span>
-                  Green Gold Animal Feed Pvt Ltd. Kolkata, West Bengal
-                </p>
-                <p className="text-gray-600 mb-2 text-center md:text-left">
-                              <span className="text-[#00a34a] mr-2">
-                                <FontAwesomeIcon icon={faPhone} />
-                              </span>
-                              (123) 456-7890/
-                </p>
-                <p className="text-gray-600 text-center md:text-left">
-                  <span>
-                    <FontAwesomeIcon
-                      className="text-[#00a34a] mr-2"
-                      icon={faEnvelope}
+
+                {/* Contact details */}
+                {/* <div className="space-y-2 mb-6">
+                  {(distributor.address || (distributor.city && distributor.state)) && (
+                    <p className="text-gray-600 flex items-start gap-2">
+                      <FontAwesomeIcon icon={faMapPin} className="text-green-500 mt-1 flex-shrink-0" />
+                      <span>
+                        {[distributor.address, distributor.city, distributor.state]
+                          .filter(Boolean)
+                          .join(", ")}
+                      </span>
+                    </p>
+                  )}
+                  {distributor.phone && (
+                    <p className="text-gray-600 flex items-center gap-2">
+                      <FontAwesomeIcon icon={faPhone} className="text-green-500" />
+                      <a href={`tel:${distributor.phone}`} className="hover:text-green-600 transition">
+                        {distributor.phone}
+                      </a>
+                    </p>
+                  )}
+                  {distributor.email && (
+                    <p className="text-gray-600 flex items-center gap-2">
+                      <FontAwesomeIcon icon={faEnvelope} className="text-green-500" />
+                      <a href={`mailto:${distributor.email}`} className="underline hover:text-green-600 transition">
+                        {distributor.email}
+                      </a>
+                    </p>
+                  )}
+                  {distributor.distributor_type && (
+                    <p className="text-gray-600 flex items-center gap-2">
+                      <FontAwesomeIcon icon={faTag} className="text-green-500" />
+                      <span className="capitalize">{distributor.distributor_type} Distributor</span>
+                    </p>
+                  )}
+                </div> */}
+
+                {/* Stats */}
+                {distributor.stats?.length > 0 && (
+                  <div className="grid grid-cols-3 gap-3">
+                    {distributor.stats.map((stat, i) => (
+                      <div
+                        key={i}
+                        className="text-center bg-gray-50 py-3 px-2 rounded-2xl border border-dashed border-amber-300"
+                      >
+                        <div className="text-2xl font-black text-gray-800">
+                          {stat.value || "—"}
+                        </div>
+                        <span className="text-[11px] font-medium text-gray-500">
+                          {stat.label}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Tags */}
+                {/* {distributor.tags?.length > 0 && (
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {distributor.tags.map((tag) => (
+                      <span
+                        key={tag.id}
+                        className={`text-xs px-3 py-1 rounded-full font-medium ${
+                          tag.type === "category"
+                            ? "bg-green-100 text-green-700"
+                            : "bg-amber-50 text-amber-700"
+                        }`}
+                      >
+                        {tag.name}
+                      </span>
+                    ))}
+                  </div>
+                )} */}
+              </div>
+
+              {/* Map or product count card */}
+              <div className="flex flex-col gap-4">
+                {distributor.map_embed_url ? (
+                  <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden h-[350px]">
+                    <iframe
+                      title="Location Map"
+                      src={distributor.map_embed_url}
+                      className="w-full h-full border-0"
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
                     />
-                  </span>
-                  <Link
-                    to="mailto:distributor@greengold.com"
-                    className="underline"
-                  >
-                    distributor@greengold.com
-                  </Link>
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-                  <div className="text-center flex-1 bg-white/70 py-3 px-1 rounded-2xl shadow-sm border border-dashed border-[#ffa800]/30">
-                    <div class="text-2xl font-black text-gray-800">100%</div>
-                    <span class="text-[11px] font-medium text-gray-500">
-                      Quality Focus
-                    </span>
                   </div>
-                  <div className="text-center flex-1 bg-white/70 py-3 px-1 rounded-2xl shadow-sm border border-dashed border-[#ffa800]/30">
-                    <div class="text-2xl font-black text-gray-800">25+</div>
-                    <span class="text-[11px] font-medium text-gray-500">
-                      Years Legacy
-                    </span>
+                ) : (
+                  <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <div className="grid grid-cols-2 gap-2 md:gap-4">
+                      {distributor?.image_urls?.slice(0, 4).map((image, index) => (
+      <div
+        key={index}
+        className="relative overflow-hidden"
+      >
+        <img
+          src={image}
+          alt={`Distributor ${index + 1}`}
+          className="block w-[280px] h-[180px] rounded-2xl  object-cover"
+        />
+      </div>
+    ))}
+                      {/* Products count */}
+                      {/* <div className="col-span-2 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 flex items-center gap-4">
+                        <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center text-white text-xl">
+                          <FontAwesomeIcon icon={faBox} />
+                        </div>
+                        <div>
+                          <div className="text-2xl font-black text-gray-800">
+                            {distributor.products_count || distributor.products_by_category?.reduce(
+                              (acc, c) => acc + c.products.length, 0
+                            ) || 0}
+                          </div>
+                          <span className="text-sm text-gray-500">Total Products</span>
+                        </div>
+                      </div> */}
+
+                      {/* Categories */}
+                      {/* {distributor.categories?.map((cat) => (
+                        <div
+                          key={cat.id}
+                          className="bg-gray-50 rounded-xl p-3 text-center"
+                        >
+                          <div className="text-sm font-semibold text-gray-700">
+                            {cat.name}
+                          </div>
+                          <div className="text-xs text-gray-400 mt-1">Available</div>
+                        </div>
+                      ))} */}
+                    </div>
                   </div>
-                  <div className="text-center flex-1 bg-white/70 py-3 px-1 rounded-2xl shadow-sm border border-dashed border-[#ffa800]/30">
-                    <div class="text-2xl font-black text-gray-800">150+</div>
-                    <span class="text-[11px] font-medium text-gray-500">
-                      Happy Farmers
-                    </span>
-                  </div>
-                </div>
+                )}
+
+               
               </div>
-              <div className="bg-white p-4 rounded-lg shadow">
-                <iframe
-                  title="Kolkata Location"
-                  src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28415.468456355145!2d93.80497037525176!3d27.095390854376515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDolikoto%2C%20Banderdewa%2C%20Arunachal%20Pradesh%20%E2%80%93%20791123!5e0!3m2!1sen!2sin!4v1769078245418!5m2!1sen!2sin"
-                  className="w-full h-full border-0"
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              </div>
-            </div>
-          </div>
-        </section> */}
-
-        {/* Poultry Feed */}
-
-        <section className="py-10 md:py-12 mb-10">
-          <div className="max-w-7xl mx-auto px-4 md:px-8 relative">
-            <h2 class="text-3xl md:text-4xl font-semibold text-gray-800 text-center">
-              Poultry <span class="text-[#ffa800]">Feed</span>
-            </h2>
-            <p class="text-gray-600 mt-3 max-w-2xl mx-auto text-[16px] md:text-[18px] text-center">
-              Proper feeding at the right age and quantity ensures better
-              growth, lower feed cost, and higher productivity.
-            </p>
-            <div className="flex items-center gap-3 absolute -bottom-[50px] left-[50%] -translate-x-1/2">
-              {/* <!-- Prev --> */}
-              <button
-                class="news-prev w-10 h-10 rounded-full border border-gray-300
-            flex items-center justify-center  text-gray-600  hover:border-green-500 hover:text-green-500
-            transition-colors duration-300 cursor-pointer swiper-prev1  transition-transform duration-300 easy-in-out hover:-translate-x-1"
-              >
-                <FontAwesomeIcon icon={faArrowLeft} />
-              </button>
-
-              {/* <!-- Next --> */}
-              <button
-                class=" news-next w-10 h-10 rounded-full border border-gray-300
-            flex items-center justify-center
-            text-gray-600
-            hover:border-green-500 hover:text-green-500
-            transition-colors duration-300 cursor-pointer swiper-next1  transition-transform duration-300 easy-in-out hover:translate-x-1"
-              >
-                <FontAwesomeIcon icon={faArrowRight} />
-              </button>
-            </div>
-            <div className="distributionDetailsSwiper mt-10">
-              <Swiper
-                modules={[Navigation, Pagination]}
-                spaceBetween={30}
-                slidesPerView={1}
-                navigation={{
-                  prevEl: ".swiper-prev1",
-                  nextEl: ".swiper-next1",
-                }}
-                // pagination={{ clickable: true }}
-                breakpoints={{
-                  320: {
-                    slidesPerView: 1,
-                  },
-                  640: {
-                    slidesPerView: 2,
-                  },
-                  1024: {
-                    slidesPerView: 4,
-                  },
-                }}
-              >
-                {poultryProducts.map((item) => {
-                  const count = cart[item.id] || 0;
-
-                  return (
-                    <SwiperSlide key={item.id} className="h-auto">
-                      <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-                        <img
-                          src={item.image}
-                          className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
-                        />
-
-                        <div className="absolute inset-0 bg-black/60 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition duration-500 flex items-end p-6">
-                          <div className="translate-y-6 group-hover:translate-y-0 transition duration-500 absolute left-1/2 transform -translate-x-1/2 bottom-12 md:bottom-4">
-                            {count === 0 ? (
-                              <button
-                                onClick={() => increase(item.id)}
-                                className="text-sm text-white bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer"
-                              >
-                                {" "}
-                                Add{" "}
-                              </button>
-                            ) : (
-                              <div className="flex items-center gap-3 bg-white text-black px-3 py-2 rounded-xl">
-                                <button
-                                  onClick={() => decrease(item.id)}
-                                  className="w-7 h-7 bg-gray-200 rounded"
-                                >
-                                  -
-                                </button>
-
-                                <span className="font-semibold">{count}</span>
-
-                                <button
-                                  onClick={() => increase(item.id)}
-                                  className="w-7 h-7 bg-gray-200 rounded"
-                                >
-                                  +
-                                </button>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </SwiperSlide>
-                  );
-                })}
-              </Swiper>
             </div>
           </div>
         </section>
 
-        {/* Cattle Feed */}
-        <section className="py-10 md:pt-12 md:pb-20 bg-gray-100">
-          <div className="max-w-7xl mx-auto px-4 md:px-8 relative">
-            <h2 class="text-3xl md:text-4xl font-semibold text-gray-800 text-center">
-              Cattle <span class="text-[#ffa800]">Feed</span>
-            </h2>
-            <p class="text-gray-600 mt-3 max-w-2xl mx-auto text-[16px] md:text-[18px] text-center">
-              Nutritionally balanced feed designed to improve milk yield,
-              digestion, and overall cattle health with high-quality protein and
-              essential minerals.
-            </p>
-            <div className="flex items-center gap-3 absolute -bottom-[50px] left-[50%] -translate-x-1/2">
-              {/* <!-- Prev --> */}
-              <button
-                class="news-prev w-10 h-10 rounded-full border border-gray-300
-            flex items-center justify-center  text-gray-600  hover:border-green-500 hover:text-green-500
-            transition-colors duration-300 cursor-pointer swiper-prev2  transition-transform duration-300 easy-in-out hover:-translate-x-1"
-              >
-                <FontAwesomeIcon icon={faArrowLeft} />
-              </button>
+        {/* ── Dynamic Product Categories ── */}
+        {distributor.products_by_category?.length > 0 ? (
+          distributor.products_by_category.map((categoryData, index) => (
+            <CategorySection
+              key={categoryData.category.id}
+              categoryData={categoryData}
+              index={index}
+            />
+          ))
+        ) : (
+          <section className="py-16 text-center bg-white">
+            <div className="text-4xl mb-3">📦</div>
+            <p className="text-gray-500 text-lg">No products listed yet for this distributor.</p>
+          </section>
+        )}
 
-              {/* <!-- Next --> */}
-              <button
-                class=" news-next w-10 h-10 rounded-full border border-gray-300
-            flex items-center justify-center
-            text-gray-600
-            hover:border-green-500 hover:text-green-500
-            transition-colors duration-300 cursor-pointer swiper-next2  transition-transform duration-300 easy-in-out hover:translate-x-1"
-              >
-                <FontAwesomeIcon icon={faArrowRight} />
-              </button>
-            </div>
-            <div className="distributionDetailsSwiper mt-10 mb-10 md:mb-0">
-              <Swiper
-                modules={[Navigation, Pagination]}
-                spaceBetween={30}
-                slidesPerView={1}
-                navigation={{
-                  prevEl: ".swiper-prev2",
-                  nextEl: ".swiper-next2",
-                }}
-                // pagination={{ clickable: true }}
-                breakpoints={{
-                  320: {
-                    slidesPerView: 1,
-                  },
-                  640: {
-                    slidesPerView: 2,
-                  },
-                  1024: {
-                    slidesPerView: 4,
-                  },
-                }}
-              >
-                {/* <!-- Card --> */}
-                {cattleProducts.map((item) => {
-                  const count = cart[item.id] || 0;
-
-                  return (
-                    <SwiperSlide key={item.id} className="h-auto">
-                      <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-                        <img
-                          src={item.image}
-                          className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
-                        />
-
-                        <div
-                          className="absolute inset-0 bg-black/60 opacity-100 md:opacity-0 
-                        group-hover:opacity-100 transition duration-500 flex items-end p-6"
-                        >
-                          <div className="translate-y-6 group-hover:translate-y-0 transition duration-500 absolute left-1/2 transform -translate-x-1/2 bottom-12 md:bottom-4">
-                            {count === 0 ? (
-                              <button
-                                onClick={() => increase(item.id)}
-                                className="text-sm text-white bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium"
-                              >
-                                Add
-                              </button>
-                            ) : (
-                              <div className="flex items-center gap-3 bg-white text-black px-3 py-2 rounded-xl">
-                                <button
-                                  onClick={() => decrease(item.id)}
-                                  className="w-7 h-7 bg-gray-200 rounded"
-                                >
-                                  -
-                                </button>
-
-                                <span className="font-semibold">{count}</span>
-
-                                <button
-                                  onClick={() => increase(item.id)}
-                                  className="w-7 h-7 bg-gray-200 rounded"
-                                >
-                                  +
-                                </button>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </SwiperSlide>
-                  );
-                })}
-              </Swiper>
-            </div>
+        {/* ── Floating cart summary ── */}
+        {/* {totalCartItems > 0 && (
+          <div className="fixed bottom-6 right-6 z-50">
+            <button className="flex items-center gap-3 bg-green-600 text-white px-5 py-3 rounded-2xl shadow-lg hover:bg-green-700 transition font-semibold">
+              🛒 {totalCartItems} item{totalCartItems > 1 ? "s" : ""} in cart
+            </button>
           </div>
-        </section>
-
-        {/* Fish Feed */}
-        <section className="py-10 md:py-12 mb-10">
-          <div className="max-w-7xl mx-auto px-4 md:px-8 relative">
-            <h2 class="text-3xl md:text-4xl font-semibold text-gray-800 text-center">
-              Fish <span class="text-[#ffa800]">Feed</span>
-            </h2>
-            <p class="text-gray-600 mt-3 max-w-2xl mx-auto text-[16px] md:text-[18px] text-center">
-              High-protein, nutrient-rich feed designed for faster growth,
-              strong immunity, and improved survival rates in aquaculture.
-            </p>
-            <div className="flex items-center gap-3 absolute -bottom-[50px] left-[50%] -translate-x-1/2">
-              {/* <!-- Prev --> */}
-              <button
-                class="news-prev w-10 h-10 rounded-full border border-gray-300
-            flex items-center justify-center  text-gray-600  hover:border-green-500 hover:text-green-500
-            transition-colors duration-300 cursor-pointer swiper-prev3  transition-transform duration-300 easy-in-out hover:-translate-x-1"
-              >
-                <FontAwesomeIcon icon={faArrowLeft} />
-              </button>
-
-              {/* <!-- Next --> */}
-              <button
-                class=" news-next w-10 h-10 rounded-full border border-gray-300
-            flex items-center justify-center
-            text-gray-600
-            hover:border-green-500 hover:text-green-500
-            transition-colors duration-300 cursor-pointer swiper-next3  transition-transform duration-300 easy-in-out hover:translate-x-1"
-              >
-                <FontAwesomeIcon icon={faArrowRight} />
-              </button>
-            </div>
-            <div className="distributionDetailsSwiper mt-10">
-              <Swiper
-                modules={[Navigation, Pagination]}
-                spaceBetween={30}
-                slidesPerView={1}
-                navigation={{
-                  prevEl: ".swiper-prev3",
-                  nextEl: ".swiper-next3",
-                }}
-                // pagination={{ clickable: true }}
-                breakpoints={{
-                  320: {
-                    slidesPerView: 1,
-                  },
-                  640: {
-                    slidesPerView: 2,
-                  },
-                  1024: {
-                    slidesPerView: 4,
-                  },
-                }}
-              >
-                {fishProducts.map((item) => {
-                  const count = cart[item.id] || 0;
-
-                  return (
-                    <SwiperSlide key={item.id} className="h-auto">
-                      <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-                        <img
-                          src={item.image}
-                          className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
-                        />
-
-                        <div
-                          className="absolute inset-0 bg-black/60 opacity-100 md:opacity-0 
-                        group-hover:opacity-100 transition duration-500 flex items-end p-6"
-                        >
-                          <div className="translate-y-6 group-hover:translate-y-0 transition duration-500 absolute left-1/2 transform -translate-x-1/2 bottom-12 md:bottom-4">
-                            {count === 0 ? (
-                              <button
-                                onClick={() => increase(item.id)}
-                                className="text-sm text-white bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium"
-                              >
-                                Add
-                              </button>
-                            ) : (
-                              <div className="flex items-center gap-3 bg-white text-black px-3 py-2 rounded-xl">
-                                <button
-                                  onClick={() => decrease(item.id)}
-                                  className="w-7 h-7 bg-gray-200 rounded"
-                                >
-                                  -
-                                </button>
-
-                                <span className="font-semibold">{count}</span>
-
-                                <button
-                                  onClick={() => increase(item.id)}
-                                  className="w-7 h-7 bg-gray-200 rounded"
-                                >
-                                  +
-                                </button>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </SwiperSlide>
-                  );
-                })}
-              </Swiper>
-            </div>
-          </div>
-        </section>
-
-        {/* Pig Feed */}
-        <section className="py-10 md:pt-12 md:pb-20 bg-gray-100">
-          <div className="max-w-7xl mx-auto px-4 md:px-8 relative">
-            <h2 class="text-3xl md:text-4xl font-semibold text-gray-800 text-center">
-              Pig <span class="text-[#ffa800]">Feed</span>
-            </h2>
-            <p class="text-gray-600 mt-3 max-w-2xl mx-auto text-[16px] md:text-[18px] text-center">
-              Nutrient-rich, protein-balanced feed designed for faster growth,
-              improved immunity, and better feed efficiency in pigs.
-            </p>
-            <div className="flex items-center gap-3 absolute -bottom-[50px] left-[50%] -translate-x-1/2">
-              {/* <!-- Prev --> */}
-              <button
-                class="news-prev w-10 h-10 rounded-full border border-gray-300
-            flex items-center justify-center  text-gray-600  hover:border-green-500 hover:text-green-500
-            transition-colors duration-300 cursor-pointer swiper-prev4  transition-transform duration-300 easy-in-out hover:-translate-x-1"
-              >
-                <FontAwesomeIcon icon={faArrowLeft} />
-              </button>
-
-              {/* <!-- Next --> */}
-              <button
-                class=" news-next w-10 h-10 rounded-full border border-gray-300
-            flex items-center justify-center
-            text-gray-600
-            hover:border-green-500 hover:text-green-500
-            transition-colors duration-300 cursor-pointer swiper-next4  transition-transform duration-300 easy-in-out hover:translate-x-1"
-              >
-                <FontAwesomeIcon icon={faArrowRight} />
-              </button>
-            </div>
-            <div className="distributionDetailsSwiper mt-10 mb-10 md:mb-0">
-              <Swiper
-                modules={[Navigation, Pagination]}
-                spaceBetween={30}
-                slidesPerView={1}
-                navigation={{
-                  prevEl: ".swiper-prev4",
-                  nextEl: ".swiper-next4",
-                }}
-                // pagination={{ clickable: true }}
-                breakpoints={{
-                  320: {
-                    slidesPerView: 1,
-                  },
-                  640: {
-                    slidesPerView: 2,
-                  },
-                  1024: {
-                    slidesPerView: 4,
-                  },
-                }}
-              >
-                {pigProducts.map((item) => {
-                  const count = cart[item.id] || 0;
-
-                  return (
-                    <SwiperSlide key={item.id} className="h-auto">
-                      <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col group relative">
-                        <img
-                          src={item.image}
-                          className="h-48 w-full object-cover rounded-b-2xl transform group-hover:scale-110 transition duration-500"
-                        />
-
-                        <div
-                          className="absolute inset-0 bg-black/60 opacity-100 md:opacity-0 
-                        group-hover:opacity-100 transition duration-500 flex items-end p-6"
-                        >
-                          <div className="translate-y-6 group-hover:translate-y-0 transition duration-500 absolute left-1/2 transform -translate-x-1/2 bottom-12 md:bottom-4">
-                            {count === 0 ? (
-                              <button
-                                onClick={() => increase(item.id)}
-                                className="text-sm text-white bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium"
-                              >
-                                Add
-                              </button>
-                            ) : (
-                              <div className="flex items-center gap-3 bg-white text-black px-3 py-2 rounded-xl">
-                                <button
-                                  onClick={() => decrease(item.id)}
-                                  className="w-7 h-7 bg-gray-200 rounded"
-                                >
-                                  -
-                                </button>
-
-                                <span className="font-semibold">{count}</span>
-
-                                <button
-                                  onClick={() => increase(item.id)}
-                                  className="w-7 h-7 bg-gray-200 rounded"
-                                >
-                                  +
-                                </button>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </SwiperSlide>
-                  );
-                })}
-              </Swiper>
-            </div>
-          </div>
-        </section>
+        )} */}
       </main>
-      <Footer></Footer>
+
+      <Footer />
     </>
   );
 }
-
 
 export default DistributorDetails;

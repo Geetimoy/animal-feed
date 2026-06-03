@@ -37,21 +37,22 @@ export default function ProductListing() {
   const [maxPrice, setMaxPrice] = useState(3000); 
   const [selectedDistributors, setSelectedDistributors] = useState([]);
   
-    const handleDistributorChange = (name) => {
-      if (name === "All") {
-        setSelectedDistributors([]); 
-        return;
-      }
+  const handleDistributorChange = (name) => {
+    if (name === "All") {
+      setSelectedDistributors([]); 
+      return;
+    }
+
+    setSelectedDistributors(
+      (prev) =>
+        prev.includes(name)
+          ? prev.filter((d) => d !== name) 
+          : [...prev, name], 
+    );
+  };
   
-      setSelectedDistributors(
-        (prev) =>
-          prev.includes(name)
-            ? prev.filter((d) => d !== name) 
-            : [...prev, name], 
-      );
-    };
-  
-  const distributors = ["All", ...new Set(products.map((p) => p.distributor))];
+  // FIX 1: distributor is an object, use distributor.name (or company_name) as the string
+  const distributors = ["All", ...new Set(products.map((p) => p.distributor?.company_name || p.distributor?.name).filter(Boolean))];
 
   const [openCategory, setOpenCategory] = useState(() => {
     if (
@@ -86,7 +87,10 @@ export default function ProductListing() {
         `${API_URL}/categories/${categorySlug}/sub-categories/${subCategorySlug}/products`
       );
 
-      setProducts(response.data.data);
+      // FIX 2: API returns { category, sub_category, data: [...] } — extract only the data array
+      const result = response.data;
+      const productList = Array.isArray(result.data) ? result.data : (Array.isArray(result) ? result : []);
+      setProducts(productList);
     } catch (error) {
       console.log(error);
     }
@@ -106,24 +110,24 @@ export default function ProductListing() {
 
 
   const navigate = useNavigate();
-   const handleAddtoCart = (product) => {
-    const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
-    const productExists = existingCart.find((item) => item.id === product.id )
-    let updatedCart;
+  const handleAddtoCart = (product) => {
+  const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+  const productExists = existingCart.find((item) => item.id === product.id )
+  let updatedCart;
 
-    if(productExists) {
-      updatedCart = existingCart.map((item) => item.id === product.id ? {...item, quantity: item.quantity + 1} : item  )
-    } else {
-      updatedCart = [
-        ...existingCart, {...product, quantity: 1},
-      ]
-    }
+  if(productExists) {
+    updatedCart = existingCart.map((item) => item.id === product.id ? {...item, quantity: item.quantity + 1} : item  )
+  } else {
+    updatedCart = [
+      ...existingCart, {...product, quantity: 1},
+    ]
+  }
 
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  localStorage.setItem("cart", JSON.stringify(updatedCart));
 
-    navigate("/cart")
+  navigate("/cart")
 
-   }
+  }
 
   return (
   <>
@@ -138,12 +142,6 @@ export default function ProductListing() {
           />
           {/* Overlay Layer (81%) */}
           <div className="absolute inset-0 bg-black/[0.60]"></div>
-          {/* <div className="absolute inset-0  flex items-center justify-center">
-            <h1 className="text-white text-4xl md:text-6xl font-bold">
-              Quality Feed Solution
-            </h1>
-
-          </div> */}
           <div className="absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-4xl px-4 md:px-6  w-full">
             <h1 className="text-[#fff] text-4xl md:text-6xl font-bold text-center mb-4 md:mb-6">
                {firstPart} <span className="text-[#ffa800]">{lastWord} </span>
@@ -198,33 +196,43 @@ export default function ProductListing() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-12 md:py-6 py-4 mt-4 md:mt-12">
               {products.map((product) => (
-                <div key={product.id} className="bg-[#efefef] rounded-lg p-6 shadow-sm">
+                <div key={product.id} className="bg-[#efefef] rounded-lg p-4 shadow-sm">
                   <span className="mx-auto w-[200px]   bg-[#fff] block p-2 rounded-2xl shadow-xl mt-0 md:-mt-[60px] mb-4">
                     <a href={product.image_url} data-fancybox="product-gallery">
                       <img src={product.image_url} alt={product.name} className="w-full rounded-lg object-cover h-[180px]" />
                     </a>
                   </span>
                   <h3 className="text-[18px] md:text-[20px] font-semibold text-gray-800 mb-2 text-center">{product.name}</h3>
+                  {/* FIX 3: Show distributor name string, not the object */}
+                  <p className="text-gray-500 text-xs text-center mb-1">
+                    {product.distributor?.company_name || product.distributor?.name}
+                  </p>
                   <p className="text-gray-600 text-[16px] text-center mb-2 font-bold">
                     <FontAwesomeIcon icon={faIndianRupeeSign} />
                     {product.price}{" "}
                     <span className="line-through text-sm text-gray-400 ml-2">
                       <FontAwesomeIcon icon={faIndianRupeeSign} />
-                      {product.oldPrice}{" "}
+                      {product.mrp}{" "}
                     </span>
                   </p>
-                  <button
-                    onClick={() => handleAddtoCart(product)}
-                    type="button"
-                    className="mt-4 w-full bg-yellow-500 text-white
-                            py-3 rounded-xl font-medium cursor-pointer hover:bg-yellow-400  text-[16px]"
-                  >
-                    <FontAwesomeIcon
-                      icon={faCartShopping}
-                      className="pr-2"
-                    />
-                    Add to Cart
-                  </button>
+                  <div className="flex justify-between gap-4">
+                    <button
+                      onClick={() => handleAddtoCart(product)}
+                      type="button"
+                      className="mt-4 w-full bg-yellow-500 text-white
+                              py-2 rounded-xl font-medium cursor-pointer hover:bg-yellow-400  text-[14px]"
+                    >
+                      Add to Cart
+                    </button>
+                    <button
+                      onClick={() => navigate(`/product-details`)}
+                      type="button"
+                      className="mt-4 w-full bg-blue-500 text-white
+                              py-2 rounded-xl font-medium cursor-pointer hover:bg-blue-400  text-[14px]"
+                    >
+                      View Details
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
