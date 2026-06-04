@@ -31,6 +31,8 @@ import "swiper/css/pagination";
 import { Helmet } from "react-helmet";
 import { API_URL } from "../../config/api";
 
+import { useCart } from "../../context/CartContext";
+
 function DistributorDetails() {
   const { slug } = useParams();
   const [distributor, setDistributor] = useState(null);
@@ -38,17 +40,233 @@ function DistributorDetails() {
   const [error, setError] = useState(null);
   const [cart, setCart] = useState({});
 
-  const increase = (id) => {
-    setCart((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
+  const [cartItemIds, setCartItemIds] = useState({});
+
+  // const { cartCount, setCartCount } = useCart();
+  const { setCartCount } = useCart();
+
+  const addToCart = async (product) => {
+  try {
+    // Product already added
+    if (cart[product.id] > 0) {
+      return;
+    }
+
+    const token = localStorage.getItem("token");
+
+    await axios.post(
+      `${API_URL}/customers/cart/items`,
+      {
+        product_id: product.id,
+        quantity: 1,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      }
+    );
+
+    // setCart((prev) => ({
+    //   ...prev,
+    //   [product.id]: 1,
+    // }));
+    await fetchCart();
+
+    //setCartCount((prev) => prev + 1);
+
+  } catch (error) {
+    console.log(error);
+  }
   };
 
-  const decrease = (id) => {
-    setCart((prev) => ({ ...prev, [id]: Math.max((prev[id] || 0) - 1, 0) }));
-  };
+// const increaseQty = async (product) => {
+//   const token = localStorage.getItem("token");
+//   try {
+//     await axios.post(
+//       `${API_URL}/customers/cart/items`,
+//       {
+//         product_id: product.id,
+//         quantity: 1,
+//       },
+//       {
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//           Accept: "application/json",
+//         },
+//       }
+//     );
+
+//     setCart((prev) => ({
+//       ...prev,
+//       [product.id]: (prev[product.id] || 0) + 1,
+//     }));
+
+//     setCartCount((prev) => prev + 1);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+
+// const decreaseQty = async (product) => {
+//   try {
+//     // call your update/remove cart API
+//     await axios.delete(`${API_URL}/customers/cart/items/{cart_item_id}`);
+
+//     decrease(product.id);
+
+//     setCartCount((prev) => Math.max(prev - 1, 0));
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+
+  // const increase = (id) => {
+  //   setCart((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
+  // };
+
+  // const decrease = (id) => {
+  //   setCart((prev) => ({ ...prev, [id]: Math.max((prev[id] || 0) - 1, 0) }));
+  // };
+
+  const removeFromCart = async (productId) => {
+  const token = localStorage.getItem("token");
+
+  try {
+    const cartItemId = cartItemIds[productId];
+
+    if (!cartItemId) {
+      console.log("Cart Item ID not found");
+      return;
+    }
+
+    await axios.delete(
+      `${API_URL}/customers/cart/items/${cartItemId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      }
+    );
+
+    await fetchCart();
+  } catch (error) {
+    console.log(
+      "Delete Error:",
+      error.response?.data || error.message
+    );
+  }
+};
+
+  const increase = async (productId) => {
+  const currentQty = cart[productId] || 0;
+
+  await updateCartQty(productId, currentQty + 1);
+};
+
+  const decrease = async (productId) => {
+  const currentQty = cart[productId] || 0;
+
+  if (currentQty <= 1) {
+    await removeFromCart(productId);
+    return;
+  }
+
+  await updateCartQty(productId, currentQty - 1);
+};
+
+
+
+  // Fetch cart items on mount to sync with backend
+  const fetchCart = async () => {
+  const token = localStorage.getItem("token");
+
+  try {
+    const response = await axios.get(
+      `${API_URL}/customers/cart`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      }
+    );
+
+    const qtyMap = {};
+    const itemIdMap = {};
+
+    response.data.data.items.forEach((item) => {
+      qtyMap[item.product_id] = item.quantity;
+      itemIdMap[item.product_id] = item.id;
+    });
+
+    console.log("qtyMap", qtyMap);
+    console.log("itemIdMap", itemIdMap);
+
+    setCart(qtyMap);
+    setCartItemIds(itemIdMap);
+
+    // Update header cart count
+    const totalCount = Object.values(qtyMap).reduce(
+      (sum, qty) => sum + qty,
+      0
+    );
+
+    setCartCount(totalCount);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
 
   useEffect(() => {
-    fetchDistributorDetails();
-  }, [slug]);
+  fetchDistributorDetails();
+  fetchCart();
+}, [slug]);
+
+
+const updateCartQty = async (productId, newQty) => {
+  const token = localStorage.getItem("token");
+
+  try {
+    const cartItemId = cartItemIds[productId];
+
+    if (!cartItemId) {
+      console.log("Cart Item ID not found for product:", productId);
+      return;
+    }
+
+    console.log("Updating Cart");
+    console.log("productId:", productId);
+    console.log("cartItemId:", cartItemId);
+    console.log("newQty:", newQty);
+
+    await axios.put(
+      `${API_URL}/customers/cart/items/${cartItemId}`,
+      {
+        quantity: newQty,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      }
+    );
+
+    await fetchCart();
+  } catch (error) {
+    console.log(
+      "Update Cart Error:",
+      error.response?.data || error.message
+    );
+  }
+};
+
+
 
   const fetchDistributorDetails = async () => {
     try {
@@ -81,7 +299,7 @@ function DistributorDetails() {
     }
   };
 
-  // ── Product card ────────────────────────────────────────────────────────────
+  // ── Product card ──
   const ProductCard = ({ product }) => {
     const count = cart[product.id] || 0;
     const discount =
@@ -133,13 +351,14 @@ function DistributorDetails() {
             </div>
               {/* <button className="text-sm text-white bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer"> Add </button> */}
               <div className="flex items-center gap-2 mt-2">
+  {count === 0 ? (
   <button
-    onClick={() => increase(product)}
+    onClick={() => addToCart(product)}
     className="text-sm text-white bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium"
   >
     Add
   </button>
-
+) : (
   <div className="flex items-center bg-white rounded-lg overflow-hidden">
     <button
       onClick={() => decrease(product.id)}
@@ -148,17 +367,18 @@ function DistributorDetails() {
       -
     </button>
 
-    <span className="px-3 text-blak font-semibold">
+    <span className="px-3 text-black font-semibold">
       {count}
     </span>
 
     <button
-      onClick={() => increase(product)}
+      onClick={() => increase(product.id)}
       className="w-8 h-8 bg-green-500 text-white font-bold"
     >
       +
     </button>
   </div>
+)}
 </div>
             </div>
           </div>
@@ -238,7 +458,7 @@ function DistributorDetails() {
     );
   };
 
-  // ── Category section ────────────────────────────────────────────────────────
+  // ── Category section ──
   const CategorySection = ({ categoryData, index }) => {
     const prevClass = `swiper-prev-cat-${index}`;
     const nextClass = `swiper-next-cat-${index}`;
@@ -301,7 +521,7 @@ function DistributorDetails() {
     );
   };
 
-  // ── Render states ───────────────────────────────────────────────────────────
+  // ── Render states ──
   if (loading) {
     return (
       <>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import Header from "../Header";
 import Footer from "../Footer";
 import "./custom.css";
@@ -16,44 +16,126 @@ import {
   faLocationDot,
 faMagnifyingGlass, faArrowRight} from "@fortawesome/free-solid-svg-icons";
 import { Helmet } from "react-helmet";
+import { API_URL } from "../../config/api";
+
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 
 export default function Cart() {
   const navigate = useNavigate();
 
-  const [cartItems, setCartItems] = useState(
-    JSON.parse(localStorage.getItem("cart")) || [],
-  );
+  // const [cartItems, setCartItems] = useState(
+  //   JSON.parse(localStorage.getItem("cart")) || [],
+  // );
+
+  const [cartItems, setCartItems] = useState([]);
+  const [summary, setSummary] = useState(null);
+
+  
+
+  const fetchCart = async () => {
+    const token = localStorage.getItem("token");
+  try {
+    const response = await axios.get(
+      `${API_URL}/customers/cart`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      }
+    );
+
+        setCartItems(response.data.data.items);
+        setSummary(response.data.data.summary);
+      } catch (error) {
+        console.error("Cart API Error:", error);
+      }
+    };
+
+  useEffect(() => {
+  fetchCart();
+}, []);
+
+useEffect(() => {
+  const handleFocus = () => {
+    fetchCart();
+  };
+
+  window.addEventListener("focus", handleFocus);
+
+  return () =>
+    window.removeEventListener("focus", handleFocus);
+}, []);
 
   //  Update Quantity
-  const updateQuantity = (id, type) => {
-    const updatedCart = cartItems.map((item) => {
-      if (item.id === id) {
-        if (type === "inc") {
-          return { ...item, quantity: item.quantity + 1 };
-        }
-        if (type === "dec" && item.quantity > 1) {
-          return { ...item, quantity: item.quantity - 1 };
-        }
-      }
-      return item;
-    });
+  const updateQuantity = async (cartItemId, type) => {
+  const token = localStorage.getItem("token");
 
-    setCartItems(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  try {
+    const item = cartItems.find(
+      (cartItem) => cartItem.id === cartItemId
+    );
+
+    if (!item) return;
+
+    let newQty =
+      type === "inc"
+        ? item.quantity + 1
+        : item.quantity - 1;
+
+    if (newQty < 1) return;
+
+    await axios.put(
+      `${API_URL}/customers/cart/items/${cartItemId}`,
+      {
+        quantity: newQty,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      }
+    );
+
+    // Reload cart from server
+    fetchCart();
+  } catch (error) {
+    console.log(error);
+  }
   };
 
   //  Remove Item
-  const removeItem = (id) => {
-    const updatedCart = cartItems.filter((item) => item.id !== id);
-    setCartItems(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  const removeItem = async (cartItemId) => {
+  const token = localStorage.getItem("token");
+
+  try {
+    await axios.delete(
+      `${API_URL}/customers/cart/items/${cartItemId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      }
+    );
+
+    fetchCart();
+  } catch (error) {
+    console.log(error);
+  }
   };
 
   // Subtotal
+  // const subtotal = cartItems.reduce(
+  //   (acc, item) => acc + item.price * item.quantity,
+  //   0,
+  // );
   const subtotal = cartItems.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0,
+    (acc, item) => acc + Number(item.unit_price) * item.quantity,
+    0
   );
 
   const handleCheckeOut= () =>{
@@ -159,7 +241,7 @@ export default function Cart() {
                     <div className="flex flex-col md:flex-row gap-6 md:gap-12 items-center mt-6 md:mt-0">
                       {/* Image */}
                       <img
-                        src={item.image}
+                        src={item.image_url}
                         alt={item.name}
                         className="w-40 h-40 object-cover rounded-lg"
                       />
@@ -173,7 +255,8 @@ export default function Cart() {
                         {/* Unit Price */}
                         <p className="text-gray-600 text-[16px]  mb-4 font-medium">
                           <FontAwesomeIcon icon={faIndianRupeeSign} />
-                          {item.price.toFixed(2)}
+                          {/* {item.price.toFixed(2)} */}
+                          {Number(item.unit_price).toFixed(2)}
                         </p>
 
                         {/* Quantity */}
@@ -218,7 +301,10 @@ export default function Cart() {
                         <p className="text-[18px]  text-gray-800">
                           Total: <FontAwesomeIcon icon={faIndianRupeeSign} />
                           <span className="font-semibold">
-                            {(item.price * item.quantity).toFixed(2)}
+                            {/* {(item.price * item.quantity).toFixed(2)} */}
+                            {/* {Number(item.unit_price * item.quantity).toFixed(2)} */}
+                            {(Number(item.unit_price) * item.quantity).toFixed(2)}
+                            {/* {Number(item.line_total).toFixed(2)} */}
                           </span>
                         </p>
                       </div>
@@ -249,7 +335,8 @@ export default function Cart() {
                   <span>Subtotal:</span>
                   <span className="font-semibold">
                     <FontAwesomeIcon icon={faIndianRupeeSign} />
-                    {subtotal.toFixed(2)}
+                    {/* {subtotal.toFixed(2)} */}
+                    {Number(subtotal).toFixed(2)}
                   </span>
                 </div>
 

@@ -1,6 +1,8 @@
 import logo from "../assets/images/logo.png";
 import { useState, useEffect } from "react";
 
+import { useCart } from "../context/CartContext";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLocationDot,
@@ -22,10 +24,17 @@ import {
 
 import { Link, useNavigate } from "react-router-dom";
 
+import axios from "axios";
+
+import { API_URL } from "../config/api";
+
 function Header({ showLogout = false }) {
   const [isOpen, setIsOpen] = useState(false);
   const [knowUsMobileOpen, setKnowUsMobileOpen] = useState(false);
   const [mediaMobileOpen, setMediaMobileOpen] = useState(false);
+
+  // const { cartCount } = useCart();
+  const { cartCount, setCartCount } = useCart();
 
   const navigate = useNavigate();
 
@@ -43,6 +52,29 @@ function Header({ showLogout = false }) {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+  fetchCartCount();
+}, []);
+
+
+const fetchCartCount = async () => {
+  try {
+    const res = await axios.get(
+      `${API_URL}/customers/cart/count`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      }
+    );
+
+    setCartCount(res.data.count || 0);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
   return (
     <>
@@ -256,7 +288,7 @@ function Header({ showLogout = false }) {
             {/* Desktop CTA */}
             <div className="flex relative cursor-pointer md:flex-0 flex-1 justify-end mr-2">
               <Link to="/cart" className="inline-block">
-                <span className="absolute text-sm right-[0] -top-[7px]">0</span>
+                <span className="absolute text-sm right-[0] -top-[7px]"> {cartCount}</span>
                 <span className="bg-[#ffe7a3] w-[30px] h-[30px] rounded-full text-center text-sm leading-[30px] inline-block">
                   <FontAwesomeIcon icon={faCartArrowDown} />
                 </span>

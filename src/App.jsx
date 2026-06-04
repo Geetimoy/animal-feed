@@ -7,15 +7,17 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './components/pages/Home';
 
+import { CartProvider } from "./context/CartContext";
+
 // import AppRoutes from "./routes/AppRoutes";
 function App() {
   // const [count, setCount] = useState(0)
 
   return (
     <>
-      
-      <Core />
-      
+      <CartProvider>  
+        <Core />
+      </CartProvider> 
     </>
   );
 }
