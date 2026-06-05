@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -8,9 +7,16 @@ import Footer from "../Footer";
 import specialproduct from "../../assets/images/special-product.jpeg";
 import contactBaner from "../../assets/images/contact-banner.jpg";
 
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { API_URL } from "../../config/api";
+
 export default function MyOrders() {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
+
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const mobileItem = (path, label) => (
     <Link
@@ -26,6 +32,34 @@ export default function MyOrders() {
     </Link>
   );
 
+  useEffect(() => {
+  fetchOrders();
+}, []);
+
+const fetchOrders = async () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const response = await axios.get(
+      `${API_URL}/customers/orders`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      }
+    );
+
+    console.log("Orders:", response.data);
+
+    setOrders(response.data.data || []);
+  } catch (error) {
+    console.error("Orders API Error:", error);
+  } finally {
+    setLoading(false);
+  }
+};
+
   return (
     <>
       <Header showLogout={true} />
@@ -39,7 +73,7 @@ export default function MyOrders() {
             />
             <div className="absolute inset-0  flex items-center justify-center">
               <h1 className="text-white text-4xl md:text-6xl font-bold">
-                Profile
+                My Orders
               </h1>
             </div>
           </div>
@@ -113,7 +147,7 @@ export default function MyOrders() {
                     </tr>
                   </thead>
 
-                  <tbody className="text-gray-700">
+                  {/* <tbody className="text-gray-700">
                     <tr className="hover:bg-green-50 transition">
                       <td className="px-2 md:px-4 py-3 text-center border border-green-200 whitespace-nowrap">
                         <div className="flex items-center gap-4">
@@ -126,7 +160,7 @@ export default function MyOrders() {
                             <p className="font-medium text-gray-800">
                               Specialty Feed
                             </p>
-                            {/* <p className="text-xs text-gray-500">10 kg Pack</p> */}
+                            {/* <p className="text-xs text-gray-500">10 kg Pack</p> 
                           </div>
                         </div>
                       </td>
@@ -158,7 +192,81 @@ export default function MyOrders() {
                         </Link>
                       </td>
                     </tr>
-                  </tbody>
+                  </tbody> */}
+
+                  <tbody className="text-gray-700">
+  {loading ? (
+    <tr>
+      <td colSpan="6" className="text-center py-6">
+        Loading...
+      </td>
+    </tr>
+  ) : orders.length === 0 ? (
+    <tr>
+      <td colSpan="6" className="text-center py-6">
+        No orders found
+      </td>
+    </tr>
+  ) : (
+    orders.map((order) => (
+      <tr
+        key={order.id}
+        className="hover:bg-green-50 transition"
+      >
+        <td className="px-2 md:px-4 py-3 border border-green-200">
+          <div className="flex items-center gap-4">
+            <img
+              src={
+                order.image_url ||
+                specialproduct
+              }
+              alt={order.product_name}
+              className="w-[60px] h-[60px] rounded-lg object-cover"
+            />
+
+            <div>
+              <p className="font-medium text-gray-800">
+                {order.product_name}
+              </p>
+            </div>
+          </div>
+        </td>
+
+        <td className="px-2 md:px-4 py-3 text-center border border-green-200">
+          {order.order_number}
+        </td>
+
+        <td className="px-2 md:px-4 py-3 text-center border border-green-200">
+          {/* {order.created_at} */}
+          {new Date(order.created_at).toLocaleDateString("en-IN", {
+  day: "2-digit",
+  month: "short",
+  year: "numeric",
+})}
+        </td>
+
+        <td className="px-2 md:px-4 py-3 text-center border border-green-200">
+          ₹ {Number(order.subtotal).toFixed(2)}
+        </td>
+
+        <td className="px-2 md:px-4 py-3 text-center border border-green-200">
+          <span className="inline-block px-3 py-1 text-xs rounded-full bg-green-50 text-green-700 font-medium">
+            {order.status}
+          </span>
+        </td>
+
+        <td className="px-2 md:px-4 py-3 text-center border border-green-200">
+          <Link
+            to={`/order-details/${order.id}`}
+            className="text-[#2f855a] font-medium hover:underline"
+          >
+            <FontAwesomeIcon icon={faEye} />
+          </Link>
+        </td>
+      </tr>
+    ))
+  )}
+</tbody>
                 </table>
               </div>
             </div>

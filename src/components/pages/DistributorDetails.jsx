@@ -33,6 +33,9 @@ import { API_URL } from "../../config/api";
 
 import { useCart } from "../../context/CartContext";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function DistributorDetails() {
   const { slug } = useParams();
   const [distributor, setDistributor] = useState(null);
@@ -77,7 +80,9 @@ function DistributorDetails() {
     //setCartCount((prev) => prev + 1);
 
   } catch (error) {
-    console.log(error);
+    toast.error(
+      error?.response?.data?.message || "Something went wrong"
+    );
   }
   };
 
@@ -799,6 +804,8 @@ const updateCartQty = async (productId, newQty) => {
       </main>
 
       <Footer />
+
+      <ToastContainer />
     </>
   );
 }

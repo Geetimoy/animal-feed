@@ -118,6 +118,11 @@ const fetchCart = async () => {
     console.log(response.data);
 
     toast.success("Your order has been placed successfully!");
+
+     setTimeout(() => {
+      navigate("/my-orders");
+    }, 3000);
+
   } catch (error) {
     console.log("Checkout Error:", error.response?.data);
 
@@ -380,7 +385,7 @@ const fetchCart = async () => {
                                py-3 rounded-xl font-medium cursor-pointer hover:bg-yellow-400  text-[16px] px-8
                                hover:opacity-90 transition"
               >
-                Update Cart
+                Back to Cart
               </button>
             </div>
           </div>
@@ -504,7 +509,7 @@ const fetchCart = async () => {
                                py-3 rounded-xl font-medium cursor-pointer hover:bg-yellow-400  text-[16px] px-8
                                hover:opacity-90 transition"
             >
-              Update Cart
+              Back to Cart
             </button>
           </div>
         </div>

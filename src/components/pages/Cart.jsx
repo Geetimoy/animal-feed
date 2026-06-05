@@ -127,6 +127,27 @@ useEffect(() => {
     console.log(error);
   }
   };
+  
+   //  Clear Cart
+  const clearCart = async () => {
+  const token = localStorage.getItem("token");
+
+  try {
+    await axios.delete(
+      `${API_URL}/customers/cart`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      }
+    );
+
+    fetchCart();
+  } catch (error) {
+    console.log(error);
+  }
+  };
 
   // Subtotal
   // const subtotal = cartItems.reduce(
@@ -208,7 +229,7 @@ useEffect(() => {
               </p>
               <div className="mt-8">
                 <button
-                  onClick={() => navigate("/products")}
+                  onClick={() => navigate("/distributor")}
                   className="  bg-yellow-500 text-white
                                py-3 rounded-xl font-medium cursor-pointer hover:bg-yellow-400  text-[16px] px-8
                                hover:opacity-90 transition"
@@ -313,14 +334,22 @@ useEffect(() => {
                 ))}
 
                 {/* Continue Shopping */}
-                <div className="hidden md:block">
+                <div className="hidden md:flex items-center justify-between">
                   <button
-                    onClick={() => navigate("/products")}
+                    onClick={() => navigate("/distributor")}
                     className="  bg-yellow-500 text-white
                                py-3 rounded-xl font-medium cursor-pointer hover:bg-yellow-400  text-[16px] px-8
                                hover:opacity-90 transition"
                   >
                     Continue Shopping
+                  </button>
+                  <button
+                    onClick={() => clearCart()}
+                    className="  bg-yellow-500 text-white
+                               py-3 rounded-xl font-medium cursor-pointer hover:bg-yellow-400  text-[16px] px-8
+                               hover:opacity-90 transition"
+                  >
+                    Clear Cart
                   </button>
                 </div>
               </div>
@@ -357,7 +386,7 @@ useEffect(() => {
               {/* Continue Shopping */}
               <div className=" md:hidden">
                 <button
-                  onClick={() => navigate("/products")}
+                  onClick={() => navigate("/distributor")}
                   className=" w-full bg-yellow-500 text-white
                                py-3 rounded-xl font-medium cursor-pointer hover:bg-yellow-400  text-[16px] px-8
                                hover:opacity-90 transition"
