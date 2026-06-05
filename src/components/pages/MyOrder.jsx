@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars , faEye , faTrash
+} from "@fortawesome/free-solid-svg-icons";
 import ProfileDashboard from "./ProfileDashboard";
 import Header from "../Header";
 import Footer from "../Footer";
@@ -59,6 +60,26 @@ const fetchOrders = async () => {
     setLoading(false);
   }
 };
+
+const cancelOrder = async (orderId) => {
+  const token = localStorage.getItem("token");
+
+  try {
+    await axios.delete(
+      `${API_URL}/customers/orders/${orderId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      }
+    );
+
+    fetchOrders();
+  } catch (error) {
+    console.log(error);
+  }
+  };
 
   return (
     <>
@@ -259,8 +280,13 @@ const fetchOrders = async () => {
           <Link
             to={`/order-details/${order.id}`}
             className="text-[#2f855a] font-medium hover:underline"
-          >
-            <FontAwesomeIcon icon={faEye} />
+ >
+            <FontAwesomeIcon icon={faEye} /> 
+          </Link>
+          <Link
+            onClick={() => cancelOrder(order.id)}
+            className="text-[#2f855a] font-medium hover:underline"
+          ><FontAwesomeIcon icon={faTrash} />
           </Link>
         </td>
       </tr>

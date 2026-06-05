@@ -100,6 +100,7 @@ const fetchCart = async () => {
 
   const handlePlaceOrder = async () => {
   try {
+    setLoading(true);
     const token = localStorage.getItem("token");
 
     const response = await axios.post(
@@ -116,12 +117,12 @@ const fetchCart = async () => {
     );
 
     console.log(response.data);
+    navigate("/thankyou-order");
+  //toast.success("Your order has been placed successfully!");
 
-    toast.success("Your order has been placed successfully!");
-
-     setTimeout(() => {
-      navigate("/my-orders");
-    }, 3000);
+    //  setTimeout(() => {
+    //   navigate("/thankyou-order");
+    // }, 1000);
 
   } catch (error) {
     console.log("Checkout Error:", error.response?.data);
@@ -129,6 +130,7 @@ const fetchCart = async () => {
     toast.error(
       error.response?.data?.message || "Failed to place order"
     );
+    setLoading(false);
   }
 };
 
@@ -484,13 +486,32 @@ const fetchCart = async () => {
               </label>
             </div> */}
 
-            <button  onClick={handlePlaceOrder}
+            {/* <button  onClick={handlePlaceOrder}
               className=" w-full bg-yellow-500 text-white
                                py-3 rounded-xl font-medium cursor-pointer hover:bg-yellow-400  text-[16px]
                              hover:opacity-90 transition mt-6"
             >
               Place Order
-            </button>
+            </button> */}
+            <button
+  onClick={handlePlaceOrder}
+  disabled={loading}
+  className={`w-full py-3 rounded-xl font-medium text-[16px] mt-6 flex items-center justify-center gap-2 transition
+    ${
+      loading
+        ? "bg-gray-400 cursor-not-allowed"
+        : "bg-yellow-500 hover:bg-yellow-400 text-white cursor-pointer"
+    }`}
+>
+  {loading ? (
+    <>
+      <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+      Placing Order...
+    </>
+  ) : (
+    "Place Order"
+  )}
+</button>
           </div>
 
           {/* Continue Shopping */}

@@ -48,6 +48,7 @@ import FishGrower from "./pages/FishGrower";
 
 import ProductListing from "./pages/ProductListing";
 import ProductDetails from "./pages/ProductDetails";
+import ThankyouOrder from "./pages/ThankyouOrder";
 
 
 
@@ -107,6 +108,7 @@ export default function Core() {
 
         <Route path="/:categorySlug/:subCategorySlug" element={<ProductListing />} />
         <Route path="/product-details" element={<ProductDetails />} />
+        <Route path="/thankyou-order" element={<ThankyouOrder />} />
       </Routes>
     </BrowserRouter>
   );
