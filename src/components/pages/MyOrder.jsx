@@ -8,6 +8,9 @@ import Footer from "../Footer";
 import specialproduct from "../../assets/images/special-product.jpeg";
 import contactBaner from "../../assets/images/contact-banner.jpg";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../../config/api";
@@ -18,6 +21,9 @@ export default function MyOrders() {
 
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const [showCancelModal, setShowCancelModal] = useState(false);
+  const [selectedOrderId, setSelectedOrderId] = useState(null);
 
   const mobileItem = (path, label) => (
     <Link
@@ -35,38 +41,39 @@ export default function MyOrders() {
 
   useEffect(() => {
   fetchOrders();
-}, []);
+  }, []);
 
-const fetchOrders = async () => {
-  try {
-    const token = localStorage.getItem("token");
+  const fetchOrders = async () => {
+    try {
+      const token = localStorage.getItem("token");
 
-    const response = await axios.get(
-      `${API_URL}/customers/orders`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
-        },
-      }
-    );
+      const response = await axios.get(
+        `${API_URL}/customers/orders`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      );
 
-    console.log("Orders:", response.data);
+      console.log("Orders:", response.data);
 
-    setOrders(response.data.data || []);
-  } catch (error) {
-    console.error("Orders API Error:", error);
-  } finally {
-    setLoading(false);
-  }
-};
+      setOrders(response.data.data || []);
+    } catch (error) {
+      console.error("Orders API Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-const cancelOrder = async (orderId) => {
+  const cancelOrder = async (orderId) => {
   const token = localStorage.getItem("token");
 
   try {
-    await axios.delete(
-      `${API_URL}/customers/orders/${orderId}`,
+    const response = await axios.patch(
+      `${API_URL}/customers/orders/${orderId}/cancel`,
+      {}, // empty request body
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -75,11 +82,21 @@ const cancelOrder = async (orderId) => {
       }
     );
 
+    console.log(response.data);
+
     fetchOrders();
+
+    toast.success(
+      response.data?.message || "Order cancelled successfully!"
+    );
   } catch (error) {
-    console.log(error);
+    console.log("Cancel Order Error:", error.response?.data);
+
+    toast.error(
+      error.response?.data?.message || "Failed to cancel order"
+    );
   }
-  };
+};
 
   return (
     <>
@@ -137,7 +154,6 @@ const cancelOrder = async (orderId) => {
             </div>
 
             {/* ORDERS TABLE */}
-
             <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
               <h2 className="text-xl font-semibold text-gray-800 mb-6">
                 My Orders
@@ -216,54 +232,54 @@ const cancelOrder = async (orderId) => {
                   </tbody> */}
 
                   <tbody className="text-gray-700">
-  {loading ? (
-    <tr>
-      <td colSpan="6" className="text-center py-6">
-        Loading...
-      </td>
-    </tr>
-  ) : orders.length === 0 ? (
-    <tr>
-      <td colSpan="6" className="text-center py-6">
-        No orders found
-      </td>
-    </tr>
-  ) : (
-    orders.map((order) => (
-      <tr
-        key={order.id}
-        className="hover:bg-green-50 transition"
-      >
-        <td className="px-2 md:px-4 py-3 border border-green-200">
-          <div className="flex items-center gap-4">
-            <img
-              src={
-                order.image_url ||
-                specialproduct
-              }
-              alt={order.product_name}
-              className="w-[60px] h-[60px] rounded-lg object-cover"
-            />
+                    {loading ? (
+                      <tr>
+                        <td colSpan="6" className="text-center py-6">
+                          Loading...
+                        </td>
+                      </tr>
+                    ) : orders.length === 0 ? (
+                      <tr>
+                        <td colSpan="6" className="text-center py-6">
+                          No orders found
+                        </td>
+                      </tr>
+                    ) : (
+                    orders.map((order) => (
+                      <tr
+                        key={order.id}
+                        className="hover:bg-green-50 transition"
+                      >
+                        <td className="px-2 md:px-4 py-3 border border-green-200">
+                          <div className="flex items-center gap-4">
+                            <img
+                              src={
+                                order.image_url ||
+                                specialproduct
+                              }
+                              alt={order.product_name}
+                              className="w-[60px] h-[60px] rounded-lg object-cover"
+                            />
 
-            <div>
-              <p className="font-medium text-gray-800">
-                {order.product_name}
-              </p>
-            </div>
-          </div>
-        </td>
+                            <div>
+                              <p className="font-medium text-gray-800">
+                                {order.product_name}
+                              </p>
+                            </div>
+                          </div>
+                        </td>
 
-        <td className="px-2 md:px-4 py-3 text-center border border-green-200">
-          {order.order_number}
-        </td>
+                        <td className="px-2 md:px-4 py-3 text-center border border-green-200">
+                          {order.order_number}
+                        </td>
 
-        <td className="px-2 md:px-4 py-3 text-center border border-green-200">
-          {/* {order.created_at} */}
-          {new Date(order.created_at).toLocaleDateString("en-IN", {
-  day: "2-digit",
-  month: "short",
-  year: "numeric",
-})}
+                        <td className="px-2 md:px-4 py-3 text-center border border-green-200">
+                          {/* {order.created_at} */}
+                          {new Date(order.created_at).toLocaleDateString("en-IN", {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                })}
         </td>
 
         <td className="px-2 md:px-4 py-3 text-center border border-green-200">
@@ -277,17 +293,44 @@ const cancelOrder = async (orderId) => {
         </td>
 
         <td className="px-2 md:px-4 py-3 text-center border border-green-200">
-          <Link
+          <div className="flex justify-center gap-4">
+            <div className="relative group">
+              <Link to={`/order-details/${order.id}`}>
+                <FontAwesomeIcon icon={faEye} />
+              </Link>
+              <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition">
+                View Details
+              </span>
+            </div>
+
+            <div className="relative group">
+              <button
+                onClick={() => {
+                  setSelectedOrderId(order.id);
+                  setShowCancelModal(true);
+                }}
+              className="cursor-pointer">
+                <FontAwesomeIcon icon={faTrash} />
+              </button>
+              <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
+                Cancel Order
+              </span>
+            </div>
+          </div>
+          {/* <Link
             to={`/order-details/${order.id}`}
             className="text-[#2f855a] font-medium hover:underline"
  >
             <FontAwesomeIcon icon={faEye} /> 
-          </Link>
-          <Link
-            onClick={() => cancelOrder(order.id)}
+          </Link> */}
+          {/* <Link
+             onClick={() => {
+                setSelectedOrderId(order.id);
+                setShowCancelModal(true);
+              }}
             className="text-[#2f855a] font-medium hover:underline"
           ><FontAwesomeIcon icon={faTrash} />
-          </Link>
+          </Link> */}
         </td>
       </tr>
     ))
@@ -299,8 +342,42 @@ const cancelOrder = async (orderId) => {
           </div>
         </div>
       </main>
+        
+        {showCancelModal && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded-xl shadow-xl w-[90%] max-w-md">
+              <h2 className="text-xl font-semibold mb-3">
+                Cancel Order
+              </h2>
+
+              <p className="text-gray-600 mb-6">
+                Are you sure you want to cancel this order?
+              </p>
+
+              <div className="flex justify-end gap-3">
+                <button
+                  onClick={() => setShowCancelModal(false)}
+                  className="px-4 py-2 bg-gray-300 rounded-lg cursor-pointer"
+                >
+                  No
+                </button>
+
+                <button
+                  onClick={() => {
+                    cancelOrder(selectedOrderId);
+                    setShowCancelModal(false);
+                  }}
+                  className="px-4 py-2 bg-yellow-500 text-white rounded-lg cursor-pointer"
+                >
+                  Yes, Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
       <Footer />
+      <ToastContainer />
     </>
   );
 }

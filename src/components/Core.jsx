@@ -21,6 +21,7 @@ import Checkout from "./pages/Checkout";
 import Profile from "./pages/Profile";
 import ResetPassword from "./pages/ResetPassword";
 import MyOrder from "./pages/MyOrder";
+import OrderDetails from "./pages/OrderDetails";
 import AddressManagement from "./pages/AddressManagement";
 import Csr from "./pages/Csr";
 import Quality from "./pages/Quality";
@@ -82,6 +83,7 @@ export default function Core() {
         <Route path="/address-management" element={<AddressManagement />} />
         <Route path="/quality" element={<Quality />} />
         <Route path="/csr" element={<Csr />} />
+        <Route path="/order-details/:orderId" element={<OrderDetails />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/distributors/:slug" element={<DistributorDetails />} />
         {/* <Route path="/product-category" element={<Category />} /> */}
