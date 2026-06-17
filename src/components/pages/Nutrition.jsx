@@ -1,6 +1,7 @@
 import Header from "../Header";
 import Footer from "../Footer";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 import banner1 from '../../assets/images/Layer35-cattle.png';
 import banner2 from '../../assets/images/Layer37-fish.png';
@@ -40,6 +41,9 @@ import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import nutritionHero from "../../assets/images/nutrition-banner.png";
 
 import { Helmet } from "react-helmet";
+
+import { API_URL } from "../../config/api";
+import axios from "axios";
 
 // Animation variants
 const fadeIn = {
@@ -84,6 +88,31 @@ const itemVariant = {
 };
 
 function Nutrition() {
+  const [banner, setBanner] = useState(null);
+  const pageSlug = "nutrition";
+
+  useEffect(() => {
+      
+      if (pageSlug) {
+        fetchBanner();
+      }
+    }, [pageSlug]);
+
+  const fetchBanner = async () => {
+  try {
+      const res = await axios.get(
+        `${API_URL}/banners/${pageSlug}`
+      );
+      
+      setBanner(res.data);
+    } catch (err) {
+      console.log("Banner API error:", err);
+    }
+  };
+
+  const bannerItem = banner?.data?.[0];
+
+
   return (
     <>
       <Helmet>
@@ -100,8 +129,8 @@ function Nutrition() {
         >
           <div className="relative">
             <motion.img
-              src={nutritionHero}
-              alt="Contact Us Banner"
+              src={bannerItem?.image_url}
+              alt={bannerItem?.title}
               className="w-full md:h-auto h-[500px] object-cover"
               initial={{ scale: 1.1 }}
               animate={{ scale: 1 }}
@@ -118,7 +147,7 @@ function Nutrition() {
                 className="text-white text-4xl md:text-6xl font-bold max-w-6xl px-4"
                 variants={slideInUp}
               >
-                Nutrition
+                {bannerItem?.title_white}
               </motion.h1>
 
               <motion.p
@@ -126,10 +155,11 @@ function Nutrition() {
                 variants={slideInUp}
                 transition={{ delay: 0.1 }}
               >
-                At Green Gold Animal Feed, our nutrition programs are designed
+                {/* At Green Gold Animal Feed, our nutrition programs are designed
                 using scientific nutrient requirements, feed conversion ratios
                 (FCR), and performance calculations to deliver measurable
-                results for farmers.
+                results for farmers. */}
+                 {bannerItem?.subtitle}
               </motion.p>
               <motion.div
                 className="flex flex-col md:flex-row gap-2 md:gap-4 w-full justify-center max-w-6xl px-4"
@@ -139,22 +169,22 @@ function Nutrition() {
               >
                 <motion.div variants={itemVariant} className="w-full md:w-auto">
                   <Link
-                    to="/distributor"
+                    to={bannerItem?.cta_primary_url || "/distributor"}
                     className="mt-4 md:mt-6 w-full md:w-[215px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
                   >
                     <span className="text-[20px] font-bold font-inter">
-                      <FontAwesomeIcon icon={faMagnifyingGlass} /> Find
-                      Distributor
+                      <FontAwesomeIcon icon={faMagnifyingGlass} /> 
+                      {bannerItem?.cta_primary_label || "Find Distributor"}
                     </span>
                   </Link>
                 </motion.div>
                 <motion.div variants={itemVariant}>
                   <Link
-                    to="/contact-us"
+                    to={bannerItem?.cta_secondary_url || "/contact-us"}
                     className="mt-2 md:mt-6 w-full md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
                   >
                     <span className="text-[20px] font-bold font-inter">
-                      <FontAwesomeIcon icon={faLocationDot} /> Contact Us
+                      <FontAwesomeIcon icon={faLocationDot} /> {bannerItem?.cta_secondary_label || "Contact Us"}
                     </span>
                   </Link>
                 </motion.div>

@@ -6,58 +6,91 @@ import logo from '../assets/images/logo-footer.png';
 
 import { Link } from "react-router-dom";
 
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
+import { useSettings } from "../context/SettingsContext";
+
 function Footer(){
+
+  //const [settings, setSettings] = useState(null);
+  const token = localStorage.getItem("customer_token");
+  const { settings } = useSettings();
+
+  //  useEffect(() => {
+  //   fetchSettings();
+  // }, []);
+
+  // const fetchSettings = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       "https://neonatestaging.com/animal_feed/public/api/settings",
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //           Accept: "application/json",
+  //         },
+  //       }
+  //     );
+
+  //     console.log(response.data);
+  //     setSettings(response.data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+ 
   return (
     <>
       <footer className="bg-gradient-to-b from-[#0a1424] via-[#0b1628] to-[#0a1322] text-gray-300 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 py-10 md:py-16 grid grid-cols-1 md:grid-cols-4 md:gap-12 gap-6 md:text-left text-center ">
           {/* <!-- Brand / About --> */}
           <div className="space-y-6  md:text-left text-center">
-            <img src={logo} alt="Logo" className="w-24 block mx-auto md:mx-0" />
+            <img src={settings?.data?.brand?.logo_url} alt="Logo" className="w-24 block mx-auto md:mx-0" />
 
             <p className="text-[#7f979f] text-lg  md:text-left text-center">
-              Pioneering excellence in animal nutrition since 1998. Committed to
-              quality, innovation, and sustainable farming practices.
+              {settings?.data?.brand?.company_tagline}
             </p>
 
             {/* Social Icons */}
             <div className="flex items-center gap-4 justify-center  md:justify-start">
-              <Link
-                to="#"
+              <a
+                href={`${settings?.data?.social?.facebook}`} target="_blank"
                 className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition"
               >
                 <FontAwesomeIcon
                   icon={faFacebookF}
                   className="text-gray-400 text-sm"
                 />
-              </Link>
-              <Link
-                to="#"
+              </a>
+              <a
+                href={`${settings?.data?.social?.twitter}`} target="_blank"
                 className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition"
               >
                 <FontAwesomeIcon
                   icon={faTwitter}
                   className="text-gray-400 text-sm"
                 />
-              </Link>
-              <Link
-                to="#"
+              </a>
+              <a
+                href={`${settings?.data?.social?.instagram}`} target="_blank"
                 className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition"
               >
                 <FontAwesomeIcon
                   icon={faInstagram}
                   className="text-gray-400 text-sm"
                 />
-              </Link>
-              <Link
-                to="#"
+              </a>
+              <a
+                href={`${settings?.data?.social?.youtube}`} target="_blank"
                 className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition"
               >
                 <FontAwesomeIcon
                   icon={faYoutube}
                   className="text-gray-400 text-sm"
                 />
-              </Link>
+              </a>
             </div>
           </div>
 
@@ -204,8 +237,8 @@ function Footer(){
                   <FontAwesomeIcon icon={faLocationDot} />
                 </span>
                 <span className="text-[#7f979f] md:text-lg text-md font-medium">
-                  Rongoge Mega Food Park <br className="hidden md:block" /> Dolikoto Banderdewa, 
-                  <br className="hidden md:block" /> Arunachal Pradesh 791123 
+                  {settings?.data?.contact?.address} <br className="hidden md:block" /> {settings?.data?.contact?.city}
+                  <br className="hidden md:block" /> {settings?.data?.contact?.state}
                 </span>
               </li>
               <li className="flex items-center md:items-start justify-center md:justify-start mb-3">
@@ -213,7 +246,7 @@ function Footer(){
                   <FontAwesomeIcon icon={faPhone} />
                 </span>
                 <span className="text-[#7f979f] md:text-lg text-md font-medium">
-                  <Link to="tel:+919999999999" className="inline-block transition-transform duration-300 ease-in-out hover:text-[#cfcfcf]">+91 9999999999</Link>
+                  <a href={`tel:${settings?.data?.contact?.phone_primary}`} className="inline-block transition-transform duration-300 ease-in-out hover:text-[#cfcfcf]">{settings?.data?.contact?.phone_primary}</a>
                 </span>
               </li>
               <li className="flex items-center md:items-start justify-center md:justify-start">
@@ -221,7 +254,7 @@ function Footer(){
                   <FontAwesomeIcon icon={faEnvelope} />
                 </span>
                 <span className="text-[#7f979f] md:text-lg text-md font-medium">
-                  <Link to="mailto:info@greengold.com" className="inline-block transition-transform duration-300 ease-in-out hover:text-[#cfcfcf]">info@greengold.com</Link>
+                  <a href={`mailto:${settings?.data?.contact?.email}`} className="inline-block transition-transform duration-300 ease-in-out hover:text-[#cfcfcf]">{settings?.data?.contact?.email}</a>
                 </span>
               </li>
             </ul>
@@ -230,8 +263,7 @@ function Footer(){
         <div>
           <hr className="border-gray-800" />
           <p className="text-center text-gray-500 text-sm py-4">
-            &copy; {new Date().getFullYear()} Green Gold Feeds. All rights
-            reserved. <span>| Designed &amp; Developed By <Link href="https://www.neonatetechnologies.com/" target="_blank" className="text-[#727272] hover:text-white">Neonate Technologies</Link></span>
+            &copy; {new Date().getFullYear()} {settings?.data?.legal?.copyright_text}  <span>| Designed &amp; Developed By <Link href="https://www.neonatetechnologies.com/" target="_blank" className="text-[#727272] hover:text-white">Neonate Technologies</Link></span>
           </p>
         </div>
       </footer>

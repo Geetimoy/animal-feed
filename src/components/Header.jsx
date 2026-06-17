@@ -19,7 +19,8 @@ import {
   faFileImage,
   faImage,
   faCartArrowDown,
-  faCircleNotch
+  faCircleNotch,
+  faCircleUser, faUser, faBox, faSignOutAlt
 } from "@fortawesome/free-solid-svg-icons";
 
 import { Link, useNavigate } from "react-router-dom";
@@ -28,10 +29,20 @@ import axios from "axios";
 
 import { API_URL } from "../config/api";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import { toast } from "react-toastify";
+
+import { useSettings } from "../context/SettingsContext";
+
 function Header({ showLogout = false }) {
   const [isOpen, setIsOpen] = useState(false);
   const [knowUsMobileOpen, setKnowUsMobileOpen] = useState(false);
   const [mediaMobileOpen, setMediaMobileOpen] = useState(false);
+
+  //const [settings, setSettings] = useState(null);
+   const { settings } = useSettings();
 
   // const { cartCount } = useCart();
   const { cartCount, setCartCount } = useCart();
@@ -59,6 +70,7 @@ function Header({ showLogout = false }) {
 
 
 const fetchCartCount = async () => {
+   const token = localStorage.getItem("token");
   try {
     const res = await axios.get(
       `${API_URL}/customers/cart/count`,
@@ -76,8 +88,41 @@ const fetchCartCount = async () => {
   }
 };
 
+const handleLogout = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      await axios.post(
+        `${API_URL}/customers/logout`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      );
+       toast.success("Logged out successfully", {
+        onClose: () => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          navigate("/logout");
+        },
+        autoClose: 1500,
+      });
+    } catch (error) {
+      console.error("Logout failed:", error);
+
+      // Still clear local data if API fails
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      navigate("/logout");
+    }
+  };
+
   return (
     <>
+      
       <header className="fixed top-0 left-0 w-full z-50 overflow-hidden lg:overflow-visible">
         <nav className="md:h-[100px] bg-white flex items-center transition-all duration-300 justify-between shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between w-full py-2">
@@ -99,7 +144,7 @@ const fetchCartCount = async () => {
                   className="lg:h-[127px] lg:w-[130px] h-[100px] w-[100px]"
                 /> */}
                 <img
-                  src={logo}
+                  src={settings?.data?.brand?.logo_url}
                   alt="Logo"
                   className={`transition-all duration-300
     ${
@@ -294,17 +339,44 @@ const fetchCartCount = async () => {
                 </span>
               </Link>
             </div>
-            <div className="hidden lg:flex">
+            <div className="hidden lg:flex items-center space-x-4">
               {showLogout ? (
-                <Link
+                <div className="dropdown-trigger relative">
+                  <button className="nav-link flex items-center space-x-1">
+                    <FontAwesomeIcon icon={faCircleUser} className="text-lg mr-1" />
+                    <FontAwesomeIcon icon={faChevronDown} className="text-[10px] chevron ml-1" />
+                  </button>
+                  <div className="dropdown absolute top-full right-0 pt-4 w-36">
+                      <div className="bg-white rounded-xl shadow-xl border border-gray-100 py-2 overflow-hidden">
+                          <a href="/uidevelopment/animal-feed/profile" className="dropdown-item flex items-center px-4 py-2.5 text-sm text-gray-600 ">
+                              <FontAwesomeIcon icon={faUser} className="w-4 text-green-500 mr-3" /> Profile
+                          </a>
+                          <a href="/uidevelopment/animal-feed/my-orders" className="dropdown-item flex items-center px-4 py-2.5 text-sm text-gray-600 ">
+                              <FontAwesomeIcon icon={faBox} className="w-4 text-green-500 mr-3" /> My Orders
+                          </a>
+                          <a href="#" onClick={(e) => {
+    e.preventDefault();
+    handleLogout();
+  }} class="dropdown-item flex items-center px-4 py-2.5 text-sm text-gray-600 ">
+                              <FontAwesomeIcon icon={faSignOutAlt} className="w-4 text-green-500 mr-3" /> Logout
+                          </a>
+                          {/* <form action="logout" method="POST">
+                              <input type="hidden" name="_token" value="M6dCTbxtwtrxrQgEIzcC2ypFvfA9P4NQNYnpimiw" autocomplete="off" />      <button type="submit" class="dropdown-item flex items-center px-4 py-2.5 text-sm text-gray-600 w-full text-left cursor-pointer">
+                                  <FontAwesomeIcon icon={faSignOutAlt} className="w-4 text-green-500 mr-3" /> Logout
+                              </button>
+                          </form> */}
+                      </div>
+                  </div>
+                {/* <Link
                   to="/logout"
                   className="nav-link text-[15px] font-normal flex items-center mr-2 gap-1 text-[#00a34a] mr-4"
                 >
                   <span className="bg-[#e2f2e7] w-[30px] h-[30px] rounded-full text-center leading-[30px] ">
                     <FontAwesomeIcon icon={faCircleNotch} />
                   </span>
-                  {/* Logout */}
-                </Link>
+                  
+                </Link> */}
+                </div>
               ) : (
                 <Link
                   to="/login"
@@ -490,6 +562,7 @@ const fetchCartCount = async () => {
           </div>
         </div>
       </header>
+      <ToastContainer />
     </>
   );
 }

@@ -1,7 +1,7 @@
 import Header from "../Header";
 import Footer from "../Footer";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import banner1 from '../../assets/images/Layer35-cattle.png';
 import banner2 from '../../assets/images/Layer37-fish.png';
@@ -44,9 +44,35 @@ import { Link } from "react-router-dom";
 import nutritionHero from "../../assets/images/nutrition-banner.png";
 import { Helmet } from "react-helmet";
 
+import { API_URL } from "../../config/api";
+import axios from "axios";
+
 function FeedType(){
 
   const [showAll, setShowAll] = useState(false);
+  const [banner, setBanner] = useState(null);
+  const pageSlug = "feed-type";
+
+  useEffect(() => {
+      
+    if (pageSlug) {
+      fetchBanner();
+    }
+  }, [pageSlug]);
+
+  const fetchBanner = async () => {
+  try {
+      const res = await axios.get(
+        `${API_URL}/banners/${pageSlug}`
+      );
+      
+      setBanner(res.data);
+    } catch (err) {
+      console.log("Banner API error:", err);
+    }
+  };
+
+  const bannerItem = banner?.data?.[0];
 
   return (
     <>
@@ -59,14 +85,14 @@ function FeedType(){
         <section className="relative z-0">
           <div className="relative">
             <img
-              src={feedbanner}
-              alt="Contact Us Banner"
+              src={bannerItem?.image_url}
+              alt={bannerItem?.title}
               className="w-full md:h-[500px] h-[500px] object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-gray-900/60 to-transparent"></div>
             <div className="absolute inset-0  flex items-center justify-center flex-col px-4">
               <h1 className="text-white text-4xl md:text-6xl font-bold max-w-6xl px-4">
-                Types of <span className="text-[#ffa800]">Feeds</span>
+               {bannerItem?.title_white} <span className="text-[#ffa800]">{bannerItem?.title_gold}</span>
               </h1>
 
               <p className="text-gray-200 text-[16px] md:text-xl text-center max-w-6xl mt-6">

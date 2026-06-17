@@ -28,6 +28,9 @@ export default function Checkout() {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const [banner, setBanner] = useState(null);
+  const pageSlug = "checkout";
+
   const [checkoutData, setCheckoutData] = useState({
     name: "",
     phone: "",
@@ -39,6 +42,7 @@ export default function Checkout() {
 
   useEffect(() => {
   fetchCart();
+  fetchAddresses();
 }, []);
 
 
@@ -77,26 +81,41 @@ const fetchCart = async () => {
   // const [open, setOpen] = useState(false);
 
   const [panelopen, setPanelOpen] = useState(false);
-  const [selected, setSelected] = useState(1);
+  const [addresses, setAddresses] = useState([]);
+  const [selected, setSelected] = useState(null);
 
-  const addresses = [
-    {
-      id: 1,
-      position: "Home",
-      name:"Amit Verma",
-      phone:"9876543210",
-      address: "Near City Mall, 120 Main Road, Kolkata, West Bengal 700150",
-    },
-    {
-      id: 2,
-      position: "Office",
-      name:"Geetimoy Sahu",
-      phone:"9876543210",
-      address: "123 Main Road, Salt Lake, Kolkata, West Bengal 700091",
-    },
-  ];
+  
 
-  const current = addresses.find((a) => a.id === selected);
+  const fetchAddresses = async () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const response = await axios.get(
+      `${API_URL}/customers/addresses`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      }
+    );
+
+    const addressList = response.data.data || [];
+
+    setAddresses(addressList);
+
+    // Select first address automatically
+    if (addressList.length > 0) {
+      setSelected(addressList[0].id);
+    }
+
+  } catch (error) {
+    console.log("Address Error:", error.response?.data || error);
+  }
+  };
+
+  const current =
+  addresses.find((a) => a.id === selected) || {};
 
   const handlePlaceOrder = async () => {
   try {
@@ -132,7 +151,28 @@ const fetchCart = async () => {
     );
     setLoading(false);
   }
-};
+  };
+
+  useEffect(() => {
+      
+      if (pageSlug) {
+        fetchBanner();
+      }
+    }, [pageSlug]);
+
+  const fetchBanner = async () => {
+  try {
+      const res = await axios.get(
+        `${API_URL}/banners/${pageSlug}`
+      );
+      
+      setBanner(res.data);
+    } catch (err) {
+      console.log("Banner API error:", err);
+    }
+  };
+
+  const bannerItem = banner?.data?.[0];
 
   return (
     <>
@@ -145,8 +185,8 @@ const fetchCart = async () => {
         <section className="relative ">
           <div className="relative">
             <img
-              src={cartbanner}
-              alt="Contact Us Banner"
+              src={bannerItem?.image_url}
+              alt={bannerItem?.title}
               className="w-full  h-[500px] object-cover object-top"
             />
             {/* Overlay Layer (81%) */}
@@ -159,7 +199,7 @@ const fetchCart = async () => {
             </div> */}
             <div className="absolute  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-4xl px-4 md:px-6  w-full z-10">
               <h1 className="text-[#fff] text-4xl md:text-6xl font-bold text-center mb-4 md:mb-6">
-                CheckOut
+                {bannerItem?.title_white}
               </h1>
               {/* <p className="text-white text-[16px] md:text-xl text-center">
                 Empowering livestock productivity with scientifically balanced
@@ -167,20 +207,19 @@ const fetchCart = async () => {
               </p> */}
               <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
                 <Link
-                  to="/distributor"
+                  to={bannerItem?.cta_primary_url || "/distributor"}
                   className="mt-4 md:mt-6 w-full  md:w-[215px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
                 >
                   <span className="text-[20px] font-bold font-inter">
-                    <FontAwesomeIcon icon={faMagnifyingGlass} /> Find
-                    Distributor
+                    <FontAwesomeIcon icon={faMagnifyingGlass} /> {bannerItem?.cta_primary_label || "Find Distributor"}
                   </span>
                 </Link>
                 <Link
-                  to="/contact-us"
+                  to={bannerItem?.cta_secondary_url || "/contact-us"}
                   className="mt-3 md:mt-6  w-full  md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
                 >
                   <span className="text-[20px] font-bold font-inter">
-                    <FontAwesomeIcon icon={faLocationDot} /> Contact Us
+                    <FontAwesomeIcon icon={faLocationDot} /> {bannerItem?.cta_secondary_label || "Contact Us"}
                   </span>
                 </Link>
               </div>
@@ -203,12 +242,21 @@ const fetchCart = async () => {
                     <div>
                       <h2 className="text-[20px] md:text-[20px] font-semibold text-gray-800 mb-3">Shipping Address</h2>
                       <p className="text-sm text-gray-500">Deliver to</p>
-                      <p className="text-lg font-semibold">{current.position}</p>
+                      <p className="text-lg font-semibold uppercase">{current.address_type}</p>
                       <h2 className="normal text-gray-800 text-[16px] md:text-[20px]">
                         {current.name}
                       </h2>
                       <p className="mt-1 text-gray-600">Phone : {current.phone}</p>
-                      <p className="mt-1 text-gray-600">{current.address}</p>
+                      <p className="mt-1 text-gray-600">{current.address_line}</p>
+                      <p className="mt-1 text-gray-600">
+                        Near : {current.landmark}
+                      </p>
+                      
+                      <p className="mt-1 text-gray-600">
+                        {current.city} 
+                      </p>
+                      
+                      
                     </div>
 
                     <button
@@ -245,7 +293,10 @@ const fetchCart = async () => {
                         <div>
                           <p className="font-medium">{item.name}</p>
                           <p className="font-medium">{item.phone}</p>
-                          <p className="text-sm text-gray-600">{item.address}</p>
+                          <p className="text-sm text-gray-600">{item.address_line}</p>
+                          <p className="text-sm text-gray-600">
+                            {item.city}
+                          </p>
                         </div>
 
                       </label>

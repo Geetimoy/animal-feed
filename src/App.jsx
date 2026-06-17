@@ -8,6 +8,9 @@ import Footer from './components/Footer';
 import Home from './components/pages/Home';
 
 import { CartProvider } from "./context/CartContext";
+import { SettingsProvider } from "./context/SettingsContext";
+
+import { HelmetProvider } from "react-helmet-async";
 
 // import AppRoutes from "./routes/AppRoutes";
 function App() {
@@ -16,7 +19,11 @@ function App() {
   return (
     <>
       <CartProvider>  
-        <Core />
+        <SettingsProvider>
+          <HelmetProvider>
+            <Core />
+          </HelmetProvider>
+        </SettingsProvider>
       </CartProvider> 
     </>
   );

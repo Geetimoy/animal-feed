@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -7,7 +7,15 @@ import Header from "../Header";
 import Footer from "../Footer";
 import contactBaner from "../../assets/images/contact-banner.jpg";
 
+import axios from "axios";
+import { API_URL } from "../../config/api";
+
 import { Helmet } from "react-helmet";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import { toast } from "react-toastify";
 
 export default function Profile() {
   const [open, setOpen] = useState(false);
@@ -33,24 +41,34 @@ export default function Profile() {
   const [user, setUser] = useState();
   const [showPassword, setShowPassword] = useState(false);
 
+  const [banner, setBanner] = useState(null);
+  const pageSlug = "profile";
+
+
+  // const [formData, setFormData] = useState({
+  //   fullName: "Amit Verma",
+  //   lastName: "Verma",
+  //   gender: "Male",
+  //   email: "example@gmail.com",
+  //   mobile: "+91 9876543210",
+  //   password: "Amit@123"
+  // });
 
   const [formData, setFormData] = useState({
-    fullName: "Amit Verma",
-    lastName: "Verma",
-    gender: "Male",
-    email: "example@gmail.com",
-    mobile: "+91 9876543210",
-    password: "Amit@123"
+  fullName: "",
+  lastName: "",
+  gender: "",
+  email: "",
+  mobile: "",
+  password: "",
   });
 
- 
   const [originalData, setOriginalData] = useState(formData);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
- 
   const handleProfileEdit = () => {
     setOriginalData(formData);
     setIsProfileEdit(true);
@@ -63,9 +81,22 @@ export default function Profile() {
     setIsProfileEdit(false);
   };
 
-  const handleProfileSave = () => {
-    setOriginalData(formData);
-    setIsProfileEdit(false);
+  // const handleProfileSave = () => {
+  //   setOriginalData(formData);
+  //   setIsProfileEdit(false);
+  // };
+
+  const handleProfileSave = async () => {
+  const payload = {
+    name: formData.fullName,
+    last_name: formData.lastName,
+    gender: formData.gender,
+  };
+
+  await updateProfile(payload);
+
+  setOriginalData(formData);
+  setIsProfileEdit(false);
   };
 
   const handleContactEdit = () => {
@@ -80,12 +111,24 @@ export default function Profile() {
     setIsContactEdit(false);
   };
 
-  const handleContactSave = () => {
-    setOriginalData(formData);
-    setIsContactEdit(false);
+  // const handleContactSave = () => {
+  //   setOriginalData(formData);
+  //   setIsContactEdit(false);
+  // };
+
+  const handleContactSave = async () => {
+  const payload = {
+    email: formData.email,
+    phone: formData.mobile,
   };
 
-  
+  //await updateProfile(payload);
+  await updateContact(payload);
+
+  setOriginalData(formData);
+  setIsContactEdit(false);
+  };
+
   const handlePasswordEdit = () => {
      setOriginalData(formData);
        setOriginalData(formData);
@@ -104,23 +147,155 @@ export default function Profile() {
     setIsPasswordEdit(false);
   };
 
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  const fetchProfile = async () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const response = await axios.get(
+      `${API_URL}/customers/profile`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      }
+    );
+
+    console.log("Profile:", response.data);
+
+    const user = response.data.data;
+
+    setFormData({
+      fullName: user.name || "",
+      lastName: user.last_name || "",
+      gender: user.gender || "",
+      email: user.email || "",
+      mobile: user.phone || "",
+      password: "",
+    });
+
+  } catch (error) {
+    console.log(
+      "Profile Error:",
+      error.response?.data || error
+    );
+  }
+  };
+
+
+  const updateProfile = async (payload) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await axios.patch(
+        `${API_URL}/customers/profile`,
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      );
+
+      toast.success("Profile updated successfully");
+      fetchProfile();
+
+    } catch (error) {
+      console.log(error.response?.data);
+
+      const res = error.response?.data;
+
+      // 👉 show backend validation message
+      if (res?.errors) {
+        Object.values(res.errors).forEach((errArray) => {
+          toast.error(errArray[0]);
+        });
+      } else {
+        toast.error(res?.message || "Something went wrong");
+      }
+    }
+  };
+
+  const updateContact = async (payload) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await axios.patch(
+        `${API_URL}/customers/contact`,
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      );
+
+      toast.success("Contact updated successfully");
+
+      console.log("Contact Updated:", response.data);
+
+      fetchProfile(); // refresh UI
+
+    } catch (error) {
+      const res = error.response?.data;
+
+      // show validation errors
+      if (res?.errors) {
+        Object.keys(res.errors).forEach((key) => {
+          res.errors[key].forEach((msg) => {
+            toast.error(msg);
+          });
+        });
+      } else {
+        toast.error(res?.message || "Failed to update contact");
+      }
+    }
+  };
+
+  useEffect(() => {
+      
+      if (pageSlug) {
+        fetchBanner();
+      }
+    }, [pageSlug]);
+
+  const fetchBanner = async () => {
+  try {
+      const res = await axios.get(
+        `${API_URL}/banners/${pageSlug}`
+      );
+      
+      setBanner(res.data);
+    } catch (err) {
+      console.log("Banner API error:", err);
+    }
+  };
+
+  const bannerItem = banner?.data?.[0];
+
   return (
     <>
       <Helmet>
         <title>Profile -  Animal Feed</title>
       </Helmet>
-      <Header />
+      <Header showLogout={true} />
       <main className="pt-16 overflow-x-hidden">
         <section className="relative z-0">
           <div className="relative">
             <img
-              src={contactBaner}
-              alt="Contact Us Banner"
+              src={bannerItem?.image_url}
+              alt={bannerItem?.title}
               className="w-full md:h-auto h-[250px] object-cover"
             />
             <div className="absolute inset-0  flex items-center justify-center">
               <h1 className="text-white text-4xl md:text-6xl font-bold">
-                Profile
+                {bannerItem?.title_white}
               </h1>
             </div>
           </div>
@@ -212,8 +387,8 @@ export default function Profile() {
                       <input
                         type="radio"
                         name="gender"
-                        value="Male"
-                        checked={formData.gender === "Male"}
+                        value="male"
+                        checked={formData.gender === "male"}
                         onChange={handleChange}
                         className="accent-[#2f855a]"
                       />{" "}
@@ -224,12 +399,24 @@ export default function Profile() {
                       <input
                         type="radio"
                         name="gender"
-                        value="Female"
-                        checked={formData.gender === "Female"}
+                        value="female"
+                        checked={formData.gender === "female"}
                         onChange={handleChange}
                         className="accent-[#2f855a]"
                       />{" "}
                       Female
+                    </label>
+
+                    <label>
+                      <input
+                        type="radio"
+                        name="gender"
+                        value="other"
+                        checked={formData.gender === "other"}
+                        onChange={handleChange}
+                        className="accent-[#2f855a]"
+                      />{" "}
+                      Other
                     </label>
                   </div>
                 ) : (
@@ -345,7 +532,7 @@ export default function Profile() {
 
               {/* Password Change */}
 
-              <div className="flex items-center justify-between mb-[16px] mt-[40px]">
+              {/* <div className="flex items-center justify-between mb-[16px] mt-[40px]">
                 <h2 className="text-[16px] md:text-[20px] font-semibold text-gray-800">
                   Contact Information
                 </h2>
@@ -358,39 +545,39 @@ export default function Profile() {
                     Edit
                   </button>
                 )}
-              </div>
+              </div> */}
 
               {/* EMAIL */}
-              <div className="bg-[#fbfcfd] rounded-[16px] p-[14px] shadow-[0_10px_24px_rgba(0,0,0,0.08)] mb-[18px]">
+              {/* <div className="bg-[#fbfcfd] rounded-[16px] p-[14px] shadow-[0_10px_24px_rgba(0,0,0,0.08)] mb-[18px]">
                 <p className="text-[14px] text-[#9aa0a6] mb-[8px]">
                   Email Address
                 </p>
 
                 {isPasswordEdit ? (
-  <div className="relative mt-2">
-    <input
-      type={showPassword ? "text" : "password"}
-      name="password"
-      value={formData.password}
-      onChange={handleChange}
-      className="w-full border border-gray-200 py-3 pl-4 pr-12 rounded-xl font-semibold text-gray-800
-      focus:outline-none focus:border-blue-400"
-    />
+                  <div className="relative mt-2">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      className="w-full border border-gray-200 py-3 pl-4 pr-12 rounded-xl font-semibold text-gray-800
+                      focus:outline-none focus:border-blue-400"
+                    />
 
-    <button
-      type="button"
-      onClick={() => setShowPassword(!showPassword)}
-      className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-gray-700"
-    >
-      <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-    </button>
-  </div>
-) : (
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-gray-700"
+                  >
+                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                  </button>
+                  </div>
+                  ) : (
                   <h2 className="text-[16px] md:text-[18px] font-semibold text-gray-800">
                     {formData.password}
                   </h2>
                 )}
-              </div>
+              </div> */}
 
               {/* SAVE / CANCEL */}
               {isPasswordEdit && (
@@ -418,6 +605,8 @@ export default function Profile() {
         </div>
       </main>
       <Footer />
+
+      <ToastContainer />
     </>
   );
 }

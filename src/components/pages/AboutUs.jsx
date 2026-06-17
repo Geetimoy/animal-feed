@@ -27,10 +27,13 @@ import {
     faTrademark,
 } from "@fortawesome/free-solid-svg-icons";
 import { faNutritionix } from "@fortawesome/free-brands-svg-icons";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import AnimalFeedStory from "./AnimalFeedStory";
 
 import { Helmet } from "react-helmet";
+
+import { API_URL } from "../../config/api";
+import axios from "axios";
 
 // Animation variants
 const fadeIn = {
@@ -89,6 +92,31 @@ function AboutUs02() {
         }
     }, [hash]);
 
+    const [banner, setBanner] = useState(null);
+    // const { pageSlug } = useParams();
+    const pageSlug = "about-us";
+
+    useEffect(() => {
+      
+      if (pageSlug) {
+        fetchBanner();
+      }
+    }, [pageSlug]);
+
+    const fetchBanner = async () => {
+      try {
+          const res = await axios.get(
+            `${API_URL}/banners/${pageSlug}`
+          );
+          console.log("Banner API:", res.data);
+          setBanner(res.data);
+        } catch (err) {
+          console.log("Banner API error:", err);
+        }
+      };
+
+    const bannerItem = banner?.data?.[0];
+
     return (
       <>
         <Helmet>
@@ -105,16 +133,16 @@ function AboutUs02() {
           >
             <div className="relative">
               <motion.img
-                src={aboutBaner}
-                alt="About Us Banner"
+                src={banner?.data?.[0]?.image_url}
+                alt={banner?.data?.title}
                 className="w-full md:h-auto h-[500px] hidden md:block object-cover"
                 initial={{ scale: 1.1 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: 1.5 }}
               />
               <img
-                src={aboutBanerMob}
-                alt="About Us Banner Mobile"
+                src={banner?.data?.[0]?.image_url}
+                alt={banner?.data?.title}
                 className="w-full md:h-auto h-[500px] block md:hidden object-cover"
               />
               <motion.div
@@ -127,17 +155,18 @@ function AboutUs02() {
                   className="text-[#fff] text-4xl md:text-6xl font-bold text-center mb-4 md:mb-6"
                   variants={slideInUp}
                 >
-                  About <span className="text-[#ffa800]">Us</span>
+                  {bannerItem?.title_white}{" "} <span className="text-[#ffa800]">{bannerItem?.title_gold}</span>
                 </motion.h1>
                 <motion.p
                   className="text-white text-[16px] md:text-xl text-center"
                   variants={slideInUp}
                   transition={{ delay: 0.1 }}
                 >
-                  For over 25 years, we've been at the forefront of animal
+                  {banner?.data[0].subtitle}
+                  {/* For over 25 years, we've been at the forefront of animal
                   nutrition, blending scientific expertise with agricultural
                   wisdom to empower farmers and enhance livestock productivity
-                  across India
+                  across India */}
                 </motion.p>
                 <motion.div
                                className="flex flex-col md:flex-row gap-2 md:gap-4 w-full justify-center max-w-6xl px-4"
@@ -147,22 +176,21 @@ function AboutUs02() {
                              >
                                <motion.div variants={itemVariant} className="w-full md:w-auto">
                                  <Link
-                                   to="/distributor"
+                                   to={bannerItem?.cta_primary_url || "/distributor"}
                                    className="mt-4 md:mt-6 w-full md:w-[215px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
                                  >
                                    <span className="text-[20px] font-bold font-inter">
-                                     <FontAwesomeIcon icon={faMagnifyingGlass} /> Find
-                                     Distributor
+                                     <FontAwesomeIcon icon={faMagnifyingGlass} /> {bannerItem?.cta_primary_label || "Find Distributor"}
                                    </span>
                                  </Link>
                                </motion.div>
                                <motion.div variants={itemVariant}>
                                  <Link
-                                   to="/contact-us"
+                                   to={bannerItem?.cta_secondary_url || "/contact-us"}
                                    className="mt-2 md:mt-6 w-full md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
                                  >
                                    <span className="text-[20px] font-bold font-inter">
-                                     <FontAwesomeIcon icon={faLocationDot} /> Contact Us
+                                     <FontAwesomeIcon icon={faLocationDot} /> {bannerItem?.cta_secondary_label || "Contact Us"}
                                    </span>
                                  </Link>
                                </motion.div>

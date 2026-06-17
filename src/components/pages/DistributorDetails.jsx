@@ -223,7 +223,7 @@ function DistributorDetails() {
   } catch (error) {
     console.log(error);
   }
-};
+  };
 
 
 

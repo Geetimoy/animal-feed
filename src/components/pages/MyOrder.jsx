@@ -25,6 +25,9 @@ export default function MyOrders() {
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
 
+  const [banner, setBanner] = useState(null);
+  const pageSlug = "my-orders";
+
   const mobileItem = (path, label) => (
     <Link
       to={path}
@@ -96,7 +99,28 @@ export default function MyOrders() {
       error.response?.data?.message || "Failed to cancel order"
     );
   }
-};
+  };
+
+  useEffect(() => {
+        
+    if (pageSlug) {
+      fetchBanner();
+    }
+  }, [pageSlug]);
+
+  const fetchBanner = async () => {
+  try {
+      const res = await axios.get(
+        `${API_URL}/banners/${pageSlug}`
+      );
+      
+      setBanner(res.data);
+    } catch (err) {
+      console.log("Banner API error:", err);
+    }
+  };
+
+  const bannerItem = banner?.data?.[0];
 
   return (
     <>
@@ -105,13 +129,13 @@ export default function MyOrders() {
         <section className="relative z-0">
           <div className="relative">
             <img
-              src={contactBaner}
-              alt="Contact Us Banner"
+              src={bannerItem?.image_url}
+              alt={bannerItem?.title}
               className="w-full md:h-auto h-[250px] object-cover"
             />
             <div className="absolute inset-0  flex items-center justify-center">
               <h1 className="text-white text-4xl md:text-6xl font-bold">
-                My Orders
+                {bannerItem?.title_white} <span className="text-[#ffa800]">{bannerItem?.title_gold}</span>
               </h1>
             </div>
           </div>

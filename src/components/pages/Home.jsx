@@ -44,7 +44,7 @@ import 'swiper/css/pagination';
 import './custom.css';
 import CertificateSlider from "./CertificateSlider";
 
-import { Helmet } from "react-helmet";
+// import { Helmet } from "react-helmet";
 
 // Animation variants
 const fadeIn = {
@@ -87,12 +87,16 @@ const itemVariant = {
     hidden: { y: 20, opacity: 0 },
     visible: { y: 0, opacity: 1, transition: { duration: 0.5 } }
 };
+import { Helmet } from "react-helmet-async";
+import { useSettings } from "../../context/SettingsContext";
 
 function Home(){
 
   const [activeTab, setActiveTab] = useState("tab1");
 
   const { hash } = useLocation();
+
+  const { settings } = useSettings();
 
   useEffect(() => {
     if (!hash) return;
@@ -111,7 +115,9 @@ function Home(){
   return (
     <>
       <Helmet>
-        <title>Home -  Animal Feed</title>
+        <title>{settings?.data?.seo?.meta_title}</title>
+        <meta name="description" content={settings?.data?.seo?.meta_description} />
+         <meta name="keywords" content={settings?.data?.seo?.meta_keywords} />
       </Helmet>
       <Header></Header>
       <main className="pt-16">

@@ -109,7 +109,7 @@ export default function Core() {
         <Route path="/maintenancefish-products" element={<FishMaintenance />} />
 
         <Route path="/:categorySlug/:subCategorySlug" element={<ProductListing />} />
-        <Route path="/product-details" element={<ProductDetails />} />
+        <Route path="/product-details/:productSlug" element={<ProductDetails />} />
         <Route path="/thankyou-order" element={<ThankyouOrder />} />
       </Routes>
     </BrowserRouter>

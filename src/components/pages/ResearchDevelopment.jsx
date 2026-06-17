@@ -1,6 +1,7 @@
 import Header from "../Header";
 import Footer from "../Footer";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 import researchBanner from '../../assets/images/research-banner.jpg';
 import aboutBanerMob from '../../assets/images/about-banner-mob.jpg';
@@ -10,8 +11,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faMagnifyingGlass, faArrowRight, faLightbulb, faMedal, faLeaf, faCheck, faCalculator, faEnvelope, faSeedling, faShield, faChartSimple, faRecycle } from "@fortawesome/free-solid-svg-icons";
 import { faResearchgate } from "@fortawesome/free-brands-svg-icons";
 import { faFedora } from "@fortawesome/free-brands-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useParams  } from "react-router-dom";
 import { Helmet } from "react-helmet";
+
+import { API_URL } from "../../config/api";
+import axios from "axios";
 
 // Animation variants
 const fadeIn = {
@@ -55,7 +59,34 @@ const itemVariant = {
   visible: { y: 0, opacity: 1, transition: { duration: 0.5 } }
 };
 
+
 function ResearchDevelopment() {
+
+  const [banner, setBanner] = useState(null);
+  // const { pageSlug } = useParams();
+  const pageSlug = "research-development";
+
+  useEffect(() => {
+    
+    if (pageSlug) {
+      fetchBanner();
+    }
+  }, [pageSlug]);
+
+  const fetchBanner = async () => {
+    try {
+        const res = await axios.get(
+          `${API_URL}/banners/${pageSlug}`
+        );
+        
+        setBanner(res.data);
+      } catch (err) {
+        console.log("Banner API error:", err);
+      }
+    };
+
+    const bannerItem = banner?.data?.[0];
+
   return (
     <>
       <Helmet>
@@ -72,16 +103,16 @@ function ResearchDevelopment() {
         >
           <div className="relative">
             <motion.img
-              src={researchBanner}
-              alt="Research & Development Banner"
+              src={bannerItem?.image_url} alt={bannerItem?.title}
+             
               className="w-full md:h-auto h-[450px] hidden md:block object-cover"
               initial={{ scale: 1.1 }}
               animate={{ scale: 1 }}
               transition={{ duration: 1.5 }}
             />
             <img
-              src={researchBanner}
-              alt="Research & Development Banner Mobile"
+              src={bannerItem?.image_url} alt={bannerItem?.title}
+              
               className="w-full md:h-auto h-[500px] block md:hidden object-cover"
             />
             <motion.div className="absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-4xl px-4 md:px-6  w-full"
@@ -90,15 +121,16 @@ function ResearchDevelopment() {
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               <motion.h1 className="text-[#fff] text-4xl md:text-6xl font-bold text-center mb-4 md:mb-6" variants={slideInUp}>
-                Research & <span className="text-[#ffa800]">Development</span>
+                {bannerItem?.title_white}{" "} <span className="text-[#ffa800]">{bannerItem?.title_gold}</span>
               </motion.h1>
               <motion.p className="text-white text-[16px] md:text-xl text-center"
                 variants={slideInUp}
                 transition={{ delay: 0.1 }}
               >
-                At Green Gold Animal Feed, innovation begins in our in-house
+                {banner?.data[0].subtitle}
+                {/* At Green Gold Animal Feed, innovation begins in our in-house
                 Research & Development laboratory, where science meets practical
-                farming needs to deliver superior animal nutrition.
+                farming needs to deliver superior animal nutrition. */}
               </motion.p>
              <motion.div
                                className="flex flex-col md:flex-row gap-2 md:gap-4 w-full justify-center"
@@ -111,22 +143,22 @@ function ResearchDevelopment() {
                                  className="w-full md:w-auto"
                                >
                                  <Link
-                                   to="/distributor"
+                                   to={bannerItem?.cta_primary_url || "/distributor"}
                                    className="mt-4 md:mt-6 w-full md:w-[215px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
                                  >
                                    <span className="text-[20px] font-bold font-inter">
-                                     <FontAwesomeIcon icon={faMagnifyingGlass} /> Find
-                                     Distributor
+                                     <FontAwesomeIcon icon={faMagnifyingGlass} /> 
+                                     {bannerItem?.cta_primary_label || "Find Distributor"}
                                    </span>
                                  </Link>
                                </motion.div>
                                <motion.div variants={itemVariant}>
                                  <Link
-                                   to="/contact-us"
+                                   to={bannerItem?.cta_secondary_url || "/contact-us"}
                                    className="mt-2 md:mt-6 w-full md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
                                  >
                                    <span className="text-[20px] font-bold font-inter">
-                                     <FontAwesomeIcon icon={faLocationDot} /> Contact Us
+                                     <FontAwesomeIcon icon={faLocationDot} /> {bannerItem?.cta_secondary_label || "Contact Us"}
                                    </span>
                                  </Link>
                                </motion.div>

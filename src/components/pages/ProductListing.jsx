@@ -153,7 +153,7 @@ export default function ProductListing() {
             <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
               <Link
                 to="/distributor"
-                className="mt-4 md:mt-6 w-full  md:w-[198px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
+                className="mt-4 md:mt-6 w-full  md:w-[215px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
               >
                 <span className="text-[20px] font-bold font-inter">
                   <FontAwesomeIcon icon={faMagnifyingGlass} /> Find
@@ -216,19 +216,19 @@ export default function ProductListing() {
                     </span>
                   </p>
                   <div className="flex justify-between gap-4">
-                    <button
+                    {/* <button
                       onClick={() => handleAddtoCart(product)}
                       type="button"
                       className="mt-4 w-full bg-yellow-500 text-white
                               py-2 rounded-xl font-medium cursor-pointer hover:bg-yellow-400  text-[14px]"
                     >
                       Add to Cart
-                    </button>
+                    </button> */}
                     <button
-                      onClick={() => navigate(`/product-details`)}
+                      onClick={() => navigate(`/product-details/${product.slug}`)}
                       type="button"
-                      className="mt-4 w-full bg-blue-500 text-white
-                              py-2 rounded-xl font-medium cursor-pointer hover:bg-blue-400  text-[14px]"
+                      className="mt-4 w-full bg-green-500 text-white
+                              py-2 rounded-xl font-medium cursor-pointer hover:bg-green-400  text-[14px]"
                     >
                       View Details
                     </button>

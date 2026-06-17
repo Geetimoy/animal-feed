@@ -5,9 +5,74 @@ import { faLock, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import bgImage from "../../assets/images/slider-bg.png";
 import logo from "../../assets/images/logo.png";
 
+import axios from "axios";
+import { toast } from "react-toastify";
+import { API_URL } from "../../config/api";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function ResetPassword() {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleResetPassword = async () => {
+  if (!currentPassword || !newPassword || !confirmPassword) {
+    toast.error("All password fields are required");
+    return;
+  }
+
+  if (newPassword !== confirmPassword) {
+    toast.error("New passwords do not match");
+    return;
+  }
+
+  try {
+    setLoading(true);
+
+    const token = localStorage.getItem("token");
+
+    await axios.patch(
+      `${API_URL}/customers/reset-password`,
+      {
+        current_password: currentPassword,
+        password: newPassword,
+        password_confirmation: confirmPassword,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      }
+    );
+
+    toast.success("Password updated successfully");
+
+    setCurrentPassword("");
+    setNewPassword("");
+    setConfirmPassword("");
+
+  } catch (error) {
+    const res = error.response?.data;
+
+    if (res?.errors) {
+      Object.values(res.errors).forEach((arr) => {
+        toast.error(arr[0]);
+      });
+    } else {
+      toast.error(res?.message || "Failed to reset password");
+    }
+
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div
@@ -53,7 +118,7 @@ export default function ResetPassword() {
             shadow-[0_8px_30px_rgba(0,0,0,0.08)]
           "
         >
-          {/* new password */}
+          {/* current password */}
           <div className="relative mb-4">
             <FontAwesomeIcon
               icon={faLock}
@@ -61,19 +126,36 @@ export default function ResetPassword() {
             />
 
             <input
-              type={showNewPassword ? "text" : "password"}
-              placeholder="New password"
-              className="
-                w-full pl-11 pr-11 py-3
+              type="password"
+              placeholder="Current password"
+              value={currentPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+              className="w-full pl-11 pr-4 py-3 rounded-xl bg-white border border-gray-200"
+            />
+          </div>
+
+          {/* new password */}
+          <div className="relative mb-4">
+            <FontAwesomeIcon
+              icon={faLock}
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-green-600"
+            />
+
+            
+            <input
+  type={showNewPassword ? "text" : "password"}
+  placeholder="New password"
+  value={newPassword}
+  onChange={(e) => setNewPassword(e.target.value)}
+  className="w-full pl-11 pr-11 py-3
                 rounded-xl
                 bg-white
                 border border-gray-200
                 text-gray-700
                 placeholder-gray-400
                 focus:outline-none
-                focus:border-green-500
-              "
-            />
+                focus:border-green-500"
+/>
 
             <FontAwesomeIcon
               icon={showNewPassword ? faEyeSlash : faEye}
@@ -94,10 +176,11 @@ export default function ResetPassword() {
             />
 
             <input
-              type={showConfirmPassword ? "text" : "password"}
-              placeholder="Confirm password"
-              className="
-                w-full pl-11 pr-11 py-3
+  type={showConfirmPassword ? "text" : "password"}
+  placeholder="Confirm password"
+  value={confirmPassword}
+  onChange={(e) => setConfirmPassword(e.target.value)}
+  className="w-full pl-11 pr-11 py-3
                 rounded-xl
                 bg-white
                 border border-gray-200
@@ -106,7 +189,7 @@ export default function ResetPassword() {
                 focus:outline-none
                 focus:border-green-500
               "
-            />
+/>
 
             <FontAwesomeIcon
               icon={showConfirmPassword ? faEyeSlash : faEye}
@@ -120,18 +203,22 @@ export default function ResetPassword() {
           </div>
 
           {/* submit */}
+          
+
           <button
-            className="
-              w-full py-3
+  onClick={handleResetPassword}
+  disabled={loading}
+  className="w-full py-3
               bg-gradient-to-r from-[#00a34a] to-[#009a62]
               text-white font-semibold rounded-[12px]
-              shadow-md hover:opacity-90 transition cursor-pointer
-            "
-          >
-            Reset Password
+              shadow-md hover:opacity-90 transition cursor-pointer"
+>
+  {loading ? "Processing..." : "Reset Password"}
           </button>
         </div>
       </div>
+      <ToastContainer />
     </div>
+    
   );
 }

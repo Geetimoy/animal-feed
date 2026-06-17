@@ -22,6 +22,9 @@ import { Link } from "react-router-dom";
 
 import { Helmet } from "react-helmet";
 
+import { API_URL } from "../../config/api";
+import axios from "axios";
+
 const images = 
   // "./src/assets/images/gallery1.jpg",
   // "./src/assets/images/gallery2.jpg",
@@ -59,6 +62,9 @@ function Gallery() {
   const videoRef = useRef(null);
   const [showInfo, setShowInfo] = useState(false);
 
+  const [banner, setBanner] = useState(null);
+  const pageSlug = "gallery";
+
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.load();
@@ -68,6 +74,27 @@ function Gallery() {
     }
     setShowInfo(false); // Hide info when video changes
   }, [selectedVideo]);
+
+  useEffect(() => {
+      
+      if (pageSlug) {
+        fetchBanner();
+      }
+    }, [pageSlug]);
+
+  const fetchBanner = async () => {
+  try {
+      const res = await axios.get(
+        `${API_URL}/banners/${pageSlug}`
+      );
+      
+      setBanner(res.data);
+    } catch (err) {
+      console.log("Banner API error:", err);
+    }
+  };
+
+  const bannerItem = banner?.data?.[0];
 
   return (
     <>
@@ -79,35 +106,33 @@ function Gallery() {
         <section className="relative z-0">
           <div className="relative">
             <img
-              src={galleryBanner}
-              alt="Gallery Banner"
+              src={bannerItem?.image_url}
+              alt={bannerItem?.title}
               className="w-full md:h-auto h-[450px]  object-cover"
             />
 
             <div className="absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-4xl px-4 md:px-6  w-full">
               <h1 className="text-[#fff] text-4xl md:text-6xl font-bold text-center mb-4 md:mb-6">
-                Gallery
+                {bannerItem?.title_white}
               </h1>
               <p className="text-white text-[16px] md:text-xl text-center">
-                A glimpse into our journey, achievements, and moments that
-                define us.
+               {bannerItem?.subtitle}
               </p>
               <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
                 <Link
-                  to="/distributor"
+                  to={bannerItem?.cta_primary_url || "/distributor"}
                   className="mt-4 md:mt-6 w-full  md:w-[215px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
                 >
                   <span className="text-[20px] font-bold font-inter">
-                    <FontAwesomeIcon icon={faMagnifyingGlass} /> Find
-                    Distributor
+                    <FontAwesomeIcon icon={faMagnifyingGlass} /> {bannerItem?.cta_primary_label || "Find Distributor"}
                   </span>
                 </Link>
                 <Link
-                  to="/contact-us"
+                  to={bannerItem?.cta_secondary_url || "/contact-us"}
                   className="mt-3 md:mt-6  w-full  md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
                 >
                   <span className="text-[20px] font-bold font-inter">
-                    <FontAwesomeIcon icon={faLocationDot} /> Contact Us
+                    <FontAwesomeIcon icon={faLocationDot} /> {bannerItem?.cta_secondary_label || "Contact Us"}
                   </span>
                 </Link>
               </div>
