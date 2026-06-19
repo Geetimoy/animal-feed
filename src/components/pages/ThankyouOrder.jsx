@@ -37,6 +37,7 @@ export default function MyOrders(){
         <>
         <Header showLogout={true} />
         <main className="pt-16 overflow-x-hidden">
+          {bannerItem?.image_url && (
           <section className="relative z-0">
               <div className="relative">
                 <img
@@ -50,23 +51,24 @@ export default function MyOrders(){
                   </h1>
                 </div>
               </div>
-            </section>
-            <div className="md:max-w-7xl md:mx-auto px-4 md:px-8 py-8 ">
-              <h2
-              className="text-2xl font-semibold text-center">
-                Thank you for your order! Your order has been successfully placed.<br />We appreciate your business and look forward to serving you again in the future.
-              </h2>
-              <div className="mt-8  text-center">
-                <button
-                  onClick={() => navigate("/my-orders")}
-                  className="  bg-yellow-500 text-white
-                               py-3 rounded-xl font-medium cursor-pointer hover:bg-yellow-400  text-[16px] px-8
-                               hover:opacity-90 transition"
-                >
-                  Go to My Orders
-                </button>
-              </div>
+          </section>
+          )}
+          <div className="md:max-w-7xl md:mx-auto px-4 md:px-8 py-8 mt-16">
+            <h2
+            className="text-2xl font-semibold text-center">
+              Thank you for your order! Your order has been successfully placed.<br />We appreciate your business and look forward to serving you again in the future.
+            </h2>
+            <div className="mt-8  text-center">
+              <button
+                onClick={() => navigate("/my-orders")}
+                className="  bg-yellow-500 text-white
+                              py-3 rounded-xl font-medium cursor-pointer hover:bg-yellow-400  text-[16px] px-8
+                              hover:opacity-90 transition"
+              >
+                Go to My Orders
+              </button>
             </div>
+          </div>
         </main>
         <Footer />
         </>

@@ -81,7 +81,7 @@ const subtotal = cartItems.reduce(
       <>
         <Header showLogout={true} />
         <main className="pt-16 overflow-x-hidden">
-          <section className="relative z-0">
+          {/* <section className="relative z-0">
             <div className="relative">
               <img
                 src={contactBaner}
@@ -94,8 +94,8 @@ const subtotal = cartItems.reduce(
                 </h1>
               </div>
             </div>
-          </section>
-          <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-12">
+          </section> */}
+          <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-12 mt-16">
             <div className="md:col-span-2 space-y-6">
               <div className="bg-white p-6 rounded-[12px] shadow-md h-fit">
                 <p className="normal text-gray-800 text-[16px] md:text-[20px]">ORDER : {order?.order_number}</p>

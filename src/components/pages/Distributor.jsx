@@ -169,6 +169,7 @@ function Distributor() {
       </Helmet>
       <Header></Header>
       <main className="pt-16 overflow-hidden">
+        {bannerItem?.image_url && (
         <section className="relative z-0">
           <div className="relative">
             <img
@@ -206,6 +207,7 @@ function Distributor() {
             </div>
           </div>
         </section>
+        )}
         <section className="py-10 md:py-12 bg-gray-100">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <h2 className="text-3xl md:text-5xl text-gray-800 font-semibold mb-4 text-center">

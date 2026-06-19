@@ -196,6 +196,7 @@ useEffect(() => {
       <Header showLogout={true} />
 
       <main className="pt-16 overflow-x-hidden">
+        {bannerItem?.image_url && (
         <section className="relative ">
           <div className="relative">
             <img
@@ -239,6 +240,7 @@ useEffect(() => {
             </div>
           </div>
         </section>
+        )}
         <div className="max-w-7xl mx-auto px-4 py-12 relative z-20">
           <h2 className="text-3xl md:text-5xl font-semibold text-center mb-12">
             Your <span className="text-[#ffa800]">Cart</span>
@@ -251,7 +253,7 @@ useEffect(() => {
               </p>
               <div className="mt-8">
                 <button
-                  onClick={() => navigate("/distributor")}
+                  onClick={() => navigate("/products")}
                   className="  bg-yellow-500 text-white
                                py-3 rounded-xl font-medium cursor-pointer hover:bg-yellow-400  text-[16px] px-8
                                hover:opacity-90 transition"

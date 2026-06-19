@@ -15,10 +15,22 @@ import { Helmet } from "react-helmet";
 import { API_URL } from "../../config/api";
 import axios from "axios";
 
+import { useParams } from "react-router-dom";
+
 function NewsDetails() {
 
   const [banner, setBanner] = useState(null);
   const pageSlug = "news-details";
+
+  const { slug } = useParams();
+  const [newsDetails, setNewsDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const [sidebar, setSidebar] = useState({
+    recent_posts: [],
+    news_categories: [],
+    product_categories: [],
+  });
 
   useEffect(() => {
         
@@ -41,6 +53,29 @@ function NewsDetails() {
 
   const bannerItem = banner?.data?.[0];
 
+  useEffect(() => {
+  fetchNewsDetails();
+  }, [slug]);
+
+  const fetchNewsDetails = async () => {
+    try {
+      setLoading(true);
+
+      const res = await axios.get(
+        `${API_URL}/news/${slug}`
+      );
+
+      console.log("News Details:", res.data);
+
+      setNewsDetails(res.data?.data);
+      setSidebar(res.data.sidebar);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <Helmet>
@@ -48,6 +83,7 @@ function NewsDetails() {
       </Helmet>
       <Header></Header>
       <main className="pt-16 overflow-hidden">
+        {bannerItem?.image_url && (
         <section className="relative z-0">
           <div className="relative">
             <img
@@ -90,6 +126,7 @@ function NewsDetails() {
             </div>
           </div>
         </section>
+        )}
         <section>
           <div className="max-w-7xl mx-auto px-4 py-8">
             <div className="flex gap-8 md:flex-row flex-col">
@@ -97,12 +134,13 @@ function NewsDetails() {
                 <div className="bg-white p-4 md:p-8 shadow-xl">
                   <div className="relative">
                     <img
-                      src={newsslider}
-                      alt="News Details"
+                      src={newsDetails?.image_url} alt={newsDetails?.title}
+                      
                       className="w-full h-auto"
                     />
                     <div className="absolute -bottom-5 left-15 bg-[#ffa800] rounded-full px-4 py-2">
-                      22nd Jan 2026
+                      {/* 22nd Jan 2026 */}
+                      {newsDetails?.published_at}
                     </div>
                   </div>
                   <div className="flex mt-12">
@@ -114,16 +152,20 @@ function NewsDetails() {
                     </span>
                   </div>
                   <h2 className="text-2xl font-bold mt-4">
-                    Green Gold Launches Advanced Cattle Feed
+                    {newsDetails?.title}
                   </h2>
-                  <p className="mt-4 text-sm text-gray-500 leading-6">
+
+                  {/* {newsDetails?.content} */}
+                  <div dangerouslySetInnerHTML={{ __html: newsDetails?.content }} />
+                  {/* <p className="mt-4 text-sm text-gray-500 leading-6">
                     Green Gold Animal Feed is proud to announce the launch of
                     our new advanced cattle feed formula. This innovative
                     product is designed to enhance the health and productivity
                     of cattle while maintaining the highest standards of quality
                     and safety.
-                  </p>
-                  <p className="mt-4 text-sm text-gray-500 leading-6">
+                    
+                  </p> */}
+                  {/* <p className="mt-4 text-sm text-gray-500 leading-6">
                     This innovative product is designed to enhance the health
                     and productivity of cattle while maintaining the highest
                     standards of quality and safety. Green Gold Animal Feed is
@@ -133,8 +175,8 @@ function NewsDetails() {
                     highest standards of quality and safety. Green Gold Animal
                     Feed is proud to announce the launch of our new advanced
                     cattle feed formula.
-                  </p>
-                  <div className="flex flex-col">
+                  </p> */}
+                  {/* <div className="flex flex-col">
                     <div className="w-full md:w-1/2">
                       <img
                         src={newsslider2}
@@ -198,8 +240,8 @@ function NewsDetails() {
                         </li>
                       </ul>
                     </div>
-                  </div>
-                  <div className="relative bg-[#f5f5f5] p-[25px] md:p-[35px] italic mt-4 md:mt-8 text-[17px] md:text-lg text-[#746a6f] text-center md:text-left">
+                  </div> */}
+                  {/* <div className="relative bg-[#f5f5f5] p-[25px] md:p-[35px] italic mt-4 md:mt-8 text-[17px] md:text-lg text-[#746a6f] text-center md:text-left">
                     "At Green Gold, we are committed to advancing animal
                     nutrition through innovation and quality. Our new cattle
                     feed formula reflects our dedication to supporting farmers
@@ -210,8 +252,8 @@ function NewsDetails() {
                     <span className="absolute top-4 left-4 text-5xl text-[#ffa800] opacity-20">
                       &#10077;
                     </span>
-                  </div>
-                  <p className="mt-4 text-sm text-gray-500 leading-6">
+                  </div> */}
+                  {/* <p className="mt-4 text-sm text-gray-500 leading-6">
                     This innovative product is designed to enhance the health
                     and productivity of cattle while maintaining the highest
                     standards of quality and safety. Green Gold Animal Feed is
@@ -221,7 +263,7 @@ function NewsDetails() {
                     highest standards of quality and safety. Green Gold Animal
                     Feed is proud to announce the launch of our new advanced
                     cattle feed formula.
-                  </p>
+                  </p> */}
                 </div>
               </div>
 
@@ -232,20 +274,22 @@ function NewsDetails() {
                     Recent Posts
                   </h3>
                   <ul className="space-y-4">
-                    <li className="text-sm text-gray-500 hover:text-green-600 cursor-pointer flex items-center gap-3">
-                      <img
-                        src={newsslider}
-                        alt="Recent Post"
-                        className="w-12 h-12 object-cover rounded"
-                      />
-                      <span>
-                        <span className="text-[12px] block text text-gray-900">
-                          18 July, 2026
+                    {sidebar.recent_posts.map((post, index) => (
+                      <li key={index} className="text-sm text-gray-500 hover:text-green-600 cursor-pointer flex items-center gap-3">
+                        <img
+                          src={post.image_url}
+                          alt={post.title}
+                          className="w-12 h-12 object-cover rounded"
+                        />
+                        <span>
+                          <span className="text-[12px] block text text-gray-900">
+                            {post.published_at}
+                          </span>
+                          {post.title}
                         </span>
-                        Green Gold Expands Distribution Network
-                      </span>
-                    </li>
-                    <li className="text-sm text-gray-500 hover:text-green-600 cursor-pointer flex items-center gap-3">
+                      </li>
+                    ))}
+                    {/* <li className="text-sm text-gray-500 hover:text-green-600 cursor-pointer flex items-center gap-3">
                       <img
                         src={newsslider2}
                         alt="Recent Post"
@@ -283,7 +327,7 @@ function NewsDetails() {
                         </span>
                         Green Gold's Commitment to Quality
                       </span>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
                 <div className="bg-[#f8f8f8] p-4 md:p-6 mt-4 md:mt-8">
@@ -291,16 +335,18 @@ function NewsDetails() {
                     Categories
                   </h3>
                   <ul className="space-y-4">
-                    <li className="text-sm text-gray-500 hover:text-green-600 cursor-pointer flex items-center gap-3">
+                    {sidebar.news_categories.map((category, index) => (
+                    <li key={index} className="text-sm text-gray-500 hover:text-green-600 cursor-pointer flex items-center gap-3">
                       <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
                         <FontAwesomeIcon
                           icon={faArrowRight}
                           className="text-white text-[10px]"
                         />
                       </span>
-                      Animal Nutrition
+                      {category}
                     </li>
-                    <li className="text-sm text-gray-500 hover:text-green-600 cursor-pointer flex items-center gap-3">
+                     ))}
+                    {/* <li className="text-sm text-gray-500 hover:text-green-600 cursor-pointer flex items-center gap-3">
                       <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
                         <FontAwesomeIcon
                           icon={faArrowRight}
@@ -335,7 +381,8 @@ function NewsDetails() {
                         />
                       </span>
                       Company News
-                    </li>
+                    </li> */}
+                   
                   </ul>
                 </div>
                 <div className="bg-[#f8f8f8] p-4 md:p-6 mt-8">
@@ -361,10 +408,12 @@ function NewsDetails() {
                     Tags
                   </h3>
                   <div className="flex flex-wrap gap-2">
-                    <span className="bg-gray-200 text-sm text-gray-700 px-3 py-1 rounded-full hover:bg-green-600 hover:text-white cursor-pointer">
-                      Nutrition
+                    {sidebar.product_categories.map((item) => (
+                    <span key={item.id} className="bg-gray-200 text-sm text-gray-700 px-3 py-1 rounded-full hover:bg-green-600 hover:text-white cursor-pointer">
+                       {item.name}
                     </span>
-                    <span className="bg-gray-200 text-sm text-gray-700 px-3 py-1 rounded-full hover:bg-green-600 hover:text-white cursor-pointer">
+                     ))}
+                    {/* <span className="bg-gray-200 text-sm text-gray-700 px-3 py-1 rounded-full hover:bg-green-600 hover:text-white cursor-pointer">
                       Sustainability
                     </span>
                     <span className="bg-gray-200 text-sm text-gray-700 px-3 py-1 rounded-full hover:bg-green-600 hover:text-white cursor-pointer">
@@ -378,7 +427,7 @@ function NewsDetails() {
                     </span>
                     <span className="bg-gray-200 text-sm text-gray-700 px-3 py-1 rounded-full hover:bg-green-600 hover:text-white cursor-pointer">
                       Animal Health
-                    </span>
+                    </span> */}
                   </div>
                 </div>
               </div>

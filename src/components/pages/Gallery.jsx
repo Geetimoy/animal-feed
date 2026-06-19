@@ -26,14 +26,6 @@ import { API_URL } from "../../config/api";
 import axios from "axios";
 
 const images = 
-  // "./src/assets/images/gallery1.jpg",
-  // "./src/assets/images/gallery2.jpg",
-  // "./src/assets/images/gallery3.jpg",
-  // "./src/assets/images/gallery4.jpg",
-  // "./src/assets/images/gallery5.jpg",
-  // "./src/assets/images/gallery6.jpg",
-  // "./src/assets/images/gallery7.jpg",
-  // "./src/assets/images/gallery8.jpg",
   [gallery1, gallery2, gallery3, gallery4, gallery5, gallery6, gallery7, gallery8];
 
 
@@ -64,6 +56,13 @@ function Gallery() {
 
   const [banner, setBanner] = useState(null);
   const pageSlug = "gallery";
+
+  const [galleryData, setGalleryData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const featuredImages = galleryData?.featured_images || [];
+  const galleryImages = galleryData?.gallery_images || [];
+  const featuredVideo = galleryData?.featured_videos?.[0];
 
   useEffect(() => {
     if (videoRef.current) {
@@ -96,6 +95,28 @@ function Gallery() {
 
   const bannerItem = banner?.data?.[0];
 
+  useEffect(() => {
+  fetchGallery();
+  }, []);
+
+
+  const fetchGallery = async () => {
+  try {
+    setLoading(true);
+
+    const res = await axios.get(
+      `${API_URL}/gallery`
+    );
+
+    setGalleryData(res.data?.data || []);
+  } catch (err) {
+    console.log("Gallery API error:", err);
+  } finally {
+    setLoading(false);
+  }
+};
+
+
   return (
     <>
       <Helmet>
@@ -103,6 +124,7 @@ function Gallery() {
       </Helmet>
       <Header></Header>
       <main className="pt-16 overflow-hidden">
+        {bannerItem?.image_url && (
         <section className="relative z-0">
           <div className="relative">
             <img
@@ -139,7 +161,7 @@ function Gallery() {
             </div>
           </div>
         </section>
-
+        )}
         {/* Featured Image Gallery Section - Optional */}
         <section className="py-10 md:py-12 bg-gray-100">
           <div className="container mx-auto px-4">
@@ -235,13 +257,13 @@ function Gallery() {
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
               {/* Sample images - replace with actual images */}
-              {images.map((img, index) => (
-                <div className="overflow-hidden rounded-lg shadow-lg group relative cursor-pointer">
+              {galleryImages.map((item) => (
+                <div key={item.id} className="overflow-hidden rounded-lg shadow-lg group relative cursor-pointer">
                   <img
-                    key={index}
-                    src={img}
-                    alt=""
-                    onClick={() => setSelectedImg(img)}
+                    
+                    src={item.file_url}
+                    alt={item.title}
+                    onClick={() => setSelectedImg(item.file_url)}
                     className="w-full h-auto transform hover:scale-105 transition-transform duration-300 cursor-pointer rounded-lg object-cover h-40 w-full hover:opacity-80 transition"
                   />
                   <div className="absolute inset-0 bg-black/60 opacity-0 
@@ -251,10 +273,12 @@ function Gallery() {
                   <div className="translate-y-6 group-hover:translate-y-0 
                                   transition duration-500">
                     <h3 className="text-white text-xl font-semibold">
-                      Quality Testing 
+                      {/* Quality Testing  */}
+                       {item.title}
                     </h3>
                     <p className="text-gray-200 text-sm mt-2">
-                      Every batch undergoes strict nutritional and safety analysis.
+                      {/* Every batch undergoes strict nutritional and safety analysis. */}
+                       {item.description}
                     </p>
                   </div>
 

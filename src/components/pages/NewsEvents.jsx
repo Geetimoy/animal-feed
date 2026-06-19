@@ -25,23 +25,59 @@ function NewsEvents() {
 
   const [news, setNews] = useState([]); // All news
   const [visibleCount, setVisibleCount] = useState(3);
+  const [loading, setLoading] = useState(true);
+
+  const [events, setEvents] = useState([]);
 
   const [banner, setBanner] = useState(null);
   const pageSlug = "news-events";
 
 
+  // useEffect(() => {
+  //   // Replace with your API call
+  //   setNews([
+  //     { title: "News 1", description: "Description 1" },
+  //     { title: "News 2", description: "Description 2" },
+  //     { title: "News 3", description: "Description 3" },
+  //     { title: "News 4", description: "Description 4" },
+  //     { title: "News 5", description: "Description 5" },
+  //     { title: "News 6", description: "Description 6" },
+  //     { title: "News 7", description: "Description 7" },
+  //   ]);
+  // }, []);
+
   useEffect(() => {
-    // Replace with your API call
-    setNews([
-      { title: "News 1", description: "Description 1" },
-      { title: "News 2", description: "Description 2" },
-      { title: "News 3", description: "Description 3" },
-      { title: "News 4", description: "Description 4" },
-      { title: "News 5", description: "Description 5" },
-      { title: "News 6", description: "Description 6" },
-      { title: "News 7", description: "Description 7" },
-    ]);
+  fetchNews();
   }, []);
+
+  const fetchNews = async () => {
+  try {
+    setLoading(true);
+
+    const res = await axios.get(
+      `${API_URL}/news`
+    );
+
+    setNews(res.data?.data || []);
+  } catch (err) {
+    console.log("News API error:", err);
+  } finally {
+    setLoading(false);
+  }
+};
+
+useEffect(() => {
+  fetchEvents();
+}, []);
+
+const fetchEvents = async () => {
+  try {
+    const res = await axios.get(`${API_URL}/events`);
+    setEvents(res.data?.data || []);
+  } catch (err) {
+    console.log("Events API error:", err);
+  }
+};
 
   useEffect(() => {
     
@@ -71,6 +107,7 @@ function NewsEvents() {
       </Helmet>
       <Header></Header>
       <main className="pt-16 overflow-hidden">
+        {bannerItem?.image_url && (
         <section className="relative z-0">
           <div className="relative">
             <img
@@ -109,7 +146,7 @@ function NewsEvents() {
             </div>
           </div>
         </section>
-
+        )}
         {/* Events */}
         <section className="py-10 md:py-12 bg-gray-100">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
@@ -124,7 +161,7 @@ function NewsEvents() {
               of our journey towards sustainable farming.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 md:gap-6 mt-8">
-              <div className="flex  flex-col md:flex-row  gap-8 mb-3">
+              {/* <div className="flex  flex-col md:flex-row  gap-8 mb-3">
                 <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden md:w-1/5 w-full flex flex-col items-center justify-center p-4">
                   <h2 className="text-xl font-bold text-green-600">
                     28 Feb 2026
@@ -163,7 +200,7 @@ function NewsEvents() {
                       View Details
                           <span className="w-5 h-5 rounded-full border border-green-500 flex items-center justify-center  group-hover:border-green-600 transition-colors duration-300" >
                             <FontAwesomeIcon icon={faArrowRight} className="text-[10px] group-hover:text-green-600 transition-colors duration-300" />
-                          </span></Link> */}
+                          </span></Link> 
                     </div>
                   </div>
                 </div>
@@ -245,7 +282,56 @@ function NewsEvents() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
+              {events.map((item) => (
+                <div key={item.id} className="flex flex-col md:flex-row gap-8 mb-3">
+
+                  {/* LEFT BOX */}
+                  <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden md:w-1/5 w-full flex flex-col items-center justify-center p-4">
+                    <h2 className="text-xl font-bold text-green-600 text-center">
+                      {item.event_date}
+                    </h2>
+
+                    <h5 className="text-sm text-gray-800 mb-2">
+                      {item.time_range}
+                    </h5>
+
+                    <p className="text-sm text-gray-800 text-center font-medium">
+                      {item.location}
+                    </p>
+                  </div>
+
+                  {/* RIGHT BOX */}
+                  <div className="flex-shrink-0 bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden w-full md:w-4/5 flex">
+                    <div className="p-6 flex flex-col md:flex-row gap-6 w-full">
+
+                      <div className="w-full md:w-1/5">
+                        <img
+                          src={item.image_url}
+                          alt={item.title}
+                          className="w-full h-40 object-cover rounded-lg mt-2"
+                        />
+                      </div>
+
+                      <div className="w-full md:w-4/5 text-center md:text-left">
+                        <span className="text-xs text-green-600 font-medium">
+                          {item.category_tag || "Event"}
+                        </span>
+
+                        <h3 className="mt-0 md:mt-2 font-bold text-gray-900 text-[22px] md:text-2xl">
+                          {item.title}
+                        </h3>
+
+                        <p className="mt-2 text-sm text-gray-500 flex-grow">
+                          {item.description}
+                        </p>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -264,43 +350,58 @@ function NewsEvents() {
               never miss an update.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-              {news.slice(0, visibleCount).map((item, index) => (
-              <div key={index} className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col">
-                <div className="relative">
-                  <img
-                    src={newsslider1}
-                    className="h-48 w-full object-cover rounded-b-2xl"
-                  />
-                  <div className="absolute top-4 right-4 bg-[#ffa800] text-black text-xs font-bold px-3 py-1 rounded-full">
-                    Fishery
-                  </div>
-                </div>
-                <div className="p-6 flex flex-col flex-grow">
-                  <span className="text-xs text-green-600 font-medium">
-                    12 Aug 2025
-                  </span>
-                  <h3 className="mt-2 font-bold text-gray-900">
-                    Green Gold Launches Advanced Cattle Feed
-                  </h3>
-                  <p className="mt-2 text-sm text-gray-500 flex-grow">
-                    Stay updated with the latest happenings, product launches,
-                    and events at Green Gold.
-                  </p>
-                  <Link
-                    to="/news-details"
-                    className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group"
+              {news.slice(0, visibleCount).map((item) => (
+                  <div
+                    key={item.id}
+                    className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col"
                   >
-                    View Details
-                    <span className="w-5 h-5 rounded-full border border-green-500 flex items-center justify-center  group-hover:border-green-600 transition-colors duration-300">
-                      <FontAwesomeIcon
-                        icon={faArrowRight}
-                        className="text-[10px] group-hover:text-green-600 transition-colors duration-300"
+                    {/* IMAGE */}
+                    <div className="relative">
+                      <img
+                        src={item.image_url}
+                        alt={item.title}
+                        className="h-48 w-full object-cover rounded-b-2xl"
                       />
-                    </span>
-                  </Link>
-                </div>
-              </div>
-              ))}
+
+                      <div className="absolute top-4 right-4 bg-[#ffa800] text-black text-xs font-bold px-3 py-1 rounded-full">
+                        {item.category_tag || "News"}
+                      </div>
+                    </div>
+
+                    {/* CONTENT */}
+                    <div className="p-6 flex flex-col flex-grow">
+                      
+                      {/* DATE */}
+                      <span className="text-xs text-green-600 font-medium">
+                        {item.published_at}
+                      </span>
+
+                      {/* TITLE */}
+                      <h3 className="mt-2 font-bold text-gray-900">
+                        {item.title}
+                      </h3>
+
+                      {/* DESCRIPTION */}
+                      <p className="mt-2 text-sm text-gray-500 flex-grow">
+                        {item.excerpt}
+                      </p>
+
+                      {/* LINK */}
+                      <Link
+                        to={`/news/${item.slug}`}
+                        className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group"
+                      >
+                        View Details
+                        <span className="w-5 h-5 rounded-full border border-green-500 flex items-center justify-center group-hover:border-green-600">
+                          <FontAwesomeIcon
+                            icon={faArrowRight}
+                            className="text-[10px]"
+                          />
+                        </span>
+                      </Link>
+                    </div>
+                  </div>
+                ))}
               {/* <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col">
                 <div className="relative">
                   <img

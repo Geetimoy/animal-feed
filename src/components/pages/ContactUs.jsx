@@ -1,5 +1,6 @@
 import Header from "../Header";
 import Footer from "../Footer";
+import { useState, useEffect } from "react";
 
 import contactBaner from '../../assets/images/contact-banner.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,7 +10,213 @@ import { Link } from "react-router-dom";
 
 import { Helmet } from "react-helmet";
 
+import { API_URL } from "../../config/api";
+import axios from "axios";
+
+import { useSettings } from "../../context/SettingsContext";
+
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function ContactUs(){
+
+  const [banner, setBanner] = useState(null);
+  const pageSlug = "nutrition";
+
+  const { settings } = useSettings();
+  
+
+  useEffect(() => {
+      
+      if (pageSlug) {
+        fetchBanner();
+      }
+    }, [pageSlug]);
+
+  const fetchBanner = async () => {
+  try {
+      const res = await axios.get(
+        `${API_URL}/banners/${pageSlug}`
+      );
+      
+      setBanner(res.data);
+    } catch (err) {
+      console.log("Banner API error:", err);
+    }
+  };
+
+  const bannerItem = banner?.data?.[0];
+  
+  // Form
+  const [formData, setFormData] = useState({
+  name: "",
+  company_name: "",
+  email: "",
+  phone: "",
+  message: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  
+
+  // const handleChange = (e) => {
+  //   setFormData({
+  //     ...formData,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
+
+  const handleChange = (e) => {
+  const { name, value } = e.target;
+
+  setFormData({
+    ...formData,
+    [name]: value,
+  });
+
+  let updatedErrors = { ...errors };
+
+  // NAME (simple required check)
+  if (name === "name" && value.trim()) {
+    updatedErrors.name = "";
+  }
+
+  // COMPANY
+  if (name === "company_name" && value.trim()) {
+    updatedErrors.company_name = "";
+  }
+
+  // MESSAGE
+  if (name === "message" && value.trim()) {
+    updatedErrors.message = "";
+  }
+
+  // EMAIL (validate format)
+  if (name === "email") {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (emailRegex.test(value)) {
+      updatedErrors.email = "";
+    }
+  }
+
+  // PHONE (validate 10 digits)
+  if (name === "phone") {
+    const phoneRegex = /^\d{10}$/;
+
+    if (phoneRegex.test(value)) {
+      updatedErrors.phone = "";
+    }
+  }
+
+  setErrors(updatedErrors);
+};
+
+  
+  const [errors, setErrors] = useState({});
+  const validate = () => {
+    let tempErrors = {};
+
+    if (!formData.name) tempErrors.name = "Name is required";
+    if (!formData.company_name) tempErrors.company_name = "Company name is required";
+    //if (!formData.email) tempErrors.email = "Email is required";
+    // if (!formData.phone) tempErrors.phone = "Phone is required";
+    if (!formData.message) tempErrors.message = "Message is required";
+    if (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      tempErrors.email = "Enter a valid email address";
+    }
+
+    if (!formData.phone || !/^\d{10}$/.test(formData.phone)) {
+      tempErrors.phone = "Enter a valid 10-digit phone number";
+    }
+    // if (!formData.phone) {
+    //   tempErrors.phone = "Phone is required";
+    // } else if (!/^\d{10}$/.test(formData.phone)) {
+    //   tempErrors.phone = "Enter valid 10-digit phone number";
+    // }
+
+    setErrors(tempErrors);
+
+    return Object.keys(tempErrors).length === 0;
+  };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     setLoading(true);
+
+  //     const response = await axios.post(
+  //       `${API_URL}/get-in-touch`,
+  //       formData
+  //     );
+
+  //     toast.success(
+  //       response.data?.message || "Message sent successfully!"
+  //     );
+
+  //     setFormData({
+  //       name: "",
+  //       company_name: "",
+  //       email: "",
+  //       phone: "",
+  //       message: "",
+  //     });
+  //   } catch (error) {
+  //     toast.error(
+  //       error.response?.data?.message || "Something went wrong"
+  //     );
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (!validate()) return;
+
+  try {
+    setLoading(true);
+
+    await axios.post(
+      `${API_URL}/get-in-touch`,
+      formData
+    );
+
+    setFormData({
+      name: "",
+      company_name: "",
+      email: "",
+      phone: "",
+      message: "",
+    });
+
+    setErrors({});
+    toast.success("Message sent successfully!");
+  } catch (error) {
+    toast.error("Something went wrong");
+  } finally {
+    setLoading(false);
+  }
+};
+
+const formatTime = (time) => {
+  if (!time) return "";
+
+  const [hour, minute] = time.split(":");
+  const date = new Date();
+  date.setHours(hour);
+  date.setMinutes(minute);
+
+  return date.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+};
+
+
   return (
     <>
       <Helmet>
@@ -17,6 +224,7 @@ function ContactUs(){
       </Helmet>
       <Header></Header>
       <main className="pt-16 overflow-x-hidden">
+        {bannerItem?.image_url && (
         <section className="relative z-0 ">
           <div className="relative">
             <img
@@ -55,6 +263,7 @@ function ContactUs(){
             </div>
           </div>
         </section>
+        )}
         <section className="py-10 md:py-12">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -109,18 +318,18 @@ function ContactUs(){
 
                     <div className="flex flex-col gap-1 text-lg font-regular">
                       <Link
-                        to="mailto:info@greengold.com"
+                        to={`mailto:${settings?.data?.contact?.email}`}
                         className="text-gray-900  hover:text-[#083b1a]"
                       >
-                        info@greengold.com
+                        {settings?.data?.contact?.email}
                       </Link>
 
                       <Link
-                        to="tel:+919999999999"
+                        to={`tel:${settings?.data?.contact?.phone_primary}`}
                         className="text-gray-900  hover:text-[#083b1a]"
                       >
                         {" "}
-                        +91 9999999999
+                        {settings?.data?.contact?.phone_primary}
                       </Link>
                     </div>
                   </div>
@@ -145,9 +354,9 @@ function ContactUs(){
                       Our Location
                     </h2>
                     <p className="text-gray-900 text-lg font-regular">
-                      Rongoge Mega Food Park <br />
-                      Dolikoto Banderdewa, <br />
-                      Arunachal Pradesh 791123
+                      {settings?.data?.contact?.address} <br />
+                      {settings?.data?.contact?.city} <br />
+                      {settings?.data?.contact?.state}
                     </p>
                   </div>
                 </div>
@@ -176,11 +385,20 @@ function ContactUs(){
 
                     {/* Address + Phone stacked */}
                     <div className="flex flex-col gap-1 text-lg font-regular">
-                      <p className="text-gray-900">
+                      {/* <p className="text-gray-900">
                         Mon – Fri: 8:00am – 6:00pm
-                      </p>
+                        {settings?.data?.working_hours?.days} : {settings?.data?.working_hours?.open}AM - {settings?.data?.working_hours?.close}PM
+                      </p> */}
+                      {settings?.data?.working_hours?.map((item, index) => (
+                        <p key={index} className="text-gray-900">
+                          {item.label}:{" "}
+                          {item.closed
+                            ? "Closed"
+                            : `${formatTime(item.open)} - ${formatTime(item.close)}`}
+                        </p>
+                      ))}
 
-                      <p className="text-gray-900">Sat: 8:00am – 1:00pm</p>
+                      {/* <p className="text-gray-900">Sat: 8:00am – 1:00pm</p> */}
                     </div>
                   </div>
                 </div>
@@ -200,42 +418,74 @@ function ContactUs(){
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  <input
-                    type="text"
-                    placeholder="Your Name"
-                    className="border border-gray-300 rounded-md px-4 py-3 text-md focus:ring-2 focus:ring-green-600 focus:outline-none"
-                  />
+                <div>
+                  <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div><input
+                      type="text" 
+                      name="name" 
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Your Name"
+                      className="border border-gray-300 rounded-md px-4 py-3 text-md focus:ring-2 focus:ring-green-600 focus:outline-none" />
+                      {errors.name && (
+                        <p className="text-red-500 text-sm mt-1">{errors.name}</p>)}
+                    </div>
+                    <div><input
+                      type="text"
+                      name="company_name"
+                      value={formData.company_name}
+                      onChange={handleChange}
+                      placeholder="Company Name"
+                      className="border border-gray-300 rounded-md px-4 py-3 text-md focus:ring-2 focus:ring-green-600 focus:outline-none" />
+                      {errors.company_name && (
+                        <p className="text-red-500 text-sm mt-1">{errors.company_name}</p>
+                      )}
+                    </div>
+                    <div><input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="Email Address"
+                      className="border border-gray-300 rounded-md px-4 py-3 text-md focus:ring-2 focus:ring-green-600 focus:outline-none" />
+                      {errors.email && (
+                        <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                      )}</div>
 
-                  <input
-                    type="text"
-                    placeholder="Company Name"
-                    className="border border-gray-300 rounded-md px-4 py-3 text-md focus:ring-2 focus:ring-green-600 focus:outline-none"
-                  />
+                    <div><input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder="Phone Number"
+                      className="border border-gray-300 rounded-md px-4 py-3 text-md focus:ring-2 focus:ring-green-600 focus:outline-none" />
+                      {errors.phone && (
+                        <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+                      )}</div>
 
-                  <input
-                    type="email"
-                    placeholder="Email Address"
-                    className="border border-gray-300 rounded-md px-4 py-3 text-md focus:ring-2 focus:ring-green-600 focus:outline-none"
-                  />
+                    <div className="md:col-span-2"><textarea
+                      rows="4"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder="Kindly provide enough information about your farm business"
+                      className="w-full border border-gray-300 rounded-md px-4 py-3 text-md focus:ring-2 focus:ring-green-600 focus:outline-none"
+                    ></textarea>
+                    {errors.message && (
+                      <p className="text-red-500 text-sm mt-1">{errors.message}</p>
+                    )}</div>
 
-                  <input
-                    type="tel"
-                    placeholder="Phone Number"
-                    className="border border-gray-300 rounded-md px-4 py-3 text-md focus:ring-2 focus:ring-green-600 focus:outline-none"
-                  />
-
-                  <textarea
-                    rows="4"
-                    placeholder="Kindly provide enough information about your farm business"
-                    className="md:col-span-2 border border-gray-300 rounded-md px-4 py-3 text-md focus:ring-2 focus:ring-green-600 focus:outline-none"
-                  ></textarea>
-
-                  <button className="md:col-span-2 px-4 py-3 bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center  text-[18px] cursor-pointer">
-                    Submit{" "}
-                    <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
-                  </button>
+                    <div className="md:col-span-2"><button type="submit"
+                      disabled={loading} className="w-full px-4 py-3 bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center  text-[18px] cursor-pointer">
+                                          {loading ? "Submitting..." : "Submit"}
+                      {!loading && (
+                        <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
+                      )}
+                    </button>
+                    </div>
+                  </form>
                 </div>
+
               </div>
             </div>
           </div>
@@ -266,13 +516,23 @@ function ContactUs(){
                 referrerPolicy="no-referrer-when-downgrade"
               /> */}
 
-              <iframe
+              {/* <iframe
                 src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28412.610896202965!2d93.80259320641548!3d27.106650600337588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDolikoto%2C%20Banderdewa%2C%20Arunachal%20Pradesh!5e0!3m2!1sen!2sin!4v1770640178490!5m2!1sen!2sin"
                 className="w-full h-full border-0"
                 allowfullscreen=""
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
-              ></iframe>
+              ></iframe> */}
+              <iframe
+                src={settings?.data?.manufacturing_unit?.map_embed_url}
+                width="100%"
+                height="400"
+                className="w-full h-full border-0"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                ></iframe>
+              
             </div>
           </div>
         </section>

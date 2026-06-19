@@ -121,6 +121,7 @@ function Nutrition() {
       <Header></Header>
       <main className="pt-16 overflow-x-hidden">
         {/* Hero Section */}
+        {bannerItem?.image_url && (
         <motion.section
           className="relative z-0"
           initial="hidden"
@@ -192,7 +193,7 @@ function Nutrition() {
             </motion.div>
           </div>
         </motion.section>
-
+        )}
         {/* ================= CATTLE ================= */}
         <motion.section
           className="bg-gray-100 py-10 md:py-12 gsap-fade-in"

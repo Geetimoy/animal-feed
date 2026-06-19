@@ -140,7 +140,7 @@ export default function MyOrders() {
             </div>
           </div>
         </section>
-        <div className="flex flex-col md:flex-row bg-[#f7f8fa] md:max-w-7xl md:mx-auto px-4 md:px-8 py-8 ">
+        <div className="flex flex-col md:flex-row bg-[#f7f8fa] md:max-w-7xl md:mx-auto px-4 md:px-8 py-8 mt-16">
           <div className="hidden md:block">
             <ProfileDashboard />
           </div>

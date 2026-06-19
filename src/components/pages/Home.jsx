@@ -44,6 +44,9 @@ import 'swiper/css/pagination';
 import './custom.css';
 import CertificateSlider from "./CertificateSlider";
 
+import axios from "axios";
+import { API_URL } from "../../config/api";
+
 // import { Helmet } from "react-helmet";
 
 // Animation variants
@@ -98,6 +101,8 @@ function Home(){
 
   const { settings } = useSettings();
 
+  const [homeSettings, setHomeSettings] = useState(null);
+
   useEffect(() => {
     if (!hash) return;
 
@@ -112,6 +117,59 @@ function Home(){
     }
   }, [hash]);
 
+  useEffect(() => {
+    fetchHomeSettings();
+  }, []);
+
+  const fetchHomeSettings = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/home-settings`);
+      setHomeSettings(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const heroCard = homeSettings?.data?.hero_card;
+  const about = homeSettings?.data?.about;
+  const whyChoose = homeSettings?.data?.why_choose_us;
+  const stats = homeSettings?.data?.stats;
+  const animalNutrition = homeSettings?.data?.animal_nutrition;
+  const commitment = homeSettings?.data?.commitment;
+  const researchDevelopment = homeSettings?.data?.research_development;
+  const nationwideAvailability = homeSettings?.data?.nationwide;
+
+  const iconMap = {
+  cardIcon1,
+  cardIcon2,
+  cardIcon3,
+};
+
+  const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+  fetchNews();
+  }, []);
+
+  const fetchNews = async () => {
+  try {
+    setLoading(true);
+
+    const res = await axios.get(
+      `${API_URL}/news-events`
+    );
+
+     console.log(res.data);
+
+     setNews(res.data?.news?.data || []);
+  } catch (err) {
+    console.log("News API error:", err);
+  } finally {
+    setLoading(false);
+  }
+};
+
   return (
     <>
       <Helmet>
@@ -122,9 +180,6 @@ function Home(){
       <Header></Header>
       <main className="pt-16">
         {/* <!-- Hero Section --> */}
-        
-
-        
         <motion.section
                     className="relative z-0"
                     initial="hidden"
@@ -152,11 +207,7 @@ function Home(){
             </motion.div>
 
             {/* <!-- Banner Item 2 --> */}
-            <motion.div
-                                        className="relative"
-                                        variants={slideInLeft}
-                                        custom={2}
-                                    >
+            <motion.div className="relative" variants={slideInLeft} custom={2} >
               <img src={banner2} className="w-full h-full object-cover" />
 
               {/* <!-- Overlay Layer (81%) --> */}
@@ -225,17 +276,19 @@ function Home(){
                 <div className="col-span-9  bg-gradient-to-r  from-[#00a34a] to-[#009a62]   text-white px-4 md:px-8 py-0 md:py-6 pb-6 flex items-center ">
                   <div>
                     <div className="text-2xl font-semibold leading-normal md:leading-snug text-center md:text-left">
-                      Quality Animal Nutrition <br />
+                     
+                      {heroCard?.heading} <br />
                       <span className="text-yellow-300">
                         {" "}
-                        for Healthy Growth
+                        {heroCard?.heading_highlight}
                       </span>
                     </div>
 
                     <div className="mt-2 text-sm text-white/90 max-w-xl text-center md:text-left">
-                      Green Gold delivers scientifically formulated animal feed
+                      {/* Green Gold delivers scientifically formulated animal feed
                       to ensure better health, growth, and productivity for
-                      livestock and poultry.
+                      livestock and poultry. */}
+                      {heroCard?.description}
                     </div>
                   </div>
                 </div>
@@ -256,10 +309,11 @@ function Home(){
                 {/* <!-- Heading --> */}
                 <div className="mb-[0px] md:mb-[0px]   gsap-slide-in-left">
                   <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center md:text-left">
-                    About Green <span className="text-[#ffa800]">Gold</span>
+                   {about?.heading} <span className="text-[#ffa800]">{about?.heading_highlight} </span>
                   </h2>
                   <p className="text-[16px] text-gray-600 mt-1 text-center md:text-left">
-                    Reinforcing excellence in animal nutrition since 1983
+                    {/* Reinforcing excellence in animal nutrition since 1983 */}
+                    {about?.subheading}
                   </p>
                 </div>
 
@@ -287,26 +341,31 @@ function Home(){
                       z-30"
                   >
                     <h3 className="text-[28px] font-bold text-gray-800">
-                      Commitment to Quality & Innovation
+                      {/* Commitment to Quality & Innovation */}
+                      {about?.card_heading}
                     </h3>
 
                     <p className="text-[18px] text-gray-600">
-                      At Green Gold, we blend scientific expertise with
+                      {/* At Green Gold, we blend scientific expertise with
                       agricultural wisdom to create feed solutions that optimize
-                      animal health and farm profitability.
+                      animal health and farm profitability. */}
+                      {about?.card_description}
                     </p>
 
                     <ul className="space-y-2 text-[16px] text-gray-700">
-                      <li className="flex items-center gap-3">
+                       {about?.card_bullets?.map((item, index) => (
+                      <li key={index} className="flex items-center gap-3">
                         <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
                           <FontAwesomeIcon
                             icon={faArrowRight}
                             className="text-white text-[10px]"
                           />
                         </span>
-                        Scientifically formulated nutrition
+                        {/* Scientifically formulated nutrition */}
+                        {item}
                       </li>
-                      <li className="flex gap-2">
+                      ))}
+                      {/* <li className="flex gap-2">
                         <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
                           <FontAwesomeIcon
                             icon={faArrowRight}
@@ -323,21 +382,23 @@ function Home(){
                           />
                         </span>
                         Farmer education & support programs
-                      </li>
+                      </li> */}
                     </ul>
 
                     <div className="flex gap-4 pt-4">
                       <Link
-                        to="/about-us"
+                        to={about?.btn_primary_link}
                         className="bg-yellow-500 hover:bg-yellow-400 px-6 py-4 rounded-xl text-[16px] font-medium cursor-pointer"
                       >
-                        Our Full Story
+                        {/* Our Full Story */}
+                        {about?.btn_primary_label}
                       </Link>
                       <Link
-                        to="/contact-us"
+                        to={about?.btn_secondary_link}
                         className="border px-6 py-4 rounded-xl text-sm border border-gray-800 cursor-pointer hover:bg-[#f3f6f4]"
                       >
-                        Talk to Expert
+                        {/* Talk to Expert */}
+                        {about?.btn_secondary_label}
                       </Link>
                     </div>
                   </div>
@@ -348,26 +409,31 @@ function Home(){
                       z-30"
                 >
                   <h3 className="text-[22px] md:text-[28px] font-bold text-gray-800 leading-normal">
-                    Commitment to Quality & Innovation
+                    {/* Commitment to Quality & Innovation */}
+                    {about?.card_heading}
                   </h3>
 
                   <p className="text-[15px] text-gray-600">
-                    At Green Gold, we blend scientific expertise with
+                    {/* At Green Gold, we blend scientific expertise with
                     agricultural wisdom to create feed solutions that optimize
-                    animal health and farm profitability.
+                    animal health and farm profitability. */}
+                    {about?.card_description}
                   </p>
 
                   <ul className="space-y-2 text-[15px] text-gray-700">
-                    <li className="flex items-center gap-3">
-                      <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
-                        <FontAwesomeIcon
-                          icon={faArrowRight}
-                          className="text-white text-[10px]"
-                        />
-                      </span>
-                      Scientifically formulated nutrition
-                    </li>
-                    <li className="flex gap-2">
+                    {about?.card_bullets?.map((item, index) => (
+                      <li key={index} className="flex items-center gap-3">
+                        <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
+                          <FontAwesomeIcon
+                            icon={faArrowRight}
+                            className="text-white text-[10px]"
+                          />
+                        </span>
+                        {/* Scientifically formulated nutrition */}
+                        {item}
+                      </li>
+                      ))}
+                    {/* <li className="flex gap-2">
                       <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
                         <FontAwesomeIcon
                           icon={faArrowRight}
@@ -384,15 +450,17 @@ function Home(){
                         />
                       </span>
                       Farmer education & support programs
-                    </li>
+                    </li> */}
                   </ul>
 
                   <div className="flex flex-col gap-2 pt-4">
                     <button className="bg-yellow-500 hover:bg-yellow-400  px-6 py-4 rounded-md text-[16px] font-medium cursor-pointer">
-                      Our Full Story
+                      {/* Our Full Story */}
+                      {about?.btn_primary_label}
                     </button>
                     <button className="border px-6 py-4 rounded-md text-sm border border-gray-800 cursor-pointer hover:bg-[#f3f6f4]">
-                      Talk to Expert
+                      {/* Talk to Expert */}
+                      {about?.btn_secondary_label}
                     </button>
                   </div>
                 </div>
@@ -426,13 +494,14 @@ function Home(){
                             viewport={{ once: true }}
                             variants={slideInUp}>
                 <h2 className="text-3xl md:text-5xl font-semibold text-white leanding-normal md:leading-snug">
-                  Why Choose <br className="hidden md:block" />
-                  <span className="text-yellow-400">Green Gold</span>
+                  {whyChoose?.heading} <br className="hidden md:block" />
+                  <span className="text-yellow-400">{whyChoose?.heading_highlight}</span>
                 </h2>
 
                 <p className="text-gray-200 mt-4 text-[16px] md:text-[18px]  leanding-normal md:leading-relaxed max-w-sm">
-                  Premium quality feed backed by scientific formulation and
-                  trusted sourcing.
+                  {/* Premium quality feed backed by scientific formulation and
+                  trusted sourcing. */}
+                  {whyChoose?.description}
                 </p>
 
                 {/* SLIDER BUTTONS */}
@@ -487,40 +556,44 @@ function Home(){
                       },
                     }}
                   >
-                    <SwiperSlide>
-                      <div className="why-card bg-[#f3f6f4] rounded-2xl p-6">
-                        <div>
-                          <img
-                            src={cardIcon1}
-                            className="w-[50px] h-[60px] mb-4"
-                          />
-                          <h4 className="text-[#009a62] font-semibold text-lg leading-snug">
-                            Quality
-                            <br />
-                            You Can Trust
-                          </h4>
-                          <p className="text-gray-600 text-sm mt-3 leading-relaxed">
-                            Each batch of Green Gold Feed is produced under
-                            strict quality control standards to ensure
-                            consistency,
-                          </p>
-                        </div>
-
-                        <Link
-                          href="#"
-                          className="group read-more inline-flex items-center gap-3 text-sm text-gray-500 pt-6  hover:text-green-600 "
-                        >
-                          Read More
-                          <span className="w-8 h-8 rounded-full border border-gray-400 flex items-center justify-center  group-hover:border-green-600  group-hover:text-green-600 transition-transform duration-300 easy-in-out group-hover:translate-x-1">
-                            <FontAwesomeIcon
-                              icon={faArrowRight}
-                              className="text-xs"
+                    {whyChoose?.cards?.map((card, index) => (
+                      <SwiperSlide key={index}>
+                        <div className="why-card bg-[#f3f6f4] rounded-2xl p-6">
+                          <div>
+                            <img
+                              src={iconMap[card.icon_key]} alt="{card.title}"
+                              className="w-[50px] h-[60px] mb-4"
                             />
-                          </span>
-                        </Link>
-                      </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
+                            <h4 className="text-[#009a62] font-semibold text-lg leading-snug">
+                              {/* Quality
+                              <br />
+                              You Can Trust */}
+                              {card.title}
+                            </h4>
+                            <p className="text-gray-600 text-sm mt-3 leading-relaxed">
+                              {/* Each batch of Green Gold Feed is produced under
+                              strict quality control standards to ensure
+                              consistency, */}
+                              {card.description}
+                            </p>
+                          </div>
+
+                          <Link
+                            href="#"
+                            className="group read-more inline-flex items-center gap-3 text-sm text-gray-500 pt-6  hover:text-green-600 "
+                          >
+                            Read More
+                            <span className="w-8 h-8 rounded-full border border-gray-400 flex items-center justify-center  group-hover:border-green-600  group-hover:text-green-600 transition-transform duration-300 easy-in-out group-hover:translate-x-1">
+                              <FontAwesomeIcon
+                                icon={faArrowRight}
+                                className="text-xs"
+                              />
+                            </span>
+                          </Link>
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                    {/* <SwiperSlide>
                       <div className="why-card bg-[#f3f6f4] rounded-2xl p-6">
                         <div>
                           <img
@@ -616,47 +689,66 @@ function Home(){
                           </span>
                         </Link>
                       </div>
-                    </SwiperSlide>
+                    </SwiperSlide> */}
                   </Swiper>
                 </div>
               </div>
             </div>
           </div>
 
-          <motion.div
-                        className="hidden lg:block absolute lg:-bottom-[120px] md:left-1/2 lg:-translate-x-1/2 px-3 sm:px-0"
-                        initial={{ y: 50, opacity: 0 }}
-                        whileInView={{ y: 0, opacity: 1 }}
+          <motion.div className="hidden lg:block absolute lg:-bottom-[120px] md:left-1/2 lg:-translate-x-1/2 px-3 sm:px-0" initial={{ y: 50, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.3 }} >
+            <div className="w-full py-10">
+                <div className="max-w-6xl mx-auto flex flex-wrap justify-center gap-6">
+                    {/* {[
+                        { number: "25+", text: "Years\nExperience" },
+                        { number: "500+", text: "Our\nProducts" },
+                        { number: "98%", text: "Farmer\nSatisfaction" },
+                        { number: "50+", text: "Quality\nChecks" }
+                    ].map((item, index) => (
+                        <motion.div
+                            key={index}
+                            className={`w-36 h-36 2xl:w-40 2xl:h-40 rounded-full flex flex-col items-center justify-center text-center shadow-md ring-2 ring-white ${index % 2 === 0 ? "bg-emerald-300" : "bg-yellow-400"
+                                }`}
+                            initial={{ scale: 0 }}
+                            whileInView={{ scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ type: "spring", stiffness: 200, delay: index * 0.1 }}
+                            whileHover={{ scale: 1.1, rotate: 5 }}
+                        >
+                            <span className="text-3xl font-bold text-black">{item.number}</span>
+                            <span className="text-sm font-medium text-black leading-tight whitespace-pre-line">
+                                {item.text}
+                            </span>
+                        </motion.div>
+                    ))} */}
+                    {stats?.map((item, index) => (
+                      <motion.div
+                        key={index}
+                        className={`w-36 h-36 2xl:w-40 2xl:h-40 rounded-full flex flex-col items-center justify-center text-center shadow-md ring-2 ring-white ${
+                          index % 2 === 0 ? "bg-emerald-300" : "bg-yellow-400"
+                        }`}
+                        initial={{ scale: 0 }}
+                        whileInView={{ scale: 1 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.3 }}
-                    >
-                        <div className="w-full py-10">
-                            <div className="max-w-6xl mx-auto flex flex-wrap justify-center gap-6">
-                                {[
-                                    { number: "25+", text: "Years\nExperience" },
-                                    { number: "500+", text: "Our\nProducts" },
-                                    { number: "98%", text: "Farmer\nSatisfaction" },
-                                    { number: "50+", text: "Quality\nChecks" }
-                                ].map((item, index) => (
-                                    <motion.div
-                                        key={index}
-                                        className={`w-36 h-36 2xl:w-40 2xl:h-40 rounded-full flex flex-col items-center justify-center text-center shadow-md ring-2 ring-white ${index % 2 === 0 ? "bg-emerald-300" : "bg-yellow-400"
-                                            }`}
-                                        initial={{ scale: 0 }}
-                                        whileInView={{ scale: 1 }}
-                                        viewport={{ once: true }}
-                                        transition={{ type: "spring", stiffness: 200, delay: index * 0.1 }}
-                                        whileHover={{ scale: 1.1, rotate: 5 }}
-                                    >
-                                        <span className="text-3xl font-bold text-black">{item.number}</span>
-                                        <span className="text-sm font-medium text-black leading-tight whitespace-pre-line">
-                                            {item.text}
-                                        </span>
-                                    </motion.div>
-                                ))}
-                            </div>
-                        </div>
-                    </motion.div>
+                        transition={{
+                          type: "spring",
+                          stiffness: 200,
+                          delay: index * 0.1,
+                        }}
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                      >
+                        <span className="text-3xl font-bold text-black">
+                          {item.number}
+                        </span>
+
+                        <span className="text-sm font-medium text-black leading-tight">
+                          {item.label}
+                        </span>
+                      </motion.div>
+                    ))}
+                </div>
+            </div>
+          </motion.div>
         </motion.section>
 
         <div className="relative lg:hidden">
@@ -714,147 +806,146 @@ function Home(){
                             whileInView="visible"
                             viewport={{ once: true, amount: 0.2 }}
                             variants={staggerContainer}>
-              {/* IMAGE 1 */}
-              <motion.div className="place-self-start" variants={itemVariant}>
-                <div className="relative inline-block overflow-hidden">
-                  <motion.img
-                    src={animal1}
-                    className="block w-[280px] h-[280px] rounded-2xl  object-cover"
-                    alt="" whileHover={{ scale: 1.1 }}
-                                            transition={{ duration: 0.3 }}
-                  />
-                  <motion.div
-                    className="absolute inset-0 bg-black/60
-                  opacity-0 hover:opacity-100
-                  transition-opacity duration-300
-                  flex flex-col items-center justify-center" initial={{ opacity: 0 }}
-                                            whileHover={{ opacity: 1 }}
-                  >
-                    <h3 className="text-white text-xl font-semibold">
-                      CATTLE <br /> Feed
-                    </h3>
+                {/* IMAGE 1 */}
+                {animalNutrition?.cards?.map((card, index) => (
+                <motion.div key={index} className="place-self-start" variants={itemVariant}>
+                  <div className="relative inline-block overflow-hidden">
+                    <motion.img
+                      src={animal1} alt={card.title}
+                      className="block w-[280px] h-[280px] rounded-2xl  object-cover"
+                      alt="" whileHover={{ scale: 1.1 }} transition={{ duration: 0.3 }} />
+                    <motion.div
+                      className="absolute inset-0 bg-black/60
+                    opacity-0 hover:opacity-100
+                    transition-opacity duration-300
+                    flex flex-col items-center justify-center" initial={{ opacity: 0 }}
+                                              whileHover={{ opacity: 1 }}
+                    >
+                      <h3 className="text-white text-xl font-semibold">
+                        {card.title} <br /> {card.subtitle}
+                      </h3>
 
-                    <div>
-                      <Link
-                        href="#"
-                        className="read-more inline-flex items-center gap-3 text-sm text-white mt-3"
-                      >
-                        View Details
-                        <FontAwesomeIcon
-                          icon={faArrowRight}
-                          className="text-xs"
-                        />
-                      </Link>
-                    </div>
-                  </motion.div>
-                </div>
-              </motion.div>
+                      <div>
+                        <Link
+                          to={card.link}
+                          className="read-more inline-flex items-center gap-3 text-sm text-white mt-3"
+                        >
+                          View Details
+                          <FontAwesomeIcon
+                            icon={faArrowRight}
+                            className="text-xs"
+                          />
+                        </Link>
+                      </div>
+                    </motion.div>
+                  </div>
+                </motion.div>
+                ))}
+                {/* IMAGE 2 */}
+                {/* <motion.div className="place-self-start" variants={itemVariant}>
+                  <div className="relative inline-block overflow-hidden">
+                    <motion.img
+                      src={animal2}
+                      className="block w-[280px] h-[280px] object-cover rounded-2xl "
+                      alt="" whileHover={{ scale: 1.1 }}
+                                              transition={{ duration: 0.3 }}
+                    />
+                    <motion.div
+                      className="absolute inset-0 bg-black/60
+                    opacity-0 hover:opacity-100
+                    transition-opacity duration-300
+                    flex flex-col items-center justify-center" initial={{ opacity: 0 }}
+                                              whileHover={{ opacity: 1 }}
+                    >
+                      <h3 className="text-white text-lg font-semibold ">
+                        PIG <br /> FEED
+                      </h3>
+                      <div>
+                        <Link
+                          href="#"
+                          className="read-more inline-flex items-center gap-3 text-sm text-white mt-3"
+                        >
+                          View Details
+                          <FontAwesomeIcon
+                            icon={faArrowRight}
+                            className="text-xs"
+                          />
+                        </Link>
+                      </div>
+                    </motion.div>
+                  </div>
+                </motion.div> */}
 
-              {/* IMAGE 2 */}
-              <motion.div className="place-self-start" variants={itemVariant}>
-                <div className="relative inline-block overflow-hidden">
-                  <motion.img
-                    src={animal2}
-                    className="block w-[280px] h-[280px] object-cover rounded-2xl "
-                    alt="" whileHover={{ scale: 1.1 }}
-                                            transition={{ duration: 0.3 }}
-                  />
-                  <motion.div
-                    className="absolute inset-0 bg-black/60
-                  opacity-0 hover:opacity-100
-                  transition-opacity duration-300
-                  flex flex-col items-center justify-center" initial={{ opacity: 0 }}
-                                            whileHover={{ opacity: 1 }}
-                  >
-                    <h3 className="text-white text-lg font-semibold ">
-                      PIG <br /> FEED
-                    </h3>
-                    <div>
-                      <Link
-                        href="#"
-                        className="read-more inline-flex items-center gap-3 text-sm text-white mt-3"
-                      >
-                        View Details
-                        <FontAwesomeIcon
-                          icon={faArrowRight}
-                          className="text-xs"
-                        />
-                      </Link>
-                    </div>
-                  </motion.div>
-                </div>
-              </motion.div>
+                {/* IMAGE 3 */}
+                {/* <motion.div className="place-self-start" variants={itemVariant}>
+                  <div className="relative inline-block overflow-hidden">
+                    <motion.img
+                      src={animal3}
+                      className="block w-[280px] h-[280px]  rounded-2xl object-cover"
+                      alt="" whileHover={{ scale: 1.1 }}
+                                              transition={{ duration: 0.3 }}
+                    />
+                    <motion.div
+                      className="absolute inset-0 bg-black/60
+                    opacity-0 hover:opacity-100
+                    transition-opacity duration-300
+                    flex flex-col items-center justify-center" initial={{ opacity: 0 }}
+                                              whileHover={{ opacity: 1 }}
+                    >
+                      <h3 className="text-white text-lg font-semibold">
+                        POULTRY <br /> FEED
+                      </h3>
+                      <div>
+                        <Link
+                          href="#"
+                          className="read-more inline-flex items-center gap-3 text-sm text-white mt-3"
+                        >
+                          View Details
+                          <FontAwesomeIcon
+                            icon={faArrowRight}
+                            className="text-xs"
+                          />
+                        </Link>
+                      </div>
+                    </motion.div>
+                  </div>
+                </motion.div> */}
 
-              {/* IMAGE 3 */}
-              <motion.div className="place-self-start" variants={itemVariant}>
-                <div className="relative inline-block overflow-hidden">
-                  <motion.img
-                    src={animal3}
-                    className="block w-[280px] h-[280px]  rounded-2xl object-cover"
-                    alt="" whileHover={{ scale: 1.1 }}
-                                            transition={{ duration: 0.3 }}
-                  />
-                  <motion.div
-                    className="absolute inset-0 bg-black/60
-                  opacity-0 hover:opacity-100
-                  transition-opacity duration-300
-                  flex flex-col items-center justify-center" initial={{ opacity: 0 }}
-                                            whileHover={{ opacity: 1 }}
-                  >
-                    <h3 className="text-white text-lg font-semibold">
-                      POULTRY <br /> FEED
-                    </h3>
-                    <div>
-                      <Link
-                        href="#"
-                        className="read-more inline-flex items-center gap-3 text-sm text-white mt-3"
-                      >
-                        View Details
-                        <FontAwesomeIcon
-                          icon={faArrowRight}
-                          className="text-xs"
-                        />
-                      </Link>
-                    </div>
-                  </motion.div>
-                </div>
-              </motion.div>
-
-              {/* IMAGE 4 */}
-              <motion.div className="place-self-start" variants={itemVariant}>
-                <div className="relative inline-block overflow-hidden">
-                  <motion.img
-                    src={animal4}
-                    className="block w-[280px] h-[280px]  rounded-2xl object-cover"
-                    alt="" whileHover={{ scale: 1.1 }}
-                                            transition={{ duration: 0.3 }}
-                  />
-                  <motion.div
-                    className="absolute inset-0 bg-black/60
-                  opacity-0 hover:opacity-100
-                  transition-opacity duration-300
-                  flex flex-col items-center justify-center"
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
-                  >
-                    <h3 className="text-white text-lg font-semibold">
-                      FISH <br /> FEED
-                    </h3>
-                    <div>
-                      <Link
-                        href="#"
-                        className="read-more inline-flex items-center gap-3 text-sm text-white mt-3"
-                      >
-                        View Details
-                        <FontAwesomeIcon
-                          icon={faArrowRight}
-                          className="text-xs"
-                        />
-                      </Link>
-                    </div>
-                  </motion.div>
-                </div>
-              </motion.div>
+                {/* IMAGE 4 */}
+                {/* <motion.div className="place-self-start" variants={itemVariant}>
+                  <div className="relative inline-block overflow-hidden">
+                    <motion.img
+                      src={animal4}
+                      className="block w-[280px] h-[280px]  rounded-2xl object-cover"
+                      alt="" whileHover={{ scale: 1.1 }}
+                                              transition={{ duration: 0.3 }}
+                    />
+                    <motion.div
+                      className="absolute inset-0 bg-black/60
+                    opacity-0 hover:opacity-100
+                    transition-opacity duration-300
+                    flex flex-col items-center justify-center"
+                      initial={{ opacity: 0 }}
+                      whileHover={{ opacity: 1 }}
+                    >
+                      <h3 className="text-white text-lg font-semibold">
+                        FISH <br /> FEED
+                      </h3>
+                      <div>
+                        <Link
+                          href="#"
+                          className="read-more inline-flex items-center gap-3 text-sm text-white mt-3"
+                        >
+                          View Details
+                          <FontAwesomeIcon
+                            icon={faArrowRight}
+                            className="text-xs"
+                          />
+                        </Link>
+                      </div>
+                    </motion.div>
+                  </div>
+                </motion.div> */}
             </motion.div>
 
             {/* RIGHT : TEXT CONTENT */}
@@ -863,12 +954,13 @@ function Home(){
                             viewport={{ once: true }}
                             variants={slideInUp}>
               <h2 className="text-3xl lg:text-5xl font-semibold text-gray-800">
-                Animals <br className="hidden md:block" />{" "}
-                <span className="text-[#ffa800]">Nutrition</span>
+                 {animalNutrition?.heading} <br className="hidden md:block" />{" "}
+                <span className="text-[#ffa800]"> {animalNutrition?.heading_highlight}</span>
               </h2>
               <p className="mt-2 md:mt-4 text-gray-600 max-w-md mx-auto lg:mx-0  text-center text-[16px] md:text-[18px]">
-                High quality animal nutrition solutions designed to improve
-                health, productivity and overall performance.
+                {/* High quality animal nutrition solutions designed to improve
+                health, productivity and overall performance. */}
+                {animalNutrition?.description}
               </p>
             </motion.div>
           </div>
@@ -891,12 +983,13 @@ function Home(){
                                     whileInView="visible"
                                     viewport={{ once: true, amount: 0.3 }} variants={slideInUp}>
               <h2 className="text-3xl sm:text-5xl font-semibold text-white">
-                Our Unwavering{" "}
-                <span className="text-yellow-400">Commitment</span>
+                {commitment?.heading}{" "}
+                <span className="text-yellow-400">{commitment?.heading_highlight}</span>
               </h2>
               <p className="mt-4 text-gray-200 text-[16px] sm:text-[18px]">
-                Quality is our foundation. Every product reflects our dedication
-                to excellence, safety, and sustainable agriculture.
+                {/* Quality is our foundation. Every product reflects our dedication
+                to excellence, safety, and sustainable agriculture. */}
+                {commitment?.description}
               </p>
             </motion.div>
 
@@ -906,15 +999,16 @@ function Home(){
               <motion.div className="text-white max-w-lg"  initial="hidden" whileInView="visible"
                                     viewport={{ once: true, amount: 0.5 }} variants={slideInUp}>
                 <h3 className="text-3xl md:text-5xl font-light mb-4 text-center md:text-left">
-                  Our{" "}
-                  <span className="text-[#ffa800] font-normal">Promise</span>
+                   {commitment?.promise_heading}{" "}
+                  <span className="text-[#ffa800] font-normal">{commitment?.promise_highlight}</span>
                 </h3>
 
                 <p className="text-gray-200  text-[16px] sm:text-[18px] leading-normal md:leading-relaxed mb-4 md:mb-8 text-center md:text-left">
-                  We don’t just meet standards—we set them. Our commitment
+                  {/* We don’t just meet standards—we set them. Our commitment
                   extends beyond production to include farmer education,
                   sustainable practices, and continuous innovation in animal
-                  nutrition.
+                  nutrition. */}
+                   {commitment?.promise_text}
                 </p>
 
                 {/* Green badge */}
@@ -937,10 +1031,12 @@ function Home(){
 
                   <div>
                     <p className="font-semibold text-white">
-                      Triple-Assured Quality
+                      {/* Triple-Assured Quality */}
+                      {commitment?.badge_title}
                     </p>
                     <p className="text-xs text-white/80">
-                      Tested at source, during production, and before dispatch
+                      {/* Tested at source, during production, and before dispatch */}
+                      {commitment?.badge_subtitle}
                     </p>
                   </div>
                 </div>
@@ -980,16 +1076,19 @@ function Home(){
                       </h4>
 
                       <ul className="space-y-2 md:space-y-4 text-sm text-gray-700">
-                        <li className="flex items-center gap-3">
+                        {commitment?.quality_items?.map((item, index) => (
+                        <li key={index} className="flex items-center gap-3">
                           <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
                             <FontAwesomeIcon
                               icon={faArrowRight}
                               className="text-white text-[10px]"
                             />
                           </span>
-                          Raw material inspection before production
+                          {/* Raw material inspection before production */}
+                          {item}
                         </li>
-                        <li className="flex items-center gap-3">
+                        ))}
+                        {/* <li className="flex items-center gap-3">
                           <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
                             <FontAwesomeIcon
                               icon={faArrowRight}
@@ -1033,7 +1132,7 @@ function Home(){
                             />
                           </span>
                           Traceability from source to farm
-                        </li>
+                        </li> */}
                       </ul>
                     </div>
                   )}
@@ -1045,7 +1144,8 @@ function Home(){
                       </h4>
 
                       <ul className="space-y-2 md:space-y-4 text-sm text-gray-700">
-                        <li className="flex items-center gap-3">
+                        {commitment?.cert_items?.map((item, index) => (
+                        <li key={index} className="flex items-center gap-3">
                           {" "}
                           <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
                             <FontAwesomeIcon
@@ -1053,9 +1153,11 @@ function Home(){
                               className="text-white text-[10px]"
                             />
                           </span>
-                          ISO 9001 Quality Management
+                          {/* ISO 9001 Quality Management */}
+                          {item}
                         </li>
-                        <li className="flex items-center gap-3">
+                        ))}
+                        {/* <li className="flex items-center gap-3">
                           {" "}
                           <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
                             <FontAwesomeIcon
@@ -1074,7 +1176,7 @@ function Home(){
                             />
                           </span>
                           Statutory Compliance
-                        </li>
+                        </li> */}
                       </ul>
                     </div>
                   )}
@@ -1100,26 +1202,27 @@ function Home(){
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} variants={slideInUp}>
               <h2 className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left">
                 
-                Research & <br className="hidden md:block" />
-                <span className="text-yellow-500">Development</span>
+                {researchDevelopment?.heading} <br className="hidden md:block" />
+                <span className="text-yellow-500">{researchDevelopment?.heading_highlight}</span>
               </h2>
               <p className="mt-4 md:mt-6 text-gray-600 leading-normal md:leading-relaxed text-[16px] md:text-[18px] text-center md:text-left">
                 
-                Our Research & Development team continuously works to improve
+                {/* Our Research & Development team continuously works to improve
                 feed efficiency, nutritional balance, and animal health. Using
                 scientific research, modern laboratories, and field trials, we
-                develop feed solutions that deliver consistent results.
+                develop feed solutions that deliver consistent results. */}
+                {researchDevelopment?.description_1}
               </p>
               <p className="mt-4 text-gray-600  leading-normal md:leading-relaxed text-[16px] md:text-[18px] text-center md:text-left">
-               
-                Innovation, testing, and validation are at the core of every
-                formulation we create.
+               {researchDevelopment?.description_2}
+                {/* Innovation, testing, and validation are at the core of every
+                formulation we create. */}
               </p>
               <Link
-                to="/research-development"
+                to={researchDevelopment?.btn_link}
                 className="mt-4 md:mt-8 inline-flex items-center justify-center md:justify-start gap-2 rounded-xl bg-yellow-500 px-6 py-3 text-[16px] font-medium text-black hover:bg-yellow-400 transition cursor-pointer w-full md:w-auto text-center"
               >
-                Explore Our R&amp;D
+                {researchDevelopment?.btn_label}
               </Link>
             </motion.div>
           </div>
@@ -1138,45 +1241,49 @@ function Home(){
                                     viewport={{ once: true, amount: 0.3 }} variants={slideInUp}>
             {/* Heading */}
             <h2 className="text-3xl md:text-5xl font-semibold tracking-wide text-white">
-              Nationwide
-              <span className="text-amber-400 font-medium"> Availability</span>
+              {nationwideAvailability?.heading}
+              <span className="text-amber-400 font-medium"> {nationwideAvailability?.heading_highlight}</span>
             </h2>
 
             {/* Description */}
             <p className="mt-6 text-md md:text-base text-gray-300 leading-relaxed max-w-3xl mx-auto">
-              Green Gold Animal Feed is available through our trusted
+              {/* Green Gold Animal Feed is available through our trusted
               distributor network across multiple states. Get in touch with your
               nearest distributor or contact our sales team for personalized
-              assistance.
+              assistance. */}
+              {nationwideAvailability?.description}
             </p>
 
             {/* <!-- Buttons --> */}
             <div className="mt-6 md:mt-10 flex flex-col sm:flex-row justify-center items-center gap-4 text-lg">
               <Link
-                to="tel:+1234567890"
+                to={`tel:${nationwideAvailability?.phone}`}
                 className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-amber-400 text-black font-medium shadow-md hover:bg-amber-500 transition w-full md:w-auto "
               >
                 <FontAwesomeIcon icon={faPhone} />
-                Call Now
+                {nationwideAvailability?.btn_call_label}
               </Link>
 
               <Link
-                to="tel:+1234567890"
+                to={`https://wa.me/${nationwideAvailability?.whatsapp}`}
                 className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-green-500 text-white font-medium shadow-md hover:bg-green-600 transition w-full md:w-auto "
               >
                 <FontAwesomeIcon icon={faWhatsapp} className="text-lg" />
-                WhatsApp
+                {nationwideAvailability?.btn_whatsapp_label}
               </Link>
             </div>
 
             {/* States */}
             <div className="mt-8 md:mt-14 flex flex-wrap justify-center gap-x-6 md:gap-x-10 gap-y-4 text-lg text-gray-300 tracking-wide">
-              <span>West Bengal</span>
+              {/* <span>West Bengal</span>
               <span>Odisha</span>
               <span>Bihar</span>
               <span>Jharkhand</span>
               <span>Assam</span>
-              <span>Uttar Pradesh</span>
+              <span>Uttar Pradesh</span> */}
+              {nationwideAvailability?.states?.map((state, index) => (
+                <span key={index}>{state}</span>
+              ))}
             </div>
           </motion.div>
         </section>
@@ -1247,31 +1354,34 @@ function Home(){
                 }}
               >
                 {/* <!-- Card --> */}
-                <SwiperSlide className="h-auto mb-2">
+                {news.map((item) => (
+                <SwiperSlide key={item.id} className="h-auto mb-2">
                   <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col">
                     {/* <!-- Image --> */}
                     <img
-                      src={newsslider1}
+                      src={item.image_url} alt={item.title}
                       className="h-48 w-full object-cover rounded-b-2xl"
                     />
 
                     {/* <!-- Content --> */}
                     <div className="p-6 flex flex-col flex-grow">
                       <span className="text-xs text-green-600 font-medium">
-                        12 Aug 2025
+                        {item.published_at}
                       </span>
 
                       <h3 className="mt-2 font-bold text-gray-900">
-                        Green Gold Launches Advanced Cattle Feed
+                        {/* Green Gold Launches Advanced Cattle Feed */}
+                        {item.title}
                       </h3>
 
                       <p className="mt-2 text-sm text-gray-500 flex-grow">
-                        Stay updated with the latest happenings, product
-                        launches, and events at Green Gold.
+                        {/* Stay updated with the latest happenings, product
+                        launches, and events at Green Gold. */}
+                        {item.excerpt}
                       </p>
 
                       <Link
-                        to="/news-events"
+                        to={`/news-events/${item.slug}`}
                         className=" group mt-4 inline-flex items-center gap-2  hover:text-green-700 text-green-600 font-medium"
                       >
                         View Details
@@ -1292,16 +1402,17 @@ function Home(){
                     </div>
                   </div>
                 </SwiperSlide>
+                 ))}
                 {/* <!-- Card 2 --> */}
-                <SwiperSlide className="h-auto mb-2">
+                {/* <SwiperSlide className="h-auto mb-2">
                   <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col">
-                    {/* <!-- Image --> */}
+                    
                     <img
                       src={newsslider2}
                       className="h-48 w-full object-cover rounded-b-2xl"
                     />
 
-                    {/* <!-- Content --> */}
+                   
                     <div className="p-6 flex flex-col flex-grow">
                       <span className="text-xs text-green-600 font-medium">
                         28 Aug 2025
@@ -1337,17 +1448,17 @@ function Home(){
                       </Link>
                     </div>
                   </div>
-                </SwiperSlide>
+                </SwiperSlide> */}
                 {/* <!-- Card 3 --> */}
-                <SwiperSlide className="h-auto mb-2">
+                {/* <SwiperSlide className="h-auto mb-2">
                   <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col">
-                    {/* <!-- Image --> */}
+                    
                     <img
                       src={newsslider3}
                       className="h-48 w-full object-cover rounded-b-2xl"
                     />
 
-                    {/* <!-- Content --> */}
+                    
                     <div className="p-6 flex flex-col flex-grow">
                       <span className="text-xs text-green-600 font-medium">
                         12 Aug 2025
@@ -1383,17 +1494,17 @@ function Home(){
                       </Link>
                     </div>
                   </div>
-                </SwiperSlide>
+                </SwiperSlide> */}
                 {/* <!-- Card 4 --> */}
-                <SwiperSlide className="h-auto mb-2">
+                {/* <SwiperSlide className="h-auto mb-2">
                   <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col">
-                    {/* <!-- Image --> */}
+                    
                     <img
                       src={newsslider4}
                       className="h-48 w-full object-cover rounded-b-2xl"
                     />
 
-                    {/* <!-- Content --> */}
+                    
                     <div className="p-6 flex flex-col flex-grow">
                       <span className="text-xs text-green-600 font-medium">
                         12 Aug 2025
@@ -1429,17 +1540,17 @@ function Home(){
                       </Link>
                     </div>
                   </div>
-                </SwiperSlide>
+                </SwiperSlide> */}
                 {/* <!-- Card 5 --> */}
-                <SwiperSlide className="h-auto mb-2">
+                {/* <SwiperSlide className="h-auto mb-2">
                   <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col">
-                    {/* <!-- Image --> */}
+                    
                     <img
                       src={newsslider5}
                       className="h-48 w-full object-cover rounded-b-2xl"
                     />
 
-                    {/* <!-- Content --> */}
+                    
                     <div className="p-6 flex flex-col flex-grow">
                       <span className="text-xs text-green-600 font-medium">
                         12 Aug 2025
@@ -1475,7 +1586,7 @@ function Home(){
                       </Link>
                     </div>
                   </div>
-                </SwiperSlide>
+                </SwiperSlide> */}
               </Swiper>
             </div>
           </motion.div>

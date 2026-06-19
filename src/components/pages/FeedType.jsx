@@ -82,6 +82,7 @@ function FeedType(){
       <Header></Header>
       <main className="pt-16 overflow-x-hidden">
         {/* Hero Section */}
+        {bannerItem?.image_url && (
         <section className="relative z-0">
           <div className="relative">
             <img
@@ -123,7 +124,7 @@ function FeedType(){
             </div>
           </div>
         </section>
-
+        )}
         {/* ================= CATTLE ================= */}
         <section className="py-10 md:py-12 bg-gray-100">
           <div className="text-center  mb-6">

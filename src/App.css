@@ -61,3 +61,20 @@ html {
     visibility: visible;
     transform: translateY(0);
 }
+
+ul li.ck-list-marker-color{
+  position: relative;
+  padding-left: 20px;
+  margin-left: 20px;
+}
+ul li.ck-list-marker-color::before{
+  content:'';
+  position: absolute;
+  top: 8px;
+  left:0;
+  width: 8px;
+  height: 8px;
+  background-color: #00a24d;
+  /* font-family: 'Font Awesome 7 Free';
+  font-weight: 700; */
+}

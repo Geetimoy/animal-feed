@@ -286,6 +286,7 @@ export default function Profile() {
       </Helmet>
       <Header showLogout={true} />
       <main className="pt-16 overflow-x-hidden">
+        {bannerItem?.image_url && (
         <section className="relative z-0">
           <div className="relative">
             <img
@@ -300,7 +301,7 @@ export default function Profile() {
             </div>
           </div>
         </section>
-
+        )}
         <div className="flex bg-[#f7f8fa] md:max-w-7xl md:mx-auto px-4 md:px-8 py-8 ">
           <div className="hidden md:block">
             <ProfileDashboard user={formData} />

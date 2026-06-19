@@ -35,6 +35,8 @@ import { Helmet } from "react-helmet";
 import { API_URL } from "../../config/api";
 import axios from "axios";
 
+import { useSettings } from "../../context/SettingsContext";
+
 // Animation variants
 const fadeIn = {
     hidden: { opacity: 0 },
@@ -81,6 +83,8 @@ function AboutUs02() {
     const [activeTab, setActiveTab] = useState("tab1");
     const { hash } = useLocation();
 
+    const { settings } = useSettings();
+
     useEffect(() => {
         if (!hash) return;
         const id = hash.replace("#", "");
@@ -125,12 +129,13 @@ function AboutUs02() {
         <Header />
         <main className="pt-16 overflow-hidden">
           {/* Hero Section */}
+          {bannerItem?.image_url && (
           <motion.section
             className="relative z-0"
             initial="hidden"
             animate="visible"
             variants={fadeIn}
-          >
+            >
             <div className="relative">
               <motion.img
                 src={banner?.data?.[0]?.image_url}
@@ -198,7 +203,7 @@ function AboutUs02() {
               </motion.div>
             </div>
           </motion.section>
-
+          )}
           {/* Vision and Mission Section */}
           <motion.section
             id="missionvision"
@@ -781,19 +786,20 @@ function AboutUs02() {
                     <span className="text-[#00a34a] mr-2">
                       <FontAwesomeIcon icon={faLocationDot} />
                     </span>
-                    Dolikoto, Banderdewa, Arunachal Pradesh – 791123
+                    {/* Dolikoto, Banderdewa, Arunachal Pradesh – 791123 */}
+                    {settings?.data?.contact?.address} , {settings?.data?.contact?.city}, {settings?.data?.contact?.state}
                   </p>
                   <p className="text-gray-900 text-md mb-3 text-center md:text-left ">
                     <span className="text-[#00a34a] mr-2">
                       <FontAwesomeIcon icon={faPhone} />
                     </span>
-                    <a href="#"> +91 9999999999</a>
+                    <a href={`tel:${settings?.data?.contact?.phone_primary}`}> {settings?.data?.contact?.phone_primary}</a>
                   </p>
                   <p className="text-gray-900 text-md text-center md:text-left ">
                     <span className="text-[#00a34a] mr-2">
                       <FontAwesomeIcon icon={faEnvelope} />
                     </span>
-                    <a href="mailto:info@greengold.com">info@greengold.com</a>
+                    <a href={`mailto:${settings?.data?.contact?.email}`}>{settings?.data?.contact?.email}</a>
                   </p>
                 </div>
               </div>

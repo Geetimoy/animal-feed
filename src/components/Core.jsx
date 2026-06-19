@@ -68,7 +68,7 @@ export default function Core() {
         <Route path="/distributor" element={<Distributor />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/nutrition" element={<Nutrition />} />
-        <Route path="/news-details" element={<NewsDetails />} />
+        <Route path="/news/:slug" element={<NewsDetails />} />
         <Route path="/feed-type" element={<FeedType />} />
         <Route path="/our-teams" element={<OurTeams />} />
         <Route path="/login" element={<Login />} />

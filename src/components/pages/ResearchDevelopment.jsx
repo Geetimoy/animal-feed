@@ -96,6 +96,7 @@ function ResearchDevelopment() {
       <main className="pt-16 overflow-hidden">
 
         {/* Hero Section */}
+        {bannerItem?.image_url && (
         <motion.section className="relative z-0"
           initial="hidden"
           animate="visible"
@@ -166,6 +167,7 @@ function ResearchDevelopment() {
             </motion.div>
           </div>
         </motion.section>
+         )}
         {/* In-House Laboratory Excellence Section */}
         <motion.section
           className="py-10 md:py-12 bg-gray-100"

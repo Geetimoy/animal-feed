@@ -369,6 +369,7 @@ const typeCards = [
 
       <main className="pt-16 bg-gray-50">
         {/* BANNER */}
+        {bannerItem?.image_url && (
         <section className="relative z-0">
           <div className="relative">
             <img
@@ -412,7 +413,7 @@ const typeCards = [
             </div>
           </div>
         </section>
-
+        )}
         {/* <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 lg:grid-cols-4 gap-6"> */}
         <div className="max-w-7xl mx-auto px-8 py-10 ">
           {/* SEARCH */}
