@@ -242,26 +242,26 @@ export default function Products() {
 
 
   useEffect(() => {
-      Fancybox.bind("[data-fancybox='product-gallery']", {
-        Image: {
-          zoom: true,
-          click: "zoom",
-          wheel: "slide",
-        },
-        Carousel: {
-          infinite: true,
-        },
+    Fancybox.bind("[data-fancybox='product-gallery']", {
+      Image: {
+        zoom: true,
+        click: "zoom",
+        wheel: "slide",
+      },
+      Carousel: {
+        infinite: true,
+      },
       //   caption: (fancybox, slide) => `
       //     <div>
       //       <h3>${slide.title}</h3>
-          
+
       //     </div>
       //   `,
-      });
-  
-      return () => Fancybox.destroy();
-    }, []);
-  
+    });
+
+    return () => Fancybox.destroy();
+  }, []);
+
   // CATEGORY FILTER
   // const categoryProducts =
   //   activeCategory === "All"
@@ -274,9 +274,9 @@ export default function Products() {
 
   // TYPES
   //const typeCards = [ ...new Set(categoryProducts.map((p) => p.type))];
-const typeCards = [
-  ...new Set(filteredProducts.map((p) => p.type)),
-];
+  const typeCards = [
+    ...new Set(filteredProducts.map((p) => p.type)),
+  ];
   // FINAL FILTER
   //   const filteredProducts = categoryProducts.filter(
   //     (p) =>
@@ -297,24 +297,24 @@ const typeCards = [
   //   return matchSearch && matchType;
   // });
 
-    useEffect(() => {
+  useEffect(() => {
     fetchCategories();
   }, []);
 
   const fetchCategories = async () => {
-  try {
-    const response = await axios.get(
-      `${API_URL}/categories`
-    );
+    try {
+      const response = await axios.get(
+        `${API_URL}/categories`
+      );
 
-    const data = response.data.data;
+      const data = response.data.data;
 
-    setCategories(data);
+      setCategories(data);
 
-    // auto select first category
-    if (data.length > 0) {
-      handleCategoryClick(data[0]);
-    }
+      // auto select first category
+      if (data.length > 0) {
+        handleCategoryClick(data[0]);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -338,18 +338,18 @@ const typeCards = [
   };
 
   useEffect(() => {
-      
-      if (pageSlug) {
-        fetchBanner();
-      }
-    }, [pageSlug]);
+
+    if (pageSlug) {
+      fetchBanner();
+    }
+  }, [pageSlug]);
 
   const fetchBanner = async () => {
-  try {
+    try {
       const res = await axios.get(
         `${API_URL}/banners/${pageSlug}`
       );
-      
+
       setBanner(res.data);
     } catch (err) {
       console.log("Banner API error:", err);
@@ -370,49 +370,49 @@ const typeCards = [
       <main className="pt-16 bg-gray-50">
         {/* BANNER */}
         {bannerItem?.image_url && (
-        <section className="relative z-0">
-          <div className="relative">
-            <img
-              src={bannerItem?.image_url}
-              alt={bannerItem?.title}
-              className="w-full md:h-[500px] h-[500px] object-cover object-top"
-            />
-            {/* Overlay Layer (81%) */}
-            <div className="absolute inset-0 bg-black/[0.60]"></div>
-            {/* <div className="absolute inset-0  flex items-center justify-center">
+          <section className="relative z-0">
+            <div className="relative">
+              <img
+                src={bannerItem?.image_url}
+                alt={bannerItem?.title}
+                className="w-full md:h-[500px] h-[500px] object-cover object-top"
+              />
+              {/* Overlay Layer (81%) */}
+              <div className="absolute inset-0 bg-black/[0.60]"></div>
+              {/* <div className="absolute inset-0  flex items-center justify-center">
               <h1 className="text-white text-4xl md:text-6xl font-bold">
                 Quality Feed Solution
               </h1>
 
             </div> */}
-            <div className="absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-4xl px-4 md:px-6  w-full">
-              <h1 className="text-[#fff] text-4xl md:text-6xl font-bold text-center mb-4 md:mb-6">
-                {bannerItem?.title_white} <span className="text-[#ffa800]"> {bannerItem?.title_gold}</span>
-              </h1>
-              <p className="text-white text-[16px] md:text-xl text-center">
-               {bannerItem?.subtitle}
-              </p>
-              <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
-                <Link
-                  to={bannerItem?.cta_primary_url || "/distributor"}
-                  className="mt-4 md:mt-6 w-full  md:w-[215px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
-                >
-                  <span className="text-[20px] font-bold font-inter">
-                    <FontAwesomeIcon icon={faMagnifyingGlass} /> {bannerItem?.cta_primary_label || "Find Distributor"}
-                  </span>
-                </Link>
-                <Link
-                  to={bannerItem?.cta_secondary_url || "/contact-us"}
-                  className="mt-3 md:mt-6  w-full  md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
-                >
-                  <span className="text-[20px] font-bold font-inter">
-                    <FontAwesomeIcon icon={faLocationDot} /> {bannerItem?.cta_secondary_label || "Contact Us"}
-                  </span>
-                </Link>
+              <div className="absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-4xl px-4 md:px-6  w-full">
+                <h1 className="text-[#fff] text-4xl md:text-6xl font-bold text-center mb-4 md:mb-6">
+                  {bannerItem?.title_white} <span className="text-[#ffa800]"> {bannerItem?.title_gold}</span>
+                </h1>
+                <p className="text-white text-[16px] md:text-xl text-center">
+                  {bannerItem?.subtitle}
+                </p>
+                <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
+                  <Link
+                    to={bannerItem?.cta_primary_url || "/distributor"}
+                    className="mt-4 md:mt-6 w-full  md:w-[215px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
+                  >
+                    <span className="text-[20px] font-bold font-inter">
+                      <FontAwesomeIcon icon={faMagnifyingGlass} /> {bannerItem?.cta_primary_label || "Find Distributor"}
+                    </span>
+                  </Link>
+                  <Link
+                    to={bannerItem?.cta_secondary_url || "/contact-us"}
+                    className="mt-3 md:mt-6  w-full  md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
+                  >
+                    <span className="text-[20px] font-bold font-inter">
+                      <FontAwesomeIcon icon={faLocationDot} /> {bannerItem?.cta_secondary_label || "Contact Us"}
+                    </span>
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
         )}
         {/* <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 lg:grid-cols-4 gap-6"> */}
         <div className="max-w-7xl mx-auto px-8 py-10 ">
@@ -523,9 +523,9 @@ const typeCards = [
                   prevEl: ".cat-prev",
                 }}
                 spaceBetween={20}
-              
+
                 slidesPerView={1}
-              
+
                 breakpoints={{
                   640: { slidesPerView: 3 },
                   1024: { slidesPerView: 5 },
@@ -538,11 +538,10 @@ const typeCards = [
                       className="flex flex-col items-center cursor-pointer pt-6"
                     >
                       <div
-                        className={`w-[180px] h-[180px] rounded-full overflow-hidden transition-all duration-200 ${
-                          activeCategory === cat.id
-                            ? "border-[4px] border-green-600 shadow-md scale-105"
-                            : "border border-gray-300"
-                        }`}
+                        className={`w-[180px] h-[180px] rounded-full overflow-hidden transition-all duration-200 ${activeCategory === cat.id
+                          ? "border-[4px] border-green-600 shadow-md scale-105"
+                          : "border border-gray-300"
+                          }`}
                       >
                         <img
                           src={cat.image_url} alt={cat.name}
@@ -551,11 +550,10 @@ const typeCards = [
                       </div>
 
                       <p
-                        className={`text-md mt-2 ${
-                          activeCategory === cat.id
-                            ? "text-green-600 font-semibold"
-                            : "text-gray-700"
-                        }`}
+                        className={`text-md mt-2 ${activeCategory === cat.id
+                          ? "text-green-600 font-semibold"
+                          : "text-gray-700"
+                          }`}
                       >
                         {cat.name}
                       </p>

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "./ScrollToTop";
 
 import Home from "./pages/Home";
@@ -27,31 +27,9 @@ import Csr from "./pages/Csr";
 import Quality from "./pages/Quality";
 import Logout from "./pages/Logout";
 import DistributorDetails from "./pages/DistributorDetails";
-// import Category from "./pages/Category";
-import CalfProduct from "./pages/CalfProducts";
-import AdultProduct from "./pages/AdultProduct";
-
-import JubvnileProduct from "./pages/JuvenileProduct";
-import GoatProduct from "./pages/GoatProduct";
-import YakProduct from "./pages/YakProduct";
-import PoultryPreStarterct from "./pages/PoultryPreStarter";
-import PoultryStarter from "./pages/PoultryStarter";
-import PoultryGrower from "./pages/PoultryGrower";
-import PoultryFinisher from "./pages/PoultryFinisher";
-import LayerPreStarter from "./pages/LayerPreStarter";
-import LayerStarter from "./pages/LayerStarter";
-import LayerFinisher from "./pages/LayerFinisher";
-import PigFinisher from "./pages/PigFinisher";
-import FishStarter from "./pages/FishStarter";
-import FishFinisher from "./pages/FishFinisher";
-import FishMaintenance from "./pages/FishMaintenance";
-import FishGrower from "./pages/FishGrower";
-
 import ProductListing from "./pages/ProductListing";
 import ProductDetails from "./pages/ProductDetails";
 import ThankyouOrder from "./pages/ThankyouOrder";
-
-
 
 
 export default function Core() {
@@ -59,8 +37,10 @@ export default function Core() {
     <BrowserRouter basename="/uidevelopment/animal-feed/">
       <ScrollToTop />
       <Routes>
-        {/* <Route path="/" element={<Navigate to="/home" />} /> */}
+        {/* Home */}
         <Route path="/" element={<Home />} />
+
+        {/* Static Pages */}
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/news-events" element={<NewsEvents />} />
@@ -71,46 +51,45 @@ export default function Core() {
         <Route path="/news/:slug" element={<NewsDetails />} />
         <Route path="/feed-type" element={<FeedType />} />
         <Route path="/our-teams" element={<OurTeams />} />
+
+        {/* Auth Pages */}
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/logout" element={<Logout />} />
+
+        {/* User Pages */}
         <Route path="/profile" element={<Profile />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
         <Route path="/my-orders" element={<MyOrder />} />
         <Route path="/address-management" element={<AddressManagement />} />
+        <Route path="/order-details/:orderId" element={<OrderDetails />} />
+
+        {/* Product Pages */}
+        <Route path="/products" element={<Products />} />
+
+        {/* Dynamic Product Listing - Both URL Patterns */}
+        {/* Pattern 1: Without /products prefix (from sidebar categories) */}
+        <Route path="/:categorySlug/:subCategorySlug" element={<ProductListing />} />
+
+        {/* Pattern 2: With /products prefix (from "View Products" button) */}
+        <Route path="/products/:categorySlug/:subCategorySlug" element={<ProductListing />} />
+
+        {/* Product Details */}
+        <Route path="/product-details/:productSlug" element={<ProductDetails />} />
+
+        {/* Cart & Checkout */}
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/thankyou-order" element={<ThankyouOrder />} />
+
+        {/* Other Pages */}
         <Route path="/quality" element={<Quality />} />
         <Route path="/csr" element={<Csr />} />
-        <Route path="/order-details/:orderId" element={<OrderDetails />} />
-        <Route path="/logout" element={<Logout />} />
         <Route path="/distributors/:slug" element={<DistributorDetails />} />
-        {/* <Route path="/product-category" element={<Category />} /> */}
-        <Route path="/calf-products" element={<CalfProduct />} />
-        <Route path="/adult-products" element={<AdultProduct />} />
-        <Route path="/juvenilefish-products" element={<JubvnileProduct />} />
-        <Route path="/goat-products" element={<GoatProduct />} />
-        <Route path="/yak-products" element={<YakProduct />} />
-        <Route
-          path="/poultryprestarter-products"
-          element={<PoultryPreStarterct />}
-        />
-        <Route path="/poultrystarter-products" element={<PoultryStarter />} />
-        <Route path="/poultrygrower-products" element={<PoultryGrower />} />
-        <Route path="/poultryfinisher-products" element={<PoultryFinisher />} />
-        <Route path="/layerorestarter-products" element={<LayerPreStarter />} />
-        <Route path="/layerstarter-products" element={<LayerStarter />} />
-        <Route path="/layerfinisher-products" element={<LayerFinisher />} />
-        <Route path="/pigfinisher-products" element={<PigFinisher />} />
-        <Route path="/starterfish-products" element={<FishStarter />} />
-        <Route path="/growerfish-products" element={<FishGrower />} />
-        <Route path="/finisherfish-products" element={<FishFinisher />} />
-        <Route path="/maintenancefish-products" element={<FishMaintenance />} />
 
-        <Route path="/:categorySlug/:subCategorySlug" element={<ProductListing />} />
-        <Route path="/product-details/:productSlug" element={<ProductDetails />} />
-        <Route path="/thankyou-order" element={<ThankyouOrder />} />
+        {/* 404 - Catch all route (optional) */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
