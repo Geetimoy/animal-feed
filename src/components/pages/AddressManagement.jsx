@@ -377,7 +377,9 @@ export default function AddressManagement() {
                     {/* <h2 className="font-semibold text-gray-800 text-[18px] md:text-[20px]">
                       {item.fullName}
                     </h2> */}
-
+                      <p className="mt-2 text-gray-600">
+                        <span className="font-bold uppercase">{item.address_type}</span>
+                      </p>
                       <div className="flex items-center gap-3">
                         <input
                           type="checkbox"
@@ -388,9 +390,9 @@ export default function AddressManagement() {
                           {item.name}
                         </h2>
                       </div>
-                    <p className="mt-2 text-gray-600">
+                    {/* <p className="mt-2 text-gray-600">
                       <span className="font-bold uppercase">{item.address_type}</span>
-                    </p>
+                    </p> */}
                     <p className="mt-2 text-gray-600">
                       <span className="font-medium">{item.phone}</span>
                     </p>
@@ -441,6 +443,18 @@ export default function AddressManagement() {
                   </h3>
 
                   <div className="space-y-3">
+                    <select
+                      className={`${inputClass} md:col-span-2`}
+                      name="address_type"
+                      value={addressData.address_type}
+                      onChange={handleChange}
+                    >
+                      <option value="">Select Address Type</option>
+                      <option value="home">Home</option>
+                      <option value="office">Office</option>
+                      <option value="other">Other</option>
+                    </select>
+                    
                     <input
                       className={inputClass}
                       name="fullName"
@@ -448,6 +462,8 @@ export default function AddressManagement() {
                       onChange={handleChange}
                       placeholder="Full Name"
                     />
+
+                    
 
                     <input
                       className={inputClass}
@@ -489,17 +505,7 @@ export default function AddressManagement() {
                       onChange={handleChange}
                       placeholder="Address (Area and Street)"
                     />
-                    <select
-                      className={`${inputClass} md:col-span-2`}
-                      name="address_type"
-                      value={addressData.address_type}
-                      onChange={handleChange}
-                    >
-                      <option value="">Select Address Type</option>
-                      <option value="home">Home</option>
-                      <option value="office">Office</option>
-                      <option value="other">Other</option>
-                    </select>
+                    
                   </div>
 
                   <div className="mt-6 flex gap-4">
