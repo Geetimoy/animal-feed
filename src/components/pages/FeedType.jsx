@@ -97,27 +97,27 @@ function FeedType(){
               </h1>
 
               <p className="text-gray-200 text-[16px] md:text-xl text-center max-w-6xl mt-6">
-                At Green Gold Animal Feed, our nutrition programs are designed
+                {/* At Green Gold Animal Feed, our nutrition programs are designed
                 using scientific nutrient requirements, feed conversion ratios
                 (FCR), and performance calculations to deliver measurable
-                results for farmers.
+                results for farmers. */}
+                {bannerItem?.subtitle}
               </p>
               <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
                 <Link
-                  to="/distributor"
+                  to={bannerItem?.cta_primary_url || "/distributor"}
                   className="mt-4 md:mt-6 w-full  md:w-[215px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
                 >
                   <span className="text-[20px] font-bold font-inter">
-                    <FontAwesomeIcon icon={faMagnifyingGlass} /> Find
-                    Distributor
+                    <FontAwesomeIcon icon={faMagnifyingGlass} /> {bannerItem?.cta_primary_label || "Find Distributor"}
                   </span>
                 </Link>
                 <Link
-                  to="/contact-us"
+                  to={bannerItem?.cta_secondary_url || "/contact-us"}
                   className="mt-3 md:mt-6  w-full  md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
                 >
                   <span className="text-[20px] font-bold font-inter">
-                    <FontAwesomeIcon icon={faLocationDot} /> Contact Us
+                    <FontAwesomeIcon icon={faLocationDot} /> {bannerItem?.cta_secondary_label || "Contact Us"}
                   </span>
                 </Link>
               </div>

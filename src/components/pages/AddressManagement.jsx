@@ -88,7 +88,7 @@ export default function AddressManagement() {
     city: address.city || "",
     landmark: address.landmark || "",
     address: address.address_line || "",
-    pincode: "",
+    pincode: address.pincode || "",
     address_type: address.address_type || "", 
   });
 
@@ -126,6 +126,7 @@ export default function AddressManagement() {
       city: addressData.city,
       landmark: addressData.landmark,
       address_line: addressData.address,
+      pincode: addressData.pincode,
       notes: "",
       is_default: isDefault,
       address_type: addressData.address_type,
@@ -377,9 +378,9 @@ export default function AddressManagement() {
                     {/* <h2 className="font-semibold text-gray-800 text-[18px] md:text-[20px]">
                       {item.fullName}
                     </h2> */}
-                      <p className="mt-2 text-gray-600">
-                        <span className="font-bold uppercase">{item.address_type}</span>
-                      </p>
+                        <p className="mt-2 text-gray-600">
+                          <span className="font-bold uppercase">{item.address_type}</span>
+                        </p>
                       <div className="flex items-center gap-3">
                         <input
                           type="checkbox"
@@ -390,9 +391,7 @@ export default function AddressManagement() {
                           {item.name}
                         </h2>
                       </div>
-                    {/* <p className="mt-2 text-gray-600">
-                      <span className="font-bold uppercase">{item.address_type}</span>
-                    </p> */}
+                    
                     <p className="mt-2 text-gray-600">
                       <span className="font-medium">{item.phone}</span>
                     </p>
@@ -408,7 +407,7 @@ export default function AddressManagement() {
 
                     <p className="mt-2 text-gray-600">{item.address_line}</p>
                     <p className="mt-2 text-gray-600">
-                      {" "}
+                    
                       <span className="text-gray-600">{item.pincode}</span>
                     </p>
 
@@ -454,7 +453,6 @@ export default function AddressManagement() {
                       <option value="office">Office</option>
                       <option value="other">Other</option>
                     </select>
-                    
                     <input
                       className={inputClass}
                       name="fullName"
@@ -462,8 +460,6 @@ export default function AddressManagement() {
                       onChange={handleChange}
                       placeholder="Full Name"
                     />
-
-                    
 
                     <input
                       className={inputClass}

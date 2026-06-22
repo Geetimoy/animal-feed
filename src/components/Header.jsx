@@ -36,10 +36,12 @@ import { toast } from "react-toastify";
 
 import { useSettings } from "../context/SettingsContext";
 
-function Header({ showLogout = false }) {
+function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [knowUsMobileOpen, setKnowUsMobileOpen] = useState(false);
   const [mediaMobileOpen, setMediaMobileOpen] = useState(false);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   //const [settings, setSettings] = useState(null);
    const { settings } = useSettings();
@@ -118,7 +120,15 @@ const handleLogout = async () => {
       localStorage.removeItem("user");
       navigate("/logout");
     }
-  };
+};
+
+ useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   return (
     <>
@@ -340,7 +350,7 @@ const handleLogout = async () => {
               </Link>
             </div>
             <div className="hidden lg:flex items-center space-x-4">
-              {showLogout ? (
+              {isLoggedIn ? (
                 <div className="dropdown-trigger relative">
                   <button className="nav-link flex items-center space-x-1">
                     <FontAwesomeIcon icon={faCircleUser} className="text-lg mr-1" />

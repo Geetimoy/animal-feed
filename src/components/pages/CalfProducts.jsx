@@ -40,7 +40,7 @@ import special from "../../assets/images/poultry-feed2.jpg";
 
 
 import { Fancybox } from "@fancyapps/ui";
-import productbanner  from "../../assets/images/product-banner.jpeg";
+import productbanner from "../../assets/images/product-banner.jpeg";
 import { useNavigate } from "react-router-dom";
 import Quality from "./Quality";
 
@@ -93,107 +93,127 @@ const products = [
 
 export default function CalfProduct() {
   const [search, setSearch] = useState("");
-//   const [activeCategory, setActiveCategory] = useState("All");
-  const [maxPrice, setMaxPrice] = useState(3000); 
-//   const [activeTab, setActiveTab] = useState("All");
+  //   const [activeCategory, setActiveCategory] = useState("All");
+  // const [maxPrice, setMaxPrice] = useState(3000);
+  //   const [activeTab, setActiveTab] = useState("All");
   const [activeTab, setActiveTab] = useState("additional");
   // const [openCategory, setOpenCategory] = useState(null)
   // ;
+  // const [selectedDistributors, setSelectedDistributors] = useState([]);
+
+  const [minPrice, setMinPrice] = useState(100);
+  const [maxPrice, setMaxPrice] = useState(3000);
   const [selectedDistributors, setSelectedDistributors] = useState([]);
 
   const handleDistributorChange = (name) => {
     if (name === "All") {
-      setSelectedDistributors([]); 
+      setSelectedDistributors([]);
       return;
     }
 
     setSelectedDistributors(
       (prev) =>
         prev.includes(name)
-          ? prev.filter((d) => d !== name) 
-          : [...prev, name], 
+          ? prev.filter((d) => d !== name)
+          : [...prev, name],
     );
   };
 
-const distributors = ["All", ...new Set(products.map((p) => p.distributor))];
+  const distributors = ["All", ...new Set(products.map((p) => p.distributor))];
 
   const location = useLocation();
 
-const [openCategory, setOpenCategory] = useState(() => {
-  if (
-    location.pathname.includes("calf") ||
-    location.pathname.includes("cattle")
-  )
-    return "cattle";
+  const [openCategory, setOpenCategory] = useState(() => {
+    if (
+      location.pathname.includes("calf") ||
+      location.pathname.includes("cattle")
+    )
+      return "cattle";
 
-  if (
-    location.pathname.includes("poultryprestarter") ||
-    location.pathname.includes("starter") ||
-    location.pathname.includes("grower")
-  )
-    return "poultry";
+    if (
+      location.pathname.includes("poultryprestarter") ||
+      location.pathname.includes("starter") ||
+      location.pathname.includes("grower")
+    )
+      return "poultry";
 
-  if (location.pathname.includes("layer")) return "layer"; 
+    if (location.pathname.includes("layer")) return "layer";
 
-  if (location.pathname.includes("pig")) return "pig";
-  if (location.pathname.includes("fish")) return "fish";
+    if (location.pathname.includes("pig")) return "pig";
+    if (location.pathname.includes("fish")) return "fish";
 
-  return null;
-});
-
- 
-
-    useEffect(() => {
-      Fancybox.bind("[data-fancybox='product-gallery']", {
-        Image: {
-          zoom: true,
-          click: "zoom",
-          wheel: "slide",
-        },
-        Carousel: {
-          infinite: true,
-        },
-     
-      });
-  
-      return () => Fancybox.destroy();
-    }, []);
+    return null;
+  });
 
 
+
+  useEffect(() => {
+    Fancybox.bind("[data-fancybox='product-gallery']", {
+      Image: {
+        zoom: true,
+        click: "zoom",
+        wheel: "slide",
+      },
+      Carousel: {
+        infinite: true,
+      },
+
+    });
+
+    return () => Fancybox.destroy();
+  }, []);
 
 
 
 
+  const fetchProducts = async () => {
+    try {
+      const distributorParams = selectedDistributors
+        .map((id) => `distributor_ids[]=${id}`)
+        .join("&");
 
-const filteredProducts = products.filter((product) => {
-  const text = search.trim().toLowerCase();
+      const url = `https://neonatestaging.com/animal_feed/public/api/categories/cattle-feed/sub-categories/calf-feed/products?min_price=${minPrice}&max_price=${maxPrice}${distributorParams ? `&${distributorParams}` : ""
+        }`;
 
-  const name = product.name.toLowerCase();
-  const distributor = product.distributor.toLowerCase().trim();
+      const response = await fetch(url);
+      const result = await response.json();
 
-  const matchSearch = name.includes(text) || distributor.includes(text);
+      setProducts(result.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  const matchPrice = product.price <= maxPrice;
 
-  const matchDistributor =
-    selectedDistributors.length === 0 || // All selected
-    selectedDistributors.includes(product.distributor);
+  const filteredProducts = products.filter((product) => {
+    const text = search.trim().toLowerCase();
 
-  return matchSearch && matchPrice && matchDistributor;
-});
-    
+    const name = product.name.toLowerCase();
+    const distributor = product.distributor.toLowerCase().trim();
 
-   const navigate = useNavigate();
-   const handleAddtoCart = (product) => {
+    const matchSearch = name.includes(text) || distributor.includes(text);
+
+    const matchPrice = product.price <= maxPrice;
+
+    const matchDistributor =
+      selectedDistributors.length === 0 || // All selected
+      selectedDistributors.includes(product.distributor);
+
+    return matchSearch && matchPrice && matchDistributor;
+  });
+
+
+  const navigate = useNavigate();
+  const handleAddtoCart = (product) => {
     const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
-    const productExists = existingCart.find((item) => item.id === product.id )
+    const productExists = existingCart.find((item) => item.id === product.id)
     let updatedCart;
 
-    if(productExists) {
-      updatedCart = existingCart.map((item) => item.id === product.id ? {...item, quantity: item.quantity + 1} : item  )
+    if (productExists) {
+      updatedCart = existingCart.map((item) => item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item)
     } else {
       updatedCart = [
-        ...existingCart, {...product, quantity: 1},
+        ...existingCart, { ...product, quantity: 1 },
       ]
     }
 
@@ -201,7 +221,11 @@ const filteredProducts = products.filter((product) => {
 
     navigate("/cart")
 
-   }
+  }
+
+  useEffect(() => {
+    fetchProducts();
+  }, [minPrice, maxPrice, selectedDistributors]);
 
   return (
     <>
