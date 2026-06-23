@@ -23,7 +23,7 @@ import animal1 from '../../assets/images/cattle1.png';
 import animal2 from '../../assets/images/pig2.png';
 import animal3 from '../../assets/images/poultry2.png';
 import animal4 from '../../assets/images/fish2.png';
-import commitment from '../../assets/images/commitment-bg.jpg';
+import commitments from '../../assets/images/commitment-bg.jpg';
 import research from '../../assets/images/Layer25.png';
 import bgNationwideImage from '../../assets/images/Laye28.png';
 import newsslider1 from '../../assets/images/newfish.jpeg';
@@ -147,6 +147,7 @@ function Home(){
 
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadedImages, setLoadedImages] = useState({});
 
   useEffect(() => {
   fetchNews();
@@ -810,10 +811,31 @@ function Home(){
                 {animalNutrition?.cards?.map((card, index) => (
                 <motion.div key={index} className="place-self-start" variants={itemVariant}>
                   <div className="relative inline-block overflow-hidden">
+                   
                     <motion.img
-                      src={animal1} alt={card.title}
+                      src={card.image_url} alt={card.title}
                       className="block w-[280px] h-[280px] rounded-2xl  object-cover"
-                      alt="" whileHover={{ scale: 1.1 }} transition={{ duration: 0.3 }} />
+                       
+                       onLoad={() => {
+    console.log("Loaded:", card.image_url);
+    setLoadedImages(prev => ({
+      ...prev,
+      [index]: true,
+    }));
+  }}
+  onError={() => {
+    console.log("Failed:", card.image_url);
+    setLoadedImages(prev => ({
+      ...prev,
+      [index]: true, // hide loader even if image fails
+    }));
+  }} />
+
+     {!loadedImages?.[index] && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-gray-100 rounded-2xl z-10">
+                        <div className="w-10 h-10 border-4 border-gray-300 border-t-green-600 rounded-full animate-spin"></div>
+                      </div>
+                    )}
                     <motion.div
                       className="absolute inset-0 bg-black/60
                     opacity-0 hover:opacity-100
@@ -970,7 +992,7 @@ function Home(){
         <section className="relative w-full overflow-hidden  gsap-fade-in h-auto lg:h-[700px]">
           {/* <!-- Background image --> */}
           <img
-            src={commitment}
+            src={commitments}
             alt=""
             className="absolute inset-0 h-full w-full object-cover"
           />

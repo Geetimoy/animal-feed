@@ -801,7 +801,7 @@ function AboutUs02() {
                           referrerPolicy="no-referrer-when-downgrade"
                           title="Dolikoto Location"
                         /> */}
-                <iframe
+                {/* <iframe
                   src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d28412.610896202965!2d93.80259320641548!3d27.106650600337588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDolikoto%2C%20Banderdewa%2C%20Arunachal%20Pradesh!5e0!3m2!1sen!2sin!4v1770640178490!5m2!1sen!2sin"
                   className="w-full border-0"
                   allowfullscreen=""
@@ -809,6 +809,15 @@ function AboutUs02() {
                   referrerpolicy="no-referrer-when-downgrade"
                   title="Dolikoto Location"
                   height="350"
+                ></iframe> */}
+                <iframe
+                src={settings?.data?.manufacturing_unit?.map_embed_url}
+                width="100%"
+                height="350"
+                className="w-full border-0"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
                 ></iframe>
               </div>
               <div className="flex-1   order-1 md:order-2">

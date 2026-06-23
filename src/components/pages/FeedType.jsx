@@ -50,6 +50,14 @@ import axios from "axios";
 function FeedType(){
 
   const [showAll, setShowAll] = useState(false);
+
+  const iconMap = {
+  faDrumstickBite,
+  faShieldVirus,
+  faEgg,
+  faDumbbell,
+};
+
   const [banner, setBanner] = useState(null);
   const pageSlug = "feed-type";
 
@@ -73,6 +81,29 @@ function FeedType(){
   };
 
   const bannerItem = banner?.data?.[0];
+
+  const [feedSettings, setFeedSettings] = useState(null);
+
+  useEffect(() => {
+    fetchFeedSettings();
+  }, []);
+
+  const fetchFeedSettings = async () => {
+    try {
+      const res = await axios.get(
+        `${API_URL}/feed-type-settings`
+      );
+
+      setFeedSettings(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const cattle = feedSettings?.data?.cattle;
+  const poultry = feedSettings?.data?.poultry;
+  const pig = feedSettings?.data?.pig;
+  const fish = feedSettings?.data?.fish;
 
   return (
     <>
@@ -129,36 +160,42 @@ function FeedType(){
         <section className="py-10 md:py-12 bg-gray-100">
           <div className="text-center  mb-6">
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center ">
-              Cattle <span className="text-[#ffa800]">Feed</span>
+               {cattle?.heading} <span className="text-[#ffa800]"> {" "}
+    {cattle?.heading_highlight}</span>
             </h2>
           </div>
           <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 items-center gap-6 md:gap-12">
             <img
-              src={animal1}
+              src={cattle?.image_url}
               className="block w-full h-[280px] rounded-2xl md:h-[350px] object-cover"
               alt=""
             />
 
             <div className="space-y-6 md:space-y-8">
-              <div
+               {cattle?.feed_cards?.map((feed, index) => (
+              <div key={index}
                 className="relative w-full h-auto bg-white rounded-2xl p-4 md:p-8 space-y-5
                       shadow-sm z-30"
               >
                 <h3 className="text-[22px] md:text-[24px] font-bold text-gray-800">
-                  Cattle Concentrate Feed
+                  {/* Cattle Concentrate Feed */}
+                  {feed.title}
                 </h3>
 
                 <ul className="space-y-3 text-sm text-gray-700">
-                  <li className="relative pl-7 text-gray-700 leading-relaxed">
+                   {feed.bullets?.map((bullet, i) => (
+                  <li key={i} className="relative pl-7 text-gray-700 leading-relaxed">
                     <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                       <FontAwesomeIcon
                         icon={faArrowRight}
                         className="text-white text-[10px]"
                       />
                     </span>
-                    Protein: 16–18%
+                    {/* Protein: 16–18% */}
+                    {bullet}
                   </li>
-                  <li className="relative pl-7 text-gray-700 leading-relaxed">
+                  ))}
+                  {/* <li className="relative pl-7 text-gray-700 leading-relaxed">
                     <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                       <FontAwesomeIcon
                         icon={faArrowRight}
@@ -166,8 +203,8 @@ function FeedType(){
                       />
                     </span>
                     Enhances digestion & feed efficiency
-                  </li>
-                  <li className="relative pl-7 text-gray-700 leading-relaxed">
+                  </li> */}
+                  {/* <li className="relative pl-7 text-gray-700 leading-relaxed">
                     <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                       <FontAwesomeIcon
                         icon={faArrowRight}
@@ -175,7 +212,7 @@ function FeedType(){
                       />
                     </span>
                     Suitable for dairy cattle & buffaloes
-                  </li>
+                  </li> */}
                   {/* <li className="flex items-center gap-3">
                     <span className="flex items-center justify-center w-[10px] h-[10px] bg-green-600 rounded-full">
                       <i className="fa-solid fa-arrow-right text-white text-[10px]"></i>
@@ -190,7 +227,8 @@ function FeedType(){
                   </li> */}
                 </ul>
               </div>
-              <div
+              ))}
+              {/* <div
                 className="relative w-full h-auto bg-white rounded-2xl p-4 md:p-8 space-y-5
                        shadow-sm z-30"
               >
@@ -237,7 +275,7 @@ function FeedType(){
                     Suitable for calves (up to 6 months)
                   </li>
                 </ul>
-              </div>
+              </div> */}
             </div>
           </div>
           {/* Feeding Schedule */}
@@ -247,65 +285,54 @@ function FeedType(){
               Cattle Feeding Schedule
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8   p-4 md:p-8 ">
-              <div>
+              {cattle?.schedule_tables?.map((table, tableIndex) => (
+              <div  key={tableIndex}>
                 {/* Calves */}
                 <div className=" bg-white rounded-2xl  border border-gray-200 shadow-sm ">
                   <h4 className="text-[16px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4 ml-0 md:ml-6 ">
                     {/* <FontAwesomeIcon icon={faCow} /> */}
-                    Calves (0–6 Months)
+                    {/* Calves (0–6 Months) */}
+                    {table.title}
                   </h4>
 
                   <div className="overflow-x-auto  ">
                     <table className="w-full  border-collapse">
                       <thead className="bg-green-100 ">
                         <tr>
-                          <th className="px-4 py-3 text-center text-sm md:text-base font-semibold ">
-                            Age
+                           {table.columns?.map((column, colIndex) => (
+                          <th key={colIndex} className="px-4 py-3 text-center text-sm md:text-base font-semibold ">
+                            {/* Age */}
+                             {column}
                           </th>
-                          <th className="px-4 py-3 text-center text-sm md:text-base font-semibold ">
-                            Feed Type
-                          </th>
-                          <th className="px-4 py-3 text-center text-sm md:text-base font-semibold ">
-                            Quantity / Day
-                          </th>
+                          ))}
+                          
                         </tr>
                       </thead>
 
                       <tbody className="text-gray-700">
-                        <tr className="hover:bg-green-50 transition">
-                          <td className="px-4 py-3 text-center  whitespace-nowrap">
-                            0–3 months
+                        {table.rows?.map((row, rowIndex) => (
+                        <tr key={rowIndex} className="hover:bg-green-50 transition">
+                          {row.map((cell, cellIndex) => (
+                          <td  key={cellIndex} className="px-4 py-3 text-center  whitespace-nowrap">
+                            {/* 0–3 months */}
+                            {cell}
                           </td>
-                          <td className="px-4 py-3 text-center  whitespace-nowrap">
-                            Calf Starter
-                          </td>
-                          <td className="px-4 py-3 text-center  whitespace-nowrap">
-                            0.5 – 1.0 kg
-                          </td>
+                          ))}
+                         
                         </tr>
-
-                        <tr className="hover:bg-green-50 transition">
-                          <td className="px-4 py-3 text-center  whitespace-nowrap">
-                            3–6 months
-                          </td>
-                          <td className="px-4 py-3 text-center  whitespace-nowrap">
-                            Calf Starter + Green Fodder
-                          </td>
-                          <td className="px-4 py-3 text-center  whitespace-nowrap">
-                            1.0–2.0 kg
-                          </td>
-                        </tr>
+                        ))}
+                        
                       </tbody>
                     </table>
                   </div>
                 </div>
               </div>
-
+              ))}
               {/* Growing Cattle */}
-              <div>
+              {/* <div>
                 <div className=" bg-white rounded-2xl  border border-gray-200 shadow-sm ">
                   <h4 className="text-[16px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4  ml-0 md:ml-6">
-                    {/* <FontAwesomeIcon icon={faCow} /> */}
+                     <FontAwesomeIcon icon={faCow} /> 
                     Growing Cattle (6–24 Months)
                   </h4>
                   <div className="overflow-x-auto   hidden md:block ">
@@ -323,13 +350,13 @@ function FeedType(){
                       </thead>
 
                       <tbody className="text-gray-700">
-                        {/* Row 1 */}
+                        
                         <tr className="hover:bg-green-50 transition">
                           <td className="px-4 py-3 text-center">Cattle Feed</td>
                           <td className="px-4 py-3 text-center">2 – 3 kg</td>
                         </tr>
 
-                        {/* Row 2 - Green Fodder */}
+                        
                         <tr
                           className={`hover:bg-green-50 transition  ${!showAll ? "relative" : ""}`}
                         >
@@ -356,7 +383,7 @@ function FeedType(){
                           )}
                         </tr>
 
-                        {/* Row 3 - Dry Fodder */}
+                       
                         {showAll && (
                           <tr className="hover:bg-green-50 transition relative">
                             <td className="px-4 py-3 text-center">
@@ -382,7 +409,7 @@ function FeedType(){
                         )}
                       </tbody>
 
-                      {/* <tbody className="text-gray-700">
+                       <tbody className="text-gray-700">
                         <tr className="hover:bg-green-50 transition">
                           <td className="px-4 py-3 text-center  whitespace-nowrap">
                             Cattle Feed
@@ -413,7 +440,7 @@ function FeedType(){
                             </td>
                           </tr>
                         )}
-                      </tbody> */}
+                      </tbody> 
                     </table>
                   </div>
 
@@ -432,13 +459,13 @@ function FeedType(){
                       </thead>
 
                       <tbody className="text-gray-700">
-                        {/* Row 1 */}
+                        
                         <tr className="hover:bg-green-50 transition">
                           <td className="px-4 py-3 text-center">Cattle Feed</td>
                           <td className="px-4 py-3 text-center">2 – 3 kg</td>
                         </tr>
 
-                        {/* Row 2 - Green Fodder */}
+                       
                         <tr className="hover:bg-green-50 transition">
                           <td className="px-4 py-3 text-center">
                             Green Fodder
@@ -446,7 +473,7 @@ function FeedType(){
                           <td className="px-4 py-3 text-center">10–15 kg</td>
                         </tr>
 
-                        {/* Row */}
+                        
 
                         <tr className="hover:bg-green-50 transition">
                           <td className="px-4 py-3 text-center">Dry Fodder</td>
@@ -454,7 +481,7 @@ function FeedType(){
                         </tr>
                       </tbody>
 
-                      {/* <tbody className="text-gray-700">
+                       <tbody className="text-gray-700">
                         <tr className="hover:bg-green-50 transition">
                           <td className="px-4 py-3 text-center  whitespace-nowrap">
                             Cattle Feed
@@ -485,12 +512,12 @@ function FeedType(){
                             </td>
                           </tr>
                         )}
-                      </tbody> */}
+                      </tbody>
                     </table>
                   </div>
                 </div>
 
-                {/* <div className="flex justify-center py-3 ">
+                <div className="flex justify-center py-3 ">
                   <button
                     onClick={() => setShowAll(!showAll)}
                     class=" news-next w-10 h-10 rounded-full border border-gray-300
@@ -509,8 +536,8 @@ function FeedType(){
                       </>
                     )}
                   </button>
-                </div> */}
-              </div>
+                </div> 
+              </div> */}
             </div>
           </div>
         </section>
@@ -522,36 +549,42 @@ function FeedType(){
                 Feed
               </h2> */}
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center">
-              Poultry <span className="text-[#ffa800]">Feed</span>
+              {poultry?.heading} <span className="text-[#ffa800]">{poultry?.heading_highlight}</span>
             </h2>
             <p className="text-gray-600 mt-3 max-w-2xl mx-auto text-[16px] md:text-[18px]">
-              Proper feeding at the right age and quantity ensures better
-              growth, lower feed cost, and higher productivity.
+              {/* Proper feeding at the right age and quantity ensures better
+              growth, lower feed cost, and higher productivity. */}
+              {poultry?.description}
             </p>
           </div>
 
           <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 items-stretch gap-6">
             {/* card-1 */}
-            <div className="relative w-full h-full bg-white rounded-2xl  p-4 md:p-8 shadow-sm z-30 flex flex-col">
+            {poultry?.feed_cards?.map((card, index) => (
+            <div key={index} className="relative w-full h-full bg-white rounded-2xl  p-4 md:p-8 shadow-sm z-30 flex flex-col">
               <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center leading-[40px] mb-2 md:mb-4">
-                <FontAwesomeIcon icon={faDrumstickBite} />
+                <FontAwesomeIcon icon={iconMap[card.icon_key] || faDrumstickBite} />
               </span>
 
               <h2 className="text-lg font-bold text-gray-900 mb-2 text-center min-h-[48px] flex items-center ">
-                Broiler Starter Feed
+                {/* Broiler Starter Feed */}
+                {card.title}
               </h2>
 
               <ul className="space-y-3 text-sm text-gray-700">
-                <li className="relative pl-7 text-gray-700 leading-relaxed">
+                 {card.bullets?.map((bullet, bulletIndex) => (
+                <li key={bulletIndex} className="relative pl-7 text-gray-700 leading-relaxed">
                   <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                     <FontAwesomeIcon
                       icon={faArrowRight}
                       className="text-white text-[10px]"
                     />
                   </span>
-                  Protein: 22–23%
-                </li>{" "}
-                <li className="relative pl-7 text-gray-700 leading-relaxed">
+                  {/* Protein: 22–23% */}
+                  {bullet}
+                </li>
+                ))}
+                {/* <li className="relative pl-7 text-gray-700 leading-relaxed">
                   <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                     <FontAwesomeIcon
                       icon={faArrowRight}
@@ -559,11 +592,11 @@ function FeedType(){
                     />
                   </span>
                   Rapid early growth and better FCR
-                </li>
+                </li> */}
               </ul>
             </div>
-
-            <div className="relative w-full h-full bg-white rounded-2xl  p-4 md:p-8 shadow-sm z-30 flex flex-col">
+            ))}
+            {/* <div className="relative w-full h-full bg-white rounded-2xl  p-4 md:p-8 shadow-sm z-30 flex flex-col">
               <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center  leading-[40px]  mb-2 md:mb-4">
                 <FontAwesomeIcon icon={faShieldVirus} />
               </span>
@@ -592,10 +625,10 @@ function FeedType(){
                   Balanced growth and muscle development
                 </li>
               </ul>
-            </div>
+            </div> */}
 
-            {/* card-3 */}
-            <div className="relative w-full h-full bg-white rounded-2xl  p-4 md:p-8 shadow-sm z-30 flex flex-col">
+            
+            {/* <div className="relative w-full h-full bg-white rounded-2xl  p-4 md:p-8 shadow-sm z-30 flex flex-col">
               <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center  leading-[40px]  mb-2 md:mb-4">
                 <FontAwesomeIcon icon={faEgg} />
               </span>
@@ -624,10 +657,10 @@ function FeedType(){
                   Efficient weight gain and market readiness
                 </li>
               </ul>
-            </div>
+            </div> */}
 
-            {/* card-4 */}
-            <div className="relative w-full h-full bg-white rounded-2xl  p-4 md:p-8 shadow-sm z-30 flex flex-col">
+            
+            {/* <div className="relative w-full h-full bg-white rounded-2xl  p-4 md:p-8 shadow-sm z-30 flex flex-col">
               <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center  leading-[40px]  mb-2 md:mb-4">
                 <FontAwesomeIcon icon={faDumbbell} />
               </span>
@@ -665,7 +698,7 @@ function FeedType(){
                   Supports high egg production and strong shells
                 </li>
               </ul>
-            </div>
+            </div> */}
           </div>
 
           {/* Feeding Schedule */}
@@ -676,76 +709,92 @@ function FeedType(){
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white rounded-2xl p-4 md:p-8 shadow-sm">
               {/* Broiler Feeding Program */}
-
-              <div className=" bg-white rounded-2xl  border border-gray-200 shadow-sm">
+              {poultry?.schedule_tables?.map((table, tableIndex) => (
+              <div  key={tableIndex} className=" bg-white rounded-2xl  border border-gray-200 shadow-sm">
                 <h4 className="text-[16px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4 md:ml-6">
-                  Broiler Feeding Program
+                  {/* Broiler Feeding Program */}
+                  {table.title}
                 </h4>
 
                 <div className="overflow-x-auto  ">
                   <table className="w-full border-collapse">
                     <thead className="bg-green-100 text-gray-800">
+                       
                       <tr>
-                        <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold ">
-                          Age (Days)
+                        {table.columns?.map((column, index) => (
+                        <th key={index} className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold ">
+                          {/* Age (Days) */}
+                          {column}
                         </th>
-                        <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold ">
+                        ))}
+                        {/* <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold ">
                           Feed Type
                         </th>
                         <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold ">
                           Feed Intake / Bird
-                        </th>
+                        </th> */}
                       </tr>
+                      
                     </thead>
 
                     <tbody className="text-gray-700">
-                      <tr className="hover:bg-green-50 transition">
-                        <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                          0–10 Days
+                      {table.rows?.map((row, rowIndex) => (
+                      <tr key={rowIndex} className="hover:bg-green-50 transition">
+                        {row.map((cell, cellIndex) => (
+                        <td key={cellIndex} className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                          {/* 0–10 Days */}
+                          {cell}
                         </td>
-                        <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                        ))}
+                        {/* <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
                           Starter
                         </td>
                         <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
                           250 g
-                        </td>
+                        </td> */}
                       </tr>
 
-                      <tr className="hover:bg-green-50 transition">
-                        <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                          11–24 Days
-                        </td>
-                        <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                          Grower
-                        </td>
-                        <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                          850 g
-                        </td>
-                      </tr>
+                      // <tr className="hover:bg-green-50 transition">
+                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                      //     11–24 Days
+                      //   </td>
+                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                      //     Grower
+                      //   </td>
+                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                      //     850 g
+                      //   </td>
+                      // </tr>
 
-                      <tr className="hover:bg-green-50 transition">
-                        <td className="px-2 md:px-4 py-3 text-center  font-medium whitespace-nowrap">
-                          25–42 Days
-                        </td>
-                        <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                          Finisher
-                        </td>
-                        <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                          1,800 g
-                        </td>
-                      </tr>
+                      // <tr className="hover:bg-green-50 transition">
+                      //   <td className="px-2 md:px-4 py-3 text-center  font-medium whitespace-nowrap">
+                      //     25–42 Days
+                      //   </td>
+                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                      //     Finisher
+                      //   </td>
+                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                      //     1,800 g
+                      //   </td>
+                      // </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>
 
-                <h4 className="text-[16px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4 md:ml-6">
+                {/* <h4 className="text-[16px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4 md:ml-6">
                   Total Feed per Broiler: ~2.9 kg <br />
                   Target FCR: 1.6–1.8
-                </h4>
+                </h4> */}
+                {tableIndex === 0 && poultry?.schedule_note && (
+                  <div className="p-4 font-semibold text-gray-800">
+                    {poultry.schedule_note}
+                  </div>
+                )}
               </div>
-
+              ))}
               {/* Layer Feeding Program */}
-              <div className=" bg-white rounded-2xl  border border-gray-200 shadow-sm">
+              {/* <div className=" bg-white rounded-2xl  border border-gray-200 shadow-sm">
                 <h4 className="text-[16px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4 md:ml-6">
                   Layer Feeding Program
                 </h4>
@@ -805,7 +854,7 @@ function FeedType(){
                     </tbody>
                   </table>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </section>
@@ -815,38 +864,43 @@ function FeedType(){
         <section className="py-10 md:py-12 bg-gray-100">
           <div className="text-center mb-6  px-4">
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center ">
-              Pig <span className="text-[#ffa800]">Feed</span>
+               {pig?.heading} <span className="text-[#ffa800]">{pig?.heading_highlight}</span>
             </h2>
 
             <p className="text-gray-600 mt-3 max-w-2xl mx-auto text-[16px] md:text-[18px]">
-              Proper feeding at the right age and quantity ensures better
-              growth, lower feed cost, and higher productivity.
+              {/* Proper feeding at the right age and quantity ensures better
+              growth, lower feed cost, and higher productivity. */}
+              {pig?.description}
             </p>
           </div>
 
           <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 items-stretch gap-4 md:gap-6">
             {/* card-1 */}
-
-            <div className="relative w-full h-full bg-white rounded-2xl  p-4 md:p-8 shadow-sm z-30 flex flex-col">
+            {pig?.feed_cards?.map((card, index) => (
+            <div key={index} className="relative w-full h-full bg-white rounded-2xl  p-4 md:p-8 shadow-sm z-30 flex flex-col">
               <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center  leading-[40px]  mb-2 md:mb-4">
-                <FontAwesomeIcon icon={faPiggyBank} />
+                <FontAwesomeIcon icon={iconMap[card.icon_key] || faPiggyBank} />
               </span>
 
               <h2 className="text-lg font-bold text-gray-900 mb-2 text-center min-h-[48px] flex items-center ">
-                Pig Starter Feed
+                {/* Pig Starter Feed */}
+                {card.title}
               </h2>
 
               <ul className="space-y-3 text-sm text-gray-700">
-                <li className="relative pl-7 text-gray-700 leading-relaxed">
+                {card.bullets?.map((bullet, bulletIndex) => (
+                <li key={bulletIndex} className="relative pl-7 text-gray-700 leading-relaxed">
                   <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                     <FontAwesomeIcon
                       icon={faArrowRight}
                       className="text-white text-[10px]"
                     />
                   </span>
-                  Protein: 20-22%
-                </li>{" "}
-                <li className="relative pl-7 text-gray-700 leading-relaxed">
+                  {/* Protein: 20-22% */}
+                   {bullet}
+                </li>
+                ))}
+                {/* <li className="relative pl-7 text-gray-700 leading-relaxed">
                   <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                     <FontAwesomeIcon
                       icon={faArrowRight}
@@ -854,13 +908,13 @@ function FeedType(){
                     />
                   </span>
                   Improves early growth and gut health
-                </li>{" "}
+                </li>{" "} */}
               </ul>
             </div>
-
+            ))}
             {/* card-2 */}
 
-            <div className="relative w-full h-full bg-white rounded-2xl  p-4 md:p-8 shadow-sm z-30 flex flex-col">
+            {/* <div className="relative w-full h-full bg-white rounded-2xl  p-4 md:p-8 shadow-sm z-30 flex flex-col">
               <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center  leading-[40px]  mb-2 md:mb-4">
                 <FontAwesomeIcon icon={faDrumstickBite} />
               </span>
@@ -889,11 +943,11 @@ function FeedType(){
                   Faster weight gain with better feed conversion
                 </li>{" "}
               </ul>
-            </div>
+            </div> */}
 
             {/* card-3 */}
 
-            <div className="relative w-full h-full bg-white rounded-2xl  p-4 md:p-8 shadow-sm z-30 flex flex-col">
+            {/* <div className="relative w-full h-full bg-white rounded-2xl  p-4 md:p-8 shadow-sm z-30 flex flex-col">
               <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center  leading-[40px]  mb-2 md:mb-4">
                 <FontAwesomeIcon icon={faShieldVirus} />
               </span>
@@ -922,7 +976,7 @@ function FeedType(){
                   Cost-effective finishing and improved carcass quality
                 </li>{" "}
               </ul>
-            </div>
+            </div> */}
           </div>
 
           {/* Feeding Schedule */}
@@ -933,9 +987,11 @@ function FeedType(){
             </h3>
 
             <div className="bg-white rounded-2xl p-4 md:p-8 shadow-sm ">
-              <div className=" bg-white rounded-2xl  border border-gray-200 shadow-sm">
+              {pig?.schedule_tables?.map((table, index) => (
+              <div  key={index} className=" bg-white rounded-2xl  border border-gray-200 shadow-sm">
                 <h4 className="text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4 md:ml-6">
-                  Pig Growth Stage
+                  {/* Pig Growth Stage */}
+                  {table.title}
                 </h4>
 
                 {/* table wrapper */}
@@ -943,71 +999,81 @@ function FeedType(){
                   <table className="w-full border-collapse">
                     <thead className="bg-green-100 text-gray-800">
                       <tr>
-                        <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold">
-                          Age (Weeks)
+                        {table.columns?.map((column, colIndex) => (
+                        <th key={colIndex} className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold">
+                          {/* Age (Weeks) */}
+                          {column}
                         </th>
-                        <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold ">
-                          Feed Type
-                        </th>
-                        <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold ">
-                          Body Weight
-                        </th>
-                        <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold ">
-                          Feed / Day
-                        </th>
+                        
+                        // <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold ">
+                        //   Feed Type
+                        // </th>
+                        // <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold ">
+                        //   Body Weight
+                        // </th>
+                        // <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold ">
+                        //   Feed / Day
+                        // </th>
+                        ))}
                       </tr>
                     </thead>
 
                     <tbody className="text-gray-700">
-                      <tr className="hover:bg-green-50 transition">
+                      {table.rows?.map((row, rowIndex) => (
+                      <tr  key={rowIndex} className="hover:bg-green-50 transition">
+                        {row.map((cell, cellIndex) => (
                         <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                          6–8 Weeks
+                          {/* 6–8 Weeks */}
+                          {cell}
                         </td>
-                        <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                          Starter
-                        </td>
-                        <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                          8–25 kg
-                        </td>
-                        <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                          1.0–1.5 kg
-                        </td>
+                        // <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                        //   Starter
+                        // </td>
+                        // <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                        //   8–25 kg
+                        // </td>
+                        // <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                        //   1.0–1.5 kg
+                        // </td>
+                        ))}
                       </tr>
 
-                      <tr className="hover:bg-green-50 transition">
-                        <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                          8–16 Weeks
-                        </td>
-                        <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                          Grower
-                        </td>
-                        <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                          25–60 kg
-                        </td>
-                        <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                          2.0–2.5 kg
-                        </td>
-                      </tr>
+                      // <tr className="hover:bg-green-50 transition">
+                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                      //     8–16 Weeks
+                      //   </td>
+                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                      //     Grower
+                      //   </td>
+                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                      //     25–60 kg
+                      //   </td>
+                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                      //     2.0–2.5 kg
+                      //   </td>
+                      // </tr>
 
-                      <tr className="hover:bg-green-50 transition">
-                        <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                          16–24 Weeks
-                        </td>
-                        <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                          Finisher
-                        </td>
-                        <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                          60–100 kg
-                        </td>
-                        <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                          2.5–3.5 kg
-                        </td>
-                      </tr>
+                      // <tr className="hover:bg-green-50 transition">
+                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                      //     16–24 Weeks
+                      //   </td>
+                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                      //     Finisher
+                      //   </td>
+                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                      //     60–100 kg
+                      //   </td>
+                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                      //     2.5–3.5 kg
+                      //   </td>
+                      // </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>
                 {/* end table */}
               </div>
+              ))}
             </div>
           </div>
         </section>
@@ -1020,31 +1086,36 @@ function FeedType(){
               </h2> */}
 
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center ">
-              Fish <span className="text-[#ffa800]">Feed</span>
+              {fish?.heading} <span className="text-[#ffa800]">{fish?.heading_highlight}</span>
             </h2>
           </div>
           <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 items-center gap-8 md:gap-12">
             <div className="  order-2 md:order-1">
               <div className="space-y-8">
-                <div
+                {fish?.feed_cards?.map((card, index) => (
+                <div  key={index}
                   className="relative w-full h-auto bg-white rounded-2xl  p-4 md:p-8 space-y-5
                      shadow-sm z-30"
                 >
                   <h3 className="text-[22px] md:text-[24px] font-bold text-gray-800">
-                    Floating Fish Feed
+                    {/* Floating Fish Feed */}
+                    {card.title}
                   </h3>
 
                   <ul className="space-y-3 text-sm text-gray-700">
-                    <li className="relative pl-7 text-gray-700 leading-relaxed">
+                    {card.bullets?.map((bullet, bulletIndex) => (
+                    <li key={bulletIndex} className="relative pl-7 text-gray-700 leading-relaxed">
                       <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                         <FontAwesomeIcon
                           icon={faArrowRight}
                           className="text-white text-[10px]"
                         />
                       </span>
-                      Protein: 28–32%
+                      {/* Protein: 28–32% */}
+                       {bullet}
                     </li>
-                    <li className="relative pl-7 text-gray-700 leading-relaxed">
+                    ))}
+                    {/* <li className="relative pl-7 text-gray-700 leading-relaxed">
                       <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                         <FontAwesomeIcon
                           icon={faArrowRight}
@@ -1061,10 +1132,11 @@ function FeedType(){
                         />
                       </span>
                       Reduces water pollution
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
-                <div
+                ))}
+                {/* <div
                   className="relative w-full h-auto bg-white rounded-2xl  p-4 md:p-8 space-y-5
                      shadow-sm z-30"
                 >
@@ -1092,7 +1164,7 @@ function FeedType(){
                       Sinking Fish Feed
                     </li>
                   </ul>
-                </div>
+                </div> */}
               </div>
 
               {/* <div className="space-y-3">

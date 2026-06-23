@@ -22,9 +22,32 @@ import {
   faLeaf
 } from "@fortawesome/free-solid-svg-icons";
 
-
+import { useSettings } from "../../context/SettingsContext";
 
 const AnimalFeedStory = ({ data }) => {
+
+  const { settings } = useSettings();
+
+  const stats = settings?.data?.stats;
+
+   const dynamicStats = [
+    {
+      number: stats?.experience || "0",
+      text: "Years\nExperience",
+    },
+    {
+      number: stats?.products || "0",
+      text: "Our\nProducts",
+    },
+    {
+      number: stats?.satisfaction || "0%",
+      text: "Farmer\nSatisfaction",
+    },
+    {
+      number: stats?.quality_checks || "0",
+      text: "Quality\nChecks",
+    },
+  ];
 
   // Animation variants
   const fadeInUp = {
@@ -230,12 +253,13 @@ const AnimalFeedStory = ({ data }) => {
           >
             <div className="w-full py-10">
               <div className="max-w-6xl mx-auto flex flex-wrap justify-center gap-6">
-                {[
+                {/* {[
                   { number: "25+", text: "Years\nExperience" },
                   { number: "500+", text: "Our\nProducts" },
                   { number: "98%", text: "Farmer\nSatisfaction" },
                   { number: "50+", text: "Quality\nChecks" },
-                ].map((item, index) => (
+                ].map((item, index) => ( */}
+                {dynamicStats?.map((item, index) => (
                   <motion.div
                     key={index}
                     className={`w-36 h-36 2xl:w-40 2xl:h-40 rounded-full flex flex-col items-center justify-center text-center shadow-md ring-2 ring-white ${index % 2 === 0 ? "bg-emerald-300" : "bg-yellow-400"
