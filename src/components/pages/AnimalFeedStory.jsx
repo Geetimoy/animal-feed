@@ -120,13 +120,13 @@ const AnimalFeedStory = ({ data }) => {
   const {
     heading,
     heading_highlight,
-    description_1,
-    description_2,
+    intro_description,
+    hero_video = {},
+    rooted_in_tradition = {},
     feature_cards = [],
     sustainability = {},
     livestock = {},
   } = data || {};
-
   const defaultLabels = [
     "Years Legacy",
     "Quality Focus",
@@ -148,16 +148,18 @@ const AnimalFeedStory = ({ data }) => {
           variants={fadeInUp}
         >
           <h2 className="text-3xl md:text-5xl font-semibold text-gray-800">
-            Our Animal <span className="text-[#ffa800]">Feed Story</span>
+            {heading}{" "}
+            <span className="text-[#ffa800]">
+              {heading_highlight}
+            </span>
           </h2>
           <motion.p
             className="mt-4 text-gray-600 leading-normal md:leading-relaxed text-[16px] md:text-[18px]"
             variants={fadeInUp}
             transition={{ delay: 0.1 }}
           >
-            Green Gold Animal Feed was founded on a simple yet powerful belief
-            — the well-being of animals is the cornerstone of a successful and
-            sustainable farming community.
+            {intro_description}
+
           </motion.p>
         </motion.div>
 

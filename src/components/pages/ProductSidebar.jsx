@@ -11,6 +11,8 @@ import {
 export default function ProductSidebar({
   search,
   setSearch,
+  minPrice,
+  setMinPrice,
   maxPrice,
   setMaxPrice,
   distributors,
@@ -23,8 +25,19 @@ export default function ProductSidebar({
   layer,
   pig,
   fish,
+  categorySlug,
 }) {
   const location = useLocation();
+
+  // Dynamic URL generator function
+  const getCategoryUrl = (subCategorySlug) => {
+    // Check if current URL has /products/ prefix
+    if (location.pathname.includes('/products/')) {
+      return `/products/${categorySlug || 'cattle-feed'}/${subCategorySlug}`;
+    }
+    // Default: without /products/ prefix
+    return `/${categorySlug || 'cattle-feed'}/${subCategorySlug}`;
+  };
 
   return (
     <aside className="bg-white p-4 rounded-xl shadow-md">
@@ -60,16 +73,38 @@ export default function ProductSidebar({
         </div>
       </div>
 
-      {/* Filter Product */}
+      {/* Price Filter */}
       <div>
         <h3 className="text-xl font-semibold mb-4 text-gray-900">
           Price Filter
         </h3>
         <div className="bg-white shadow-md rounded-lg py-4 px-4 mb-4">
+          <div className="flex gap-3 mb-3">
+            <div className="flex-1">
+              <label className="text-xs text-gray-500">Min (₹)</label>
+              <input
+                type="number"
+                value={minPrice}
+                onChange={(e) => setMinPrice(Number(e.target.value))}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-sm"
+                min="0"
+              />
+            </div>
+            <div className="flex-1">
+              <label className="text-xs text-gray-500">Max (₹)</label>
+              <input
+                type="number"
+                value={maxPrice}
+                onChange={(e) => setMaxPrice(Number(e.target.value))}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-sm"
+                min="0"
+              />
+            </div>
+          </div>
           <input
             type="range"
             min="0"
-            max="3000"
+            max="5000"
             value={maxPrice}
             onChange={(e) => setMaxPrice(Number(e.target.value))}
             className="w-full accent-[#009a62] cursor-pointer"
@@ -77,7 +112,7 @@ export default function ProductSidebar({
           <p className="mt-2 text-gray-700 text-[16px] md:text-[18px]">
             Price:{" "}
             <span className="font-semibold">
-              <FontAwesomeIcon icon={faIndianRupeeSign} />0 -{" "}
+              <FontAwesomeIcon icon={faIndianRupeeSign} />{minPrice} -{" "}
               <FontAwesomeIcon icon={faIndianRupeeSign} />
               {maxPrice}
             </span>
@@ -127,8 +162,8 @@ export default function ProductSidebar({
             {openCategory === "cattle" && (
               <div className="p-3 flex flex-col gap-2">
                 <Link
-                  to="/calf-products"
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("calf")
+                  to={getCategoryUrl("calf-feed")}
+                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("calf-feed")
                     ? "bg-green-50 text-green-700"
                     : "bg-gray-50 hover:bg-gray-100 text-gray-600"
                     }`}
@@ -136,8 +171,8 @@ export default function ProductSidebar({
                   Calf Feed
                 </Link>
                 <Link
-                  to="/adult-products"
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("adult")
+                  to={getCategoryUrl("cattle-love")}
+                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("cattle-love")
                     ? "bg-green-50 text-green-700"
                     : "bg-gray-50 hover:bg-gray-100 text-gray-600"
                     }`}
@@ -145,22 +180,13 @@ export default function ProductSidebar({
                   Adult Feed
                 </Link>
                 <Link
-                  to="/goat-products"
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("goat")
+                  to={getCategoryUrl("protien-rich-feed")}
+                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("protien-rich-feed")
                     ? "bg-green-50 text-green-700"
                     : "bg-gray-50 hover:bg-gray-100 text-gray-600"
                     }`}
                 >
-                  Goat Feed
-                </Link>
-                <Link
-                  to="/yak-products"
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("yak")
-                    ? "bg-green-50 text-green-700"
-                    : "bg-gray-50 hover:bg-gray-100 text-gray-600"
-                    }`}
-                >
-                  Yak Feed
+                  Protein Rich Feed
                 </Link>
               </div>
             )}
@@ -204,40 +230,13 @@ export default function ProductSidebar({
             {openCategory === "poultry" && (
               <div className="p-3 flex flex-col gap-2">
                 <Link
-                  to="/poultryprestarter-products"
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("poultryprestarter")
+                  to={getCategoryUrl("poultry-pre-starter")}
+                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("poultry-pre-starter")
                     ? "bg-green-50 text-green-700"
                     : "bg-gray-50 hover:bg-gray-100 text-gray-600"
                     }`}
                 >
                   Pre Starter
-                </Link>
-                <Link
-                  to="/poultrystarter-products"
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("poultrystarter")
-                    ? "bg-green-50 text-green-700"
-                    : "bg-gray-50 hover:bg-gray-100 text-gray-600"
-                    }`}
-                >
-                  Starter
-                </Link>
-                <Link
-                  to="/poultrygrower-products"
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("poultrygrower")
-                    ? "bg-green-50 text-green-700"
-                    : "bg-gray-50 hover:bg-gray-100 text-gray-600"
-                    }`}
-                >
-                  Grower
-                </Link>
-                <Link
-                  to="/poultryfinisher-products"
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("poultryfinisher")
-                    ? "bg-green-50 text-green-700"
-                    : "bg-gray-50 hover:bg-gray-100 text-gray-600"
-                    }`}
-                >
-                  Finisher
                 </Link>
               </div>
             )}
@@ -280,33 +279,7 @@ export default function ProductSidebar({
             </button>
             {openCategory === "layer" && (
               <div className="p-3 flex flex-col gap-2">
-                <Link
-                  to="/layerorestarter-products"
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("layerorestarter")
-                    ? "bg-green-50 text-green-700"
-                    : "bg-gray-50 hover:bg-gray-100 text-gray-600"
-                    }`}
-                >
-                  Pre Starter
-                </Link>
-                <Link
-                  to="/layerstarter-products"
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("layerstarter")
-                    ? "bg-green-50 text-green-700"
-                    : "bg-gray-50 hover:bg-gray-100 text-gray-600"
-                    }`}
-                >
-                  Starter
-                </Link>
-                <Link
-                  to="/layerfinisher-products"
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("layerfinisher")
-                    ? "bg-green-50 text-green-700"
-                    : "bg-gray-50 hover:bg-gray-100 text-gray-600"
-                    }`}
-                >
-                  Finisher
-                </Link>
+                <p className="text-gray-400 text-sm px-3 py-2">No sub-categories available</p>
               </div>
             )}
           </div>
@@ -346,15 +319,7 @@ export default function ProductSidebar({
             </button>
             {openCategory === "pig" && (
               <div className="p-3 flex flex-col gap-2">
-                <Link
-                  to="/pigfinisher-products"
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("pigfinisher")
-                    ? "bg-green-50 text-green-700"
-                    : "bg-gray-50 hover:bg-gray-100 text-gray-600"
-                    }`}
-                >
-                  Finisher
-                </Link>
+                <p className="text-gray-400 text-sm px-3 py-2">No sub-categories available</p>
               </div>
             )}
           </div>
@@ -395,46 +360,13 @@ export default function ProductSidebar({
             {openCategory === "fish" && (
               <div className="p-3 flex flex-col gap-2">
                 <Link
-                  to="/juvenilefish-products"
-                  className="flex items-center gap-3 px-3 py-2 rounded-md bg-gray-50 hover:bg-gray-100 text-gray-600"
-                >
-                  Juvenile
-                </Link>
-                <Link
-                  to="/starterfish-products"
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("starterfish")
+                  to={getCategoryUrl("fish-starter")}
+                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("fish-starter")
                     ? "bg-green-50 text-green-700"
                     : "bg-gray-50 hover:bg-gray-100 text-gray-600"
                     }`}
                 >
-                  Starter
-                </Link>
-                <Link
-                  to="/growerfish-products"
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("growerfish")
-                    ? "bg-green-50 text-green-700"
-                    : "bg-gray-50 hover:bg-gray-100 text-gray-600"
-                    }`}
-                >
-                  Grower
-                </Link>
-                <Link
-                  to="/finisherfish-products"
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("finisherfish")
-                    ? "bg-green-50 text-green-700"
-                    : "bg-gray-50 hover:bg-gray-100 text-gray-600"
-                    }`}
-                >
-                  Finisher
-                </Link>
-                <Link
-                  to="/maintenancefish-products"
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("maintenancefish")
-                    ? "bg-green-50 text-green-700"
-                    : "bg-gray-50 hover:bg-gray-100 text-gray-600"
-                    }`}
-                >
-                  Maintenance
+                  Fish Starter
                 </Link>
               </div>
             )}
@@ -442,30 +374,34 @@ export default function ProductSidebar({
         </div>
       </div>
 
-      {/* Distributor Filter - FIXED */}
+      {/* Distributor Filter */}
       <div>
         <h3 className="text-xl font-semibold mb-4 text-gray-900 mt-4">
           Search by Distributor
         </h3>
         <div className="bg-white shadow-md rounded-lg p-4 space-y-3 cursor-pointer">
-          {distributors.map((dist) => (
-            <label
-              key={dist.id ?? "all"}  // Use dist.id as key, not index
-              className="flex items-center gap-3 cursor-pointer"
-            >
-              <input
-                type="checkbox"
-                checked={
-                  dist.id === null  // Check by id, not string
-                    ? selectedDistributors.length === 0
-                    : selectedDistributors.includes(dist.id)
-                }
-                onChange={() => handleDistributorChange(dist.id)}  // Pass id, not object
-                className="accent-[#009a62] w-4 h-4"
-              />
-              <span className="text-gray-700">{dist.name}</span>  {/* Show name, not object */}
-            </label>
-          ))}
+          {distributors && distributors.length > 0 ? (
+            distributors.map((dist) => (
+              <label
+                key={dist.id ?? "all"}
+                className="flex items-center gap-3 cursor-pointer hover:text-green-600 transition"
+              >
+                <input
+                  type="checkbox"
+                  checked={
+                    dist.id === null
+                      ? selectedDistributors.length === 0
+                      : selectedDistributors.includes(dist.id)
+                  }
+                  onChange={() => handleDistributorChange(dist.id)}
+                  className="accent-[#009a62] w-4 h-4"
+                />
+                <span className="text-gray-700">{dist.name}</span>
+              </label>
+            ))
+          ) : (
+            <p className="text-gray-400 text-sm">No distributors available</p>
+          )}
         </div>
       </div>
     </aside>
