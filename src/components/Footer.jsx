@@ -117,9 +117,9 @@ function Footer(){
                 <span className="mt-2 w-[9px] h-[9px] rounded-full bg-gray-800"></span>
                 <span>
                   <Link
-                    to="/products"
+                    to="/research-development"
                     className="text-[#7f979f] text-lg font-medium transition hover:translate-x-1 duration-300 ease-in-out inline-block" >
-                    Products
+                    Research & Development
                   </Link>
                 </span>
               </li>

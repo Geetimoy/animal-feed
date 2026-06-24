@@ -288,10 +288,10 @@ const handleLogout = async () => {
               </Link>
 
               <Link
-                to="/csr"
+                to="/products"
                 className="nav-link text-[15px] font-normal flex items-center gap-2"
               >
-                <i className="ri-heart-line"></i> CSR
+                <i className="ri-heart-line"></i> Products
               </Link>
 
               <div className="relative group flex items-center">

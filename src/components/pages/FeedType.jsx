@@ -1239,9 +1239,9 @@ function FeedType(){
             </div>
             <div className=" order-1 md:order-2">
               <img
-                src={animal4}
+                src={fish?.image_url}
                 className=" w-full  h-[280px]  md:h-[350px] object-cover  rounded-2xl "
-                alt=""
+                alt={fish?.heading}
               />
             </div>
           </div>
