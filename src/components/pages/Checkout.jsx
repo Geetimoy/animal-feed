@@ -125,7 +125,18 @@ const fetchCart = async () => {
     const response = await axios.post(
       `${API_URL}/customers/checkout`,
       {
-        notes: checkoutData.notes,
+        // name: current.name,
+        // phone: current.phone,
+        // address: current.address_line,
+        // city: current.city,
+        // pin: current.pin_code,
+        // notes: checkoutData.notes,
+
+        "customer_name": current.name,
+        "customer_email": current.email,
+        "customer_phone": current.phone,
+        "shipping_address":  `${current.address_line}, ${current.pincode}`,
+        "notes": checkoutData.notes,
       },
       {
         headers: {
@@ -256,7 +267,9 @@ const fetchCart = async () => {
                       <p className="mt-1 text-gray-600">
                         {current.city} 
                       </p>
-                      
+                      <p className="mt-1 text-gray-600">
+                        {current.pincode} 
+                      </p>
                       
                     </div>
 

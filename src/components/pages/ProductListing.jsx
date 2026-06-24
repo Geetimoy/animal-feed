@@ -290,13 +290,13 @@ export default function ProductListing() {
                         </span>
                       </p>
                       <div className="flex justify-between gap-4">
-                        <button
+                        {/* <button
                           onClick={() => handleAddtoCart(product)}
                           type="button"
                           className="mt-4 w-full bg-yellow-500 text-white py-2 rounded-xl font-medium cursor-pointer hover:bg-yellow-400 text-[14px] transition duration-200"
                         >
                           Add to Cart
-                        </button>
+                        </button> */}
                         <button
                           onClick={() => navigate(`/product-details/${product.slug}`)}
                           type="button"
