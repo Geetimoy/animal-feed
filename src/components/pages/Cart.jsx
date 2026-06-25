@@ -14,12 +14,15 @@ import {
   faPlus,
   faMinus,
   faLocationDot,
-faMagnifyingGlass, faArrowRight} from "@fortawesome/free-solid-svg-icons";
+  faMagnifyingGlass, faArrowRight
+} from "@fortawesome/free-solid-svg-icons";
 import { Helmet } from "react-helmet";
 import { API_URL } from "../../config/api";
 
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useBanner } from "../../hooks/useBanner";
+import HeroBanner from "../HeroBanner";
 
 
 export default function Cart() {
@@ -32,124 +35,125 @@ export default function Cart() {
   const [cartItems, setCartItems] = useState([]);
   const [summary, setSummary] = useState(null);
 
-  const [banner, setBanner] = useState(null);
-  const pageSlug = "cart";
 
-  
+  const pageSlug = "cart";
+  const { bannerItem, isLoading, error } = useBanner(pageSlug);
+
+
 
   const fetchCart = async () => {
     const token = localStorage.getItem("token");
-  try {
-    const response = await axios.get(
-      `${API_URL}/customers/cart`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
-        },
-      }
-    );
+    try {
+      const response = await axios.get(
+        `${API_URL}/customers/cart`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      );
 
-        setCartItems(response.data.data.items);
-        setSummary(response.data.data.summary);
-      } catch (error) {
-        console.error("Cart API Error:", error);
-      }
-    };
-
-  useEffect(() => {
-  fetchCart();
-}, []);
-
-useEffect(() => {
-  const handleFocus = () => {
-    fetchCart();
+      setCartItems(response.data.data.items);
+      setSummary(response.data.data.summary);
+    } catch (error) {
+      console.error("Cart API Error:", error);
+    }
   };
 
-  window.addEventListener("focus", handleFocus);
+  useEffect(() => {
+    fetchCart();
+  }, []);
 
-  return () =>
-    window.removeEventListener("focus", handleFocus);
-}, []);
+  useEffect(() => {
+    const handleFocus = () => {
+      fetchCart();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () =>
+      window.removeEventListener("focus", handleFocus);
+  }, []);
 
   //  Update Quantity
   const updateQuantity = async (cartItemId, type) => {
-  const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
-  try {
-    const item = cartItems.find(
-      (cartItem) => cartItem.id === cartItemId
-    );
+    try {
+      const item = cartItems.find(
+        (cartItem) => cartItem.id === cartItemId
+      );
 
-    if (!item) return;
+      if (!item) return;
 
-    let newQty =
-      type === "inc"
-        ? item.quantity + 1
-        : item.quantity - 1;
+      let newQty =
+        type === "inc"
+          ? item.quantity + 1
+          : item.quantity - 1;
 
-    if (newQty < 1) return;
+      if (newQty < 1) return;
 
-    await axios.put(
-      `${API_URL}/customers/cart/items/${cartItemId}`,
-      {
-        quantity: newQty,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
+      await axios.put(
+        `${API_URL}/customers/cart/items/${cartItemId}`,
+        {
+          quantity: newQty,
         },
-      }
-    );
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      );
 
-    // Reload cart from server
-    fetchCart();
-  } catch (error) {
-    console.log(error);
-  }
+      // Reload cart from server
+      fetchCart();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   //  Remove Item
   const removeItem = async (cartItemId) => {
-  const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
-  try {
-    await axios.delete(
-      `${API_URL}/customers/cart/items/${cartItemId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
-        },
-      }
-    );
+    try {
+      await axios.delete(
+        `${API_URL}/customers/cart/items/${cartItemId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      );
 
-    fetchCart();
-  } catch (error) {
-    console.log(error);
-  }
+      fetchCart();
+    } catch (error) {
+      console.log(error);
+    }
   };
-  
-   //  Clear Cart
+
+  //  Clear Cart
   const clearCart = async () => {
-  const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
-  try {
-    await axios.delete(
-      `${API_URL}/customers/cart`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
-        },
-      }
-    );
+    try {
+      await axios.delete(
+        `${API_URL}/customers/cart`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      );
 
-    fetchCart();
-  } catch (error) {
-    console.log(error);
-  }
+      fetchCart();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // Subtotal
@@ -162,30 +166,11 @@ useEffect(() => {
     0
   );
 
-  const handleCheckeOut= () =>{
+  const handleCheckeOut = () => {
     navigate("/checkout")
   }
 
-  useEffect(() => {
-      
-      if (pageSlug) {
-        fetchBanner();
-      }
-    }, [pageSlug]);
 
-  const fetchBanner = async () => {
-  try {
-      const res = await axios.get(
-        `${API_URL}/banners/${pageSlug}`
-      );
-      
-      setBanner(res.data);
-    } catch (err) {
-      console.log("Banner API error:", err);
-    }
-  };
-
-  const bannerItem = banner?.data?.[0];
 
 
   return (
@@ -196,51 +181,20 @@ useEffect(() => {
       <Header showLogout={true} />
 
       <main className="pt-16 overflow-x-hidden">
-        {bannerItem?.image_url && (
-        <section className="relative ">
-          <div className="relative">
-            <img
-              src={bannerItem?.image_url}
-              alt={bannerItem?.title}
-              className="w-full  h-[500px] object-cover object-top"
-            />
-            {/* Overlay Layer (81%) */}
-            <div className="absolute inset-0 bg-black/[0.60] pointer-events-none z-0"></div>
-            {/* <div className="absolute inset-0  flex items-center justify-center">
-              <h1 className="text-white text-4xl md:text-6xl font-bold">
-                Quality Feed Solution
-              </h1>
+        {/* Hero Section */}
+        <HeroBanner
+          imageUrl={bannerItem?.image_url}
+          titleWhite={bannerItem?.title_white}
+          titleGold={bannerItem?.title_gold}
+          subtitle={bannerItem?.subtitle}
+          ctaPrimaryLabel={bannerItem?.cta_primary_label}
+          ctaPrimaryUrl={bannerItem?.cta_primary_url}
+          ctaSecondaryLabel={bannerItem?.cta_secondary_label}
+          ctaSecondaryUrl={bannerItem?.cta_secondary_url}
+          height="h-[500px]"
+          isLoading={isLoading}
+        />
 
-            </div> */}
-            <div className="absolute  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-4xl px-4 md:px-6  w-full z-10">
-              <h1 className="text-[#fff] text-4xl md:text-6xl font-bold text-center mb-4 md:mb-6">
-                {bannerItem?.title_white} <span className="text-[#ffa800]"> {bannerItem?.title_gold}</span>
-              </h1>
-              <p className="text-white text-[16px] md:text-xl text-center">
-                {bannerItem?.subtitle}
-              </p>
-              <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
-                <Link
-                  to={bannerItem?.cta_primary_url || "/distributor"}
-                  className="mt-4 md:mt-6 w-full  md:w-[215px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
-                >
-                  <span className="text-[20px] font-bold font-inter">
-                    <FontAwesomeIcon icon={faMagnifyingGlass} /> {bannerItem?.cta_primary_label || "Find Distributor"}
-                  </span>
-                </Link>
-                <Link
-                  to={bannerItem?.cta_secondary_url || "/contact-us"}
-                  className="mt-3 md:mt-6  w-full  md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
-                >
-                  <span className="text-[20px] font-bold font-inter">
-                    <FontAwesomeIcon icon={faLocationDot} /> {bannerItem?.cta_secondary_label || "Contact Us"}
-                  </span>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-        )}
         <div className="max-w-7xl mx-auto px-4 py-12 relative z-20">
           <h2 className="text-3xl md:text-5xl font-semibold text-center mb-12">
             Your <span className="text-[#ffa800]">Cart</span>
@@ -398,7 +352,7 @@ useEffect(() => {
                 </p>
 
                 <button
-                   onClick={() => navigate("/checkout")}
+                  onClick={() => navigate("/checkout")}
                   className=" w-full bg-yellow-500 text-white
                                py-3 rounded-xl font-medium cursor-pointer hover:bg-yellow-400  text-[16px]
                              hover:opacity-90 transition"

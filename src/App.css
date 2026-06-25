@@ -51,27 +51,29 @@ html {
 }
 
 .dropdown {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.dropdown-trigger:hover .dropdown {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-ul li.ck-list-marker-color{
+.dropdown-trigger:hover .dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+ul li.ck-list-marker-color {
   position: relative;
   padding-left: 20px;
   margin-left: 20px;
 }
-ul li.ck-list-marker-color::before{
-  content:'';
+
+ul li.ck-list-marker-color::before {
+  content: '';
   position: absolute;
   top: 8px;
-  left:0;
+  left: 0;
   width: 8px;
   height: 8px;
   background-color: #00a24d;

@@ -46,41 +46,24 @@ import { Helmet } from "react-helmet";
 
 import { API_URL } from "../../config/api";
 import axios from "axios";
+import HeroBanner from "../HeroBanner";
+import { useBanner } from "../../hooks/useBanner";
 
-function FeedType(){
+function FeedType() {
 
   const [showAll, setShowAll] = useState(false);
 
   const iconMap = {
-  faDrumstickBite,
-  faShieldVirus,
-  faEgg,
-  faDumbbell,
-};
-
-  const [banner, setBanner] = useState(null);
-  const pageSlug = "feed-type";
-
-  useEffect(() => {
-      
-    if (pageSlug) {
-      fetchBanner();
-    }
-  }, [pageSlug]);
-
-  const fetchBanner = async () => {
-  try {
-      const res = await axios.get(
-        `${API_URL}/banners/${pageSlug}`
-      );
-      
-      setBanner(res.data);
-    } catch (err) {
-      console.log("Banner API error:", err);
-    }
+    faDrumstickBite,
+    faShieldVirus,
+    faEgg,
+    faDumbbell,
   };
 
-  const bannerItem = banner?.data?.[0];
+  const pageSlug = "feed-type";
+  const { bannerItem, isLoading, error } = useBanner(pageSlug);
+
+
 
   const [feedSettings, setFeedSettings] = useState(null);
 
@@ -113,55 +96,25 @@ function FeedType(){
       <Header></Header>
       <main className="pt-16 overflow-x-hidden">
         {/* Hero Section */}
-        {bannerItem?.image_url && (
-        <section className="relative z-0">
-          <div className="relative">
-            <img
-              src={bannerItem?.image_url}
-              alt={bannerItem?.title}
-              className="w-full md:h-[500px] h-[500px] object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-gray-900/60 to-transparent"></div>
-            <div className="absolute inset-0  flex items-center justify-center flex-col px-4">
-              <h1 className="text-white text-4xl md:text-6xl font-bold max-w-6xl px-4">
-               {bannerItem?.title_white} <span className="text-[#ffa800]">{bannerItem?.title_gold}</span>
-              </h1>
+        <HeroBanner
+          imageUrl={bannerItem?.image_url}
+          titleWhite={bannerItem?.title_white}
+          titleGold={bannerItem?.title_gold}
+          subtitle={bannerItem?.subtitle}
+          ctaPrimaryLabel={bannerItem?.cta_primary_label}
+          ctaPrimaryUrl={bannerItem?.cta_primary_url}
+          ctaSecondaryLabel={bannerItem?.cta_secondary_label}
+          ctaSecondaryUrl={bannerItem?.cta_secondary_url}
+          height="h-[500px]"
+          isLoading={isLoading}
+        />
 
-              <p className="text-gray-200 text-[16px] md:text-xl text-center max-w-6xl mt-6">
-                {/* At Green Gold Animal Feed, our nutrition programs are designed
-                using scientific nutrient requirements, feed conversion ratios
-                (FCR), and performance calculations to deliver measurable
-                results for farmers. */}
-                {bannerItem?.subtitle}
-              </p>
-              <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
-                <Link
-                  to={bannerItem?.cta_primary_url || "/distributor"}
-                  className="mt-4 md:mt-6 w-full  md:w-[215px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
-                >
-                  <span className="text-[20px] font-bold font-inter">
-                    <FontAwesomeIcon icon={faMagnifyingGlass} /> {bannerItem?.cta_primary_label || "Find Distributor"}
-                  </span>
-                </Link>
-                <Link
-                  to={bannerItem?.cta_secondary_url || "/contact-us"}
-                  className="mt-3 md:mt-6  w-full  md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
-                >
-                  <span className="text-[20px] font-bold font-inter">
-                    <FontAwesomeIcon icon={faLocationDot} /> {bannerItem?.cta_secondary_label || "Contact Us"}
-                  </span>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-        )}
         {/* ================= CATTLE ================= */}
         <section className="py-10 md:py-12 bg-gray-100">
           <div className="text-center  mb-6">
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center ">
-               {cattle?.heading} <span className="text-[#ffa800]"> {" "}
-    {cattle?.heading_highlight}</span>
+              {cattle?.heading} <span className="text-[#ffa800]"> {" "}
+                {cattle?.heading_highlight}</span>
             </h2>
           </div>
           <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 items-center gap-6 md:gap-12">
@@ -172,30 +125,30 @@ function FeedType(){
             />
 
             <div className="space-y-6 md:space-y-8">
-               {cattle?.feed_cards?.map((feed, index) => (
-              <div key={index}
-                className="relative w-full h-auto bg-white rounded-2xl p-4 md:p-8 space-y-5
+              {cattle?.feed_cards?.map((feed, index) => (
+                <div key={index}
+                  className="relative w-full h-auto bg-white rounded-2xl p-4 md:p-8 space-y-5
                       shadow-sm z-30"
-              >
-                <h3 className="text-[22px] md:text-[24px] font-bold text-gray-800">
-                  {/* Cattle Concentrate Feed */}
-                  {feed.title}
-                </h3>
+                >
+                  <h3 className="text-[22px] md:text-[24px] font-bold text-gray-800">
+                    {/* Cattle Concentrate Feed */}
+                    {feed.title}
+                  </h3>
 
-                <ul className="space-y-3 text-sm text-gray-700">
-                   {feed.bullets?.map((bullet, i) => (
-                  <li key={i} className="relative pl-7 text-gray-700 leading-relaxed">
-                    <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
-                      <FontAwesomeIcon
-                        icon={faArrowRight}
-                        className="text-white text-[10px]"
-                      />
-                    </span>
-                    {/* Protein: 16–18% */}
-                    {bullet}
-                  </li>
-                  ))}
-                  {/* <li className="relative pl-7 text-gray-700 leading-relaxed">
+                  <ul className="space-y-3 text-sm text-gray-700">
+                    {feed.bullets?.map((bullet, i) => (
+                      <li key={i} className="relative pl-7 text-gray-700 leading-relaxed">
+                        <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
+                          <FontAwesomeIcon
+                            icon={faArrowRight}
+                            className="text-white text-[10px]"
+                          />
+                        </span>
+                        {/* Protein: 16–18% */}
+                        {bullet}
+                      </li>
+                    ))}
+                    {/* <li className="relative pl-7 text-gray-700 leading-relaxed">
                     <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                       <FontAwesomeIcon
                         icon={faArrowRight}
@@ -204,7 +157,7 @@ function FeedType(){
                     </span>
                     Enhances digestion & feed efficiency
                   </li> */}
-                  {/* <li className="relative pl-7 text-gray-700 leading-relaxed">
+                    {/* <li className="relative pl-7 text-gray-700 leading-relaxed">
                     <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                       <FontAwesomeIcon
                         icon={faArrowRight}
@@ -213,20 +166,20 @@ function FeedType(){
                     </span>
                     Suitable for dairy cattle & buffaloes
                   </li> */}
-                  {/* <li className="flex items-center gap-3">
+                    {/* <li className="flex items-center gap-3">
                     <span className="flex items-center justify-center w-[10px] h-[10px] bg-green-600 rounded-full">
                       <i className="fa-solid fa-arrow-right text-white text-[10px]"></i>
                     </span>
                     Enhances digestion & feed efficiency
                   </li> */}
-                  {/* <li className="flex items-center gap-3">
+                    {/* <li className="flex items-center gap-3">
                     <span className="flex items-center justify-center w-[10px] h-[10px] bg-green-600 rounded-full">
                       <i className="fa-solid fa-arrow-right text-white text-[10px]"></i>
                     </span>
                     Suitable for dairy cattle & buffaloes
                   </li> */}
-                </ul>
-              </div>
+                  </ul>
+                </div>
               ))}
               {/* <div
                 className="relative w-full h-auto bg-white rounded-2xl p-4 md:p-8 space-y-5
@@ -286,47 +239,47 @@ function FeedType(){
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8   p-4 md:p-8 ">
               {cattle?.schedule_tables?.map((table, tableIndex) => (
-              <div  key={tableIndex}>
-                {/* Calves */}
-                <div className=" bg-white rounded-2xl  border border-gray-200 shadow-sm ">
-                  <h4 className="text-[16px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4 ml-0 md:ml-6 ">
-                    {/* <FontAwesomeIcon icon={faCow} /> */}
-                    {/* Calves (0–6 Months) */}
-                    {table.title}
-                  </h4>
+                <div key={tableIndex}>
+                  {/* Calves */}
+                  <div className=" bg-white rounded-2xl  border border-gray-200 shadow-sm ">
+                    <h4 className="text-[16px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4 ml-0 md:ml-6 ">
+                      {/* <FontAwesomeIcon icon={faCow} /> */}
+                      {/* Calves (0–6 Months) */}
+                      {table.title}
+                    </h4>
 
-                  <div className="overflow-x-auto  ">
-                    <table className="w-full  border-collapse">
-                      <thead className="bg-green-100 ">
-                        <tr>
-                           {table.columns?.map((column, colIndex) => (
-                          <th key={colIndex} className="px-4 py-3 text-center text-sm md:text-base font-semibold ">
-                            {/* Age */}
-                             {column}
-                          </th>
-                          ))}
-                          
-                        </tr>
-                      </thead>
+                    <div className="overflow-x-auto  ">
+                      <table className="w-full  border-collapse">
+                        <thead className="bg-green-100 ">
+                          <tr>
+                            {table.columns?.map((column, colIndex) => (
+                              <th key={colIndex} className="px-4 py-3 text-center text-sm md:text-base font-semibold ">
+                                {/* Age */}
+                                {column}
+                              </th>
+                            ))}
 
-                      <tbody className="text-gray-700">
-                        {table.rows?.map((row, rowIndex) => (
-                        <tr key={rowIndex} className="hover:bg-green-50 transition">
-                          {row.map((cell, cellIndex) => (
-                          <td  key={cellIndex} className="px-4 py-3 text-center  whitespace-nowrap">
-                            {/* 0–3 months */}
-                            {cell}
-                          </td>
+                          </tr>
+                        </thead>
+
+                        <tbody className="text-gray-700">
+                          {table.rows?.map((row, rowIndex) => (
+                            <tr key={rowIndex} className="hover:bg-green-50 transition">
+                              {row.map((cell, cellIndex) => (
+                                <td key={cellIndex} className="px-4 py-3 text-center  whitespace-nowrap">
+                                  {/* 0–3 months */}
+                                  {cell}
+                                </td>
+                              ))}
+
+                            </tr>
                           ))}
-                         
-                        </tr>
-                        ))}
-                        
-                      </tbody>
-                    </table>
+
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
-              </div>
               ))}
               {/* Growing Cattle */}
               {/* <div>
@@ -561,30 +514,30 @@ function FeedType(){
           <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 items-stretch gap-6">
             {/* card-1 */}
             {poultry?.feed_cards?.map((card, index) => (
-            <div key={index} className="relative w-full h-full bg-white rounded-2xl  p-4 md:p-8 shadow-sm z-30 flex flex-col">
-              <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center leading-[40px] mb-2 md:mb-4">
-                <FontAwesomeIcon icon={iconMap[card.icon_key] || faDrumstickBite} />
-              </span>
+              <div key={index} className="relative w-full h-full bg-white rounded-2xl  p-4 md:p-8 shadow-sm z-30 flex flex-col">
+                <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center leading-[40px] mb-2 md:mb-4">
+                  <FontAwesomeIcon icon={iconMap[card.icon_key] || faDrumstickBite} />
+                </span>
 
-              <h2 className="text-lg font-bold text-gray-900 mb-2 text-center min-h-[48px] flex items-center ">
-                {/* Broiler Starter Feed */}
-                {card.title}
-              </h2>
+                <h2 className="text-lg font-bold text-gray-900 mb-2 text-center min-h-[48px] flex items-center ">
+                  {/* Broiler Starter Feed */}
+                  {card.title}
+                </h2>
 
-              <ul className="space-y-3 text-sm text-gray-700">
-                 {card.bullets?.map((bullet, bulletIndex) => (
-                <li key={bulletIndex} className="relative pl-7 text-gray-700 leading-relaxed">
-                  <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
-                    <FontAwesomeIcon
-                      icon={faArrowRight}
-                      className="text-white text-[10px]"
-                    />
-                  </span>
-                  {/* Protein: 22–23% */}
-                  {bullet}
-                </li>
-                ))}
-                {/* <li className="relative pl-7 text-gray-700 leading-relaxed">
+                <ul className="space-y-3 text-sm text-gray-700">
+                  {card.bullets?.map((bullet, bulletIndex) => (
+                    <li key={bulletIndex} className="relative pl-7 text-gray-700 leading-relaxed">
+                      <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
+                        <FontAwesomeIcon
+                          icon={faArrowRight}
+                          className="text-white text-[10px]"
+                        />
+                      </span>
+                      {/* Protein: 22–23% */}
+                      {bullet}
+                    </li>
+                  ))}
+                  {/* <li className="relative pl-7 text-gray-700 leading-relaxed">
                   <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                     <FontAwesomeIcon
                       icon={faArrowRight}
@@ -593,8 +546,8 @@ function FeedType(){
                   </span>
                   Rapid early growth and better FCR
                 </li> */}
-              </ul>
-            </div>
+                </ul>
+              </div>
             ))}
             {/* <div className="relative w-full h-full bg-white rounded-2xl  p-4 md:p-8 shadow-sm z-30 flex flex-col">
               <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center  leading-[40px]  mb-2 md:mb-4">
@@ -627,7 +580,7 @@ function FeedType(){
               </ul>
             </div> */}
 
-            
+
             {/* <div className="relative w-full h-full bg-white rounded-2xl  p-4 md:p-8 shadow-sm z-30 flex flex-col">
               <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center  leading-[40px]  mb-2 md:mb-4">
                 <FontAwesomeIcon icon={faEgg} />
@@ -659,7 +612,7 @@ function FeedType(){
               </ul>
             </div> */}
 
-            
+
             {/* <div className="relative w-full h-full bg-white rounded-2xl  p-4 md:p-8 shadow-sm z-30 flex flex-col">
               <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center  leading-[40px]  mb-2 md:mb-4">
                 <FontAwesomeIcon icon={faDumbbell} />
@@ -710,88 +663,88 @@ function FeedType(){
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white rounded-2xl p-4 md:p-8 shadow-sm">
               {/* Broiler Feeding Program */}
               {poultry?.schedule_tables?.map((table, tableIndex) => (
-              <div  key={tableIndex} className=" bg-white rounded-2xl  border border-gray-200 shadow-sm">
-                <h4 className="text-[16px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4 md:ml-6">
-                  {/* Broiler Feeding Program */}
-                  {table.title}
-                </h4>
+                <div key={tableIndex} className=" bg-white rounded-2xl  border border-gray-200 shadow-sm">
+                  <h4 className="text-[16px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4 md:ml-6">
+                    {/* Broiler Feeding Program */}
+                    {table.title}
+                  </h4>
 
-                <div className="overflow-x-auto  ">
-                  <table className="w-full border-collapse">
-                    <thead className="bg-green-100 text-gray-800">
-                       
-                      <tr>
-                        {table.columns?.map((column, index) => (
-                        <th key={index} className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold ">
-                          {/* Age (Days) */}
-                          {column}
-                        </th>
-                        ))}
-                        {/* <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold ">
+                  <div className="overflow-x-auto  ">
+                    <table className="w-full border-collapse">
+                      <thead className="bg-green-100 text-gray-800">
+
+                        <tr>
+                          {table.columns?.map((column, index) => (
+                            <th key={index} className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold ">
+                              {/* Age (Days) */}
+                              {column}
+                            </th>
+                          ))}
+                          {/* <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold ">
                           Feed Type
                         </th>
                         <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold ">
                           Feed Intake / Bird
                         </th> */}
-                      </tr>
-                      
-                    </thead>
+                        </tr>
 
-                    <tbody className="text-gray-700">
-                      {table.rows?.map((row, rowIndex) => (
-                      <tr key={rowIndex} className="hover:bg-green-50 transition">
-                        {row.map((cell, cellIndex) => (
-                        <td key={cellIndex} className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                          {/* 0–10 Days */}
-                          {cell}
-                        </td>
-                        ))}
-                        {/* <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                      </thead>
+
+                      <tbody className="text-gray-700">
+                        {table.rows?.map((row, rowIndex) => (
+                          <tr key={rowIndex} className="hover:bg-green-50 transition">
+                            {row.map((cell, cellIndex) => (
+                              <td key={cellIndex} className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                                {/* 0–10 Days */}
+                                {cell}
+                              </td>
+                            ))}
+                            {/* <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
                           Starter
                         </td>
                         <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
                           250 g
                         </td> */}
-                      </tr>
+                          </tr>
 
-                      // <tr className="hover:bg-green-50 transition">
-                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                      //     11–24 Days
-                      //   </td>
-                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                      //     Grower
-                      //   </td>
-                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                      //     850 g
-                      //   </td>
-                      // </tr>
+                          // <tr className="hover:bg-green-50 transition">
+                          //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                          //     11–24 Days
+                          //   </td>
+                          //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                          //     Grower
+                          //   </td>
+                          //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                          //     850 g
+                          //   </td>
+                          // </tr>
 
-                      // <tr className="hover:bg-green-50 transition">
-                      //   <td className="px-2 md:px-4 py-3 text-center  font-medium whitespace-nowrap">
-                      //     25–42 Days
-                      //   </td>
-                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                      //     Finisher
-                      //   </td>
-                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                      //     1,800 g
-                      //   </td>
-                      // </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                          // <tr className="hover:bg-green-50 transition">
+                          //   <td className="px-2 md:px-4 py-3 text-center  font-medium whitespace-nowrap">
+                          //     25–42 Days
+                          //   </td>
+                          //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                          //     Finisher
+                          //   </td>
+                          //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                          //     1,800 g
+                          //   </td>
+                          // </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
 
-                {/* <h4 className="text-[16px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4 md:ml-6">
+                  {/* <h4 className="text-[16px] md:text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4 md:ml-6">
                   Total Feed per Broiler: ~2.9 kg <br />
                   Target FCR: 1.6–1.8
                 </h4> */}
-                {tableIndex === 0 && poultry?.schedule_note && (
-                  <div className="p-4 font-semibold text-gray-800">
-                    {poultry.schedule_note}
-                  </div>
-                )}
-              </div>
+                  {tableIndex === 0 && poultry?.schedule_note && (
+                    <div className="p-4 font-semibold text-gray-800">
+                      {poultry.schedule_note}
+                    </div>
+                  )}
+                </div>
               ))}
               {/* Layer Feeding Program */}
               {/* <div className=" bg-white rounded-2xl  border border-gray-200 shadow-sm">
@@ -864,7 +817,7 @@ function FeedType(){
         <section className="py-10 md:py-12 bg-gray-100">
           <div className="text-center mb-6  px-4">
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center ">
-               {pig?.heading} <span className="text-[#ffa800]">{pig?.heading_highlight}</span>
+              {pig?.heading} <span className="text-[#ffa800]">{pig?.heading_highlight}</span>
             </h2>
 
             <p className="text-gray-600 mt-3 max-w-2xl mx-auto text-[16px] md:text-[18px]">
@@ -877,30 +830,30 @@ function FeedType(){
           <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 items-stretch gap-4 md:gap-6">
             {/* card-1 */}
             {pig?.feed_cards?.map((card, index) => (
-            <div key={index} className="relative w-full h-full bg-white rounded-2xl  p-4 md:p-8 shadow-sm z-30 flex flex-col">
-              <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center  leading-[40px]  mb-2 md:mb-4">
-                <FontAwesomeIcon icon={iconMap[card.icon_key] || faPiggyBank} />
-              </span>
+              <div key={index} className="relative w-full h-full bg-white rounded-2xl  p-4 md:p-8 shadow-sm z-30 flex flex-col">
+                <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center  leading-[40px]  mb-2 md:mb-4">
+                  <FontAwesomeIcon icon={iconMap[card.icon_key] || faPiggyBank} />
+                </span>
 
-              <h2 className="text-lg font-bold text-gray-900 mb-2 text-center min-h-[48px] flex items-center ">
-                {/* Pig Starter Feed */}
-                {card.title}
-              </h2>
+                <h2 className="text-lg font-bold text-gray-900 mb-2 text-center min-h-[48px] flex items-center ">
+                  {/* Pig Starter Feed */}
+                  {card.title}
+                </h2>
 
-              <ul className="space-y-3 text-sm text-gray-700">
-                {card.bullets?.map((bullet, bulletIndex) => (
-                <li key={bulletIndex} className="relative pl-7 text-gray-700 leading-relaxed">
-                  <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
-                    <FontAwesomeIcon
-                      icon={faArrowRight}
-                      className="text-white text-[10px]"
-                    />
-                  </span>
-                  {/* Protein: 20-22% */}
-                   {bullet}
-                </li>
-                ))}
-                {/* <li className="relative pl-7 text-gray-700 leading-relaxed">
+                <ul className="space-y-3 text-sm text-gray-700">
+                  {card.bullets?.map((bullet, bulletIndex) => (
+                    <li key={bulletIndex} className="relative pl-7 text-gray-700 leading-relaxed">
+                      <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
+                        <FontAwesomeIcon
+                          icon={faArrowRight}
+                          className="text-white text-[10px]"
+                        />
+                      </span>
+                      {/* Protein: 20-22% */}
+                      {bullet}
+                    </li>
+                  ))}
+                  {/* <li className="relative pl-7 text-gray-700 leading-relaxed">
                   <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                     <FontAwesomeIcon
                       icon={faArrowRight}
@@ -909,8 +862,8 @@ function FeedType(){
                   </span>
                   Improves early growth and gut health
                 </li>{" "} */}
-              </ul>
-            </div>
+                </ul>
+              </div>
             ))}
             {/* card-2 */}
 
@@ -988,91 +941,91 @@ function FeedType(){
 
             <div className="bg-white rounded-2xl p-4 md:p-8 shadow-sm ">
               {pig?.schedule_tables?.map((table, index) => (
-              <div  key={index} className=" bg-white rounded-2xl  border border-gray-200 shadow-sm">
-                <h4 className="text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4 md:ml-6">
-                  {/* Pig Growth Stage */}
-                  {table.title}
-                </h4>
+                <div key={index} className=" bg-white rounded-2xl  border border-gray-200 shadow-sm">
+                  <h4 className="text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4 md:ml-6">
+                    {/* Pig Growth Stage */}
+                    {table.title}
+                  </h4>
 
-                {/* table wrapper */}
-                <div className="overflow-x-auto  ">
-                  <table className="w-full border-collapse">
-                    <thead className="bg-green-100 text-gray-800">
-                      <tr>
-                        {table.columns?.map((column, colIndex) => (
-                        <th key={colIndex} className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold">
-                          {/* Age (Weeks) */}
-                          {column}
-                        </th>
-                        
-                        // <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold ">
-                        //   Feed Type
-                        // </th>
-                        // <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold ">
-                        //   Body Weight
-                        // </th>
-                        // <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold ">
-                        //   Feed / Day
-                        // </th>
+                  {/* table wrapper */}
+                  <div className="overflow-x-auto  ">
+                    <table className="w-full border-collapse">
+                      <thead className="bg-green-100 text-gray-800">
+                        <tr>
+                          {table.columns?.map((column, colIndex) => (
+                            <th key={colIndex} className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold">
+                              {/* Age (Weeks) */}
+                              {column}
+                            </th>
+
+                            // <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold ">
+                            //   Feed Type
+                            // </th>
+                            // <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold ">
+                            //   Body Weight
+                            // </th>
+                            // <th className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold ">
+                            //   Feed / Day
+                            // </th>
+                          ))}
+                        </tr>
+                      </thead>
+
+                      <tbody className="text-gray-700">
+                        {table.rows?.map((row, rowIndex) => (
+                          <tr key={rowIndex} className="hover:bg-green-50 transition">
+                            {row.map((cell, cellIndex) => (
+                              <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                                {/* 6–8 Weeks */}
+                                {cell}
+                              </td>
+                              // <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                              //   Starter
+                              // </td>
+                              // <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                              //   8–25 kg
+                              // </td>
+                              // <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                              //   1.0–1.5 kg
+                              // </td>
+                            ))}
+                          </tr>
+
+                          // <tr className="hover:bg-green-50 transition">
+                          //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                          //     8–16 Weeks
+                          //   </td>
+                          //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                          //     Grower
+                          //   </td>
+                          //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                          //     25–60 kg
+                          //   </td>
+                          //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                          //     2.0–2.5 kg
+                          //   </td>
+                          // </tr>
+
+                          // <tr className="hover:bg-green-50 transition">
+                          //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                          //     16–24 Weeks
+                          //   </td>
+                          //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                          //     Finisher
+                          //   </td>
+                          //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                          //     60–100 kg
+                          //   </td>
+                          //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                          //     2.5–3.5 kg
+                          //   </td>
+                          // </tr>
                         ))}
-                      </tr>
-                    </thead>
-
-                    <tbody className="text-gray-700">
-                      {table.rows?.map((row, rowIndex) => (
-                      <tr  key={rowIndex} className="hover:bg-green-50 transition">
-                        {row.map((cell, cellIndex) => (
-                        <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                          {/* 6–8 Weeks */}
-                          {cell}
-                        </td>
-                        // <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                        //   Starter
-                        // </td>
-                        // <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                        //   8–25 kg
-                        // </td>
-                        // <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                        //   1.0–1.5 kg
-                        // </td>
-                        ))}
-                      </tr>
-
-                      // <tr className="hover:bg-green-50 transition">
-                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                      //     8–16 Weeks
-                      //   </td>
-                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                      //     Grower
-                      //   </td>
-                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                      //     25–60 kg
-                      //   </td>
-                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                      //     2.0–2.5 kg
-                      //   </td>
-                      // </tr>
-
-                      // <tr className="hover:bg-green-50 transition">
-                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                      //     16–24 Weeks
-                      //   </td>
-                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                      //     Finisher
-                      //   </td>
-                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                      //     60–100 kg
-                      //   </td>
-                      //   <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
-                      //     2.5–3.5 kg
-                      //   </td>
-                      // </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </tbody>
+                    </table>
+                  </div>
+                  {/* end table */}
                 </div>
-                {/* end table */}
-              </div>
               ))}
             </div>
           </div>
@@ -1093,29 +1046,29 @@ function FeedType(){
             <div className="  order-2 md:order-1">
               <div className="space-y-8">
                 {fish?.feed_cards?.map((card, index) => (
-                <div  key={index}
-                  className="relative w-full h-auto bg-white rounded-2xl  p-4 md:p-8 space-y-5
+                  <div key={index}
+                    className="relative w-full h-auto bg-white rounded-2xl  p-4 md:p-8 space-y-5
                      shadow-sm z-30"
-                >
-                  <h3 className="text-[22px] md:text-[24px] font-bold text-gray-800">
-                    {/* Floating Fish Feed */}
-                    {card.title}
-                  </h3>
+                  >
+                    <h3 className="text-[22px] md:text-[24px] font-bold text-gray-800">
+                      {/* Floating Fish Feed */}
+                      {card.title}
+                    </h3>
 
-                  <ul className="space-y-3 text-sm text-gray-700">
-                    {card.bullets?.map((bullet, bulletIndex) => (
-                    <li key={bulletIndex} className="relative pl-7 text-gray-700 leading-relaxed">
-                      <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
-                        <FontAwesomeIcon
-                          icon={faArrowRight}
-                          className="text-white text-[10px]"
-                        />
-                      </span>
-                      {/* Protein: 28–32% */}
-                       {bullet}
-                    </li>
-                    ))}
-                    {/* <li className="relative pl-7 text-gray-700 leading-relaxed">
+                    <ul className="space-y-3 text-sm text-gray-700">
+                      {card.bullets?.map((bullet, bulletIndex) => (
+                        <li key={bulletIndex} className="relative pl-7 text-gray-700 leading-relaxed">
+                          <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
+                            <FontAwesomeIcon
+                              icon={faArrowRight}
+                              className="text-white text-[10px]"
+                            />
+                          </span>
+                          {/* Protein: 28–32% */}
+                          {bullet}
+                        </li>
+                      ))}
+                      {/* <li className="relative pl-7 text-gray-700 leading-relaxed">
                       <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
                         <FontAwesomeIcon
                           icon={faArrowRight}
@@ -1133,8 +1086,8 @@ function FeedType(){
                       </span>
                       Reduces water pollution
                     </li> */}
-                  </ul>
-                </div>
+                    </ul>
+                  </div>
                 ))}
                 {/* <div
                   className="relative w-full h-auto bg-white rounded-2xl  p-4 md:p-8 space-y-5

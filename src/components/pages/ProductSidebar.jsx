@@ -1,12 +1,144 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
+import { Link, useLocation, useParams } from "react-router-dom";
+import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
   faIndianRupeeSign,
   faChevronDown,
   faArrowLeft,
+  faSpinner,
+  faExclamationTriangle,
 } from "@fortawesome/free-solid-svg-icons";
+import { API_URL } from "../../config/api";
+
+// ============================================
+// 📦 Sub-Components for better organization
+// ============================================
+
+const BackButton = () => (
+  <div className="mb-4 w-full">
+    <Link
+      to="/products"
+      className="w-full flex items-center justify-center gap-2 px-5 py-3
+        bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px]
+        shadow-md font-medium hover:shadow-lg hover:-translate-y-[2px]
+        active:scale-95 transition-all duration-300"
+    >
+      <FontAwesomeIcon icon={faArrowLeft} className="text-sm" />
+      Back
+    </Link>
+  </div>
+);
+
+const SearchInput = ({ value, onChange }) => (
+  <div>
+    <h3 className="text-xl font-semibold mb-4 text-gray-900">Search</h3>
+    <div className="relative w-full mb-6">
+      <FontAwesomeIcon
+        icon={faMagnifyingGlass}
+        className="absolute left-4 top-1/2 -translate-y-1/2 text-[#009a62]"
+      />
+      <input
+        type="text"
+        placeholder="Search products..."
+        value={value}
+        onChange={onChange}
+        className="w-full pl-11 pr-4 py-3 rounded-xl bg-white border border-gray-400
+          text-gray-700 placeholder-gray-400 focus:outline-none focus:border-green-600"
+      />
+    </div>
+  </div>
+);
+
+const PriceFilter = ({ minPrice, setMinPrice, maxPrice, setMaxPrice }) => {
+  const MAX_PRICE = 5000;
+
+  return (
+    <div>
+      <h3 className="text-xl font-semibold mb-4 text-gray-900">Price Filter</h3>
+      <div className="bg-white shadow-md rounded-lg py-4 px-4 mb-4">
+        <div className="flex gap-3 mb-3">
+          <div className="flex-1">
+            <label className="text-xs text-gray-500">Min (₹)</label>
+            <input
+              type="number"
+              value={minPrice}
+              onChange={(e) => setMinPrice(Number(e.target.value))}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg
+                focus:outline-none focus:ring-2 focus:ring-green-500 text-sm"
+              min={0}
+            />
+          </div>
+          <div className="flex-1">
+            <label className="text-xs text-gray-500">Max (₹)</label>
+            <input
+              type="number"
+              value={maxPrice}
+              onChange={(e) => setMaxPrice(Number(e.target.value))}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg
+                focus:outline-none focus:ring-2 focus:ring-green-500 text-sm"
+              min={0}
+            />
+          </div>
+        </div>
+        <input
+          type="range"
+          min={0}
+          max={MAX_PRICE}
+          value={maxPrice}
+          onChange={(e) => setMaxPrice(Number(e.target.value))}
+          className="w-full accent-[#009a62] cursor-pointer"
+        />
+        <p className="mt-2 text-gray-700 text-[16px] md:text-[18px]">
+          Price:{" "}
+          <span className="font-semibold">
+            <FontAwesomeIcon icon={faIndianRupeeSign} />
+            {minPrice} –{" "}
+            <FontAwesomeIcon icon={faIndianRupeeSign} />
+            {maxPrice}
+          </span>
+        </p>
+      </div>
+    </div>
+  );
+};
+
+const DistributorFilter = ({ distributors, selectedDistributors, onChange }) => (
+  <div>
+    <h3 className="text-xl font-semibold mb-4 text-gray-900 mt-4">
+      Search by Distributor
+    </h3>
+    <div className="bg-white shadow-md rounded-lg p-4 space-y-3">
+      {distributors?.length > 0 ? (
+        distributors.map((dist) => (
+          <label
+            key={dist.id ?? "all"}
+            className="flex items-center gap-3 cursor-pointer hover:text-green-600 transition"
+          >
+            <input
+              type="checkbox"
+              checked={
+                dist.id === null
+                  ? selectedDistributors.length === 0
+                  : selectedDistributors.includes(dist.id)
+              }
+              onChange={() => onChange(dist.id)}
+              className="accent-[#009a62] w-4 h-4"
+            />
+            <span className="text-gray-700">{dist.name}</span>
+          </label>
+        ))
+      ) : (
+        <p className="text-gray-400 text-sm">No distributors available</p>
+      )}
+    </div>
+  </div>
+);
+
+// ============================================
+// 🎯 Main Component
+// ============================================
 
 export default function ProductSidebar({
   search,
@@ -18,392 +150,208 @@ export default function ProductSidebar({
   distributors,
   selectedDistributors,
   handleDistributorChange,
-  openCategory,
-  setOpenCategory,
-  cattle,
-  broiler,
-  layer,
-  pig,
-  fish,
-  categorySlug,
 }) {
   const location = useLocation();
+  const { categorySlug: activeCategorySlug, subCategorySlug: activeSubCategorySlug } = useParams();
 
-  // Dynamic URL generator function
-  const getCategoryUrl = (subCategorySlug) => {
-    // Check if current URL has /products/ prefix
-    if (location.pathname.includes('/products/')) {
-      return `/products/${categorySlug || 'cattle-feed'}/${subCategorySlug}`;
+  // ===== State Management =====
+  const [categories, setCategories] = useState([]);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
+  const [categoriesError, setCategoriesError] = useState(null);
+
+  // Combined state for sub-categories: { [categorySlug]: { data: [], loading: false, error: null } }
+  const [subCategoryState, setSubCategoryState] = useState({});
+  const [openCategory, setOpenCategory] = useState(activeCategorySlug || null);
+
+  // ===== Fetch Categories =====
+  useEffect(() => {
+    const fetchCategories = async () => {
+      setCategoriesLoading(true);
+      setCategoriesError(null);
+      try {
+        const res = await axios.get(`${API_URL}/categories`);
+        setCategories(res.data.data || []);
+      } catch (err) {
+        setCategoriesError(err.message || "Failed to load categories");
+        console.error("Failed to fetch categories:", err);
+      } finally {
+        setCategoriesLoading(false);
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  // ===== Lazy Load Sub-Categories =====
+  const fetchSubCategories = useCallback(async (categorySlug) => {
+    // Skip if already loaded or currently loading
+    const existing = subCategoryState[categorySlug];
+    if (existing?.data || existing?.loading) return;
+
+    // Set loading state
+    setSubCategoryState((prev) => ({
+      ...prev,
+      [categorySlug]: { data: [], loading: true, error: null },
+    }));
+
+    try {
+      const res = await axios.get(
+        `${API_URL}/categories/${categorySlug}/sub-categories`
+      );
+      setSubCategoryState((prev) => ({
+        ...prev,
+        [categorySlug]: {
+          data: res.data.data || [],
+          loading: false,
+          error: null,
+        },
+      }));
+    } catch (err) {
+      setSubCategoryState((prev) => ({
+        ...prev,
+        [categorySlug]: {
+          data: [],
+          loading: false,
+          error: err.message || "Failed to load sub-categories",
+        },
+      }));
+      console.error(`Failed to fetch sub-categories for "${categorySlug}":`, err);
     }
-    // Default: without /products/ prefix
-    return `/${categorySlug || 'cattle-feed'}/${subCategorySlug}`;
+  }, [subCategoryState]);
+
+  // ===== Auto-open active category on mount =====
+  useEffect(() => {
+    if (activeCategorySlug) {
+      fetchSubCategories(activeCategorySlug);
+    }
+  }, [activeCategorySlug, fetchSubCategories]);
+
+  // ===== Accordion Toggle =====
+  const handleAccordionToggle = useCallback((categorySlug) => {
+    const next = openCategory === categorySlug ? null : categorySlug;
+    setOpenCategory(next);
+    if (next) fetchSubCategories(next);
+  }, [openCategory, fetchSubCategories]);
+
+  // ===== Memoized active category check =====
+  const isSubCategoryActive = useMemo(() => {
+    return (categorySlug, subSlug) =>
+      activeCategorySlug === categorySlug && activeSubCategorySlug === subSlug;
+  }, [activeCategorySlug, activeSubCategorySlug]);
+
+  // ===== Render Helpers =====
+  const renderCategoryItem = (category) => {
+    const isOpen = openCategory === category.slug;
+    const state = subCategoryState[category.slug] || { data: [], loading: false, error: null };
+    const { data: subCategories, loading: isLoading, error: subError } = state;
+
+    return (
+      <div key={category.id} className="rounded-xl overflow-hidden shadow-sm">
+        {/* Accordion Header */}
+        <button
+          onClick={() => handleAccordionToggle(category.slug)}
+          className={`w-full flex items-center justify-between p-3 cursor-pointer transition-colors ${isOpen ? "bg-green-100" : "bg-gray-50 hover:bg-gray-100"
+            }`}
+        >
+          <div className="flex items-center gap-3">
+            <img
+              src={category.image_url}
+              alt={category.name}
+              className="w-9 h-9 rounded-md object-cover"
+              onError={(e) => {
+                e.target.src = "https://via.placeholder.com/36x36?text=?"; // fallback
+              }}
+            />
+            <span className={`font-medium ${isOpen ? "text-green-700" : "text-gray-800"}`}>
+              {category.name}
+            </span>
+          </div>
+          <div
+            className={`w-7 h-7 flex items-center justify-center rounded-full transition-colors ${isOpen ? "bg-green-600 text-white" : "bg-gray-200 text-green-600"
+              }`}
+          >
+            <FontAwesomeIcon
+              icon={faChevronDown}
+              className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+            />
+          </div>
+        </button>
+
+        {/* Accordion Body */}
+        {isOpen && (
+          <div className="p-3 flex flex-col gap-2">
+            {isLoading && (
+              <div className="flex justify-center py-3">
+                <FontAwesomeIcon icon={faSpinner} className="animate-spin text-green-500" />
+              </div>
+            )}
+            {subError && (
+              <div className="flex items-center gap-2 text-red-500 text-sm px-3 py-2">
+                <FontAwesomeIcon icon={faExclamationTriangle} />
+                <span>{subError}</span>
+              </div>
+            )}
+            {!isLoading && !subError && subCategories.length === 0 && (
+              <p className="text-gray-400 text-sm px-3 py-2">No sub-categories available</p>
+            )}
+            {!isLoading && !subError && subCategories.map((sub) => (
+              <Link
+                key={sub.id}
+                to={`/${category.slug}/${sub.slug}`}
+                className={`flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${isSubCategoryActive(category.slug, sub.slug)
+                    ? "bg-green-50 text-green-700 font-medium"
+                    : "bg-gray-50 hover:bg-gray-100 text-gray-600"
+                  }`}
+              >
+                {sub.name}
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
+    );
   };
 
+  // ===== Render =====
   return (
-    <aside className="bg-white p-4 rounded-xl shadow-md">
-      {/* Back */}
-      <div className="mb-4 w-full">
-        <Link
-          to="/products"
-          className="w-full flex items-center justify-center gap-2 px-5 py-3
-          bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px]
-          shadow-md font-medium hover:shadow-lg hover:-translate-y-[2px]
-          active:scale-95 transition-all duration-300"
-        >
-          <FontAwesomeIcon icon={faArrowLeft} className="text-sm" />
-          Back
-        </Link>
-      </div>
+    <aside className="bg-white p-4 rounded-xl shadow-md sticky top-20 h-fit">
+      <BackButton />
+      <SearchInput value={search} onChange={(e) => setSearch(e.target.value)} />
+      <PriceFilter
+        minPrice={minPrice}
+        setMinPrice={setMinPrice}
+        maxPrice={maxPrice}
+        setMaxPrice={setMaxPrice}
+      />
 
-      {/* Search */}
-      <div>
-        <h3 className="text-xl font-semibold mb-4 text-gray-900">Search</h3>
-        <div className="relative w-full mb-6">
-          <FontAwesomeIcon
-            icon={faMagnifyingGlass}
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-[#009a62]"
-          />
-          <input
-            type="text"
-            placeholder="Search products..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-11 pr-4 py-3 rounded-xl bg-white border border-gray-400 text-gray-700 placeholder-gray-400 focus:outline-none focus:border-green-600"
-          />
-        </div>
-      </div>
-
-      {/* Price Filter */}
-      <div>
-        <h3 className="text-xl font-semibold mb-4 text-gray-900">
-          Price Filter
-        </h3>
-        <div className="bg-white shadow-md rounded-lg py-4 px-4 mb-4">
-          <div className="flex gap-3 mb-3">
-            <div className="flex-1">
-              <label className="text-xs text-gray-500">Min (₹)</label>
-              <input
-                type="number"
-                value={minPrice}
-                onChange={(e) => setMinPrice(Number(e.target.value))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-sm"
-                min="0"
-              />
-            </div>
-            <div className="flex-1">
-              <label className="text-xs text-gray-500">Max (₹)</label>
-              <input
-                type="number"
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(Number(e.target.value))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-sm"
-                min="0"
-              />
-            </div>
-          </div>
-          <input
-            type="range"
-            min="0"
-            max="5000"
-            value={maxPrice}
-            onChange={(e) => setMaxPrice(Number(e.target.value))}
-            className="w-full accent-[#009a62] cursor-pointer"
-          />
-          <p className="mt-2 text-gray-700 text-[16px] md:text-[18px]">
-            Price:{" "}
-            <span className="font-semibold">
-              <FontAwesomeIcon icon={faIndianRupeeSign} />{minPrice} -{" "}
-              <FontAwesomeIcon icon={faIndianRupeeSign} />
-              {maxPrice}
-            </span>
-          </p>
-        </div>
-      </div>
-
-      {/* Categories */}
+      {/* Categories Section */}
       <div className="bg-white p-4 rounded-xl shadow-md">
         <h3 className="text-xl font-semibold mb-6 text-gray-900">Categories</h3>
-        <div className="space-y-4">
-          {/* CATTLE */}
-          <div className="rounded-xl overflow-hidden shadow-sm">
-            <button
-              onClick={() =>
-                setOpenCategory(openCategory === "cattle" ? null : "cattle")
-              }
-              className={`w-full flex items-center justify-between p-3 cursor-pointer ${openCategory === "cattle"
-                ? "bg-green-100"
-                : "bg-gray-50 hover:bg-gray-100"
-                }`}
-            >
-              <div className="flex items-center gap-3 cursor-pointer">
-                <img src={cattle} className="w-9 h-9 rounded-md" alt="cattle" />
-                <span
-                  className={`font-medium ${openCategory === "cattle"
-                    ? "text-green-700"
-                    : "text-gray-800"
-                    }`}
-                >
-                  Cattle Feed
-                </span>
-              </div>
-              <div
-                className={`w-7 h-7 flex items-center justify-center rounded-full ${openCategory === "cattle"
-                  ? "bg-green-600 text-white"
-                  : "bg-gray-200 text-green-600"
-                  }`}
-              >
-                <FontAwesomeIcon
-                  icon={faChevronDown}
-                  className={`transition-transform ${openCategory === "cattle" ? "rotate-180" : ""
-                    }`}
-                />
-              </div>
-            </button>
-            {openCategory === "cattle" && (
-              <div className="p-3 flex flex-col gap-2">
-                <Link
-                  to={getCategoryUrl("calf-feed")}
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("calf-feed")
-                    ? "bg-green-50 text-green-700"
-                    : "bg-gray-50 hover:bg-gray-100 text-gray-600"
-                    }`}
-                >
-                  Calf Feed
-                </Link>
-                <Link
-                  to={getCategoryUrl("cattle-love")}
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("cattle-love")
-                    ? "bg-green-50 text-green-700"
-                    : "bg-gray-50 hover:bg-gray-100 text-gray-600"
-                    }`}
-                >
-                  Adult Feed
-                </Link>
-                <Link
-                  to={getCategoryUrl("protien-rich-feed")}
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("protien-rich-feed")
-                    ? "bg-green-50 text-green-700"
-                    : "bg-gray-50 hover:bg-gray-100 text-gray-600"
-                    }`}
-                >
-                  Protein Rich Feed
-                </Link>
-              </div>
-            )}
-          </div>
 
-          {/* POULTRY */}
-          <div className="rounded-xl overflow-hidden shadow-sm">
-            <button
-              onClick={() =>
-                setOpenCategory(openCategory === "poultry" ? null : "poultry")
-              }
-              className={`w-full flex items-center justify-between p-3 cursor-pointer ${openCategory === "poultry"
-                ? "bg-green-100"
-                : "bg-gray-50 hover:bg-gray-100"
-                }`}
-            >
-              <div className="flex items-center gap-3">
-                <img src={broiler} className="w-9 h-9 rounded-md" alt="broiler" />
-                <span
-                  className={`font-medium ${openCategory === "poultry"
-                    ? "text-green-700"
-                    : "text-gray-800"
-                    }`}
-                >
-                  Poultry Feed
-                </span>
-              </div>
-              <div
-                className={`w-7 h-7 flex items-center justify-center rounded-full ${openCategory === "poultry"
-                  ? "bg-green-600 text-white"
-                  : "bg-gray-200 text-green-600"
-                  }`}
-              >
-                <FontAwesomeIcon
-                  icon={faChevronDown}
-                  className={`${openCategory === "poultry" ? "rotate-180" : ""
-                    }`}
-                />
-              </div>
-            </button>
-            {openCategory === "poultry" && (
-              <div className="p-3 flex flex-col gap-2">
-                <Link
-                  to={getCategoryUrl("poultry-pre-starter")}
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("poultry-pre-starter")
-                    ? "bg-green-50 text-green-700"
-                    : "bg-gray-50 hover:bg-gray-100 text-gray-600"
-                    }`}
-                >
-                  Pre Starter
-                </Link>
-              </div>
-            )}
+        {categoriesLoading && (
+          <div className="flex justify-center py-6">
+            <FontAwesomeIcon icon={faSpinner} className="animate-spin text-green-600 text-xl" />
           </div>
+        )}
 
-          {/* LAYER */}
-          <div className="rounded-xl overflow-hidden shadow-sm">
-            <button
-              onClick={() =>
-                setOpenCategory(openCategory === "layer" ? null : "layer")
-              }
-              className={`w-full flex items-center justify-between p-3 cursor-pointer ${openCategory === "layer"
-                ? "bg-green-100"
-                : "bg-gray-50 hover:bg-gray-100"
-                }`}
-            >
-              <div className="flex items-center gap-3">
-                <img src={layer} className="w-9 h-9 rounded-md" alt="layer" />
-                <span
-                  className={`font-medium ${openCategory === "layer"
-                    ? "text-green-700"
-                    : "text-gray-800"
-                    }`}
-                >
-                  Layer Poultry
-                </span>
-              </div>
-              <div
-                className={`w-7 h-7 flex items-center justify-center rounded-full ${openCategory === "layer"
-                  ? "bg-green-600 text-white"
-                  : "bg-gray-200 text-green-600"
-                  }`}
-              >
-                <FontAwesomeIcon
-                  icon={faChevronDown}
-                  className={`transition-transform ${openCategory === "layer" ? "rotate-180" : ""
-                    }`}
-                />
-              </div>
-            </button>
-            {openCategory === "layer" && (
-              <div className="p-3 flex flex-col gap-2">
-                <p className="text-gray-400 text-sm px-3 py-2">No sub-categories available</p>
-              </div>
-            )}
+        {categoriesError && (
+          <div className="flex items-center gap-2 text-red-500 text-sm py-4 px-3 bg-red-50 rounded-lg">
+            <FontAwesomeIcon icon={faExclamationTriangle} />
+            <span>Failed to load categories. Please refresh.</span>
           </div>
+        )}
 
-          {/* PIG */}
-          <div className="rounded-xl overflow-hidden shadow-sm">
-            <button
-              onClick={() =>
-                setOpenCategory(openCategory === "pig" ? null : "pig")
-              }
-              className={`w-full flex items-center justify-between p-3 cursor-pointer ${openCategory === "pig"
-                ? "bg-green-100"
-                : "bg-gray-50 hover:bg-gray-100"
-                }`}
-            >
-              <div className="flex items-center gap-3">
-                <img src={pig} className="w-9 h-9 rounded-md" alt="pig" />
-                <span
-                  className={`font-medium ${openCategory === "pig" ? "text-green-700" : "text-gray-800"
-                    }`}
-                >
-                  Pig Feed
-                </span>
-              </div>
-              <div
-                className={`w-7 h-7 flex items-center justify-center rounded-full ${openCategory === "pig"
-                  ? "bg-green-600 text-white"
-                  : "bg-gray-200 text-green-600"
-                  }`}
-              >
-                <FontAwesomeIcon
-                  icon={faChevronDown}
-                  className={`transition-transform ${openCategory === "pig" ? "rotate-180" : ""
-                    }`}
-                />
-              </div>
-            </button>
-            {openCategory === "pig" && (
-              <div className="p-3 flex flex-col gap-2">
-                <p className="text-gray-400 text-sm px-3 py-2">No sub-categories available</p>
-              </div>
-            )}
+        {!categoriesLoading && !categoriesError && (
+          <div className="space-y-4">
+            {categories.map(renderCategoryItem)}
           </div>
-
-          {/* FISH */}
-          <div className="rounded-xl overflow-hidden shadow-sm">
-            <button
-              onClick={() =>
-                setOpenCategory(openCategory === "fish" ? null : "fish")
-              }
-              className={`w-full flex items-center justify-between p-3 cursor-pointer ${openCategory === "fish"
-                ? "bg-green-100"
-                : "bg-gray-50 hover:bg-gray-100"
-                }`}
-            >
-              <div className="flex items-center gap-3">
-                <img src={fish} className="w-9 h-9 rounded-md" alt="fish" />
-                <span
-                  className={`font-medium ${openCategory === "fish" ? "text-green-700" : "text-gray-800"
-                    }`}
-                >
-                  Fish Feed
-                </span>
-              </div>
-              <div
-                className={`w-7 h-7 flex items-center justify-center rounded-full ${openCategory === "fish"
-                  ? "bg-green-600 text-white"
-                  : "bg-gray-200 text-green-600"
-                  }`}
-              >
-                <FontAwesomeIcon
-                  icon={faChevronDown}
-                  className={`transition-transform ${openCategory === "fish" ? "rotate-180" : ""
-                    }`}
-                />
-              </div>
-            </button>
-            {openCategory === "fish" && (
-              <div className="p-3 flex flex-col gap-2">
-                <Link
-                  to={getCategoryUrl("fish-starter")}
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md ${location.pathname.includes("fish-starter")
-                    ? "bg-green-50 text-green-700"
-                    : "bg-gray-50 hover:bg-gray-100 text-gray-600"
-                    }`}
-                >
-                  Fish Starter
-                </Link>
-              </div>
-            )}
-          </div>
-        </div>
+        )}
       </div>
 
-      {/* Distributor Filter */}
-      <div>
-        <h3 className="text-xl font-semibold mb-4 text-gray-900 mt-4">
-          Search by Distributor
-        </h3>
-        <div className="bg-white shadow-md rounded-lg p-4 space-y-3 cursor-pointer">
-          {distributors && distributors.length > 0 ? (
-            distributors.map((dist) => (
-              <label
-                key={dist.id ?? "all"}
-                className="flex items-center gap-3 cursor-pointer hover:text-green-600 transition"
-              >
-                <input
-                  type="checkbox"
-                  checked={
-                    dist.id === null
-                      ? selectedDistributors.length === 0
-                      : selectedDistributors.includes(dist.id)
-                  }
-                  onChange={() => handleDistributorChange(dist.id)}
-                  className="accent-[#009a62] w-4 h-4"
-                />
-                <span className="text-gray-700">{dist.name}</span>
-              </label>
-            ))
-          ) : (
-            <p className="text-gray-400 text-sm">No distributors available</p>
-          )}
-        </div>
-      </div>
+      <DistributorFilter
+        distributors={distributors}
+        selectedDistributors={selectedDistributors}
+        onChange={handleDistributorChange}
+      />
     </aside>
   );
 }

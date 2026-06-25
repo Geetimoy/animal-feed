@@ -18,7 +18,7 @@ import about2 from '../../assets/images/about2.png';
 import bgImage from "../../assets/images/slider-bg.png";
 import cardIcon1 from '../../assets/images/card-icon1.png';
 import cardIcon2 from '../../assets/images/card-icon2.png';
-import cardIcon3 from '../../assets/images/card-icon3.png'; 
+import cardIcon3 from '../../assets/images/card-icon3.png';
 import animal1 from '../../assets/images/cattle1.png';
 import animal2 from '../../assets/images/pig2.png';
 import animal3 from '../../assets/images/poultry2.png';
@@ -51,49 +51,49 @@ import { API_URL } from "../../config/api";
 
 // Animation variants
 const fadeIn = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.8 } }
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.8 } }
 };
 
 const slideInLeft = {
-    hidden: { x: -100, opacity: 0 },
-    visible: { x: 0, opacity: 1, transition: { duration: 0.8, ease: "easeOut" } }
+  hidden: { x: -100, opacity: 0 },
+  visible: { x: 0, opacity: 1, transition: { duration: 0.8, ease: "easeOut" } }
 };
 
 const slideInRight = {
-    hidden: { x: 100, opacity: 0 },
-    visible: { x: 0, opacity: 1, transition: { duration: 0.8, ease: "easeOut" } }
+  hidden: { x: 100, opacity: 0 },
+  visible: { x: 0, opacity: 1, transition: { duration: 0.8, ease: "easeOut" } }
 };
 
 const slideInUp = {
-    hidden: { y: 100, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: "easeOut" } }
+  hidden: { y: 100, opacity: 0 },
+  visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: "easeOut" } }
 };
 
 const scaleIn = {
-    hidden: { scale: 0.8, opacity: 0 },
-    visible: { scale: 1, opacity: 1, transition: { duration: 0.6, ease: "easeOut" } }
+  hidden: { scale: 0.8, opacity: 0 },
+  visible: { scale: 1, opacity: 1, transition: { duration: 0.6, ease: "easeOut" } }
 };
 
 const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.2,
-            delayChildren: 0.3
-        }
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.3
     }
+  }
 };
 
 const itemVariant = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { duration: 0.5 } }
+  hidden: { y: 20, opacity: 0 },
+  visible: { y: 0, opacity: 1, transition: { duration: 0.5 } }
 };
 import { Helmet } from "react-helmet-async";
 import { useSettings } from "../../context/SettingsContext";
 
-function Home(){
+function Home() {
 
   const [activeTab, setActiveTab] = useState("tab1");
 
@@ -140,60 +140,60 @@ function Home(){
   const nationwideAvailability = homeSettings?.data?.nationwide;
 
   const iconMap = {
-  cardIcon1,
-  cardIcon2,
-  cardIcon3,
-};
+    cardIcon1,
+    cardIcon2,
+    cardIcon3,
+  };
 
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadedImages, setLoadedImages] = useState({});
 
   useEffect(() => {
-  fetchNews();
+    fetchNews();
   }, []);
 
   const fetchNews = async () => {
-  try {
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    const res = await axios.get(
-      `${API_URL}/news-events`
-    );
+      const res = await axios.get(
+        `${API_URL}/news-events`
+      );
 
-     console.log(res.data);
+      console.log(res.data);
 
-     setNews(res.data?.news?.data || []);
-  } catch (err) {
-    console.log("News API error:", err);
-  } finally {
-    setLoading(false);
-  }
-};
+      setNews(res.data?.news?.data || []);
+    } catch (err) {
+      console.log("News API error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
       <Helmet>
         <title>{settings?.data?.seo?.meta_title}</title>
         <meta name="description" content={settings?.data?.seo?.meta_description} />
-         <meta name="keywords" content={settings?.data?.seo?.meta_keywords} />
+        <meta name="keywords" content={settings?.data?.seo?.meta_keywords} />
       </Helmet>
       <Header></Header>
       <main className="pt-16">
         {/* <!-- Hero Section --> */}
         <motion.section
-                    className="relative z-0"
-                    initial="hidden"
-                    animate="visible"
-                    variants={fadeIn}
-                >
+          className="relative z-0"
+          initial="hidden"
+          animate="visible"
+          variants={fadeIn}
+        >
           <div className="grid grid-cols-4 md:h-[700px] h-[350px] w-full">
             {/* <!-- Banner Item 1 --> */}
             <motion.div
-                                        className="relative"
-                                        variants={slideInLeft}
-                                        custom={1}
-                                    >
+              className="relative"
+              variants={slideInLeft}
+              custom={1}
+            >
               <img src={banner1} className="w-full h-full object-cover" />
 
               {/* Overlay Layer (81%) */}
@@ -224,10 +224,10 @@ function Home(){
 
             {/* <!-- Banner Item 3 --> */}
             <motion.div
-                                        className="relative"
-                                        variants={slideInLeft}
-                                        custom={3}
-                                    >
+              className="relative"
+              variants={slideInLeft}
+              custom={3}
+            >
               <img src={banner3} className="w-full h-full object-cover" />
 
               {/* <!-- Overlay Layer (81%) --> */}
@@ -242,10 +242,10 @@ function Home(){
 
             {/* <!-- Banner Item 4 --> */}
             <motion.div
-                                        className="relative"
-                                        variants={slideInLeft}
-                                        custom={4}
-                                    >
+              className="relative"
+              variants={slideInLeft}
+              custom={4}
+            >
               <img src={banner4} className="w-full h-full object-cover" />
 
               {/* <!-- Overlay Layer (81%) --> */}
@@ -260,10 +260,10 @@ function Home(){
           </div>
 
           {/* Quote Form Container */}
-          <motion.div className="relative lg:absolute mt-4 md:mt-0 lg:-bottom-[80px] left-0 lg:left-1/2 lg:-translate-x-1/2 z-[999]" initial={{ y: 100, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8, delay: 1 }} >
+          <motion.div className="relative lg:absolute lg:-bottom-[80px] left-0 lg:left-1/2 lg:-translate-x-1/2 z-[999]" initial={{ y: 100, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8, delay: 1 }} >
             <div className="flex justify-center">
               {/* Card */}
-              <div className="grid grid-cols-1 md:grid-cols-12 rounded-2xl overflow-hidden max-w-4xl w-full">
+              <div className="grid grid-cols-1 md:grid-cols-12 md:rounded-2xl overflow-hidden max-w-4xl w-full">
                 {/* LEFT: Logo (small, white) */}
                 <div className="col-span-3  bg-gradient-to-r  from-[#00a34a] to-[#009a62] md:bg-none md:bg-white  flex items-center justify-center py-4 md:py-0 ">
                   <img
@@ -277,7 +277,7 @@ function Home(){
                 <div className="col-span-9  bg-gradient-to-r  from-[#00a34a] to-[#009a62]   text-white px-4 md:px-8 py-0 md:py-6 pb-6 flex items-center ">
                   <div>
                     <div className="text-2xl font-semibold leading-normal md:leading-snug text-center md:text-left">
-                     
+
                       {heroCard?.heading} <br />
                       <span className="text-yellow-300">
                         {" "}
@@ -297,20 +297,20 @@ function Home(){
             </div>
           </motion.div>
         </motion.section>
-       
+
         {/* About Section */}
         <section className="w-full py-10 md:py-12 md:mt-12">
           <div className="max-w-7xl mx-auto px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center justify-center">
               {/* <!-- LEFT SIDE --> */}
               <motion.div className="space-y-5" initial="hidden"
-                                    whileInView="visible"
-                                    viewport={{ once: true, amount: 0.3 }}
-                                    variants={slideInUp}>
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={slideInUp}>
                 {/* <!-- Heading --> */}
                 <div className="mb-[0px] md:mb-[0px]   gsap-slide-in-left">
                   <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center md:text-left">
-                   {about?.heading} <span className="text-[#ffa800]">{about?.heading_highlight} </span>
+                    {about?.heading} <span className="text-[#ffa800]">{about?.heading_highlight} </span>
                   </h2>
                   <p className="text-[16px] text-gray-600 mt-1 text-center md:text-left">
                     {/* Reinforcing excellence in animal nutrition since 1983 */}
@@ -354,17 +354,17 @@ function Home(){
                     </p>
 
                     <ul className="space-y-2 text-[16px] text-gray-700">
-                       {about?.card_bullets?.map((item, index) => (
-                      <li key={index} className="flex items-center gap-3">
-                        <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
-                          <FontAwesomeIcon
-                            icon={faArrowRight}
-                            className="text-white text-[10px]"
-                          />
-                        </span>
-                        {/* Scientifically formulated nutrition */}
-                        {item}
-                      </li>
+                      {about?.card_bullets?.map((item, index) => (
+                        <li key={index} className="flex items-center gap-3">
+                          <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
+                            <FontAwesomeIcon
+                              icon={faArrowRight}
+                              className="text-white text-[10px]"
+                            />
+                          </span>
+                          {/* Scientifically formulated nutrition */}
+                          {item}
+                        </li>
                       ))}
                       {/* <li className="flex gap-2">
                         <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
@@ -433,7 +433,7 @@ function Home(){
                         {/* Scientifically formulated nutrition */}
                         {item}
                       </li>
-                      ))}
+                    ))}
                     {/* <li className="flex gap-2">
                       <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
                         <FontAwesomeIcon
@@ -480,9 +480,9 @@ function Home(){
             backgroundPosition: "center",
           }}
           initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.2 }}
-                    variants={fadeIn}
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeIn}
         >
           {/* <!-- overlay --> */}
           <div className="absolute inset-0 bg-black/60 pointer-events-none z-0"></div>
@@ -491,9 +491,9 @@ function Home(){
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-12 items-center">
               {/* LEFT */}
               <motion.div className="lg:col-span-1 relative z-20  text-center md:text-left" initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true }}
-                            variants={slideInUp}>
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={slideInUp}>
                 <h2 className="text-3xl md:text-5xl font-semibold text-white leanding-normal md:leading-snug">
                   {whyChoose?.heading} <br className="hidden md:block" />
                   <span className="text-yellow-400">{whyChoose?.heading_highlight}</span>
@@ -699,8 +699,8 @@ function Home(){
 
           <motion.div className="hidden lg:block absolute lg:-bottom-[120px] md:left-1/2 lg:-translate-x-1/2 px-3 sm:px-0" initial={{ y: 50, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.3 }} >
             <div className="w-full py-10">
-                <div className="max-w-6xl mx-auto flex flex-wrap justify-center gap-6">
-                    {/* {[
+              <div className="max-w-6xl mx-auto flex flex-wrap justify-center gap-6">
+                {/* {[
                         { number: "25+", text: "Years\nExperience" },
                         { number: "500+", text: "Our\nProducts" },
                         { number: "98%", text: "Farmer\nSatisfaction" },
@@ -722,32 +722,31 @@ function Home(){
                             </span>
                         </motion.div>
                     ))} */}
-                    {stats?.map((item, index) => (
-                      <motion.div
-                        key={index}
-                        className={`w-36 h-36 2xl:w-40 2xl:h-40 rounded-full flex flex-col items-center justify-center text-center shadow-md ring-2 ring-white ${
-                          index % 2 === 0 ? "bg-emerald-300" : "bg-yellow-400"
-                        }`}
-                        initial={{ scale: 0 }}
-                        whileInView={{ scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 200,
-                          delay: index * 0.1,
-                        }}
-                        whileHover={{ scale: 1.1, rotate: 5 }}
-                      >
-                        <span className="text-3xl font-bold text-black">
-                          {item.number}
-                        </span>
+                {stats?.map((item, index) => (
+                  <motion.div
+                    key={index}
+                    className={`w-36 h-36 2xl:w-40 2xl:h-40 rounded-full flex flex-col items-center justify-center text-center shadow-md ring-2 ring-white ${index % 2 === 0 ? "bg-emerald-300" : "bg-yellow-400"
+                      }`}
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 200,
+                      delay: index * 0.1,
+                    }}
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                  >
+                    <span className="text-3xl font-bold text-black">
+                      {item.number}
+                    </span>
 
-                        <span className="text-sm font-medium text-black leading-tight">
-                          {item.label}
-                        </span>
-                      </motion.div>
-                    ))}
-                </div>
+                    <span className="text-sm font-medium text-black leading-tight">
+                      {item.label}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </motion.div>
         </motion.section>
@@ -804,34 +803,34 @@ function Home(){
           <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-10 items-center">
             {/* <!-- LEFT : IMAGE CARDS --> */}
             <motion.div className="grid grid-cols-2 gap-2 md:gap-4" initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true, amount: 0.2 }}
-                            variants={staggerContainer}>
-                {/* IMAGE 1 */}
-                {animalNutrition?.cards?.map((card, index) => (
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={staggerContainer}>
+              {/* IMAGE 1 */}
+              {animalNutrition?.cards?.map((card, index) => (
                 <motion.div key={index} className="place-self-start" variants={itemVariant}>
                   <div className="relative inline-block overflow-hidden">
-                   
+
                     <motion.img
                       src={card.image_url} alt={card.title}
                       className="block w-[280px] h-[280px] rounded-2xl  object-cover"
-                       
-                       onLoad={() => {
-    console.log("Loaded:", card.image_url);
-    setLoadedImages(prev => ({
-      ...prev,
-      [index]: true,
-    }));
-  }}
-  onError={() => {
-    console.log("Failed:", card.image_url);
-    setLoadedImages(prev => ({
-      ...prev,
-      [index]: true, // hide loader even if image fails
-    }));
-  }} />
 
-     {!loadedImages?.[index] && (
+                      onLoad={() => {
+                        console.log("Loaded:", card.image_url);
+                        setLoadedImages(prev => ({
+                          ...prev,
+                          [index]: true,
+                        }));
+                      }}
+                      onError={() => {
+                        console.log("Failed:", card.image_url);
+                        setLoadedImages(prev => ({
+                          ...prev,
+                          [index]: true, // hide loader even if image fails
+                        }));
+                      }} />
+
+                    {!loadedImages?.[index] && (
                       <div className="absolute inset-0 flex items-center justify-center bg-gray-100 rounded-2xl z-10">
                         <div className="w-10 h-10 border-4 border-gray-300 border-t-green-600 rounded-full animate-spin"></div>
                       </div>
@@ -841,7 +840,7 @@ function Home(){
                     opacity-0 hover:opacity-100
                     transition-opacity duration-300
                     flex flex-col items-center justify-center" initial={{ opacity: 0 }}
-                                              whileHover={{ opacity: 1 }}
+                      whileHover={{ opacity: 1 }}
                     >
                       <h3 className="text-white text-xl font-semibold">
                         {card.title} <br /> {card.subtitle}
@@ -862,9 +861,9 @@ function Home(){
                     </motion.div>
                   </div>
                 </motion.div>
-                ))}
-                {/* IMAGE 2 */}
-                {/* <motion.div className="place-self-start" variants={itemVariant}>
+              ))}
+              {/* IMAGE 2 */}
+              {/* <motion.div className="place-self-start" variants={itemVariant}>
                   <div className="relative inline-block overflow-hidden">
                     <motion.img
                       src={animal2}
@@ -898,8 +897,8 @@ function Home(){
                   </div>
                 </motion.div> */}
 
-                {/* IMAGE 3 */}
-                {/* <motion.div className="place-self-start" variants={itemVariant}>
+              {/* IMAGE 3 */}
+              {/* <motion.div className="place-self-start" variants={itemVariant}>
                   <div className="relative inline-block overflow-hidden">
                     <motion.img
                       src={animal3}
@@ -933,8 +932,8 @@ function Home(){
                   </div>
                 </motion.div> */}
 
-                {/* IMAGE 4 */}
-                {/* <motion.div className="place-self-start" variants={itemVariant}>
+              {/* IMAGE 4 */}
+              {/* <motion.div className="place-self-start" variants={itemVariant}>
                   <div className="relative inline-block overflow-hidden">
                     <motion.img
                       src={animal4}
@@ -972,11 +971,11 @@ function Home(){
 
             {/* RIGHT : TEXT CONTENT */}
             <motion.div className="text-center max-w-md mx-auto lg:mx-0 gsap-slide-in-right" initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true }}
-                            variants={slideInUp}>
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={slideInUp}>
               <h2 className="text-3xl lg:text-5xl font-semibold text-gray-800">
-                 {animalNutrition?.heading} <br className="hidden md:block" />{" "}
+                {animalNutrition?.heading} <br className="hidden md:block" />{" "}
                 <span className="text-[#ffa800]"> {animalNutrition?.heading_highlight}</span>
               </h2>
               <p className="mt-2 md:mt-4 text-gray-600 max-w-md mx-auto lg:mx-0  text-center text-[16px] md:text-[18px]">
@@ -1002,8 +1001,8 @@ function Home(){
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-12 ">
             {/* <!-- Heading --> */}
             <motion.div className="text-center max-w-3xl mx-auto mb-6 md:mb-14" initial="hidden"
-                                    whileInView="visible"
-                                    viewport={{ once: true, amount: 0.3 }} variants={slideInUp}>
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }} variants={slideInUp}>
               <h2 className="text-3xl sm:text-5xl font-semibold text-white">
                 {commitment?.heading}{" "}
                 <span className="text-yellow-400">{commitment?.heading_highlight}</span>
@@ -1018,10 +1017,10 @@ function Home(){
             {/* Main grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
               {/* LEFT CONTENT */}
-              <motion.div className="text-white max-w-lg"  initial="hidden" whileInView="visible"
-                                    viewport={{ once: true, amount: 0.5 }} variants={slideInUp}>
+              <motion.div className="text-white max-w-lg" initial="hidden" whileInView="visible"
+                viewport={{ once: true, amount: 0.5 }} variants={slideInUp}>
                 <h3 className="text-3xl md:text-5xl font-light mb-4 text-center md:text-left">
-                   {commitment?.promise_heading}{" "}
+                  {commitment?.promise_heading}{" "}
                   <span className="text-[#ffa800] font-normal">{commitment?.promise_highlight}</span>
                 </h3>
 
@@ -1030,7 +1029,7 @@ function Home(){
                   extends beyond production to include farmer education,
                   sustainable practices, and continuous innovation in animal
                   nutrition. */}
-                   {commitment?.promise_text}
+                  {commitment?.promise_text}
                 </p>
 
                 {/* Green badge */}
@@ -1066,8 +1065,8 @@ function Home(){
 
               {/* RIGHT CARD */}
               <motion.div className="w-full max-w-xl" initial="hidden"
-                                    whileInView="visible"
-                                    viewport={{ once: true, amount: 0.5 }} variants={slideInUp}>
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.5 }} variants={slideInUp}>
                 {/* Tabs */}
                 <div className="flex">
                   <button
@@ -1099,16 +1098,16 @@ function Home(){
 
                       <ul className="space-y-2 md:space-y-4 text-sm text-gray-700">
                         {commitment?.quality_items?.map((item, index) => (
-                        <li key={index} className="flex items-center gap-3">
-                          <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
-                            <FontAwesomeIcon
-                              icon={faArrowRight}
-                              className="text-white text-[10px]"
-                            />
-                          </span>
-                          {/* Raw material inspection before production */}
-                          {item}
-                        </li>
+                          <li key={index} className="flex items-center gap-3">
+                            <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
+                              <FontAwesomeIcon
+                                icon={faArrowRight}
+                                className="text-white text-[10px]"
+                              />
+                            </span>
+                            {/* Raw material inspection before production */}
+                            {item}
+                          </li>
                         ))}
                         {/* <li className="flex items-center gap-3">
                           <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
@@ -1167,17 +1166,17 @@ function Home(){
 
                       <ul className="space-y-2 md:space-y-4 text-sm text-gray-700">
                         {commitment?.cert_items?.map((item, index) => (
-                        <li key={index} className="flex items-center gap-3">
-                          {" "}
-                          <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
-                            <FontAwesomeIcon
-                              icon={faArrowRight}
-                              className="text-white text-[10px]"
-                            />
-                          </span>
-                          {/* ISO 9001 Quality Management */}
-                          {item}
-                        </li>
+                          <li key={index} className="flex items-center gap-3">
+                            {" "}
+                            <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
+                              <FontAwesomeIcon
+                                icon={faArrowRight}
+                                className="text-white text-[10px]"
+                              />
+                            </span>
+                            {/* ISO 9001 Quality Management */}
+                            {item}
+                          </li>
                         ))}
                         {/* <li className="flex items-center gap-3">
                           {" "}
@@ -1212,8 +1211,8 @@ function Home(){
         <section className="bg-white py-10 md:py-12  gsap-fade-in">
           <div className="max-w-5xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <motion.div className="relative" initial="hidden"
-                                    whileInView="visible"
-                                    viewport={{ once: true, amount: 0.5 }} variants={slideInUp}>
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }} variants={slideInUp}>
               {" "}
               <img
                 src={research}
@@ -1223,12 +1222,12 @@ function Home(){
             </motion.div>
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} variants={slideInUp}>
               <h2 className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left">
-                
+
                 {researchDevelopment?.heading} <br className="hidden md:block" />
                 <span className="text-yellow-500">{researchDevelopment?.heading_highlight}</span>
               </h2>
               <p className="mt-4 md:mt-6 text-gray-600 leading-normal md:leading-relaxed text-[16px] md:text-[18px] text-center md:text-left">
-                
+
                 {/* Our Research & Development team continuously works to improve
                 feed efficiency, nutritional balance, and animal health. Using
                 scientific research, modern laboratories, and field trials, we
@@ -1236,7 +1235,7 @@ function Home(){
                 {researchDevelopment?.description_1}
               </p>
               <p className="mt-4 text-gray-600  leading-normal md:leading-relaxed text-[16px] md:text-[18px] text-center md:text-left">
-               {researchDevelopment?.description_2}
+                {researchDevelopment?.description_2}
                 {/* Innovation, testing, and validation are at the core of every
                 formulation we create. */}
               </p>
@@ -1259,8 +1258,8 @@ function Home(){
           <div className="absolute inset-0 bg-black/80"></div>
           {/* Content */}
           <motion.div className="relative z-10 max-w-5xl mx-auto px-4 md:px-6 text-center" initial="hidden"
-                                    whileInView="visible"
-                                    viewport={{ once: true, amount: 0.3 }} variants={slideInUp}>
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }} variants={slideInUp}>
             {/* Heading */}
             <h2 className="text-3xl md:text-5xl font-semibold tracking-wide text-white">
               {nationwideAvailability?.heading}
@@ -1313,10 +1312,10 @@ function Home(){
         {/* News & Event */}
         <section className="py-10 md:py-12 bg-white">
           <motion.div className="max-w-7xl mx-auto px-4" initial="hidden"
-                                    whileInView="visible"
-                                    viewport={{ once: true, amount: 0.3 }} variants={slideInUp}>
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }} variants={slideInUp}>
             {/* Header */}
-            <div className="flex items-center justify-between mb-8 md:mb-12">
+            <div className="flex flex-col items-center md:flex-row md:items-end md:justify-between mb-6 md:mb-12">
               <div>
                 <h2 className="text-3xl md:text-5xl font-semibold text-gray-900 text-center md:text-left">
                   News & <span className="text-yellow-500">Event</span>
@@ -1328,25 +1327,17 @@ function Home(){
               </div>
 
               {/* Navigation */}
-              <div className="md:flex items-center gap-3">
+              <div className="flex items-center gap-2 mt-1 md:mt-0">
                 {/* <!-- Prev --> */}
                 <button
-                  class="news-prev w-10 h-10 rounded-full border border-gray-300
-              flex items-center justify-center
-              text-gray-600
-              hover:border-green-500 hover:text-green-500
-              transition-colors duration-300 cursor-pointer swiper-prev1  transition-transform duration-300 easy-in-out hover:-translate-x-1"
+                  class="news-prev w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-500 hover:border-green-500 hover:text-green-500 transition-all duration-300 cursor-pointer hover:-translate-x-1 active:scale-95"
                 >
                   <FontAwesomeIcon icon={faArrowLeft} />
                 </button>
 
                 {/* <!-- Next --> */}
                 <button
-                  class=" news-next w-10 h-10 rounded-full border border-gray-300
-              flex items-center justify-center
-              text-gray-600
-              hover:border-green-500 hover:text-green-500
-              transition-colors duration-300 cursor-pointer swiper-next1  transition-transform duration-300 easy-in-out hover:translate-x-1"
+                  class="news-next w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-500 hover:border-green-500 hover:text-green-500 transition-all duration-300 cursor-pointer hover:translate-x-1 active:scale-95"
                 >
                   <FontAwesomeIcon icon={faArrowRight} />
                 </button>
@@ -1377,54 +1368,54 @@ function Home(){
               >
                 {/* <!-- Card --> */}
                 {news.map((item) => (
-                <SwiperSlide key={item.id} className="h-auto mb-2">
-                  <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col">
-                    {/* <!-- Image --> */}
-                    <img
-                      src={item.image_url} alt={item.title}
-                      className="h-48 w-full object-cover rounded-b-2xl"
-                    />
+                  <SwiperSlide key={item.id} className="h-auto mb-2">
+                    <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col">
+                      {/* <!-- Image --> */}
+                      <img
+                        src={item.image_url} alt={item.title}
+                        className="h-48 w-full object-cover rounded-b-2xl"
+                      />
 
-                    {/* <!-- Content --> */}
-                    <div className="p-6 flex flex-col flex-grow">
-                      <span className="text-xs text-green-600 font-medium">
-                        {item.published_at}
-                      </span>
+                      {/* <!-- Content --> */}
+                      <div className="p-6 flex flex-col flex-grow">
+                        <span className="text-xs text-green-600 font-medium">
+                          {item.published_at}
+                        </span>
 
-                      <h3 className="mt-2 font-bold text-gray-900">
-                        {/* Green Gold Launches Advanced Cattle Feed */}
-                        {item.title}
-                      </h3>
+                        <h3 className="mt-2 font-bold text-gray-900">
+                          {/* Green Gold Launches Advanced Cattle Feed */}
+                          {item.title}
+                        </h3>
 
-                      <p className="mt-2 text-sm text-gray-500 flex-grow">
-                        {/* Stay updated with the latest happenings, product
+                        <p className="mt-2 text-sm text-gray-500 flex-grow">
+                          {/* Stay updated with the latest happenings, product
                         launches, and events at Green Gold. */}
-                        {item.excerpt}
-                      </p>
+                          {item.excerpt}
+                        </p>
 
-                      <Link
-                        to={`/news-events/${item.slug}`}
-                        className=" group mt-4 inline-flex items-center gap-2  hover:text-green-700 text-green-600 font-medium"
-                      >
-                        View Details
-                        <span
-                          className="w-5 h-5 rounded-full border border-green-500
+                        <Link
+                          to={`/news-events/${item.slug}`}
+                          className=" group mt-4 inline-flex items-center gap-2  hover:text-green-700 text-green-600 font-medium"
+                        >
+                          View Details
+                          <span
+                            className="w-5 h-5 rounded-full border border-green-500
                 flex items-center justify-center
                 group-hover:border-green-700
                 transition-colors  transition-transform duration-300 easy-in-out group-hover:translate-x-1"
-                        >
-                          <FontAwesomeIcon
-                            icon={faArrowRight}
-                            className="text-[10px]
+                          >
+                            <FontAwesomeIcon
+                              icon={faArrowRight}
+                              className="text-[10px]
                   group-hover:text-green-700
                   transition-colors duration-300"
-                          />
-                        </span>
-                      </Link>
+                            />
+                          </span>
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                </SwiperSlide>
-                 ))}
+                  </SwiperSlide>
+                ))}
                 {/* <!-- Card 2 --> */}
                 {/* <SwiperSlide className="h-auto mb-2">
                   <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col">

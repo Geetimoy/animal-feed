@@ -20,6 +20,8 @@ import { Helmet } from "react-helmet";
 
 import { API_URL } from "../../config/api";
 import axios from "axios";
+import { useBanner } from "../../hooks/useBanner";
+import HeroBanner from "../HeroBanner";
 
 function NewsEvents() {
 
@@ -29,8 +31,8 @@ function NewsEvents() {
 
   const [events, setEvents] = useState([]);
 
-  const [banner, setBanner] = useState(null);
   const pageSlug = "news-events";
+  const { bannerItem, isLoading, error } = useBanner(pageSlug);
 
 
   // useEffect(() => {
@@ -47,58 +49,39 @@ function NewsEvents() {
   // }, []);
 
   useEffect(() => {
-  fetchNews();
+    fetchNews();
   }, []);
 
   const fetchNews = async () => {
-  try {
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    const res = await axios.get(
-      `${API_URL}/news`
-    );
-
-    setNews(res.data?.data || []);
-  } catch (err) {
-    console.log("News API error:", err);
-  } finally {
-    setLoading(false);
-  }
-};
-
-useEffect(() => {
-  fetchEvents();
-}, []);
-
-const fetchEvents = async () => {
-  try {
-    const res = await axios.get(`${API_URL}/events`);
-    setEvents(res.data?.data || []);
-  } catch (err) {
-    console.log("Events API error:", err);
-  }
-};
-
-  useEffect(() => {
-    
-    if (pageSlug) {
-      fetchBanner();
-    }
-  }, [pageSlug]);
-
-  const fetchBanner = async () => {
-  try {
       const res = await axios.get(
-        `${API_URL}/banners/${pageSlug}`
+        `${API_URL}/news`
       );
-      
-      setBanner(res.data);
+
+      setNews(res.data?.data || []);
     } catch (err) {
-      console.log("Banner API error:", err);
+      console.log("News API error:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const bannerItem = banner?.data?.[0];
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
+  const fetchEvents = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/events`);
+      setEvents(res.data?.data || []);
+    } catch (err) {
+      console.log("Events API error:", err);
+    }
+  };
+
+
 
   return (
     <>
@@ -107,46 +90,20 @@ const fetchEvents = async () => {
       </Helmet>
       <Header></Header>
       <main className="pt-16 overflow-hidden">
-        {bannerItem?.image_url && (
-        <section className="relative z-0">
-          <div className="relative">
-            <img
-              src={bannerItem?.image_url}
-              alt={bannerItem?.title}
-              className="w-full md:h-auto h-[450px] hidden md:block object-cover"
-            />
-            <img
-              src={bannerItem?.image_url}
-              alt={bannerItem?.title}
-              className="w-full  h-[450px] md:hidden  object-cover"
-            />
-            <div className="absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-4xl px-4 md:px-6  w-full">
-              <h1 className="text-[#fff] text-4xl md:text-6xl font-bold text-center mb-4 md:mb-6">
-                {bannerItem?.title_white} <span className="text-[#ffa800]">{bannerItem?.title_gold}</span>
-              </h1>
-              <p className="text-white text-[16px] md:text-xl text-center">
-                {bannerItem?.subtitle}
-              </p>
-              <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
-                <Link
-                  to={bannerItem?.cta_primary_url || "/distributor"}
-                  className="mt-4 md:mt-6 w-full  md:w-[215px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 " >
-                    <span className="text-[20px] font-bold font-inter">
-                      <FontAwesomeIcon icon={faMagnifyingGlass} /> {bannerItem?.cta_primary_label || "Find Distributor"}
-                    </span>
-                </Link>
-                <Link
-                    to={bannerItem?.cta_secondary_url || "/contact-us"}
-                    className="mt-3 md:mt-6  w-full  md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2" >
-                    <span className="text-[20px] font-bold font-inter">
-                      <FontAwesomeIcon icon={faLocationDot} /> {bannerItem?.cta_secondary_label || "Contact Us"}
-                    </span>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-        )}
+        {/* Hero Section */}
+        <HeroBanner
+          imageUrl={bannerItem?.image_url}
+          titleWhite={bannerItem?.title_white}
+          titleGold={bannerItem?.title_gold}
+          subtitle={bannerItem?.subtitle}
+          ctaPrimaryLabel={bannerItem?.cta_primary_label}
+          ctaPrimaryUrl={bannerItem?.cta_primary_url}
+          ctaSecondaryLabel={bannerItem?.cta_secondary_label}
+          ctaSecondaryUrl={bannerItem?.cta_secondary_url}
+          height="h-[500px]"
+          isLoading={isLoading}
+        />
+
         {/* Events */}
         <section className="py-10 md:py-12 bg-gray-100">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
@@ -351,57 +308,57 @@ const fetchEvents = async () => {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
               {news.slice(0, visibleCount).map((item) => (
-                  <div
-                    key={item.id}
-                    className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col"
-                  >
-                    {/* IMAGE */}
-                    <div className="relative">
-                      <img
-                        src={item.image_url}
-                        alt={item.title}
-                        className="h-48 w-full object-cover rounded-b-2xl"
-                      />
+                <div
+                  key={item.id}
+                  className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col"
+                >
+                  {/* IMAGE */}
+                  <div className="relative">
+                    <img
+                      src={item.image_url}
+                      alt={item.title}
+                      className="h-48 w-full object-cover rounded-b-2xl"
+                    />
 
-                      <div className="absolute top-4 right-4 bg-[#ffa800] text-black text-xs font-bold px-3 py-1 rounded-full">
-                        {item.category_tag || "News"}
-                      </div>
-                    </div>
-
-                    {/* CONTENT */}
-                    <div className="p-6 flex flex-col flex-grow">
-                      
-                      {/* DATE */}
-                      <span className="text-xs text-green-600 font-medium">
-                        {item.published_at}
-                      </span>
-
-                      {/* TITLE */}
-                      <h3 className="mt-2 font-bold text-gray-900">
-                        {item.title}
-                      </h3>
-
-                      {/* DESCRIPTION */}
-                      <p className="mt-2 text-sm text-gray-500 flex-grow">
-                        {item.excerpt}
-                      </p>
-
-                      {/* LINK */}
-                      <Link
-                        to={`/news/${item.slug}`}
-                        className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group"
-                      >
-                        View Details
-                        <span className="w-5 h-5 rounded-full border border-green-500 flex items-center justify-center group-hover:border-green-600">
-                          <FontAwesomeIcon
-                            icon={faArrowRight}
-                            className="text-[10px]"
-                          />
-                        </span>
-                      </Link>
+                    <div className="absolute top-4 right-4 bg-[#ffa800] text-black text-xs font-bold px-3 py-1 rounded-full">
+                      {item.category_tag || "News"}
                     </div>
                   </div>
-                ))}
+
+                  {/* CONTENT */}
+                  <div className="p-6 flex flex-col flex-grow">
+
+                    {/* DATE */}
+                    <span className="text-xs text-green-600 font-medium">
+                      {item.published_at}
+                    </span>
+
+                    {/* TITLE */}
+                    <h3 className="mt-2 font-bold text-gray-900">
+                      {item.title}
+                    </h3>
+
+                    {/* DESCRIPTION */}
+                    <p className="mt-2 text-sm text-gray-500 flex-grow">
+                      {item.excerpt}
+                    </p>
+
+                    {/* LINK */}
+                    <Link
+                      to={`/news/${item.slug}`}
+                      className="mt-4 inline-flex items-center gap-2 text-green-600 font-medium group"
+                    >
+                      View Details
+                      <span className="w-5 h-5 rounded-full border border-green-500 flex items-center justify-center group-hover:border-green-600">
+                        <FontAwesomeIcon
+                          icon={faArrowRight}
+                          className="text-[10px]"
+                        />
+                      </span>
+                    </Link>
+                  </div>
+                </div>
+              ))}
               {/* <div className="bg-white rounded-tr-2xl rounded-b-2xl shadow-md overflow-hidden h-full flex flex-col">
                 <div className="relative">
                   <img
@@ -577,18 +534,18 @@ const fetchEvents = async () => {
                   </Link>
                 </div>
               </div> */}
-              
+
             </div>
-            
+
             {visibleCount < news.length && (
-            <div className="text-center mt-6">
-              <button onClick={() => setVisibleCount(prev => prev + 3)} className="bg-yellow-500 hover:bg-yellow-400 px-6 py-3 inline-block rounded-xl text-[16px] font-medium cursor-pointer w-full md:w-auto" > Load More </button>
-            </div>
+              <div className="text-center mt-6">
+                <button onClick={() => setVisibleCount(prev => prev + 3)} className="bg-yellow-500 hover:bg-yellow-400 px-6 py-3 inline-block rounded-xl text-[16px] font-medium cursor-pointer w-full md:w-auto" > Load More </button>
+              </div>
             )}
           </div>
         </section>
 
-        
+
       </main>
 
       <Footer></Footer>

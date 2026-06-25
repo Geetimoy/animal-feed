@@ -22,6 +22,8 @@ import {
   faEgg,
 } from "@fortawesome/free-solid-svg-icons";
 import { Helmet } from "react-helmet";
+import HeroBanner from "../HeroBanner";
+import { useBanner } from "../../hooks/useBanner";
 
 function Distributor() {
 
@@ -40,8 +42,8 @@ function Distributor() {
 
   const [filteredDistributors, setFilteredDistributors] = useState([]);
 
-  const [banner, setBanner] = useState(null);
   const pageSlug = "distributor";
+  const { bannerItem, isLoading, error } = useBanner(pageSlug);
 
   useEffect(() => {
     fetchDistributors();
@@ -66,43 +68,43 @@ function Distributor() {
   };
 
   const getTagData = (categories) => {
-  switch (categories.toLowerCase()) {
-    case "poultry feed":
-      return {
-        icon: faDrumstickBite,
-        className: "bg-green-100 text-green-700",
-      };
+    switch (categories.toLowerCase()) {
+      case "poultry feed":
+        return {
+          icon: faDrumstickBite,
+          className: "bg-green-100 text-green-700",
+        };
 
-    case "fish feed":
-      return {
-        icon: faFish,
-        className: "bg-blue-100 text-blue-700",
-      };
+      case "fish feed":
+        return {
+          icon: faFish,
+          className: "bg-blue-100 text-blue-700",
+        };
 
-    case "cattle feed":
-      return {
-        icon: faCow,
-        className: "bg-yellow-100 text-yellow-700",
-      };
+      case "cattle feed":
+        return {
+          icon: faCow,
+          className: "bg-yellow-100 text-yellow-700",
+        };
 
-    case "pig feed":
-      return {
-        icon: faPiggyBank,
-        className: "bg-pink-100 text-pink-700",
-      };
+      case "pig feed":
+        return {
+          icon: faPiggyBank,
+          className: "bg-pink-100 text-pink-700",
+        };
 
-    case "layer feed":
-      return {
-        icon: faEgg,
-        className: "bg-green-50 text-green-600",
-      };
+      case "layer feed":
+        return {
+          icon: faEgg,
+          className: "bg-green-50 text-green-600",
+        };
 
-    default:
-      return {
-        icon: faDrumstickBite,
-        className: "bg-gray-100 text-gray-700",
-      };
-  }
+      default:
+        return {
+          icon: faDrumstickBite,
+          className: "bg-gray-100 text-gray-700",
+        };
+    }
   };
 
   const fetchFilters = async () => {
@@ -121,44 +123,25 @@ function Distributor() {
   };
 
   const handleSearch = (e) => {
-  e.preventDefault();
-  
+    e.preventDefault();
 
-  const filtered = distributors.filter((item) => {
-    return (
-      (!selectedState || item.state === selectedState) &&
-      (!selectedRegion || item.region === selectedRegion) &&
-      (!selectedType || item.distributor_type === selectedType) &&
-      (!selectedCategory ||
-        item.categories?.some(
-          (cat) => cat.slug === selectedCategory
-        ))
-    );
-  });
 
-  setFilteredDistributors(filtered);
-  };
-
-  useEffect(() => {
-      
-      if (pageSlug) {
-        fetchBanner();
-      }
-    }, [pageSlug]);
-
-  const fetchBanner = async () => {
-  try {
-      const res = await axios.get(
-        `${API_URL}/banners/${pageSlug}`
+    const filtered = distributors.filter((item) => {
+      return (
+        (!selectedState || item.state === selectedState) &&
+        (!selectedRegion || item.region === selectedRegion) &&
+        (!selectedType || item.distributor_type === selectedType) &&
+        (!selectedCategory ||
+          item.categories?.some(
+            (cat) => cat.slug === selectedCategory
+          ))
       );
-      
-      setBanner(res.data);
-    } catch (err) {
-      console.log("Banner API error:", err);
-    }
+    });
+
+    setFilteredDistributors(filtered);
   };
 
-  const bannerItem = banner?.data?.[0];
+
 
 
 
@@ -169,45 +152,20 @@ function Distributor() {
       </Helmet>
       <Header></Header>
       <main className="pt-16 overflow-hidden">
-        {bannerItem?.image_url && (
-        <section className="relative z-0">
-          <div className="relative">
-            <img
-              src={bannerItem?.image_url}
-              alt={bannerItem?.title}
-              className="w-full md:h-auto h-[450px]  object-cover"
-            />
+        {/* Hero Section */}
+        <HeroBanner
+          imageUrl={bannerItem?.image_url}
+          titleWhite={bannerItem?.title_white}
+          titleGold={bannerItem?.title_gold}
+          subtitle={bannerItem?.subtitle}
+          ctaPrimaryLabel={bannerItem?.cta_primary_label}
+          ctaPrimaryUrl={bannerItem?.cta_primary_url}
+          ctaSecondaryLabel={bannerItem?.cta_secondary_label}
+          ctaSecondaryUrl={bannerItem?.cta_secondary_url}
+          height="h-[500px]"
+          isLoading={isLoading}
+        />
 
-            <div className="absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-4xl px-4 md:px-6  w-full">
-              <h1 className="text-[#fff] text-4xl md:text-6xl font-bold text-center mb-4 md:mb-6">
-                {bannerItem?.title_white}
-              </h1>
-              <p className="text-white text-[16px] md:text-xl text-center">
-                {bannerItem?.subtitle}
-              </p>
-              <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
-                <Link
-                  to={bannerItem?.cta_primary_url || "/distributor"}
-                  className="mt-4 md:mt-6 w-full  md:w-[215px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
-                >
-                  <span className="text-[20px] font-bold font-inter">
-                    <FontAwesomeIcon icon={faMagnifyingGlass} /> 
-                    {bannerItem?.cta_primary_label || "Find Distributor"}
-                  </span>
-                </Link>
-                <Link
-                  to={bannerItem?.cta_secondary_url || "/contact-us"}
-                  className="mt-3 md:mt-6  w-full  md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
-                >
-                  <span className="text-[20px] font-bold font-inter">
-                    <FontAwesomeIcon icon={faLocationDot} /> {bannerItem?.cta_secondary_label || "Contact Us"}
-                  </span>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-        )}
         <section className="py-10 md:py-12 bg-gray-100">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <h2 className="text-3xl md:text-5xl text-gray-800 font-semibold mb-4 text-center">
@@ -294,24 +252,24 @@ function Distributor() {
           </div>
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-  {loading ? (
-    <p>Loading...</p>
-  ) : (
-    filteredDistributors.map((item) => (
-      <div
-        key={item.id}
-        className="bg-white p-4 rounded-lg shadow"
-      >
-        <div className="text-gray-600 text-sm">
-          <h3 className="text-xl font-bold mb-2 text-gray-800">
-            <Link to={`/distributors/${item.slug}`}>
-              {item.name}
-            </Link>
-          </h3>
+              {loading ? (
+                <p>Loading...</p>
+              ) : (
+                filteredDistributors.map((item) => (
+                  <div
+                    key={item.id}
+                    className="bg-white p-4 rounded-lg shadow"
+                  >
+                    <div className="text-gray-600 text-sm">
+                      <h3 className="text-xl font-bold mb-2 text-gray-800">
+                        <Link to={`/distributors/${item.slug}`}>
+                          {item.name}
+                        </Link>
+                      </h3>
 
-          <p className="mb-1">{item.company_name}</p>
+                      <p className="mb-1">{item.company_name}</p>
 
-          {/* <div className="mt-2 space-y-1">
+                      {/* <div className="mt-2 space-y-1">
             <p>
               <FontAwesomeIcon icon={faLocationDot} /> {item.region},{" "}
               {item.state}
@@ -326,29 +284,29 @@ function Distributor() {
             </p>
           </div> */}
 
-          {/* Tags */}
-          <div className="mt-4">
-            <div className="grid grid-cols-3 gap-2">
-              {item.categories?.map((categories) => {
-                const { icon, className } = getTagData(categories.name);
+                      {/* Tags */}
+                      <div className="mt-4">
+                        <div className="grid grid-cols-3 gap-2">
+                          {item.categories?.map((categories) => {
+                            const { icon, className } = getTagData(categories.name);
 
-                return (
-                  <span
-                    key={categories.id}
-                    className={`flex items-center gap-2 px-2 py-1 text-sm rounded-md justify-center ${className}`}
-                  >
-                    <FontAwesomeIcon icon={icon} className="text-[14px]" />
-                    {categories.name}
-                  </span>
-                );
-              })}
+                            return (
+                              <span
+                                key={categories.id}
+                                className={`flex items-center gap-2 px-2 py-1 text-sm rounded-md justify-center ${className}`}
+                              >
+                                <FontAwesomeIcon icon={icon} className="text-[14px]" />
+                                {categories.name}
+                              </span>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
-          </div>
-        </div>
-      </div>
-    ))
-  )}
-</div>
           </div>
         </section>
       </main>

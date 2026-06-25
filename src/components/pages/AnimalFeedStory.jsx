@@ -30,7 +30,7 @@ const AnimalFeedStory = ({ data }) => {
 
   const stats = settings?.data?.stats;
 
-   const dynamicStats = [
+  const dynamicStats = [
     {
       number: stats?.experience || "0",
       text: "Years\nExperience",
@@ -228,16 +228,24 @@ const AnimalFeedStory = ({ data }) => {
             </div>
 
             <motion.div
-              className="absolute bottom-6 left-6 bg-white/80 backdrop-blur-md rounded-full px-6 py-2 shadow-lg flex items-center gap-3 text-gray-800 border border-white/50"
+              className="
+    absolute bottom-3 left-3 sm:bottom-4 sm:left-4 md:bottom-6 md:left-6
+    bg-white/80 backdrop-blur-md rounded-full
+    px-3 py-2 sm:px-4 md:px-6
+    shadow-lg border border-white/50
+    flex items-center gap-2 sm:gap-3
+    text-gray-800
+    max-w-[90%] sm:max-w-fit
+  "
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 400 }}
             >
               <FontAwesomeIcon
                 icon={faPlay}
-                className="text-[#ffa800] text-sm"
+                className="text-[#ffa800] text-xs sm:text-sm flex-shrink-0"
               />
 
-              <span className="font-medium text-sm">
+              <span className="font-medium text-xs sm:text-sm md:text-base leading-tight">
                 Watch our journey from farm to feed
               </span>
             </motion.div>
