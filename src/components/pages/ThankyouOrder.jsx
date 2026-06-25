@@ -1,7 +1,7 @@
 import Header from "../Header";
 import Footer from "../Footer";
 import contactBaner from "../../assets/images/contact-banner.jpg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { API_URL } from "../../config/api";
 import axios from "axios";
@@ -41,6 +41,14 @@ export default function MyOrders() {
   };
 
   const bannerItem = banner?.data?.[0];
+
+  const location = useLocation();
+
+const order = location.state?.orders?.[0];
+const summary = location.state?.summary;
+
+console.log(order);
+console.log(summary);
 
   return (
     <>
@@ -113,15 +121,15 @@ export default function MyOrders() {
             <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 border-t border-b border-gray-100 py-6 my-6">
               <div className="flex items-center justify-center gap-3 text-gray-600">
                 <FontAwesomeIcon icon={faBox} className="w-5 h-5 text-blue-500" />
-                <span className="text-sm font-medium">Order #12345</span>
+                <span className="text-sm font-medium">Order #{order?.order_number}</span>
               </div>
               <div className="flex items-center justify-center gap-3 text-gray-600">
                 <FontAwesomeIcon icon={faClock} className="w-5 h-5 text-orange-500" />
-                <span className="text-sm font-medium">Processing</span>
+                <span className="text-sm font-medium">{order?.status}</span>
               </div>
               <div className="flex items-center justify-center gap-3 text-gray-600">
                 <FontAwesomeIcon icon={faShoppingBag} className="w-5 h-5 text-purple-500" />
-                <span className="text-sm font-medium">3 items</span>
+                <span className="text-sm font-medium">{order?.items_count} items</span>
               </div>
             </div>
 

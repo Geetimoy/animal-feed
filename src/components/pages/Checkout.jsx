@@ -147,7 +147,9 @@ const fetchCart = async () => {
     );
 
     console.log(response.data);
-    navigate("/thankyou-order");
+    navigate("/thankyou-order", {
+  state: response.data.data
+});
   //toast.success("Your order has been placed successfully!");
 
     //  setTimeout(() => {
