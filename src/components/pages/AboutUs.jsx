@@ -39,6 +39,10 @@ import { useSettings } from "../../context/SettingsContext";
 import { useBanner } from './../../hooks/useBanner';
 import HeroBanner from './../HeroBanner';
 
+// For SEO
+import SEO from "./SEO";
+import usePageSEO from "../../hooks/usePageSEO";
+
 // Animation variants
 const fadeIn = {
   hidden: { opacity: 0 },
@@ -86,6 +90,7 @@ function AboutUs() {
   const { hash } = useLocation();
 
   const { settings } = useSettings();
+  const { seo } = usePageSEO("about-us");
 
   useEffect(() => {
     if (!hash) return;
@@ -132,9 +137,10 @@ function AboutUs() {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>About Us - Animal Feed</title>
-      </Helmet>
+      </Helmet> */}
+      <SEO seo={seo} />
       <Header />
       <main className="pt-16 overflow-hidden">
         {/* Hero Section */}

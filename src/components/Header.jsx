@@ -1,6 +1,6 @@
 import logo from "../assets/images/logo.png";
 import { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom"; // ← Added useLocation
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../auth/AuthProvider";
 import { useCart } from "../context/CartContext";
 import { useSettings } from "../context/SettingsContext";
@@ -35,7 +35,7 @@ import { API_URL } from "../config/api";
 
 function Header() {
   const navigate = useNavigate();
-  const location = useLocation(); // ← Get current location
+  const location = useLocation();
   const { user, logout, isAuthenticated } = useAuth();
   const { settings } = useSettings();
   const { cartCount, setCartCount } = useCart();
@@ -63,29 +63,69 @@ function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Fetch Cart Count
-  useEffect(() => {
-    if (isAuthenticated) {
-      fetchCartCount();
-    }
-  }, [isAuthenticated]);
-
+  //  Fetch Cart Count - Updated
   const fetchCartCount = async () => {
     const token = localStorage.getItem("token");
-    if (!token) return;
+    if (!token) {
+      setCartCount(0);
+      return;
+    }
 
     try {
-      const res = await axios.get(`${API_URL}/customers/cart/count`, {
+      const res = await axios.get(`${API_URL}/customers/cart`, {
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
         },
       });
-      setCartCount(res.data.count || 0);
+
+      // console.log("Cart API Response:", res.data); // Debugging
+
+      //  Correct way to get count
+      const count = res.data?.data?.summary?.items_count ||
+        res.data?.data?.items?.length ||
+        res.data?.count ||
+        0;
+
+      setCartCount(count);
     } catch (err) {
-      console.log("Cart count error:", err);
+      // console.log("Cart count error:", err);
+      setCartCount(0);
     }
   };
+
+  //  Fetch cart count on auth change
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchCartCount();
+    } else {
+      setCartCount(0);
+    }
+  }, [isAuthenticated]);
+
+  //  Also fetch when component mounts
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchCartCount();
+    }
+  }, []);
+
+  //  Handle cart update from other components (like Cart page)
+  useEffect(() => {
+    const handleCartUpdate = () => {
+      if (isAuthenticated) {
+        fetchCartCount();
+      }
+    };
+
+    window.addEventListener('cartUpdated', handleCartUpdate);
+    window.addEventListener('focus', handleCartUpdate);
+
+    return () => {
+      window.removeEventListener('cartUpdated', handleCartUpdate);
+      window.removeEventListener('focus', handleCartUpdate);
+    };
+  }, [isAuthenticated]);
 
   // Handle Logout
   const handleLogout = async () => {
@@ -106,6 +146,7 @@ function Header() {
       }
 
       logout();
+      setCartCount(0);
 
       toast.success("Logged out successfully!", {
         autoClose: 1500,
@@ -116,6 +157,7 @@ function Header() {
     } catch (error) {
       console.error("Logout failed:", error);
       logout();
+      setCartCount(0);
       navigate("/logout");
     }
   };
@@ -148,7 +190,7 @@ function Header() {
             <div className="hidden lg:flex space-x-6">
               <Link
                 to="/"
-                className={`nav-link text-[15px] font-normal flex items-center gap-2 ${isActiveLink('/') ? 'text-[#00a34a] font-semibold ' : ''
+                className={`nav-link text-[15px] font-normal flex items-center gap-2 ${isActiveLink('/') ? 'text-[#00a34a] font-semibold' : ''
                   }`}
               >
                 <i className="ri-home-line"></i> Home
@@ -158,7 +200,7 @@ function Header() {
               <div className="relative group flex items-center">
                 <Link
                   to=""
-                  className={`nav-link text-[15px] font-normal flex items-center gap-2 ${isActiveLink('/about-us') || isActiveLink('/research-development') ? 'text-[#00a34a] font-semibold ' : ''
+                  className={`nav-link text-[15px] font-normal flex items-center gap-2 ${isActiveLink('/about-us') || isActiveLink('/research-development') ? 'text-[#00a34a] font-semibold' : ''
                     }`}
                 >
                   <i className="ri-information-line"></i>
@@ -200,7 +242,7 @@ function Header() {
 
               <Link
                 to="/nutrition"
-                className={`nav-link text-[15px] font-normal flex items-center gap-2 ${isActiveLink('/nutrition') ? 'text-[#00a34a] font-semibold ' : ''
+                className={`nav-link text-[15px] font-normal flex items-center gap-2 ${isActiveLink('/nutrition') ? 'text-[#00a34a] font-semibold' : ''
                   }`}
               >
                 <i className="ri-drop-line"></i> Nutrition
@@ -208,7 +250,7 @@ function Header() {
 
               <Link
                 to="/feed-type"
-                className={`nav-link text-[15px] font-normal flex items-center gap-2 ${isActiveLink('/feed-type') ? 'text-[#00a34a] font-semibold ' : ''
+                className={`nav-link text-[15px] font-normal flex items-center gap-2 ${isActiveLink('/feed-type') ? 'text-[#00a34a] font-semibold' : ''
                   }`}
               >
                 <i className="ri-leaf-line"></i> Feed Type
@@ -216,7 +258,7 @@ function Header() {
 
               <Link
                 to="/products"
-                className={`nav-link text-[15px] font-normal flex items-center gap-2 ${isActiveLink('/products') ? 'text-[#00a34a] font-semibold ' : ''
+                className={`nav-link text-[15px] font-normal flex items-center gap-2 ${isActiveLink('/products') ? 'text-[#00a34a] font-semibold' : ''
                   }`}
               >
                 <i className="ri-heart-line"></i> Products
@@ -226,7 +268,7 @@ function Header() {
               <div className="relative group flex items-center">
                 <Link
                   to="/news-events"
-                  className={`nav-link text-[15px] font-normal flex items-center gap-2 ${isActiveLink('/news-events') || isActiveLink('/gallery') ? 'text-[#00a34a] font-semibold ' : ''
+                  className={`nav-link text-[15px] font-normal flex items-center gap-2 ${isActiveLink('/news-events') || isActiveLink('/gallery') ? 'text-[#00a34a] font-semibold' : ''
                     }`}
                 >
                   <i className="ri-camera-line"></i> Media
@@ -248,13 +290,17 @@ function Header() {
               </div>
             </div>
 
-            {/* Cart Icon */}
+            {/* ✅ Cart Icon - Updated with better badge */}
             <div className="flex relative cursor-pointer md:flex-0 flex-1 justify-end mr-2">
-              <Link to="/cart" className="inline-block">
-                <span className="absolute text-sm right-[0] -top-[7px]">{cartCount}</span>
+              <Link to="/cart" className="inline-block relative">
                 <span className="bg-[#ffe7a3] w-[30px] h-[30px] rounded-full text-center text-sm leading-[30px] inline-block">
                   <FontAwesomeIcon icon={faCartArrowDown} />
                 </span>
+                {cartCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                    {cartCount > 99 ? '99+' : cartCount}
+                  </span>
+                )}
               </Link>
             </div>
 
@@ -367,57 +413,28 @@ function Header() {
             <div>
               <button
                 onClick={() => setKnowUsMobileOpen(!knowUsMobileOpen)}
-                className={`flex justify-between items-center w-full ${isActiveLink("/about-us") ||
-                  isActiveLink("/research-development")
+                className={`flex justify-between items-center w-full ${isActiveLink("/about-us") || isActiveLink("/research-development")
                   ? "text-[#00a34a] font-semibold"
                   : ""
                   }`}
               >
                 <span>Know Us</span>
-
                 <FontAwesomeIcon
                   icon={faChevronDown}
-                  className={`transition-transform ${knowUsMobileOpen ? "rotate-180" : ""
-                    }`}
+                  className={`transition-transform ${knowUsMobileOpen ? "rotate-180" : ""}`}
                 />
               </button>
 
               {knowUsMobileOpen && (
                 <div className="mt-3 ml-4 flex flex-col gap-3 text-sm">
-                  <Link to="/about-us" onClick={() => setIsOpen(false)}>
-                    About Us
-                  </Link>
-
-                  <Link to="/#whygreengold" onClick={() => setIsOpen(false)}>
-                    Why Green Gold
-                  </Link>
-
-                  <Link to="/about-us#ourstory" onClick={() => setIsOpen(false)}>
-                    Our Story
-                  </Link>
-
-                  <Link to="/about-us#missionvision" onClick={() => setIsOpen(false)}>
-                    Mission & Vision
-                  </Link>
-
-                  <Link to="/about-us#ourcommitment" onClick={() => setIsOpen(false)}>
-                    Our Commitment
-                  </Link>
-
-                  <Link to="/about-us#ourteam" onClick={() => setIsOpen(false)}>
-                    Our Team
-                  </Link>
-
-                  <Link to="/about-us#ourunit" onClick={() => setIsOpen(false)}>
-                    Our Units
-                  </Link>
-
-                  <Link
-                    to="/research-development"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Research & Development
-                  </Link>
+                  <Link to="/about-us" onClick={() => setIsOpen(false)}>About Us</Link>
+                  <Link to="/#whygreengold" onClick={() => setIsOpen(false)}>Why Green Gold</Link>
+                  <Link to="/about-us#ourstory" onClick={() => setIsOpen(false)}>Our Story</Link>
+                  <Link to="/about-us#missionvision" onClick={() => setIsOpen(false)}>Mission & Vision</Link>
+                  <Link to="/about-us#ourcommitment" onClick={() => setIsOpen(false)}>Our Commitment</Link>
+                  <Link to="/about-us#ourteam" onClick={() => setIsOpen(false)}>Our Team</Link>
+                  <Link to="/about-us#ourunit" onClick={() => setIsOpen(false)}>Our Units</Link>
+                  <Link to="/research-development" onClick={() => setIsOpen(false)}>Research & Development</Link>
                 </div>
               )}
             </div>
@@ -456,23 +473,16 @@ function Header() {
                   }`}
               >
                 <span>Media</span>
-
                 <FontAwesomeIcon
                   icon={faChevronDown}
-                  className={`transition-transform ${mediaMobileOpen ? "rotate-180" : ""
-                    }`}
+                  className={`transition-transform ${mediaMobileOpen ? "rotate-180" : ""}`}
                 />
               </button>
 
               {mediaMobileOpen && (
                 <div className="mt-3 ml-4 flex flex-col gap-3 text-sm">
-                  <Link to="/news-events" onClick={() => setIsOpen(false)}>
-                    News & Events
-                  </Link>
-
-                  <Link to="/gallery" onClick={() => setIsOpen(false)}>
-                    Gallery
-                  </Link>
+                  <Link to="/news-events" onClick={() => setIsOpen(false)}>News & Events</Link>
+                  <Link to="/gallery" onClick={() => setIsOpen(false)}>Gallery</Link>
                 </div>
               )}
             </div>
@@ -483,27 +493,17 @@ function Header() {
                 <Link
                   to="/profile"
                   onClick={() => setIsOpen(false)}
-                  className={
-                    isActiveLink("/profile")
-                      ? "text-[#00a34a] font-semibold"
-                      : ""
-                  }
+                  className={isActiveLink("/profile") ? "text-[#00a34a] font-semibold" : ""}
                 >
                   Profile
                 </Link>
-
                 <Link
                   to="/my-orders"
                   onClick={() => setIsOpen(false)}
-                  className={
-                    isActiveLink("/my-orders")
-                      ? "text-[#00a34a] font-semibold"
-                      : ""
-                  }
+                  className={isActiveLink("/my-orders") ? "text-[#00a34a] font-semibold" : ""}
                 >
                   My Orders
                 </Link>
-
                 <button
                   onClick={() => {
                     setIsOpen(false);
@@ -518,11 +518,7 @@ function Header() {
               <Link
                 to="/login"
                 onClick={() => setIsOpen(false)}
-                className={
-                  isActiveLink("/login")
-                    ? "text-[#00a34a] font-semibold"
-                    : ""
-                }
+                className={isActiveLink("/login") ? "text-[#00a34a] font-semibold" : ""}
               >
                 Login
               </Link>
@@ -531,9 +527,7 @@ function Header() {
             <Link
               to="/distributor"
               onClick={() => setIsOpen(false)}
-              className={`h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-xl flex items-center justify-center gap-2 ${isActiveLink("/distributor")
-                ? "ring-2 ring-white ring-offset-2 ring-offset-[#00a34a]"
-                : ""
+              className={`h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-xl flex items-center justify-center gap-2 ${isActiveLink("/distributor") ? "ring-2 ring-white ring-offset-2 ring-offset-[#00a34a]" : ""
                 }`}
             >
               <FontAwesomeIcon icon={faLocationDot} />
@@ -542,7 +536,6 @@ function Header() {
           </div>
         </div>
       </header>
-      {/* <ToastContainer /> */}
     </>
   );
 }

@@ -41,6 +41,27 @@ export default function Cart() {
 
 
 
+  // const fetchCart = async () => {
+  //   const token = localStorage.getItem("token");
+  //   try {
+  //     const response = await axios.get(
+  //       `${API_URL}/customers/cart`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //           Accept: "application/json",
+  //         },
+  //       }
+  //     );
+
+  //     setCartItems(response.data.data.items);
+  //     setSummary(response.data.data.summary);
+  //   } catch (error) {
+  //     console.error("Cart API Error:", error);
+  //   }
+  // };
+
+
   const fetchCart = async () => {
     const token = localStorage.getItem("token");
     try {
@@ -56,6 +77,10 @@ export default function Cart() {
 
       setCartItems(response.data.data.items);
       setSummary(response.data.data.summary);
+
+
+      window.dispatchEvent(new Event('cartUpdated'));
+
     } catch (error) {
       console.error("Cart API Error:", error);
     }
