@@ -200,6 +200,15 @@ export default function Checkout() {
         }
       );
 
+      console.log(response.data);
+      navigate("/thankyou-order", {
+        state: response.data.data
+      });
+      //toast.success("Your order has been placed successfully!");
+
+      //  setTimeout(() => {
+      //   navigate("/thankyou-order");
+      // }, 1000);
       console.log("Address saved:", response.data);
 
       toast.success("Address added successfully!");

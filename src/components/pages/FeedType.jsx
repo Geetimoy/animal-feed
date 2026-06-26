@@ -40,7 +40,7 @@ import {
   faArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import nutritionHero from "../../assets/images/nutrition-banner.png";
 import { Helmet } from "react-helmet";
 
@@ -88,6 +88,44 @@ function FeedType() {
   const pig = feedSettings?.data?.pig;
   const fish = feedSettings?.data?.fish;
 
+  const location = useLocation();
+
+  // useEffect(() => {
+  //   if (location.hash) {
+  //     const sectionId = location.hash.substring(1);
+
+  //     setTimeout(() => {
+  //       const element = document.getElementById(sectionId);
+
+  //       if (element) {
+  //         element.scrollIntoView({
+  //           behavior: "smooth",
+  //           block: "start",
+  //         });
+  //       }
+  //     }, 100);
+  //   }
+  // }, [location]);
+
+ useEffect(() => {
+  if (!feedSettings) return;
+
+  if (location.hash) {
+    const sectionId = location.hash.substring(1);
+
+    setTimeout(() => {
+      const element = document.getElementById(sectionId);
+
+      if (element) {
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    }, 300);
+  }
+}, [feedSettings, location.hash]);
+
   return (
     <>
       <Helmet>
@@ -110,7 +148,7 @@ function FeedType() {
         />
 
         {/* ================= CATTLE ================= */}
-        <section className="py-10 md:py-12 bg-gray-100">
+        <section id="cattle" className="py-10 md:py-12 bg-gray-100">
           <div className="text-center  mb-6">
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center ">
               {cattle?.heading} <span className="text-[#ffa800]"> {" "}
@@ -496,7 +534,7 @@ function FeedType() {
         </section>
 
         {/* ================= Poultry ================= */}
-        <section className="py-10 md:py-12">
+        <section id="poultry" className="py-10 md:py-12">
           <div className="text-center  mb-6 px-4">
             {/* <h2 className="text-3xl md:text-5xl font-semibold text-green-800 flex items-center justify-center gap-3">
                 Feed
@@ -814,7 +852,7 @@ function FeedType() {
 
         {/* ================= PIG ================= */}
 
-        <section className="py-10 md:py-12 bg-gray-100">
+        <section id="pig" className="py-10 md:py-12 bg-gray-100">
           <div className="text-center mb-6  px-4">
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center ">
               {pig?.heading} <span className="text-[#ffa800]">{pig?.heading_highlight}</span>
@@ -1032,7 +1070,7 @@ function FeedType() {
         </section>
 
         {/* ================= FISH ================= */}
-        <section className="py-10 md:py-12">
+        <section id="fish" className="py-10 md:py-12">
           <div className="text-center  mb-6 px-4">
             {/* <h2 className="text-3xl md:text-5xl font-semibold text-green-800 flex items-center justify-center gap-3">
                 Feed

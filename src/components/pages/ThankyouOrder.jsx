@@ -1,3 +1,6 @@
+import Header from "../Header";
+import Footer from "../Footer";
+import contactBaner from "../../assets/images/contact-banner.jpg";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { API_URL } from "../../config/api";
@@ -43,22 +46,17 @@ export default function ThankyouOrder() {
       setLoading(false);
       navigate('/');
     }
-  }, [navigate]);
+  };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading...</p>
-        </div>
-      </div>
-    );
-  }
+  const bannerItem = banner?.data?.[0];
 
-  if (!isValidOrder) {
-    return null;
-  }
+  const location = useLocation();
+
+  const order = location.state?.orders?.[0];
+  const summary = location.state?.summary;
+
+  console.log(order);
+  console.log(summary);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
@@ -102,15 +100,15 @@ export default function ThankyouOrder() {
             <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 border-t border-b border-gray-100 py-6 my-6">
               <div className="flex items-center justify-center gap-3 text-gray-600">
                 <FontAwesomeIcon icon={faBox} className="w-5 h-5 text-blue-500" />
-                <span className="text-sm font-medium">Order #{orderData?.orderId || 'N/A'}</span>
+                <span className="text-sm font-medium">Order #{order?.order_number}</span>
               </div>
               <div className="flex items-center justify-center gap-3 text-gray-600">
                 <FontAwesomeIcon icon={faClock} className="w-5 h-5 text-orange-500" />
-                <span className="text-sm font-medium">{orderData?.status || 'Processing'}</span>
+                <span className="text-sm font-medium">{order?.status}</span>
               </div>
               <div className="flex items-center justify-center gap-3 text-gray-600">
                 <FontAwesomeIcon icon={faShoppingBag} className="w-5 h-5 text-purple-500" />
-                <span className="text-sm font-medium">{orderData?.items || 0} items</span>
+                <span className="text-sm font-medium">{order?.items_count} items</span>
               </div>
             </div>
           )}
