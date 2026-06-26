@@ -15,7 +15,7 @@ import { API_URL } from "../../config/api";
 
 const STATUS_STYLES = {
   confirmed: "bg-green-50 text-green-700",
-  pending:   "bg-yellow-50 text-yellow-700",
+  pending: "bg-yellow-50 text-yellow-700",
   cancelled: "bg-red-50 text-red-600",
   delivered: "bg-blue-50 text-blue-700",
 };
@@ -30,18 +30,14 @@ export default function MyOrders() {
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
 
-  const [banner, setBanner] = useState(null);
-  const pageSlug = "my-orders";
-
   const mobileItem = (path, label) => (
     <Link
       to={path}
       onClick={() => setOpen(false)}
-      className={`block px-4 py-3 text-sm rounded-lg ${
-        pathname === path
+      className={`block px-4 py-3 text-sm rounded-lg ${pathname === path
           ? "bg-green-50 text-green-700 font-medium"
           : "text-gray-700"
-      }`}
+        }`}
     >
       {label}
     </Link>
@@ -88,40 +84,13 @@ export default function MyOrders() {
     }
   };
 
-  useEffect(() => {
-    if (pageSlug) fetchBanner();
-  }, [pageSlug]);
 
-  const fetchBanner = async () => {
-    try {
-      const res = await axios.get(`${API_URL}/banners/${pageSlug}`);
-      setBanner(res.data);
-    } catch (err) {
-      console.log("Banner API error:", err);
-    }
-  };
-
-  const bannerItem = banner?.data?.[0];
 
   return (
     <>
       <Header showLogout={true} />
       <main className="pt-16 overflow-x-hidden">
-        <section className="relative z-0">
-          <div className="relative">
-            <img
-              src={bannerItem?.image_url}
-              alt={bannerItem?.title}
-              className="w-full md:h-auto h-[250px] object-cover"
-            />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <h1 className="text-white text-4xl md:text-6xl font-bold">
-                {bannerItem?.title_white}{" "}
-                <span className="text-[#ffa800]">{bannerItem?.title_gold}</span>
-              </h1>
-            </div>
-          </div>
-        </section>
+
 
         <div className="flex flex-col md:flex-row bg-[#f7f8fa] md:max-w-7xl md:mx-auto px-4 md:px-8 py-8 mt-16">
           <div className="hidden md:block">
@@ -250,9 +219,8 @@ export default function MyOrders() {
                           {/* Status */}
                           <td className="px-2 md:px-4 py-3 text-center border border-green-200 whitespace-nowrap">
                             <span
-                              className={`inline-block px-3 py-1 text-xs rounded-full font-medium capitalize ${
-                                STATUS_STYLES[order.status] || "bg-gray-100 text-gray-600"
-                              }`}
+                              className={`inline-block px-3 py-1 text-xs rounded-full font-medium capitalize ${STATUS_STYLES[order.status] || "bg-gray-100 text-gray-600"
+                                }`}
                             >
                               {order.status}
                             </span>

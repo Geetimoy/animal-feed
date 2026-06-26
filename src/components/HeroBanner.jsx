@@ -83,7 +83,7 @@ const HeroBanner = ({
       variants={fadeIn}
     >
       <div className="relative">
-        <motion.img
+        {/* <motion.img
           src={imageUrl}
           alt={titleWhite || "Banner"}
           className={`w-full md:h-[500px] ${height} hidden md:block object-cover object-center`}
@@ -96,7 +96,33 @@ const HeroBanner = ({
           alt={titleWhite || "Banner"}
           className={`w-full md:h-[400px] ${height} block md:hidden object-cover object-top`}
         />
-        <div className="absolute inset-0 bg-black/[0.40]"></div>
+        <div className="absolute inset-0 bg-black/[0.40]"></div> */}
+
+        <motion.img
+          src={imageUrl}
+          alt={titleWhite || "Banner"}
+          className={`w-full md:h-[500px] ${height} hidden md:block object-cover object-center`}
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+        />
+
+        <motion.img
+          src={imageUrl}
+          alt={titleWhite || "Banner"}
+          className={`w-full md:h-[400px] ${height} block md:hidden object-cover object-top`}
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+        />
+
+        <motion.div
+          className="absolute inset-0 bg-black/40"
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+        />
+
         <motion.div
           className="absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-4xl px-4 md:px-6 w-full"
           initial={{ y: 50, opacity: 0 }}

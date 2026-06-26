@@ -127,7 +127,7 @@ function Header() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between w-full py-2">
             {/* Logo */}
             <div
-              className={`flex-shrink-0 flex items-center justify-center bg-white rounded-full relative z-50 transition-all duration-300 ${scrolled
+              className={`flex-shrink-0 flex items-center justify-center bg-white rounded-full relative z-[1000] transition-all duration-300 ${scrolled
                 ? "lg:h-[90px] lg:w-[90px] md:h-[80px] md:w-[80px] h-[70px] w-[70px] mt-0"
                 : "lg:h-[156px] lg:w-[156px] md:h-[120px] md:w-[120px] h-[100px] w-[100px] lg:mt-10 mt-0"
                 }`}
@@ -337,7 +337,7 @@ function Header() {
 
         {/* Mobile Slide Menu */}
         <div
-          className={`fixed top-[100px] left-0 w-[280px] bg-white transform transition-transform duration-300 h-full z-[999] lg:hidden ${isOpen ? "translate-x-0" : "-translate-x-full"
+          className={`fixed top-[84px] left-0 w-[280px] bg-white transform transition-transform duration-300 h-full z-[999] lg:hidden ${isOpen ? "translate-x-0" : "-translate-x-full"
             }`}
         >
           {/* Close */}
@@ -358,35 +358,66 @@ function Header() {
             <Link
               to="/"
               onClick={() => setIsOpen(false)}
-              className={isActiveLink('/') ? 'text-[#00a34a] font-semibold' : ''}
+              className={isActiveLink("/") ? "text-[#00a34a] font-semibold" : ""}
             >
               Home
             </Link>
 
-            {/* Mobile Know Us Dropdown */}
+            {/* Know Us */}
             <div>
               <button
                 onClick={() => setKnowUsMobileOpen(!knowUsMobileOpen)}
-                className={`flex justify-between items-center w-full ${isActiveLink('/about-us') || isActiveLink('/research-development') ? 'text-[#00a34a] font-semibold' : ''
+                className={`flex justify-between items-center w-full ${isActiveLink("/about-us") ||
+                  isActiveLink("/research-development")
+                  ? "text-[#00a34a] font-semibold"
+                  : ""
                   }`}
               >
                 <span>Know Us</span>
+
                 <FontAwesomeIcon
                   icon={faChevronDown}
                   className={`transition-transform ${knowUsMobileOpen ? "rotate-180" : ""
                     }`}
                 />
               </button>
+
               {knowUsMobileOpen && (
                 <div className="mt-3 ml-4 flex flex-col gap-3 text-sm">
-                  <Link to="/about-us" onClick={() => setIsOpen(false)}>About Us</Link>
-                  <Link to="/#whygreengold" onClick={() => setIsOpen(false)}>Why Green Gold</Link>
-                  <Link to="/about-us#ourstory" onClick={() => setIsOpen(false)}>Our Story</Link>
-                  <Link to="/about-us#missionvision" onClick={() => setIsOpen(false)}>Mission & Vision</Link>
-                  <Link to="/about-us#ourcommitment" onClick={() => setIsOpen(false)}>Our Commitment</Link>
-                  <Link to="/about-us#ourteam" onClick={() => setIsOpen(false)}>Our Team</Link>
-                  <Link to="/about-us#ourunit" onClick={() => setIsOpen(false)}>Our Units</Link>
-                  <Link to="/research-development" onClick={() => setIsOpen(false)}>Research & Development</Link>
+                  <Link to="/about-us" onClick={() => setIsOpen(false)}>
+                    About Us
+                  </Link>
+
+                  <Link to="/#whygreengold" onClick={() => setIsOpen(false)}>
+                    Why Green Gold
+                  </Link>
+
+                  <Link to="/about-us#ourstory" onClick={() => setIsOpen(false)}>
+                    Our Story
+                  </Link>
+
+                  <Link to="/about-us#missionvision" onClick={() => setIsOpen(false)}>
+                    Mission & Vision
+                  </Link>
+
+                  <Link to="/about-us#ourcommitment" onClick={() => setIsOpen(false)}>
+                    Our Commitment
+                  </Link>
+
+                  <Link to="/about-us#ourteam" onClick={() => setIsOpen(false)}>
+                    Our Team
+                  </Link>
+
+                  <Link to="/about-us#ourunit" onClick={() => setIsOpen(false)}>
+                    Our Units
+                  </Link>
+
+                  <Link
+                    to="/research-development"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Research & Development
+                  </Link>
                 </div>
               )}
             </div>
@@ -394,64 +425,85 @@ function Header() {
             <Link
               to="/nutrition"
               onClick={() => setIsOpen(false)}
-              className={isActiveLink('/nutrition') ? 'text-[#00a34a] font-semibold' : ''}
+              className={isActiveLink("/nutrition") ? "text-[#00a34a] font-semibold" : ""}
             >
               Nutrition
             </Link>
+
             <Link
               to="/feed-type"
               onClick={() => setIsOpen(false)}
-              className={isActiveLink('/feed-type') ? 'text-[#00a34a] font-semibold' : ''}
+              className={isActiveLink("/feed-type") ? "text-[#00a34a] font-semibold" : ""}
             >
               Feed Type
             </Link>
+
             <Link
-              to="/csr"
+              to="/products"
               onClick={() => setIsOpen(false)}
-              className={isActiveLink('/csr') ? 'text-[#00a34a] font-semibold' : ''}
+              className={isActiveLink("/products") ? "text-[#00a34a] font-semibold" : ""}
             >
-              CSR
+              Products
             </Link>
 
-            {/* Mobile Media Dropdown */}
+            {/* Media */}
             <div>
               <button
                 onClick={() => setMediaMobileOpen(!mediaMobileOpen)}
-                className={`flex justify-between items-center w-full ${isActiveLink('/news-events') || isActiveLink('/gallery') ? 'text-[#00a34a] font-semibold' : ''
+                className={`flex justify-between items-center w-full ${isActiveLink("/news-events") || isActiveLink("/gallery")
+                  ? "text-[#00a34a] font-semibold"
+                  : ""
                   }`}
               >
                 <span>Media</span>
+
                 <FontAwesomeIcon
                   icon={faChevronDown}
                   className={`transition-transform ${mediaMobileOpen ? "rotate-180" : ""
                     }`}
                 />
               </button>
+
               {mediaMobileOpen && (
                 <div className="mt-3 ml-4 flex flex-col gap-3 text-sm">
-                  <Link to="/news-events" onClick={() => setIsOpen(false)}>News & Events</Link>
-                  <Link to="/gallery" onClick={() => setIsOpen(false)}>Gallery</Link>
+                  <Link to="/news-events" onClick={() => setIsOpen(false)}>
+                    News & Events
+                  </Link>
+
+                  <Link to="/gallery" onClick={() => setIsOpen(false)}>
+                    Gallery
+                  </Link>
                 </div>
               )}
             </div>
 
-            {/* Mobile Auth Links */}
+            {/* Auth */}
             {isAuthenticated ? (
               <>
                 <Link
                   to="/profile"
                   onClick={() => setIsOpen(false)}
-                  className={isActiveLink('/profile') ? 'text-[#00a34a] font-semibold' : 'text-green-600'}
+                  className={
+                    isActiveLink("/profile")
+                      ? "text-[#00a34a] font-semibold"
+                      : ""
+                  }
                 >
-                  <FontAwesomeIcon icon={faUser} className="mr-2" /> Profile
+                  Profile
                 </Link>
+
                 <Link
                   to="/my-orders"
                   onClick={() => setIsOpen(false)}
-                  className={isActiveLink('/my-orders') ? 'text-[#00a34a] font-semibold' : ''}
+                  className={
+                    isActiveLink("/my-orders")
+                      ? "text-[#00a34a] font-semibold"
+                      : ""
+                  }
                 >
-                  <FontAwesomeIcon icon={faBox} className="mr-2" /> My Orders
+                  My Orders
                 </Link>
+
                 <button
                   onClick={() => {
                     setIsOpen(false);
@@ -459,14 +511,18 @@ function Header() {
                   }}
                   className="text-left text-red-500"
                 >
-                  <FontAwesomeIcon icon={faSignOutAlt} className="mr-2" /> Logout
+                  Logout
                 </button>
               </>
             ) : (
               <Link
                 to="/login"
                 onClick={() => setIsOpen(false)}
-                className={isActiveLink('/login') ? 'text-[#00a34a] font-semibold' : ''}
+                className={
+                  isActiveLink("/login")
+                    ? "text-[#00a34a] font-semibold"
+                    : ""
+                }
               >
                 Login
               </Link>
@@ -475,7 +531,9 @@ function Header() {
             <Link
               to="/distributor"
               onClick={() => setIsOpen(false)}
-              className={`h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] flex items-center justify-center gap-2 ${isActiveLink('/distributor') ? 'ring-2 ring-white ring-offset-2 ring-offset-[#00a34a]' : ''
+              className={`h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-xl flex items-center justify-center gap-2 ${isActiveLink("/distributor")
+                ? "ring-2 ring-white ring-offset-2 ring-offset-[#00a34a]"
+                : ""
                 }`}
             >
               <FontAwesomeIcon icon={faLocationDot} />
