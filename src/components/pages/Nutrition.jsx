@@ -47,6 +47,10 @@ import axios from "axios";
 import HeroBanner from "../HeroBanner";
 import { useBanner } from "../../hooks/useBanner";
 
+// For SEO
+import SEO from "./SEO";
+import usePageSEO from "../../hooks/usePageSEO";
+
 // Animation variants
 const fadeIn = {
   hidden: { opacity: 0 },
@@ -93,11 +97,14 @@ function Nutrition() {
   const pageSlug = "nutrition";
   const { bannerItem, isLoading, error } = useBanner(pageSlug);
 
+  const { seo } = usePageSEO("nutrition");
+
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>Nutrition - Animal Feed</title>
-      </Helmet>
+      </Helmet> */}
+      <SEO seo={seo} />
       <Header></Header>
       <main className="pt-16 overflow-x-hidden">
         {/* Hero Section */}

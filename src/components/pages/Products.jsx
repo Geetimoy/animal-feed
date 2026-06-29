@@ -227,6 +227,10 @@ import { API_URL } from "../../config/api";
 import { useBanner } from "../../hooks/useBanner";
 import HeroBanner from "../HeroBanner";
 
+// For SEO
+import SEO from "./SEO";
+import usePageSEO from "../../hooks/usePageSEO";
+
 export default function Products() {
   const [search, setSearch] = useState("");
   // const [activeCategory, setActiveCategory] = useState(categories[0].name);
@@ -242,6 +246,8 @@ export default function Products() {
 
   const pageSlug = "products";
   const { bannerItem, isLoading, error } = useBanner(pageSlug);
+
+  const { seo } = usePageSEO("products");
 
 
   useEffect(() => {
@@ -344,10 +350,10 @@ export default function Products() {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>Products</title>
-      </Helmet>
-
+      </Helmet> */}
+      <SEO seo={seo} />
       <Header />
 
       <main className="pt-16 bg-gray-50">

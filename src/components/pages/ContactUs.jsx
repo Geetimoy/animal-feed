@@ -20,11 +20,15 @@ import "react-toastify/dist/ReactToastify.css";
 import { useBanner } from "../../hooks/useBanner";
 import HeroBanner from "../HeroBanner";
 
+// For SEO
+import SEO from "./SEO";
+import usePageSEO from "../../hooks/usePageSEO";
+
 function ContactUs() {
   const pageSlug = "contact-us";
   const { bannerItem, isLoading, error } = useBanner(pageSlug);
-
   const { settings } = useSettings();
+  const { seo } = usePageSEO("contact-us");
 
   // Form
   const [formData, setFormData] = useState({
@@ -150,9 +154,10 @@ function ContactUs() {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>Contact Us - Animal Feed</title>
-      </Helmet>
+      </Helmet> */}
+      <SEO seo={seo} />
       <Header />
       <main className="pt-16 overflow-x-hidden">
         {/* Hero Section */}

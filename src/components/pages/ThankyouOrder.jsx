@@ -18,12 +18,18 @@ import {
   faEnvelope,
 } from "@fortawesome/free-solid-svg-icons";
 
+// For SEO
+import SEO from "./SEO";
+import usePageSEO from "../../hooks/usePageSEO";
+
 export default function ThankyouOrder() {
   const navigate = useNavigate();
   const location = useLocation();
   const [banner, setBanner] = useState(null);
   const [orderData, setOrderData] = useState(null);
   const pageSlug = "thankyou-order";
+
+  const { seo } = usePageSEO("thankyou-order");
 
   useEffect(() => {
     // ── 1. location.state is the primary and ONLY trusted source ──────────────
@@ -71,6 +77,7 @@ export default function ThankyouOrder() {
 
   return (
     <>
+      <SEO seo={seo} />
       <Header showLogout={true} />
       <main className="pt-36 overflow-x-hidden min-h-screen bg-gradient-to-b from-gray-50 to-white">
 

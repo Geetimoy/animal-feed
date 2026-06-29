@@ -15,6 +15,10 @@ import { Helmet } from "react-helmet";
 import axios from "axios";
 import { API_URL } from "../../config/api";
 
+// For SEO
+import SEO from "./SEO";
+import usePageSEO from "../../hooks/usePageSEO";
+
 export default function AddressManagement() {
   const location = useLocation();
   const { pathname } = useLocation();
@@ -24,6 +28,8 @@ export default function AddressManagement() {
 
   const [banner, setBanner] = useState(null);
   const pageSlug = "address-management";
+
+  const { seo } = usePageSEO("address-management");
 
   const initialAddress = {
     fullName: "",
@@ -282,9 +288,10 @@ export default function AddressManagement() {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>Address Management -  Animal Feed</title>
-      </Helmet>
+      </Helmet> */}
+      <SEO seo={seo} />
       <Header showLogout={true} />
 
       <main className="pt-16 overflow-x-hidden">

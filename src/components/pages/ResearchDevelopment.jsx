@@ -19,6 +19,10 @@ import axios from "axios";
 import { useBanner } from './../../hooks/useBanner';
 import HeroBanner from './../HeroBanner';
 
+// For SEO
+import SEO from "./SEO";
+import usePageSEO from "../../hooks/usePageSEO";
+
 // Animation variants
 const fadeIn = {
   hidden: { opacity: 0 },
@@ -66,7 +70,7 @@ function ResearchDevelopment() {
 
   const pageSlug = "research-development";
   const { bannerItem, isLoading, error } = useBanner(pageSlug);
-
+  const { seo } = usePageSEO("research-development");
 
   const [researchData, setResearchData] = useState(null);
 
@@ -107,9 +111,10 @@ function ResearchDevelopment() {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>Research & Development -  Animal Feed</title>
-      </Helmet>
+      </Helmet> */}
+      <SEO seo={seo} />
       <Header></Header>
       <main className="pt-16 overflow-hidden">
 

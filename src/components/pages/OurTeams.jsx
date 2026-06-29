@@ -17,11 +17,16 @@ import axios from "axios";
 import HeroBanner from "../HeroBanner";
 import { useBanner } from "../../hooks/useBanner";
 
+// For SEO
+import SEO from "./SEO";
+import usePageSEO from "../../hooks/usePageSEO";
+
 
 function OurTeams() {
   const [aboutSettings, setAboutSettings] = useState({});
   const pageSlug = "our-teams";
   const { bannerItem, isLoading, error } = useBanner(pageSlug);
+  const { seo } = usePageSEO("our-teams");
 
   useEffect(() => {
     if (pageSlug) {
@@ -52,9 +57,10 @@ function OurTeams() {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>Our Teams -  Animal Feed</title>
-      </Helmet>
+      </Helmet> */}
+      <SEO seo={seo} />
       <Header></Header>
       <main className="pt-16 overflow-hidden">
         {/* Hero Section */}

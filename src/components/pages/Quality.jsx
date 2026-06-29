@@ -14,16 +14,22 @@ import axios from "axios";
 import { useBanner } from "../../hooks/useBanner";
 import HeroBanner from "../HeroBanner";
 
+// For SEO
+import SEO from "./SEO";
+import usePageSEO from "../../hooks/usePageSEO";
+
 function Quality() {
   const pageSlug = "quality";
   const { bannerItem, isLoading, error } = useBanner(pageSlug);
+  const { seo } = usePageSEO("quality");
 
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>Quality -  Animal Feed</title>
-      </Helmet>
+      </Helmet> */}
+      <SEO seo={seo} />
       <Header></Header>
       <main className="pt-16">
         {/* Hero Section */}

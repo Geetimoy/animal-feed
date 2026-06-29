@@ -21,6 +21,10 @@ import { Helmet } from "react-helmet";
 import HeroBanner from "../HeroBanner";
 import { useBanner } from "../../hooks/useBanner";
 
+// For SEO
+import SEO from "./SEO";
+import usePageSEO from "../../hooks/usePageSEO";
+
 
 function Distributor() {
 
@@ -44,6 +48,8 @@ function Distributor() {
 
   const pageSlug = "distributor";
   const { bannerItem, isLoading, error } = useBanner(pageSlug);
+
+  const { seo } = usePageSEO("distributor");
 
   useEffect(() => {
     fetchDistributors();
@@ -149,9 +155,10 @@ function Distributor() {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>Distributor - Animal Feed</title>
-      </Helmet>
+      </Helmet> */}
+      <SEO seo={seo} />
       <Header />
       <main className="pt-16 overflow-hidden">
         {/* Hero Section */}

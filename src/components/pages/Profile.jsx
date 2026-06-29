@@ -17,6 +17,10 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { toast } from "react-toastify";
 
+// For SEO
+import SEO from "./SEO";
+import usePageSEO from "../../hooks/usePageSEO";
+
 export default function Profile() {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
@@ -43,6 +47,8 @@ export default function Profile() {
 
   const [banner, setBanner] = useState(null);
   const pageSlug = "profile";
+
+  const { seo } = usePageSEO("profile");
 
 
   // const [formData, setFormData] = useState({
@@ -281,9 +287,10 @@ export default function Profile() {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>Profile -  Animal Feed</title>
-      </Helmet>
+      </Helmet> */}
+      <SEO seo={seo} />
       <Header showLogout={true} />
       <main className="pt-16 overflow-x-hidden">
         {bannerItem?.image_url && (

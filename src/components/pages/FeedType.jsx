@@ -49,9 +49,14 @@ import axios from "axios";
 import HeroBanner from "../HeroBanner";
 import { useBanner } from "../../hooks/useBanner";
 
+// For SEO
+import SEO from "./SEO";
+import usePageSEO from "../../hooks/usePageSEO";
+
 function FeedType() {
 
   const [showAll, setShowAll] = useState(false);
+  const { seo } = usePageSEO("feed-type");
 
   const iconMap = {
     faDrumstickBite,
@@ -128,9 +133,10 @@ function FeedType() {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>Feed Types - Animal Feed</title>
-      </Helmet>
+      </Helmet> */}
+      <SEO seo={seo} />
       <Header></Header>
       <main className="pt-16 overflow-x-hidden">
         {/* Hero Section */}

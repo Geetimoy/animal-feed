@@ -23,6 +23,10 @@ import axios from "axios";
 import { useBanner } from "../../hooks/useBanner";
 import HeroBanner from "../HeroBanner";
 
+// For SEO
+import SEO from "./SEO";
+import usePageSEO from "../../hooks/usePageSEO";
+
 function NewsEvents() {
 
   const [news, setNews] = useState([]); // All news
@@ -33,6 +37,9 @@ function NewsEvents() {
 
   const pageSlug = "news-events";
   const { bannerItem, isLoading, error } = useBanner(pageSlug);
+
+  const { seo } = usePageSEO("news-events");
+
 
 
   // useEffect(() => {
@@ -85,9 +92,10 @@ function NewsEvents() {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>News & Events -  Animal Feed</title>
-      </Helmet>
+      </Helmet> */}
+      <SEO seo={seo} />
       <Header></Header>
       <main className="pt-16 overflow-hidden">
         {/* Hero Section */}

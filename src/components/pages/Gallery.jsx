@@ -13,6 +13,10 @@ import axios from "axios";
 import HeroBanner from "../HeroBanner";
 import { useBanner } from "../../hooks/useBanner";
 
+// For SEO
+import SEO from "./SEO";
+import usePageSEO from "../../hooks/usePageSEO";
+
 function Gallery() {
   const [selectedImg, setSelectedImg] = useState(null);
 
@@ -21,6 +25,7 @@ function Gallery() {
   const [loading, setLoading] = useState(true);
   const pageSlug = "gallery";
   const { bannerItem, isLoading, error } = useBanner(pageSlug);
+  const { seo } = usePageSEO("gallery");
 
   // State for video gallery
   const [selectedVideo, setSelectedVideo] = useState(null);
@@ -86,9 +91,10 @@ function Gallery() {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>Gallery - Animal Feed</title>
-      </Helmet>
+      </Helmet> */}
+      <SEO seo={seo} />
       <Header />
       <main className="pt-16 overflow-hidden">
         {/* Hero Section */}

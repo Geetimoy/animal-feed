@@ -13,6 +13,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../../config/api";
 
+// For SEO
+import SEO from "./SEO";
+import usePageSEO from "../../hooks/usePageSEO";
+
 const STATUS_STYLES = {
   confirmed: "bg-green-50 text-green-700",
   pending: "bg-yellow-50 text-yellow-700",
@@ -29,6 +33,8 @@ export default function MyOrders() {
 
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
+
+  const { seo } = usePageSEO("my-orders");
 
   const mobileItem = (path, label) => (
     <Link
@@ -88,6 +94,7 @@ export default function MyOrders() {
 
   return (
     <>
+      <SEO seo={seo} />
       <Header showLogout={true} />
       <main className="pt-16 overflow-x-hidden">
 
