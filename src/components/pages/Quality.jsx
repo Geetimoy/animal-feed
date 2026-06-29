@@ -21,7 +21,7 @@ import usePageSEO from "../../hooks/usePageSEO";
 function Quality() {
   const pageSlug = "quality";
   const { bannerItem, isLoading, error } = useBanner(pageSlug);
-  const { seo } = usePageSEO("quality");
+  const { seo } = usePageSEO("static/quality");
 
 
   return (

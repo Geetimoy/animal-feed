@@ -25,7 +25,7 @@ function Gallery() {
   const [loading, setLoading] = useState(true);
   const pageSlug = "gallery";
   const { bannerItem, isLoading, error } = useBanner(pageSlug);
-  const { seo } = usePageSEO("gallery");
+  const { seo } = usePageSEO("static/gallery");
 
   // State for video gallery
   const [selectedVideo, setSelectedVideo] = useState(null);

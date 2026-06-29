@@ -247,7 +247,7 @@ export default function Products() {
   const pageSlug = "products";
   const { bannerItem, isLoading, error } = useBanner(pageSlug);
 
-  const { seo } = usePageSEO("products");
+  const { seo } = usePageSEO("static/products");
 
 
   useEffect(() => {

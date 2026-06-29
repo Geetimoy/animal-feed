@@ -19,6 +19,10 @@ import fish from "../../assets/images/fish2.png";
 import ProductSidebar from "./ProductSidebar";
 import { API_URL } from "../../config/api";
 
+// For SEO
+import SEO from "./SEO";
+import usePageSEO from "../../hooks/usePageSEO";
+
 export default function ProductListing() {
   const { categorySlug, subCategorySlug } = useParams();
   const location = useLocation();
@@ -31,6 +35,12 @@ export default function ProductListing() {
   const [maxPrice, setMaxPrice] = useState(3000);
   const [selectedDistributors, setSelectedDistributors] = useState([]);
   const [loading, setLoading] = useState(false);
+
+   const { seo } = usePageSEO(
+    categorySlug && subCategorySlug
+      ? `product_listing/${categorySlug}/${subCategorySlug}`
+      : null
+  );
 
   // Get category and sub-category names from URL
   const categoryName = categorySlug?.replace(/-/g, ' ') || '';
@@ -188,6 +198,7 @@ export default function ProductListing() {
 
   return (
     <>
+      <SEO seo={seo} />
       <Header />
       <main className="pt-16 overflow-x-hidden">
         <section className="relative z-0">
@@ -298,7 +309,7 @@ export default function ProductListing() {
                           Add to Cart
                         </button> */}
                         <button
-                          onClick={() => navigate(`/product-details/${product.slug}`)}
+                          onClick={() => navigate(`/product_detail/${product.slug}`)}
                           type="button"
                           className="mt-4 w-full bg-green-500 text-white py-2 rounded-xl font-medium cursor-pointer hover:bg-green-400 text-[14px] transition duration-200"
                         >

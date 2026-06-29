@@ -21,7 +21,7 @@ import usePageSEO from "../../hooks/usePageSEO";
 function Csr() {
   const pageSlug = "csr";
   const { bannerItem, isLoading, error } = useBanner(pageSlug);
-  const { seo } = usePageSEO("csr");
+  const { seo } = usePageSEO("static/csr");
 
 
   return (

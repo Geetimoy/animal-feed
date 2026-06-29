@@ -29,7 +29,7 @@ export default function AddressManagement() {
   const [banner, setBanner] = useState(null);
   const pageSlug = "address-management";
 
-  const { seo } = usePageSEO("address-management");
+  const { seo } = usePageSEO("static/address-management");
 
   const initialAddress = {
     fullName: "",

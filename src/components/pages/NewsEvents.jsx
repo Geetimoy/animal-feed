@@ -38,7 +38,7 @@ function NewsEvents() {
   const pageSlug = "news-events";
   const { bannerItem, isLoading, error } = useBanner(pageSlug);
 
-  const { seo } = usePageSEO("news-events");
+  const { seo } = usePageSEO("static/news-events");
 
 
 

@@ -47,7 +47,7 @@ export default function Profile() {
 
   const pageSlug = "profile";
 
-  const { seo } = usePageSEO("profile");
+  const { seo } = usePageSEO("static/profile");
 
 
   // const [formData, setFormData] = useState({

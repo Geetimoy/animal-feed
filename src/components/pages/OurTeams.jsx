@@ -26,7 +26,7 @@ function OurTeams() {
   const [aboutSettings, setAboutSettings] = useState({});
   const pageSlug = "our-teams";
   const { bannerItem, isLoading, error } = useBanner(pageSlug);
-  const { seo } = usePageSEO("our-teams");
+  const { seo } = usePageSEO("static/our-teams");
 
   useEffect(() => {
     if (pageSlug) {

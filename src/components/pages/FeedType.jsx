@@ -56,7 +56,7 @@ import usePageSEO from "../../hooks/usePageSEO";
 function FeedType() {
 
   const [showAll, setShowAll] = useState(false);
-  const { seo } = usePageSEO("feed-type");
+  const { seo } = usePageSEO("static/feed-type");
 
   const iconMap = {
     faDrumstickBite,

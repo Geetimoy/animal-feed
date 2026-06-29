@@ -36,6 +36,10 @@ import { useCart } from "../../context/CartContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+// For SEO
+import SEO from "./SEO";
+import usePageSEO from "../../hooks/usePageSEO";
+
 function DistributorDetails() {
   const { slug } = useParams();
   const [distributor, setDistributor] = useState(null);
@@ -44,6 +48,11 @@ function DistributorDetails() {
   const [cart, setCart] = useState({});
 
   const [cartItemIds, setCartItemIds] = useState({});
+
+   const { seo } = usePageSEO(
+    slug ? `distributor/${slug}` : null
+  );
+
 
   // const { cartCount, setCartCount } = useCart();
   const { setCartCount } = useCart();
@@ -545,6 +554,7 @@ function DistributorDetails() {
   if (error || !distributor) {
     return (
       <>
+        <SEO seo={seo} />
         <Header />
         <main className="pt-16 min-h-screen flex items-center justify-center">
           <div className="text-center px-4">
@@ -573,9 +583,10 @@ function DistributorDetails() {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>{distributor.company_name || distributor.name} — Distributor Details</title>
-      </Helmet>
+      </Helmet> */}
+      <SEO seo={seo} />
       <Header />
 
       <main className="pt-16 overflow-hidden">

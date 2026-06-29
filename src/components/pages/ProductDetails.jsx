@@ -21,6 +21,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useCart } from "../../context/CartContext";
 
+// For SEO
+import SEO from "./SEO";
+import usePageSEO from "../../hooks/usePageSEO";
+
 export default function ProductDetails() {
   const { productSlug } = useParams();
   const [product, setProduct] = useState(null);
@@ -28,6 +32,10 @@ export default function ProductDetails() {
   const [cart, setCart] = useState({});
   const [cartItemIds, setCartItemIds] = useState({});
   const { setCartCount } = useCart();
+
+  const { seo } = usePageSEO(
+    productSlug ? `product_detail/${productSlug}` : null
+  );
 
   const count = product?.id ? (cart[product.id] || 0) : 0;
 
@@ -168,6 +176,7 @@ export default function ProductDetails() {
   if (loading) {
     return (
       <>
+        <SEO seo={seo} />
         <Header />
         <div className="flex justify-center items-center min-h-[60vh] pt-16">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
@@ -180,6 +189,7 @@ export default function ProductDetails() {
   if (!product) {
     return (
       <>
+        <SEO seo={seo} />
         <Header />
         <div className="text-center py-20 pt-24 text-red-500">
           <h2 className="text-2xl font-bold">Product not found</h2>
@@ -194,6 +204,7 @@ export default function ProductDetails() {
 
   return (
     <>
+      <SEO seo={seo} />
       <Header />
       <main className="pt-24 overflow-x-hidden bg-gray-50">
         {/* Hero Banner */}

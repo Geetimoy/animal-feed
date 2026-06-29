@@ -29,7 +29,7 @@ export default function ThankyouOrder() {
   const [orderData, setOrderData] = useState(null);
   const pageSlug = "thankyou-order";
 
-  const { seo } = usePageSEO("thankyou-order");
+  const { seo } = usePageSEO("static/thankyou-order");
 
   useEffect(() => {
     // ── 1. location.state is the primary and ONLY trusted source ──────────────

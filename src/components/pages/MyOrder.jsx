@@ -34,7 +34,7 @@ export default function MyOrders() {
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
 
-  const { seo } = usePageSEO("my-orders");
+  const { seo } = usePageSEO("static/my-orders");
 
   const mobileItem = (path, label) => (
     <Link

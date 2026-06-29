@@ -99,7 +99,7 @@ export default function AppRoutes() {
                 <Route path="/finisherfish-products" element={<FishFinisher />} />
                 <Route path="/maintenancefish-products" element={<FishMaintenance />} />
                 <Route path="/:categorySlug/:subCategorySlug" element={<ProductListing />} />
-                <Route path="/product-details/:productSlug" element={<ProductDetails />} />
+                <Route path="/product_detail/:productSlug" element={<ProductDetails />} />
 
                 {/* Protected Routes  */}
                 <Route

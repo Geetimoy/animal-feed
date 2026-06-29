@@ -90,7 +90,7 @@ function AboutUs() {
   const { hash } = useLocation();
 
   const { settings } = useSettings();
-  const { seo } = usePageSEO("about-us");
+  const { seo } = usePageSEO("static/about-us");
 
   useEffect(() => {
     if (!hash) return;

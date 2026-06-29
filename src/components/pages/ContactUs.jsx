@@ -28,7 +28,7 @@ function ContactUs() {
   const pageSlug = "contact-us";
   const { bannerItem, isLoading, error } = useBanner(pageSlug);
   const { settings } = useSettings();
-  const { seo } = usePageSEO("contact-us");
+  const { seo } = usePageSEO("static/contact-us");
 
   // Form
   const [formData, setFormData] = useState({

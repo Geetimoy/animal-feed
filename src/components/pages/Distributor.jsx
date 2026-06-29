@@ -49,7 +49,7 @@ function Distributor() {
   const pageSlug = "distributor";
   const { bannerItem, isLoading, error } = useBanner(pageSlug);
 
-  const { seo } = usePageSEO("distributor");
+  const { seo } = usePageSEO("static/distributor");
 
   useEffect(() => {
     fetchDistributors();

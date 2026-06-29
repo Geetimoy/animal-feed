@@ -97,7 +97,7 @@ function Nutrition() {
   const pageSlug = "nutrition";
   const { bannerItem, isLoading, error } = useBanner(pageSlug);
 
-  const { seo } = usePageSEO("nutrition");
+  const { seo } = usePageSEO("static/nutrition");
 
   return (
     <>

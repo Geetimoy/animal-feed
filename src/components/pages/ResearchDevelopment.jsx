@@ -70,7 +70,7 @@ function ResearchDevelopment() {
 
   const pageSlug = "research-development";
   const { bannerItem, isLoading, error } = useBanner(pageSlug);
-  const { seo } = usePageSEO("research-development");
+  const { seo } = usePageSEO("static/research-development");
 
   const [researchData, setResearchData] = useState(null);
 
