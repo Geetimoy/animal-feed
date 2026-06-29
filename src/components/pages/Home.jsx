@@ -177,7 +177,10 @@ import { useSettings } from "../../context/SettingsContext";
 function Home() {
 
   const [activeTab, setActiveTab] = useState("tab1");
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(
+    () => !localStorage.getItem("homeLoaderShown")
+  );
 
   const { hash } = useLocation();
   const { settings } = useSettings();
@@ -197,35 +200,27 @@ function Home() {
     }
   }, [hash]);
 
-  // ─── ✅ CLEAN SOLUTION: শুধু sessionStorage ব্যবহার করো ──────────────
   useEffect(() => {
     fetchHomeSettings();
 
-    // Check if loader already shown in this session
-    const hasVisited = sessionStorage.getItem('homeLoaderShown');
-
-    if (hasVisited) {
-      // Already visited - skip loading
-      setIsLoading(false);
-      document.body.style.overflow = 'auto';
+    if (!isLoading) {
+      document.body.style.overflow = "auto";
       return;
     }
 
-    // First time - show loading animation
-    sessionStorage.setItem('homeLoaderShown', 'true');
+    localStorage.setItem("homeLoaderShown", "true");
+    document.body.style.overflow = "hidden";
 
     const timer = setTimeout(() => {
       setIsLoading(false);
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = "auto";
     }, 3200);
-
-    document.body.style.overflow = 'hidden';
 
     return () => {
       clearTimeout(timer);
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = "auto";
     };
-  }, []); // ← Empty dependency array - runs only once on mount
+  }, [isLoading]);
 
   const fetchHomeSettings = async () => {
     try {
