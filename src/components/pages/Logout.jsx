@@ -8,24 +8,25 @@ export default function Logout() {
   const navigate = useNavigate();
   const { logout } = useAuth();
   const [countdown, setCountdown] = useState(5);
+  const [isLoggingOut, setIsLoggingOut] = useState(true);
 
   useEffect(() => {
-
     logout();
 
+
+    setIsLoggingOut(false);
 
     const countdownInterval = setInterval(() => {
       setCountdown((prev) => {
         if (prev <= 1) {
           clearInterval(countdownInterval);
-          navigate("/login");
+          navigate("/login", { replace: true });
           return 0;
         }
         return prev - 1;
       });
     }, 1000);
 
-    // Cleanup
     return () => {
       clearInterval(countdownInterval);
     };
@@ -50,37 +51,70 @@ export default function Logout() {
           md:px-6 md:py-8
         "
       >
-        {/* logo */}
+
         <div className="flex justify-center mb-2 mt-4 md:mt-0">
           <Link to="/">
             <img src={logo} alt="logo" className="w-[100px] h-[100px]" />
           </Link>
         </div>
 
-        {/* Success Icon */}
+
         <div className="flex justify-center mb-4">
-          <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center">
-            <svg
-              className="w-10 h-10 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
-          </div>
+          {isLoggingOut ? (
+
+            <div className="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center animate-pulse">
+              <svg
+                className="w-10 h-10 text-white animate-spin"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                />
+              </svg>
+            </div>
+          ) : (
+            // Success State
+            <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center animate-bounce">
+              <svg
+                className="w-10 h-10 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            </div>
+          )}
         </div>
 
+
         <h2 className="text-2xl font-semibold text-center text-white">
-          Successfully Logged Out
+          {isLoggingOut ? "Logging Out..." : "Successfully Logged Out!"}
         </h2>
+
+
         <p className="text-center text-white text-sm mb-4">
-          Your session has ended securely
+          {isLoggingOut
+            ? "Please wait while we securely log you out..."
+            : "Your session has ended securely"
+          }
         </p>
 
         <div
@@ -91,10 +125,22 @@ export default function Logout() {
             shadow-[0_8px_30px_rgba(0,0,0,0.08)]
           "
         >
-          {/* Auto Redirect Message */}
-          <p className="text-center text-gray-600 text-sm mb-4">
-            Redirecting to login in {countdown} seconds...
-          </p>
+          {!isLoggingOut && (
+            <>
+              <p className="text-center text-gray-600 text-sm mb-4">
+                Redirecting to login in{" "}
+                <span className="font-bold text-green-600">{countdown}</span> seconds
+              </p>
+
+              {/* Progress Bar */}
+              <div className="w-full bg-gray-200 rounded-full h-1.5 mb-4">
+                <div
+                  className="bg-green-500 h-1.5 rounded-full transition-all duration-1000"
+                  style={{ width: `${(countdown / 5) * 100}%` }}
+                ></div>
+              </div>
+            </>
+          )}
 
           {/* Log In Again Button */}
           <Link to="/login">

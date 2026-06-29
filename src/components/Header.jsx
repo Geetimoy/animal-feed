@@ -128,6 +128,41 @@ function Header() {
   }, [isAuthenticated]);
 
   // Handle Logout
+  // const handleLogout = async () => {
+  //   try {
+  //     const token = localStorage.getItem("token");
+
+  //     if (token) {
+  //       await axios.post(
+  //         `${API_URL}/customers/logout`,
+  //         {},
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //             Accept: "application/json",
+  //           },
+  //         }
+  //       );
+  //     }
+
+  //     logout();
+  //     setCartCount(0);
+
+  //     toast.success("Logged out successfully!", {
+  //       autoClose: 1500,
+  //       onClose: () => {
+  //         navigate("/logout", { replace: true });
+  //       },
+  //     });
+  //   } catch (error) {
+  //     console.error("Logout failed:", error);
+  //     logout();
+  //     setCartCount(0);
+  //     navigate("/logout", { replace: true });
+  //   }
+  // };
+
+
   const handleLogout = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -144,21 +179,20 @@ function Header() {
           }
         );
       }
-
       logout();
       setCartCount(0);
 
       toast.success("Logged out successfully!", {
         autoClose: 1500,
         onClose: () => {
-          navigate("/logout");
+          window.location.href = "/login";
         },
       });
     } catch (error) {
       console.error("Logout failed:", error);
       logout();
       setCartCount(0);
-      navigate("/logout");
+      navigate("/login", { replace: true });
     }
   };
 
@@ -290,7 +324,7 @@ function Header() {
               </div>
             </div>
 
-            {/* ✅ Cart Icon - Updated with better badge */}
+            {/* ✅ Cart Icon */}
             <div className="flex relative cursor-pointer md:flex-0 flex-1 justify-end mr-2">
               <Link to="/cart" className="inline-block relative">
                 <span className="bg-[#ffe7a3] w-[30px] h-[30px] rounded-full text-center text-sm leading-[30px] inline-block">
@@ -307,48 +341,163 @@ function Header() {
             {/* Desktop Auth Section */}
             <div className="hidden lg:flex items-center space-x-4">
               {isAuthenticated ? (
-                <div className="dropdown-trigger relative">
-                  <button className={`nav-link flex items-center space-x-1 ${isActiveLink('/profile') || isActiveLink('/my-orders') ? 'text-[#00a34a]' : ''
-                    }`}>
-                    <FontAwesomeIcon icon={faCircleUser} className="text-lg mr-1" />
-                    <span className="text-sm font-medium">{user?.name || 'User'}</span>
-                    <FontAwesomeIcon icon={faChevronDown} className="text-[10px] chevron ml-1" />
+                <div className="relative group">
+                  <button
+                    className={`
+    flex items-center space-x-3 px-2 py-1.5 rounded-full
+    transition-all duration-300 ease-in-out
+    hover:bg-gray-50 hover:shadow-md
+    max-w-[160px]
+    ${isActiveLink('/profile') || isActiveLink('/my-orders')
+                        ? 'bg-green-50 text-[#00a34a] ring-1 ring-[#00a34a]/20'
+                        : 'text-gray-700'
+                      }
+  `}
+                  >
+                    {/* Avatar */}
+                    <div className="relative flex-shrink-0">
+                      <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#00a34a] to-[#009a62] flex items-center justify-center text-white font-semibold text-sm shadow-sm">
+                        {user?.name ? user.name.charAt(0).toUpperCase() : "U"}
+                      </div>
+
+                      <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-white rounded-full"></span>
+                    </div>
+
+                    {/* User Info */}
+                    <div className="flex flex-col items-start min-w-0 flex-1">
+                      <span className="text-sm font-semibold text-gray-800 leading-none truncate w-full">
+                        {user?.name || "User"}
+                        {/* Saikat Kandar Chakraborty Roy */}
+                      </span>
+
+                      <span className="text-[10px] text-gray-500 font-medium mt-0.5">
+                        Customer
+                      </span>
+                    </div>
+
+                    <FontAwesomeIcon
+                      icon={faChevronDown}
+                      className="text-[10px] text-gray-400 flex-shrink-0 transition-all duration-300 group-hover:rotate-180 group-hover:text-[#00a34a]"
+                    />
                   </button>
-                  <div className="dropdown absolute top-full right-0 pt-4 w-36">
-                    <div className="bg-white rounded-xl shadow-xl border border-gray-100 py-2 overflow-hidden">
-                      <Link to="/profile" className="dropdown-item flex items-center px-4 py-2.5 text-sm text-gray-600 hover:bg-gray-50">
-                        <FontAwesomeIcon icon={faUser} className="w-4 text-green-500 mr-3" /> Profile
-                      </Link>
-                      <Link to="/my-orders" className="dropdown-item flex items-center px-4 py-2.5 text-sm text-gray-600 hover:bg-gray-50">
-                        <FontAwesomeIcon icon={faBox} className="w-4 text-green-500 mr-3" /> My Orders
-                      </Link>
-                      <button
-                        onClick={handleLogout}
-                        className="dropdown-item flex items-center px-4 py-2.5 text-sm text-gray-600 hover:bg-gray-50 w-full text-left"
-                      >
-                        <FontAwesomeIcon icon={faSignOutAlt} className="w-4 text-red-500 mr-3" /> Logout
-                      </button>
+
+                  {/* Dropdown Menu - Enhanced */}
+                  <div className="absolute right-0 top-full pt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-in-out transform translate-y-[-8px] group-hover:translate-y-0">
+                    <div className="bg-white rounded-2xl shadow-2xl border border-gray-100/50 backdrop-blur-sm overflow-hidden">
+                      {/* User info header */}
+                      <div className="px-4 py-3 bg-gradient-to-r from-green-50 to-emerald-50/50 border-b border-gray-100">
+                        <div className="flex items-center space-x-3">
+                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#00a34a] to-[#009a62] flex items-center justify-center text-white font-semibold text-sm shadow-md">
+                            {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                          </div>
+                          <div>
+                            <p className="text-sm font-semibold text-gray-800">{user?.name || 'User'}</p>
+                            <p className="text-xs text-gray-500">{user?.email || 'user@example.com'}</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Menu items */}
+                      <div className="py-2">
+                        <Link
+                          to="/profile"
+                          onClick={() => {/* Close dropdown if needed */ }}
+                          className="flex items-center px-4 py-2.5 text-sm text-gray-600 hover:bg-green-50 hover:text-[#00a34a] transition-colors duration-150 group"
+                        >
+                          <div className="w-8 h-8 rounded-lg bg-gray-100 group-hover:bg-green-100 flex items-center justify-center mr-3 transition-colors duration-150">
+                            <FontAwesomeIcon icon={faUser} className="text-sm text-gray-500 group-hover:text-[#00a34a]" />
+                          </div>
+                          <div>
+                            <p className="font-medium">Profile</p>
+                            <p className="text-xs text-gray-400">Manage your account</p>
+                          </div>
+                        </Link>
+
+                        <Link
+                          to="/my-orders"
+                          onClick={() => {/* Close dropdown if needed */ }}
+                          className="flex items-center px-4 py-2.5 text-sm text-gray-600 hover:bg-green-50 hover:text-[#00a34a] transition-colors duration-150 group"
+                        >
+                          <div className="w-8 h-8 rounded-lg bg-gray-100 group-hover:bg-green-100 flex items-center justify-center mr-3 transition-colors duration-150">
+                            <FontAwesomeIcon icon={faBox} className="text-sm text-gray-500 group-hover:text-[#00a34a]" />
+                          </div>
+                          <div>
+                            <p className="font-medium">My Orders</p>
+                            <p className="text-xs text-gray-400">Track your purchases</p>
+                          </div>
+                        </Link>
+
+                        <div className="border-t border-gray-100 my-1"></div>
+
+                        <button
+                          onClick={handleLogout}
+                          className="flex items-center w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors duration-150 group cursor-pointer"
+                        >
+                          <div className="w-8 h-8 rounded-lg bg-red-50 group-hover:bg-red-100 flex items-center justify-center mr-3 transition-colors duration-150">
+                            <FontAwesomeIcon icon={faSignOutAlt} className="text-sm text-red-500" />
+                          </div>
+                          <div>
+                            <p className="font-medium">Logout</p>
+                          </div>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               ) : (
-                <Link
-                  to="/login"
-                  className={`nav-link text-[15px] font-normal flex items-center mr-2 gap-1 ${isActiveLink('/login') ? 'text-[#00a34a] font-semibold' : 'text-[#00a34a]'
-                    }`}
-                >
-                  <i className="ri-login-box-line"></i> Login
-                </Link>
+                <div className="flex items-center space-x-3">
+                  {/* Login Button with Icon */}
+                  <Link
+                    to="/login"
+                    className={`
+          group flex items-center space-x-2 px-4 py-2 rounded-full
+          transition-all duration-300 ease-in-out
+          ${isActiveLink('/login')
+                        ? 'bg-[#00a34a] text-white shadow-lg shadow-green-500/30'
+                        : 'text-gray-700 hover:bg-green-50 hover:text-[#00a34a]'
+                      }
+        `}
+                  >
+                    <div className={`
+          w-7 h-7 rounded-full flex items-center justify-center
+          transition-all duration-300
+          ${isActiveLink('/login')
+                        ? 'bg-white/20'
+                        : 'bg-gray-100 group-hover:bg-green-100'
+                      }
+        `}>
+                      <i className={`ri-login-box-line text-sm ${isActiveLink('/login') ? 'text-white' : 'text-gray-600 group-hover:text-[#00a34a]'}`}></i>
+                    </div>
+                    <span className="font-medium text-sm">Login</span>
+                  </Link>
+
+
+                </div>
               )}
 
+              {/* Where to Buy Button - Enhanced */}
               <Link
                 to="/distributor"
-                className={`w-[198px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 ${isActiveLink('/distributor') ? 'ring-2 ring-white ring-offset-2 ring-offset-[#00a34a]' : ''
-                  }`}
+                className={`
+      group relative overflow-hidden
+      px-5 h-[46px] rounded-[12px]
+      bg-gradient-to-r from-[#00a34a] to-[#009a62]
+      text-white font-medium text-sm
+      transition-all duration-300 ease-in-out
+      hover:shadow-lg hover:shadow-green-500/30
+      hover:scale-[1.02] active:scale-[0.98]
+      flex items-center justify-center space-x-2
+      ${isActiveLink('/distributor')
+                    ? 'ring-2 ring-white ring-offset-2 ring-offset-[#00a34a] shadow-lg shadow-green-500/30'
+                    : ''
+                  }
+    `}
               >
-                <span className="text-[20px] font-bold font-inter">
-                  <FontAwesomeIcon icon={faLocationDot} /> Where To Buy
-                </span>
+                {/* Shine effect */}
+                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
+
+                <FontAwesomeIcon icon={faLocationDot} className="text-sm group-hover:scale-110 transition-transform duration-300" />
+                <span className="font-semibold">Where To Buy</span>
               </Link>
             </div>
 

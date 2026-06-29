@@ -197,8 +197,22 @@ function Home() {
     }
   }, [hash]);
 
+  // ─── ✅ CLEAN SOLUTION: শুধু sessionStorage ব্যবহার করো ──────────────
   useEffect(() => {
     fetchHomeSettings();
+
+    // Check if loader already shown in this session
+    const hasVisited = sessionStorage.getItem('homeLoaderShown');
+
+    if (hasVisited) {
+      // Already visited - skip loading
+      setIsLoading(false);
+      document.body.style.overflow = 'auto';
+      return;
+    }
+
+    // First time - show loading animation
+    sessionStorage.setItem('homeLoaderShown', 'true');
 
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -211,7 +225,7 @@ function Home() {
       clearTimeout(timer);
       document.body.style.overflow = 'auto';
     };
-  }, []);
+  }, []); // ← Empty dependency array - runs only once on mount
 
   const fetchHomeSettings = async () => {
     try {
@@ -298,8 +312,8 @@ function Home() {
             <div className="loading-bg-circle loading-bg-circle-1"></div>
             <div className="loading-bg-circle loading-bg-circle-2"></div>
             <div className="loading-bg-circle loading-bg-circle-3"></div>
-            <div class="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-white opacity-5"></div>
-            <div class="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-brand-gold opacity-10"></div>
+            <div className="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-white opacity-5"></div>
+            <div className="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-brand-gold opacity-10"></div>
 
             <div className="loading-modern-content">
               <motion.div
@@ -411,6 +425,7 @@ function Home() {
 
             <motion.div className="relative" variants={slideInLeft} custom={3}>
               <img src={banner3} className="w-full h-full object-cover" alt="Poultry feed" />
+              <div className="absolute inset-0 bg-black/[0.60]"></div>
               <div className="absolute bottom-[140px] md:bottom-[200px] left-[6px] md:left-[40px] z-10">
                 <h3 className="text-white text-[18px] md:text-[43px] font-normal">POULTRY</h3>
                 <p className="text-white text-[16px] md:text-[28px]">FEED</p>

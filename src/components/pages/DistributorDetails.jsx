@@ -49,83 +49,83 @@ function DistributorDetails() {
   const { setCartCount } = useCart();
 
   const addToCart = async (product) => {
-  try {
-    // Product already added
-    if (cart[product.id] > 0) {
-      return;
-    }
-
-    const token = localStorage.getItem("token");
-
-    await axios.post(
-      `${API_URL}/customers/cart/items`,
-      {
-        product_id: product.id,
-        quantity: 1,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
-        },
+    try {
+      // Product already added
+      if (cart[product.id] > 0) {
+        return;
       }
-    );
 
-    // setCart((prev) => ({
-    //   ...prev,
-    //   [product.id]: 1,
-    // }));
-    await fetchCart();
+      const token = localStorage.getItem("token");
 
-    //setCartCount((prev) => prev + 1);
+      await axios.post(
+        `${API_URL}/customers/cart/items`,
+        {
+          product_id: product.id,
+          quantity: 1,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      );
 
-  } catch (error) {
-    toast.error(
-      error?.response?.data?.message || "Something went wrong"
-    );
-  }
+      // setCart((prev) => ({
+      //   ...prev,
+      //   [product.id]: 1,
+      // }));
+      await fetchCart();
+
+      //setCartCount((prev) => prev + 1);
+
+    } catch (error) {
+      toast.error(
+        error?.response?.data?.message || "Something went wrong"
+      );
+    }
   };
 
-// const increaseQty = async (product) => {
-//   const token = localStorage.getItem("token");
-//   try {
-//     await axios.post(
-//       `${API_URL}/customers/cart/items`,
-//       {
-//         product_id: product.id,
-//         quantity: 1,
-//       },
-//       {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//           Accept: "application/json",
-//         },
-//       }
-//     );
+  // const increaseQty = async (product) => {
+  //   const token = localStorage.getItem("token");
+  //   try {
+  //     await axios.post(
+  //       `${API_URL}/customers/cart/items`,
+  //       {
+  //         product_id: product.id,
+  //         quantity: 1,
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //           Accept: "application/json",
+  //         },
+  //       }
+  //     );
 
-//     setCart((prev) => ({
-//       ...prev,
-//       [product.id]: (prev[product.id] || 0) + 1,
-//     }));
+  //     setCart((prev) => ({
+  //       ...prev,
+  //       [product.id]: (prev[product.id] || 0) + 1,
+  //     }));
 
-//     setCartCount((prev) => prev + 1);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
+  //     setCartCount((prev) => prev + 1);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-// const decreaseQty = async (product) => {
-//   try {
-//     // call your update/remove cart API
-//     await axios.delete(`${API_URL}/customers/cart/items/{cart_item_id}`);
+  // const decreaseQty = async (product) => {
+  //   try {
+  //     // call your update/remove cart API
+  //     await axios.delete(`${API_URL}/customers/cart/items/{cart_item_id}`);
 
-//     decrease(product.id);
+  //     decrease(product.id);
 
-//     setCartCount((prev) => Math.max(prev - 1, 0));
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
+  //     setCartCount((prev) => Math.max(prev - 1, 0));
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   // const increase = (id) => {
   //   setCart((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
@@ -136,140 +136,140 @@ function DistributorDetails() {
   // };
 
   const removeFromCart = async (productId) => {
-  const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
-  try {
-    const cartItemId = cartItemIds[productId];
+    try {
+      const cartItemId = cartItemIds[productId];
 
-    if (!cartItemId) {
-      console.log("Cart Item ID not found");
+      if (!cartItemId) {
+        console.log("Cart Item ID not found");
+        return;
+      }
+
+      await axios.delete(
+        `${API_URL}/customers/cart/items/${cartItemId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      );
+
+      await fetchCart();
+    } catch (error) {
+      console.log(
+        "Delete Error:",
+        error.response?.data || error.message
+      );
+    }
+  };
+
+  const increase = async (productId) => {
+    const currentQty = cart[productId] || 0;
+
+    await updateCartQty(productId, currentQty + 1);
+  };
+
+  const decrease = async (productId) => {
+    const currentQty = cart[productId] || 0;
+
+    if (currentQty <= 1) {
+      await removeFromCart(productId);
       return;
     }
 
-    await axios.delete(
-      `${API_URL}/customers/cart/items/${cartItemId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
-        },
-      }
-    );
-
-    await fetchCart();
-  } catch (error) {
-    console.log(
-      "Delete Error:",
-      error.response?.data || error.message
-    );
-  }
-};
-
-  const increase = async (productId) => {
-  const currentQty = cart[productId] || 0;
-
-  await updateCartQty(productId, currentQty + 1);
-};
-
-  const decrease = async (productId) => {
-  const currentQty = cart[productId] || 0;
-
-  if (currentQty <= 1) {
-    await removeFromCart(productId);
-    return;
-  }
-
-  await updateCartQty(productId, currentQty - 1);
-};
+    await updateCartQty(productId, currentQty - 1);
+  };
 
 
 
   // Fetch cart items on mount to sync with backend
   const fetchCart = async () => {
-  const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
-  try {
-    const response = await axios.get(
-      `${API_URL}/customers/cart`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
-        },
-      }
-    );
+    try {
+      const response = await axios.get(
+        `${API_URL}/customers/cart`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      );
 
-    const qtyMap = {};
-    const itemIdMap = {};
+      const qtyMap = {};
+      const itemIdMap = {};
 
-    response.data.data.items.forEach((item) => {
-      qtyMap[item.product_id] = item.quantity;
-      itemIdMap[item.product_id] = item.id;
-    });
+      response.data.data.items.forEach((item) => {
+        qtyMap[item.product_id] = item.quantity;
+        itemIdMap[item.product_id] = item.id;
+      });
 
-    console.log("qtyMap", qtyMap);
-    console.log("itemIdMap", itemIdMap);
+      console.log("qtyMap", qtyMap);
+      console.log("itemIdMap", itemIdMap);
 
-    setCart(qtyMap);
-    setCartItemIds(itemIdMap);
+      setCart(qtyMap);
+      setCartItemIds(itemIdMap);
 
-    // Update header cart count
-    const totalCount = Object.values(qtyMap).reduce(
-      (sum, qty) => sum + qty,
-      0
-    );
+      // Update header cart count
+      const totalCount = Object.values(qtyMap).reduce(
+        (sum, qty) => sum + qty,
+        0
+      );
 
-    setCartCount(totalCount);
-  } catch (error) {
-    console.log(error);
-  }
+      setCartCount(totalCount);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
 
 
   useEffect(() => {
-  fetchDistributorDetails();
-  fetchCart();
-}, [slug]);
+    fetchDistributorDetails();
+    fetchCart();
+  }, [slug]);
 
 
-const updateCartQty = async (productId, newQty) => {
-  const token = localStorage.getItem("token");
+  const updateCartQty = async (productId, newQty) => {
+    const token = localStorage.getItem("token");
 
-  try {
-    const cartItemId = cartItemIds[productId];
+    try {
+      const cartItemId = cartItemIds[productId];
 
-    if (!cartItemId) {
-      console.log("Cart Item ID not found for product:", productId);
-      return;
-    }
-
-    console.log("Updating Cart");
-    console.log("productId:", productId);
-    console.log("cartItemId:", cartItemId);
-    console.log("newQty:", newQty);
-
-    await axios.put(
-      `${API_URL}/customers/cart/items/${cartItemId}`,
-      {
-        quantity: newQty,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
-        },
+      if (!cartItemId) {
+        console.log("Cart Item ID not found for product:", productId);
+        return;
       }
-    );
 
-    await fetchCart();
-  } catch (error) {
-    console.log(
-      "Update Cart Error:",
-      error.response?.data || error.message
-    );
-  }
-};
+      console.log("Updating Cart");
+      console.log("productId:", productId);
+      console.log("cartItemId:", cartItemId);
+      console.log("newQty:", newQty);
+
+      await axios.put(
+        `${API_URL}/customers/cart/items/${cartItemId}`,
+        {
+          quantity: newQty,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      );
+
+      await fetchCart();
+    } catch (error) {
+      console.log(
+        "Update Cart Error:",
+        error.response?.data || error.message
+      );
+    }
+  };
 
 
 
@@ -339,12 +339,12 @@ const updateCartQty = async (productId, newQty) => {
           )}
         </div>
 
-          <div className="absolute inset-0 bg-black/60 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition duration-500 flex items-end p-6">
-            <div className="translate-y-6 group-hover:translate-y-0 transition duration-500 absolute transform  bottom-12 md:bottom-4">
+        <div className="absolute inset-0 bg-black/60 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition duration-500 flex items-end p-6">
+          <div className="translate-y-6 group-hover:translate-y-0 transition duration-500 absolute transform  bottom-12 md:bottom-4">
             <h4 className="text-sm font-semibold text-white mb-1 line-clamp-2">
-            {product.name}
-          </h4>
-          <div className="flex items-center gap-2 mb-2">
+              {product.name}
+            </h4>
+            <div className="flex items-center gap-2 mb-2">
               <span className="text-base font-bold text-white">
                 ₹{parseFloat(product.price).toLocaleString("en-IN")}
               </span>
@@ -354,39 +354,39 @@ const updateCartQty = async (productId, newQty) => {
                 </span>
               )}
             </div>
-              {/* <button className="text-sm text-white bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer"> Add </button> */}
-              <div className="flex items-center gap-2 mt-2">
-  {count === 0 ? (
-  <button
-    onClick={() => addToCart(product)}
-    className="text-sm text-white bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium"
-  >
-    Add
-  </button>
-) : (
-  <div className="flex items-center bg-white rounded-lg overflow-hidden">
-    <button
-      onClick={() => decrease(product.id)}
-      className="w-8 h-8 bg-red-500 text-white font-bold"
-    >
-      -
-    </button>
+            {/* <button className="text-sm text-white bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium cursor-pointer"> Add </button> */}
+            <div className="flex items-center gap-2 mt-2">
+              {count === 0 ? (
+                <button
+                  onClick={() => addToCart(product)}
+                  className="text-sm text-white bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded-xl font-medium"
+                >
+                  Add
+                </button>
+              ) : (
+                <div className="flex items-center bg-white rounded-lg overflow-hidden">
+                  <button
+                    onClick={() => decrease(product.id)}
+                    className="w-8 h-8 bg-red-500 text-white font-bold"
+                  >
+                    -
+                  </button>
 
-    <span className="px-3 text-black font-semibold">
-      {count}
-    </span>
+                  <span className="px-3 text-black font-semibold">
+                    {count}
+                  </span>
 
-    <button
-      onClick={() => increase(product.id)}
-      className="w-8 h-8 bg-green-500 text-white font-bold"
-    >
-      +
-    </button>
-  </div>
-)}
-</div>
+                  <button
+                    onClick={() => increase(product.id)}
+                    className="w-8 h-8 bg-green-500 text-white font-bold"
+                  >
+                    +
+                  </button>
+                </div>
+              )}
             </div>
           </div>
+        </div>
         {/* Body */}
         <div className="p-0 flex flex-col flex-1">
           {/* <p className="text-xs text-green-600 font-medium mb-1">
@@ -729,17 +729,17 @@ const updateCartQty = async (productId, newQty) => {
                   <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
                     <div className="grid grid-cols-2 gap-2 md:gap-4">
                       {distributor?.image_urls?.slice(0, 4).map((image, index) => (
-      <div
-        key={index}
-        className="relative overflow-hidden"
-      >
-        <img
-          src={image}
-          alt={`Distributor ${index + 1}`}
-          className="block w-[280px] h-[180px] rounded-2xl  object-cover"
-        />
-      </div>
-    ))}
+                        <div
+                          key={index}
+                          className="relative overflow-hidden"
+                        >
+                          <img
+                            src={image}
+                            alt={`Distributor ${index + 1}`}
+                            className="block w-[280px] h-[180px] rounded-2xl  object-cover"
+                          />
+                        </div>
+                      ))}
                       {/* Products count */}
                       {/* <div className="col-span-2 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 flex items-center gap-4">
                         <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center text-white text-xl">
@@ -771,7 +771,7 @@ const updateCartQty = async (productId, newQty) => {
                   </div>
                 )}
 
-               
+
               </div>
             </div>
           </div>

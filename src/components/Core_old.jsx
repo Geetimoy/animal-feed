@@ -83,7 +83,7 @@ export default function Core() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/logout" element={<Logout />} />
+        {/* <Route path="/logout" element={<Logout />} /> */}
 
         {/* Product Routes */}
         <Route path="/products" element={<Products />} />

@@ -3,8 +3,9 @@ import { HelmetProvider } from "react-helmet-async";
 import { CartProvider } from "./context/CartContext";
 import { SettingsProvider } from "./context/SettingsContext";
 import { AuthProvider } from "./auth/AuthProvider";
-import Core from "./components/Core";
+// import Core from "./components/Core";
 import "./App.css";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
         <CartProvider>
           <SettingsProvider>
             <HelmetProvider>
-              <Core />
+              {/* <Core /> */}
+              <AppRoutes />
             </HelmetProvider>
           </SettingsProvider>
         </CartProvider>
