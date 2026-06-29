@@ -21,19 +21,18 @@ export default function Profile() {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
 
-   const mobileItem = (path, label) => (
-     <Link
-       to={path}
-       onClick={() => setOpen(false)}
-       className={`block px-4 py-3 text-sm rounded-lg ${
-         pathname === path
-           ? "bg-green-50 text-green-700 font-medium"
-           : "text-gray-700"
-       }`}
-     >
-       {label}
-     </Link>
-   );
+  const mobileItem = (path, label) => (
+    <Link
+      to={path}
+      onClick={() => setOpen(false)}
+      className={`block px-4 py-3 text-sm rounded-lg ${pathname === path
+        ? "bg-green-50 text-green-700 font-medium"
+        : "text-gray-700"
+        }`}
+    >
+      {label}
+    </Link>
+  );
 
   const [isProfileEdit, setIsProfileEdit] = useState(false);
   const [isContactEdit, setIsContactEdit] = useState(false);
@@ -41,7 +40,7 @@ export default function Profile() {
   const [user, setUser] = useState();
   const [showPassword, setShowPassword] = useState(false);
 
-  const [banner, setBanner] = useState(null);
+
   const pageSlug = "profile";
 
 
@@ -55,12 +54,12 @@ export default function Profile() {
   // });
 
   const [formData, setFormData] = useState({
-  fullName: "",
-  lastName: "",
-  gender: "",
-  email: "",
-  mobile: "",
-  password: "",
+    fullName: "",
+    lastName: "",
+    gender: "",
+    email: "",
+    mobile: "",
+    password: "",
   });
 
   const [originalData, setOriginalData] = useState(formData);
@@ -87,23 +86,23 @@ export default function Profile() {
   // };
 
   const handleProfileSave = async () => {
-  const payload = {
-    name: formData.fullName,
-    last_name: formData.lastName,
-    gender: formData.gender,
-  };
+    const payload = {
+      name: formData.fullName,
+      last_name: formData.lastName,
+      gender: formData.gender,
+    };
 
-  await updateProfile(payload);
+    await updateProfile(payload);
 
-  setOriginalData(formData);
-  setIsProfileEdit(false);
+    setOriginalData(formData);
+    setIsProfileEdit(false);
   };
 
   const handleContactEdit = () => {
     setOriginalData(formData);
     setIsContactEdit(true);
     setIsProfileEdit(false);
-     setIsPasswordEdit(false);
+    setIsPasswordEdit(false);
   };
 
   const handleContactCancel = () => {
@@ -117,24 +116,24 @@ export default function Profile() {
   // };
 
   const handleContactSave = async () => {
-  const payload = {
-    email: formData.email,
-    phone: formData.mobile,
-  };
+    const payload = {
+      email: formData.email,
+      phone: formData.mobile,
+    };
 
-  //await updateProfile(payload);
-  await updateContact(payload);
+    //await updateProfile(payload);
+    await updateContact(payload);
 
-  setOriginalData(formData);
-  setIsContactEdit(false);
+    setOriginalData(formData);
+    setIsContactEdit(false);
   };
 
   const handlePasswordEdit = () => {
-     setOriginalData(formData);
-       setOriginalData(formData);
-       setIsPasswordEdit(true);
-       setIsContactEdit(false);
-     setIsProfileEdit(false);
+    setOriginalData(formData);
+    setOriginalData(formData);
+    setIsPasswordEdit(true);
+    setIsContactEdit(false);
+    setIsProfileEdit(false);
   };
 
   const handlePasswordCancel = () => {
@@ -152,38 +151,38 @@ export default function Profile() {
   }, []);
 
   const fetchProfile = async () => {
-  try {
-    const token = localStorage.getItem("token");
+    try {
+      const token = localStorage.getItem("token");
 
-    const response = await axios.get(
-      `${API_URL}/customers/profile`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
-        },
-      }
-    );
+      const response = await axios.get(
+        `${API_URL}/customers/profile`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      );
 
-    console.log("Profile:", response.data);
+      console.log("Profile:", response.data);
 
-    const user = response.data.data;
+      const user = response.data.data;
 
-    setFormData({
-      fullName: user.name || "",
-      lastName: user.last_name || "",
-      gender: user.gender || "",
-      email: user.email || "",
-      mobile: user.phone || "",
-      password: "",
-    });
+      setFormData({
+        fullName: user.name || "",
+        lastName: user.last_name || "",
+        gender: user.gender || "",
+        email: user.email || "",
+        mobile: user.phone || "",
+        password: "",
+      });
 
-  } catch (error) {
-    console.log(
-      "Profile Error:",
-      error.response?.data || error
-    );
-  }
+    } catch (error) {
+      console.log(
+        "Profile Error:",
+        error.response?.data || error
+      );
+    }
   };
 
 
@@ -210,7 +209,7 @@ export default function Profile() {
 
       const res = error.response?.data;
 
-      // 👉 show backend validation message
+      // show backend validation message
       if (res?.errors) {
         Object.values(res.errors).forEach((errArray) => {
           toast.error(errArray[0]);
@@ -258,26 +257,6 @@ export default function Profile() {
     }
   };
 
-  useEffect(() => {
-      
-      if (pageSlug) {
-        fetchBanner();
-      }
-    }, [pageSlug]);
-
-  const fetchBanner = async () => {
-  try {
-      const res = await axios.get(
-        `${API_URL}/banners/${pageSlug}`
-      );
-      
-      setBanner(res.data);
-    } catch (err) {
-      console.log("Banner API error:", err);
-    }
-  };
-
-  const bannerItem = banner?.data?.[0];
 
   return (
     <>
@@ -285,24 +264,9 @@ export default function Profile() {
         <title>Profile -  Animal Feed</title>
       </Helmet>
       <Header showLogout={true} />
-      <main className="pt-16 overflow-x-hidden">
-        {bannerItem?.image_url && (
-        <section className="relative z-0">
-          <div className="relative">
-            <img
-              src={bannerItem?.image_url}
-              alt={bannerItem?.title}
-              className="w-full md:h-auto h-[250px] object-cover"
-            />
-            <div className="absolute inset-0  flex items-center justify-center">
-              <h1 className="text-white text-4xl md:text-6xl font-bold">
-                {bannerItem?.title_white}
-              </h1>
-            </div>
-          </div>
-        </section>
-        )}
-        <div className="flex bg-[#f7f8fa] md:max-w-7xl md:mx-auto px-4 md:px-8 py-8 ">
+      <main className="pt-24 overflow-x-hidden bg-[#f7f8fa] ">
+
+        <div className="flex md:max-w-7xl md:mx-auto px-4 md:px-8 py-8 ">
           <div className="hidden md:block">
             <ProfileDashboard user={formData} />
           </div>
