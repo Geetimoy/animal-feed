@@ -40,14 +40,22 @@ import "react-toastify/dist/ReactToastify.css";
 import SEO from "./SEO";
 import usePageSEO from "../../hooks/usePageSEO";
 
+import HeroBanner from "../HeroBanner";
+import { useBanner } from "../../hooks/useBanner";
+
 function DistributorDetails() {
   const { slug } = useParams();
   const [distributor, setDistributor] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [cart, setCart] = useState({});
-
   const [cartItemIds, setCartItemIds] = useState({});
+
+  const pageSlug = `distributors/${slug}`;
+  const {
+  bannerItem,
+  isLoading: bannerLoading,
+} = useBanner(pageSlug);
 
    const { seo } = usePageSEO(
     slug ? `distributor/${slug}` : null
@@ -591,7 +599,18 @@ function DistributorDetails() {
 
       <main className="pt-16 overflow-hidden">
         {/* ── Hero Banner ── */}
-        <section className="relative z-0">
+        <HeroBanner
+          imageUrl={bannerItem?.image_url}
+          titleWhite={bannerItem?.title_white}
+          titleGold={bannerItem?.title_gold}
+          subtitle={bannerItem?.subtitle}
+          ctaPrimaryLabel={bannerItem?.cta_primary_label}
+          ctaPrimaryUrl={bannerItem?.cta_primary_url}
+          ctaSecondaryLabel={bannerItem?.cta_secondary_label}
+          ctaSecondaryUrl={bannerItem?.cta_secondary_url}
+          isLoading={bannerLoading}
+        />
+        {/* <section className="relative z-0">
           <div className="relative">
             <img
               src={distributorDetailsBanner}
@@ -624,7 +643,7 @@ function DistributorDetails() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* ── About Section ── */}
         <section className="py-12 md:py-16 bg-gray-50">

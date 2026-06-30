@@ -25,6 +25,9 @@ import { useCart } from "../../context/CartContext";
 import SEO from "./SEO";
 import usePageSEO from "../../hooks/usePageSEO";
 
+import HeroBanner from "../HeroBanner";
+import { useBanner } from "../../hooks/useBanner";
+
 export default function ProductDetails() {
   const { productSlug } = useParams();
   const [product, setProduct] = useState(null);
@@ -32,6 +35,10 @@ export default function ProductDetails() {
   const [cart, setCart] = useState({});
   const [cartItemIds, setCartItemIds] = useState({});
   const { setCartCount } = useCart();
+
+  const pageSlug = `product-detail/${productSlug}`;
+  // const { bannerItem, isLoading: bannerLoading } = useBanner(productSlug);
+  const { bannerItem, isLoading: bannerLoading, } = useBanner(pageSlug);
 
   const { seo } = usePageSEO(
     productSlug ? `product_detail/${productSlug}` : null
@@ -208,7 +215,7 @@ export default function ProductDetails() {
       <Header />
       <main className="pt-24 overflow-x-hidden bg-gray-50">
         {/* Hero Banner */}
-        <section className="relative">
+        {/* <section className="relative">
           <div className="relative">
             <img
               src={productbanner}
@@ -219,7 +226,7 @@ export default function ProductDetails() {
             <div className="absolute inset-0 flex items-center">
               <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="max-w-3xl">
-                  {/* Back Button */}
+                 
                   <Link
                     to="/products"
                     className="inline-flex items-center text-white/70 hover:text-white text-xs sm:text-sm font-medium mb-3 sm:mb-4 transition-all duration-300 hover:translate-x-[-4px] group"
@@ -230,17 +237,17 @@ export default function ProductDetails() {
                     Back to Products
                   </Link>
 
-                  {/* Title */}
+                  
                   <h1 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 leading-tight">
                     {product.name}
                   </h1>
 
-                  {/* Subtitle */}
+                 
                   <p className="text-white/70 text-sm sm:text-base md:text-lg max-w-2xl leading-relaxed">
                     Premium quality feed for your livestock needs
                   </p>
 
-                  {/* Category/Type Badge */}
+                  
                   {product.category_name && (
                     <div className="mt-3 sm:mt-4">
                       <span className="inline-block bg-white/10 backdrop-blur-sm text-white text-xs sm:text-sm px-3 sm:px-4 py-1 sm:py-1.5 rounded-full border border-white/10">
@@ -252,8 +259,30 @@ export default function ProductDetails() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
+<section className="product-details relative">
+          
 
+        <HeroBanner
+    imageUrl={bannerItem?.image_url}
+    titleWhite={bannerItem?.title_white}
+    titleGold={bannerItem?.title_gold}
+    subtitle={bannerItem?.subtitle}
+    ctaPrimaryLabel={bannerItem?.cta_primary_label}
+    ctaPrimaryUrl={bannerItem?.cta_primary_url}
+    ctaSecondaryLabel={bannerItem?.cta_secondary_label}
+    ctaSecondaryUrl={bannerItem?.cta_secondary_url}
+    isLoading={bannerLoading}
+/>
+
+{product.category_name && (
+                    <div className="absolute bottom-[140px] left-1/2 + -translate-x-1/2">
+                      <span className="inline-block bg-white/10 backdrop-blur-sm text-white text-xs sm:text-sm px-3 sm:px-4 py-1 sm:py-1.5 rounded-full border border-white/10">
+                        {product.category_name}
+                      </span>
+                    </div>
+                  )}
+</section>
         {/* Breadcrumb */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <nav className="flex flex-wrap items-center text-xs sm:text-sm text-gray-500">

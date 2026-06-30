@@ -84,3 +84,10 @@ ul li.ck-list-marker-color::before {
 section[id] {
   scroll-margin-top: 100px;
 }
+.back-btn{
+  display: none;
+}
+.product-details .back-btn{
+  display: flex;
+  justify-content: center;
+}

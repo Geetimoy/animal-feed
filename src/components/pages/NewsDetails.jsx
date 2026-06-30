@@ -23,10 +23,13 @@ import { useParams } from "react-router-dom";
 // import usePageSEO from "../../hooks/usePageSEO";
 
 
+import HeroBanner from "../HeroBanner";
+import { useBanner } from "../../hooks/useBanner";
+
 function NewsDetails() {
 
   const [banner, setBanner] = useState(null);
-  const pageSlug = "news-details";
+  // const pageSlug = "news-details";
 
   const { slug } = useParams();
   const [newsDetails, setNewsDetails] = useState(null);
@@ -36,32 +39,38 @@ function NewsDetails() {
   //   productSlug ? `product_detail/${productSlug}` : null
   // );
 
+  const pageSlug = `news/${slug}`;
+  const {
+  bannerItem,
+  isLoading: bannerLoading,
+} = useBanner(pageSlug);
+
   const [sidebar, setSidebar] = useState({
     recent_posts: [],
     news_categories: [],
     product_categories: [],
   });
 
-  useEffect(() => {
+  // useEffect(() => {
         
-    if (pageSlug) {
-      fetchBanner();
-    }
-  }, [pageSlug]);
+  //   if (pageSlug) {
+  //     fetchBanner();
+  //   }
+  // }, [pageSlug]);
 
-  const fetchBanner = async () => {
-    try {
-        const res = await axios.get(
-          `${API_URL}/banners/${pageSlug}`
-        );
+  // const fetchBanner = async () => {
+  //   try {
+  //       const res = await axios.get(
+  //         `${API_URL}/banners/${pageSlug}`
+  //       );
         
-        setBanner(res.data);
-      } catch (err) {
-        console.log("Banner API error:", err);
-      }
-    };
+  //       setBanner(res.data);
+  //     } catch (err) {
+  //       console.log("Banner API error:", err);
+  //     }
+  //   };
 
-  const bannerItem = banner?.data?.[0];
+  // const bannerItem = banner?.data?.[0];
 
   useEffect(() => {
   fetchNewsDetails();
@@ -94,7 +103,18 @@ function NewsDetails() {
       {/* <SEO seo={seo} /> */}
       <Header></Header>
       <main className="pt-16 overflow-hidden">
-        {bannerItem?.image_url && (
+        <HeroBanner
+          imageUrl={bannerItem?.image_url}
+          titleWhite={bannerItem?.title_white}
+          titleGold={bannerItem?.title_gold}
+          subtitle={bannerItem?.subtitle}
+          ctaPrimaryLabel={bannerItem?.cta_primary_label}
+          ctaPrimaryUrl={bannerItem?.cta_primary_url}
+          ctaSecondaryLabel={bannerItem?.cta_secondary_label}
+          ctaSecondaryUrl={bannerItem?.cta_secondary_url}
+          isLoading={bannerLoading}
+        />
+        {/* {bannerItem?.image_url && (
         <section className="relative z-0">
           <div className="relative">
             <img
@@ -112,8 +132,8 @@ function NewsDetails() {
                 {bannerItem?.title_white} <span className="text-[#ffa800]">{bannerItem?.title_gold}</span>
               </h1>
               <p className="text-white text-[16px] md:text-xl text-center">
-                {/* Stay updated with the latest developments and activities at
-                Green Gold Animal Feed. */}
+                 Stay updated with the latest developments and activities at
+                Green Gold Animal Feed. 
                 {bannerItem?.subtitle}
               </p>
               <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
@@ -137,7 +157,7 @@ function NewsDetails() {
             </div>
           </div>
         </section>
-        )}
+        )} */}
         <section>
           <div className="max-w-7xl mx-auto px-4 py-8">
             <div className="flex gap-8 md:flex-row flex-col">

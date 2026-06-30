@@ -10,7 +10,7 @@ import {
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import productbanner from "../../assets/images/product-banner.jpeg";
+// import productbanner from "../../assets/images/product-banner.jpeg";
 import cattle from "../../assets/images/cattle1.png";
 import broiler from "../../assets/images/poultry2.png";
 import layer from "../../assets/images/poultry-feed1.jpg";
@@ -22,6 +22,9 @@ import { API_URL } from "../../config/api";
 // For SEO
 import SEO from "./SEO";
 import usePageSEO from "../../hooks/usePageSEO";
+
+import HeroBanner from "../HeroBanner";
+import { useBanner } from "../../hooks/useBanner";
 
 export default function ProductListing() {
   const { categorySlug, subCategorySlug } = useParams();
@@ -35,6 +38,10 @@ export default function ProductListing() {
   const [maxPrice, setMaxPrice] = useState(3000);
   const [selectedDistributors, setSelectedDistributors] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  
+  const pageSlug = `${categorySlug}/${subCategorySlug}`;
+  const { bannerItem, isLoading, error } = useBanner(pageSlug);
 
    const { seo } = usePageSEO(
     categorySlug && subCategorySlug
@@ -201,7 +208,7 @@ export default function ProductListing() {
       <SEO seo={seo} />
       <Header />
       <main className="pt-16 overflow-x-hidden">
-        <section className="relative z-0">
+        {/* <section className="relative z-0">
           <div className="relative">
             <img
               src={productbanner}
@@ -237,7 +244,18 @@ export default function ProductListing() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
+        <HeroBanner
+    imageUrl={bannerItem?.image_url}
+    titleWhite={bannerItem?.title_white}
+    titleGold={bannerItem?.title_gold}
+    subtitle={bannerItem?.subtitle}
+    ctaPrimaryLabel={bannerItem?.cta_primary_label}
+    ctaPrimaryUrl={bannerItem?.cta_primary_link}
+    ctaSecondaryLabel={bannerItem?.cta_secondary_label}
+    ctaSecondaryUrl={bannerItem?.cta_secondary_link}
+    isLoading={isLoading}
+/>
         <div className="max-w-7xl mx-auto px-4 py-10 md:py-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <ProductSidebar
@@ -309,7 +327,7 @@ export default function ProductListing() {
                           Add to Cart
                         </button> */}
                         <button
-                          onClick={() => navigate(`/product_detail/${product.slug}`)}
+                          onClick={() => navigate(`/product-detail/${product.slug}`)}
                           type="button"
                           className="mt-4 w-full bg-green-500 text-white py-2 rounded-xl font-medium cursor-pointer hover:bg-green-400 text-[14px] transition duration-200"
                         >

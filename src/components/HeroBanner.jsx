@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLocationDot,
   faMagnifyingGlass,
+  faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 
 // Animation variants
@@ -129,6 +130,15 @@ const HeroBanner = ({
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
+          <Link
+                              to="/products"
+                              className="back-btn inline-flex items-center text-white/70 hover:text-white text-xs sm:text-sm font-medium mb-3 sm:mb-4 transition-all duration-300 hover:translate-x-[-4px] group"
+                            >
+                              <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center mr-2 group-hover:bg-white/20 transition-all">
+                                <FontAwesomeIcon icon={faArrowLeft} className="text-xs sm:text-sm" />
+                              </span>
+                              Back to Products
+                            </Link>
           <motion.h1
             className="text-[#fff] text-4xl md:text-6xl font-bold text-center mb-4 md:mb-6"
             variants={slideInUp}

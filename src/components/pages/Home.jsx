@@ -1125,7 +1125,7 @@ function Home() {
                           <h3 className="mt-2 font-bold text-gray-900">{item.title}</h3>
                           <p className="mt-2 text-sm text-gray-500 flex-grow">{item.excerpt}</p>
                           <Link
-                            to={`/news-events/${item.slug}`}
+                            to={`/news/${item.slug}`}
                             className="group mt-4 inline-flex items-center gap-2 hover:text-green-700 text-green-600 font-medium"
                           >
                             View Details
