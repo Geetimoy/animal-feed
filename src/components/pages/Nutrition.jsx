@@ -46,6 +46,7 @@ import { API_URL } from "../../config/api";
 import axios from "axios";
 import HeroBanner from "../HeroBanner";
 import { useBanner } from "../../hooks/useBanner";
+import EnquiryPopup from "../EnquiryPopup";
 
 // Animation variants
 const fadeIn = {
@@ -89,9 +90,28 @@ const itemVariant = {
   visible: { y: 0, opacity: 1, transition: { duration: 0.5 } }
 };
 
+
+
 function Nutrition() {
   const pageSlug = "nutrition";
   const { bannerItem, isLoading, error } = useBanner(pageSlug);
+
+  // State for popup
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [selectedAnimal, setSelectedAnimal] = useState('');
+  const [selectedFeed, setSelectedFeed] = useState('');
+
+  const openPopup = (animalType = '', feedInterest = '') => {
+    setSelectedAnimal(animalType);
+    setSelectedFeed(feedInterest);
+    setIsPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+    setSelectedAnimal('');
+    setSelectedFeed('');
+  };
 
   return (
     <>
@@ -100,7 +120,7 @@ function Nutrition() {
       </Helmet>
       <Header></Header>
       <main className="pt-16 overflow-x-hidden">
-        {/* Hero Section */}
+        {/* Hero Section - remains same */}
         <HeroBanner
           imageUrl={bannerItem?.image_url}
           titleWhite={bannerItem?.title_white}
@@ -127,8 +147,7 @@ function Nutrition() {
               className="text-3xl md:text-5xl font-semibold text-gray-900 text-center md:text-left"
               variants={slideInUp}
             >
-              {" "}
-              Cattle <span className="text-[#ffa800]">Nutrition</span>{" "}
+              Cattle <span className="text-[#ffa800]">Nutrition</span>
             </motion.h2>
           </div>
           <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 items-center">
@@ -139,7 +158,6 @@ function Nutrition() {
               whileInView="visible"
               viewport={{ once: true }}
             >
-              {" "}
               <motion.img
                 src={animal1}
                 alt="Research and Development"
@@ -160,8 +178,7 @@ function Nutrition() {
                 className="text-3xl md:text-5xl font-semibold text-gray-900 text-center md:text-left hidden md:block"
                 variants={slideInUp}
               >
-                {" "}
-                Cattle <span className="text-[#ffa800]">Nutrition</span>{" "}
+                Cattle <span className="text-[#ffa800]">Nutrition</span>
               </motion.h2>
 
               <motion.ul
@@ -282,6 +299,21 @@ function Nutrition() {
                   </p>
                 </motion.div>
               </motion.div>
+
+              {/* Add Enquiry Button */}
+              <motion.div
+                className="mt-8 text-center"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+              >
+                <button
+                  onClick={() => openPopup('cattle', '')}
+                  className="bg-[#009a62] hover:bg-[#007a4d] text-white font-semibold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105 cursor-pointer"
+                >
+                  Enquire about Cattle Feed
+                </button>
+              </motion.div>
             </motion.div>
           </div>
         </motion.section>
@@ -299,17 +331,8 @@ function Nutrition() {
               className="text-3xl md:text-5xl font-semibold text-gray-900 text-center md:text-left"
               variants={slideInUp}
             >
-              {" "}
-              Poultry <span className="text-[#ffa800]">Nutrition</span>{" "}
+              Poultry <span className="text-[#ffa800]">Nutrition</span>
             </motion.h2>
-
-            <motion.p
-              className="text-[16px] text-gray-600 mt-1 text-center md:text-left mt-2 mb-4"
-              variants={slideInUp}
-              transition={{ delay: 0.1 }}
-            >
-              Balanced calcium ensures strong eggshells and reduced breaka
-            </motion.p>
           </div>
           <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <motion.div
@@ -323,8 +346,7 @@ function Nutrition() {
                 className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left hidden md:block"
                 variants={slideInUp}
               >
-                {" "}
-                Poultry <span className="text-[#ffa800]">Nutrition</span>{" "}
+                Poultry <span className="text-[#ffa800]">Nutrition</span>
               </motion.h2>
 
               <motion.p
@@ -332,7 +354,7 @@ function Nutrition() {
                 variants={slideInUp}
                 transition={{ delay: 0.1 }}
               >
-                Balanced calcium ensures strong eggshells and reduced breaka
+                Balanced calcium ensures strong eggshells and reduced breakage
               </motion.p>
 
               <motion.div
@@ -486,6 +508,21 @@ function Nutrition() {
                   </p>
                 </motion.div>
               </motion.div>
+
+              {/* Add Enquiry Button */}
+              <motion.div
+                className="mt-8 text-center"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+              >
+                <button
+                  onClick={() => openPopup('poultry', '')}
+                  className="bg-[#009a62] hover:bg-[#007a4d] text-white font-semibold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105 cursor-pointer"
+                >
+                  Enquire about Poultry Feed
+                </button>
+              </motion.div>
             </motion.div>
 
             <motion.div
@@ -495,7 +532,6 @@ function Nutrition() {
               whileInView="visible"
               viewport={{ once: true }}
             >
-              {" "}
               <motion.img
                 src={animal3}
                 alt="Research and Development"
@@ -522,8 +558,7 @@ function Nutrition() {
               className="text-3xl md:text-5xl font-semibold text-gray-900 text-center md:text-left mb-4"
               variants={slideInUp}
             >
-              {" "}
-              Pig <span className="text-[#ffa800]">Nutrition</span>{" "}
+              Pig <span className="text-[#ffa800]">Nutrition</span>
             </motion.h2>
           </div>
           <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
@@ -534,7 +569,6 @@ function Nutrition() {
               whileInView="visible"
               viewport={{ once: true }}
             >
-              {" "}
               <motion.img
                 src={animal2}
                 alt="Research and Development"
@@ -555,8 +589,7 @@ function Nutrition() {
                 className="text-3xl md:text-5xl font-semibold text-gray-900 text-center md:text-left mb-4 hidden md:block"
                 variants={slideInUp}
               >
-                {" "}
-                Pig <span className="text-[#ffa800]">Nutrition</span>{" "}
+                Pig <span className="text-[#ffa800]">Nutrition</span>
               </motion.h2>
 
               <motion.div
@@ -639,6 +672,21 @@ function Nutrition() {
                   </table>
                 </div>
               </motion.div>
+
+              {/* Add Enquiry Button */}
+              <motion.div
+                className="mt-8 text-center"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+              >
+                <button
+                  onClick={() => openPopup('pig', '')}
+                  className="bg-[#009a62] hover:bg-[#007a4d] text-white font-semibold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105 cursor-pointer"
+                >
+                  Enquire about Pig Feed
+                </button>
+              </motion.div>
             </motion.div>
           </div>
         </motion.section>
@@ -653,11 +701,10 @@ function Nutrition() {
         >
           <div className="max-w-7xl mx-auto px-4">
             <motion.h2
-              className="text-3xl  md:text-5xl font-semibold text-gray-900 text-center md:text-left md:hidden"
+              className="text-3xl md:text-5xl font-semibold text-gray-900 text-center md:text-left md:hidden"
               variants={slideInUp}
             >
-              {" "}
-              Fish <span className="text-[#ffa800]">Nutrition</span>{" "}
+              Fish <span className="text-[#ffa800]">Nutrition</span>
             </motion.h2>
 
             <motion.p
@@ -680,8 +727,7 @@ function Nutrition() {
                 className="text-[26px] md:text-5xl font-semibold text-gray-900 text-center md:text-left hidden md:block"
                 variants={slideInUp}
               >
-                {" "}
-                Fish <span className="text-[#ffa800]">Nutrition</span>{" "}
+                Fish <span className="text-[#ffa800]">Nutrition</span>
               </motion.h2>
 
               <motion.p
@@ -765,6 +811,21 @@ function Nutrition() {
                   </p>
                 </motion.div>
               </motion.div>
+
+              {/* Add Enquiry Button */}
+              <motion.div
+                className="mt-8 text-center"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+              >
+                <button
+                  onClick={() => openPopup('fish', '')}
+                  className="bg-[#009a62] hover:bg-[#007a4d] text-white font-semibold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105 cursor-pointer"
+                >
+                  Enquire about Fish Feed
+                </button>
+              </motion.div>
             </motion.div>
 
             <motion.div
@@ -774,7 +835,6 @@ function Nutrition() {
               whileInView="visible"
               viewport={{ once: true }}
             >
-              {" "}
               <motion.img
                 src={animal4}
                 alt="Research and Development"
@@ -788,6 +848,7 @@ function Nutrition() {
           </div>
         </motion.section>
 
+        {/* Why GGAF Nutrition Works - remains same */}
         <motion.section
           className="w-full bg-gray-100 py-8 md:py-12"
           initial="hidden"
@@ -796,7 +857,6 @@ function Nutrition() {
           variants={fadeIn}
         >
           <div className="max-w-7xl mx-auto px-4">
-            {/* Heading */}
             <motion.h2
               className="text-3xl md:text-5xl font-semibold text-gray-800 text-center mb-4 md:mb-8"
               variants={slideInUp}
@@ -804,15 +864,14 @@ function Nutrition() {
               Why GGAF <span className="text-[#ffa800]">Nutrition Works</span>
             </motion.h2>
 
-            {/* Cards */}
             <motion.div
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5  gap-4 md:gap-8"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-8"
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
             >
-              {/* Card 1 */}
+              {/* Cards remain the same */}
               <motion.div
                 className="bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-lg transition"
                 variants={scaleIn}
@@ -825,13 +884,12 @@ function Nutrition() {
                 <h3 className="text-xl font-semibold mb-2">
                   Scientifically Balanced
                 </h3>
-                <p className="text-gray-600 ">
+                <p className="text-gray-600">
                   Precise nutrient formulations based on species-specific
                   requirements.
                 </p>
               </motion.div>
 
-              {/* Card 2 */}
               <motion.div
                 className="bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-lg transition"
                 variants={scaleIn}
@@ -842,12 +900,11 @@ function Nutrition() {
                   className="text-4xl text-[#009a62] mb-4 mx-auto"
                 />
                 <h3 className="text-xl font-semibold mb-2">Optimized FCR</h3>
-                <p className="text-gray-600 ">
+                <p className="text-gray-600">
                   Improved feed conversion ratios for better efficiency.
                 </p>
               </motion.div>
 
-              {/* Card 3 */}
               <motion.div
                 className="bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-lg transition"
                 variants={scaleIn}
@@ -858,13 +915,12 @@ function Nutrition() {
                   className="text-4xl text-[#009a62] mb-4 mx-auto"
                 />
                 <h3 className="text-xl font-semibold mb-2">Reduced Waste</h3>
-                <p className="text-gray-600 ">
+                <p className="text-gray-600">
                   Minimized feed wastage for economic and environmental
                   benefits.
                 </p>
               </motion.div>
 
-              {/* Card 4 */}
               <motion.div
                 className="bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-lg transition"
                 variants={scaleIn}
@@ -875,12 +931,11 @@ function Nutrition() {
                   className="text-4xl text-[#009a62] mb-4 mx-auto"
                 />
                 <h3 className="text-xl font-semibold mb-2">Faster Growth</h3>
-                <p className="text-gray-600 ">
+                <p className="text-gray-600">
                   Accelerated development and better animal health.
                 </p>
               </motion.div>
 
-              {/* Card 5 */}
               <motion.div
                 className="bg-white p-6 rounded-lg shadow text-center hover:shadow-lg transition"
                 variants={scaleIn}
@@ -888,12 +943,12 @@ function Nutrition() {
               >
                 <FontAwesomeIcon
                   icon={faChartLine}
-                  className="text-4xl text-[#009a62] mb-4 mx-auto "
+                  className="text-4xl text-[#009a62] mb-4 mx-auto"
                 />
                 <h3 className="text-xl font-semibold mb-2">
                   Measurable Results
                 </h3>
-                <p className="text-gray-600 ">
+                <p className="text-gray-600">
                   Visible improvements in farm productivity and economics.
                 </p>
               </motion.div>
@@ -901,6 +956,15 @@ function Nutrition() {
           </div>
         </motion.section>
       </main>
+
+      {/* Enquiry Popup */}
+      <EnquiryPopup
+        isOpen={isPopupOpen}
+        onClose={closePopup}
+        animalType={selectedAnimal}
+        feedInterest={selectedFeed}
+      />
+
       <Footer></Footer>
     </>
   );

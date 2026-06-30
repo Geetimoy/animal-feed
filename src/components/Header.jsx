@@ -179,17 +179,9 @@ function Header() {
           }
         );
       }
-      logout();
-      setCartCount(0);
-
-      toast.success("Logged out successfully!", {
-        autoClose: 1500,
-        onClose: () => {
-          window.location.href = "/login";
-        },
-      });
     } catch (error) {
-      console.error("Logout failed:", error);
+      console.error(error);
+    } finally {
       logout();
       setCartCount(0);
       navigate("/login", { replace: true });
