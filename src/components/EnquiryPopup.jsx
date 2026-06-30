@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { toast } from 'react-toastify';
 
 const EnquiryPopup = ({ isOpen, onClose, animalType = '', feedInterest = '' }) => {
     const [formData, setFormData] = useState({
@@ -57,18 +58,30 @@ const EnquiryPopup = ({ isOpen, onClose, animalType = '', feedInterest = '' }) =
         setSubmittedMobile(formData.mobile);
         setIsSubmitting(true);
 
+        // Prepare payload for API
+        const payload = {
+            full_name: formData.name,
+            mobile: formData.mobile,
+            location: formData.location,
+            animal_type: formData.animalType,
+            feed_interest: formData.feedInterest,
+            you_are_a: formData.category
+        };
+
         try {
-            // Replace with your actual API endpoint
-            const response = await fetch(`${import.meta.env.VITE_API_URL || 'https://your-api.com'}/api/enquiries`, {
+            const response = await fetch('https://neonatestaging.com/animal_feed/public/api/quick-enquiry', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(payload),
             });
+
+            const data = await response.json();
 
             if (response.ok) {
                 setIsSuccess(true);
+                toast.success(data.message || 'Enquiry submitted successfully!');
                 setFormData({
                     name: '',
                     mobile: '',
@@ -81,13 +94,13 @@ const EnquiryPopup = ({ isOpen, onClose, animalType = '', feedInterest = '' }) =
                 setTimeout(() => {
                     onClose();
                     setIsSuccess(false);
-                }, 3000);
+                }, 10000);
             } else {
-                throw new Error('Submission failed');
+                throw new Error(data.message || 'Submission failed');
             }
         } catch (error) {
             console.error('Error submitting enquiry:', error);
-            alert('Failed to submit enquiry. Please try again.');
+            toast.error(error.message || 'Failed to submit enquiry. Please try again.');
         } finally {
             setIsSubmitting(false);
         }
@@ -134,7 +147,7 @@ const EnquiryPopup = ({ isOpen, onClose, animalType = '', feedInterest = '' }) =
     return (
         <AnimatePresence>
             {isOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[rgba(10,20,12,0.82)] backdrop-blur-sm">
+                <div className="fixed inset-0 z-50 md:flex md:items-center md:justify-center p-4 bg-[rgba(10,20,12,0.82)] backdrop-blur-sm">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -154,7 +167,7 @@ const EnquiryPopup = ({ isOpen, onClose, animalType = '', feedInterest = '' }) =
                         {/* Modal */}
                         <div className="flex flex-col md:flex-row rounded-2xl overflow-hidden bg-[#F7F2E8] shadow-2xl">
                             {/* Left Panel */}
-                            <div className="w-full md:w-[280px] flex-shrink-0 bg-[#0F2D1A] p-6 md:p-8 relative overflow-hidden">
+                            <div className="hidden md:block w-full md:w-[280px] flex-shrink-0 bg-[#0F2D1A] p-6 md:p-8 relative overflow-hidden">
                                 {/* Decorative circles */}
                                 <div className="absolute -bottom-16 -right-16 w-44 h-44 rounded-full bg-[#1a4a28] pointer-events-none"></div>
                                 <div className="absolute -top-10 -left-10 w-28 h-28 rounded-full bg-[#1a4a28] pointer-events-none"></div>
