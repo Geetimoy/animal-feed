@@ -100,6 +100,25 @@ function Nutrition() {
   const pageSlug = "nutrition";
   const { bannerItem, isLoading, error } = useBanner(pageSlug);
 
+  // State for popup
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [selectedAnimal, setSelectedAnimal] = useState('');
+  const [selectedFeed, setSelectedFeed] = useState('');
+
+  const openPopup = (animalType = '', feedInterest = '') => {
+    setSelectedAnimal(animalType);
+    setSelectedFeed(feedInterest);
+    setIsPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+    setSelectedAnimal('');
+    setSelectedFeed('');
+  };
+
+  const { seo } = usePageSEO("static/nutrition");
+
   return (
     <>
       {/* <Helmet>
