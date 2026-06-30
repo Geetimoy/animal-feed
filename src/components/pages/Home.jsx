@@ -173,14 +173,29 @@ const Skeleton = ({ className = "" }) => (
 
 import { Helmet } from "react-helmet-async";
 import { useSettings } from "../../context/SettingsContext";
+import EnquiryPopup from "../EnquiryPopup";
 
 function Home() {
 
   const [activeTab, setActiveTab] = useState("tab1");
   // const [isLoading, setIsLoading] = useState(true);
-  const [isLoading, setIsLoading] = useState(
-    () => !localStorage.getItem("homeLoaderShown")
-  );
+
+
+  const LOADER_EXPIRY = 5 * 60 * 1000; // 5 minutes
+
+  // const [isLoading, setIsLoading] = useState(
+  //   () => !localStorage.getItem("homeLoaderShown")
+  // );
+
+  const [isLoading, setIsLoading] = useState(() => {
+    const lastShown = localStorage.getItem("homeLoaderShown");
+
+    if (!lastShown) return true;
+
+    const expired = Date.now() - Number(lastShown) > LOADER_EXPIRY;
+
+    return expired;
+  });
 
   const { hash } = useLocation();
   const { settings } = useSettings();
@@ -188,6 +203,8 @@ function Home() {
   const [homeSettings, setHomeSettings] = useState(null);
   const [homeSettingsLoading, setHomeSettingsLoading] = useState(true);
   const [homeSettingsError, setHomeSettingsError] = useState(false);
+
+
 
   useEffect(() => {
     if (!hash) return;
@@ -200,6 +217,8 @@ function Home() {
     }
   }, [hash]);
 
+
+
   useEffect(() => {
     fetchHomeSettings();
 
@@ -208,7 +227,9 @@ function Home() {
       return;
     }
 
-    localStorage.setItem("homeLoaderShown", "true");
+    // Save current timestamp
+    localStorage.setItem("homeLoaderShown", Date.now().toString());
+
     document.body.style.overflow = "hidden";
 
     const timer = setTimeout(() => {
@@ -220,7 +241,7 @@ function Home() {
       clearTimeout(timer);
       document.body.style.overflow = "auto";
     };
-  }, [isLoading]);
+  }, []);
 
   const fetchHomeSettings = async () => {
     try {
@@ -249,11 +270,13 @@ function Home() {
   const researchDevelopment = homeSettings?.data?.research_development ?? {};
   const nationwideAvailability = homeSettings?.data?.nationwide ?? { states: [] };
 
+
   const iconMap = { cardIcon1, cardIcon2, cardIcon3 };
 
   const [news, setNews] = useState([]);
   const [newsLoading, setNewsLoading] = useState(true);
   const [newsError, setNewsError] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   useEffect(() => {
     fetchNews();
@@ -741,33 +764,57 @@ function Home() {
           <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-10 items-center">
             <motion.div
               className="grid grid-cols-2 gap-2 md:gap-4"
-              initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={staggerContainer}
             >
               {homeSettingsLoading
-                ? [1, 2, 3, 4].map(i => <Skeleton key={i} className="w-[280px] h-[280px] rounded-2xl" />)
+                ? [1, 2, 3, 4].map((i) => (
+                  <Skeleton key={i} className="w-[280px] h-[280px] rounded-2xl" />
+                ))
                 : (animalNutrition.cards ?? []).map((card, index) => (
-                  <motion.div key={index} className="place-self-start" variants={itemVariant}>
-                    <div className="relative inline-block overflow-hidden">
+                  <motion.div
+                    key={index}
+                    className="place-self-start"
+                    variants={itemVariant}
+                  >
+                    <div className="relative inline-block overflow-hidden rounded-2xl group">
                       <motion.img
-                        src={card.image_url} alt={card.title}
-                        className="block w-[280px] h-[280px] rounded-2xl object-cover"
-                        whileHover={{ scale: 1.1 }} transition={{ duration: 0.3 }}
+                        src={card.image_url}
+                        alt={card.title}
+                        loading="lazy"
+                        decoding="async"
+                        className="block w-[280px] h-[280px] object-cover"
+                        whileHover={{ scale: 1.1 }}
+                        transition={{ duration: 0.3 }}
                       />
+
                       <motion.div
-                        className="absolute inset-0 bg-black/60 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center"
-                        initial={{ opacity: 0 }} whileHover={{ opacity: 1 }}
+                        className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-center px-4"
+                        initial={{ opacity: 0 }}
+                        whileHover={{ opacity: 1 }}
                       >
-                        <h3 className="text-white text-xl font-semibold">{card.title} <br /> {card.subtitle}</h3>
-                        <div>
-                          <Link to={card.link ?? "#"} className="read-more inline-flex items-center gap-3 text-sm text-white mt-3">
-                            View Details <FontAwesomeIcon icon={faArrowRight} className="text-xs" />
-                          </Link>
-                        </div>
+                        <h3 className="text-white text-xl font-semibold leading-tight">
+                          {card.title}
+                          <br />
+                          {card.subtitle}
+                        </h3>
+
+                        <Link
+                          to={card.link ?? "#"}
+                          className="read-more inline-flex items-center gap-3 text-sm text-white mt-4"
+                        >
+                          View Details
+                          <FontAwesomeIcon
+                            icon={faArrowRight}
+                            className="text-xs"
+                          />
+                        </Link>
                       </motion.div>
                     </div>
                   </motion.div>
-                ))
-              }
+                ))}
             </motion.div>
 
             <motion.div
@@ -850,6 +897,13 @@ function Home() {
                         <p className="text-xs text-white/80">{commitment.badge_subtitle}</p>
                       </div>
                     </div>
+                    <button
+                      onClick={() => setIsPopupOpen(true)}
+                      className="mt-6 inline-flex items-center gap-3 bg-yellow-500 hover:bg-yellow-400 text-black font-semibold px-6 py-4 rounded-xl text-[16px] cursor-pointer"
+                    >
+                      Enquire Now
+                      <FontAwesomeIcon icon={faArrowRight} />
+                    </button>
                   </>
                 )}
               </motion.div>
@@ -1093,6 +1147,13 @@ function Home() {
       </motion.main>
 
       <Footer />
+
+      <EnquiryPopup
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+        animalType="cattle"
+        feedInterest="starter"
+      />
     </>
   );
 }
