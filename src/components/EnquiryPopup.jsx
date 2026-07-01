@@ -9,7 +9,8 @@ const EnquiryPopup = ({ isOpen, onClose, animalType = '', feedInterest = '' }) =
         location: '',
         animalType: animalType || '',
         feedInterest: feedInterest || '',
-        category: ''
+        category: '',
+        message: ''
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
@@ -26,7 +27,8 @@ const EnquiryPopup = ({ isOpen, onClose, animalType = '', feedInterest = '' }) =
             setFormData(prev => ({
                 ...prev,
                 animalType: animalType || prev.animalType,
-                feedInterest: feedInterest || prev.feedInterest
+                feedInterest: feedInterest || prev.feedInterest,
+                message: ''
             }));
             setIsSuccess(false);
             setErrors({});
@@ -44,6 +46,7 @@ const EnquiryPopup = ({ isOpen, onClose, animalType = '', feedInterest = '' }) =
         if (!formData.animalType) newErrors.animalType = 'Select an animal type';
         if (!formData.feedInterest) newErrors.feedInterest = 'Select feed interest';
         if (!formData.category) newErrors.category = 'Select a category';
+
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -65,7 +68,8 @@ const EnquiryPopup = ({ isOpen, onClose, animalType = '', feedInterest = '' }) =
             location: formData.location,
             animal_type: formData.animalType,
             feed_interest: formData.feedInterest,
-            you_are_a: formData.category
+            you_are_a: formData.category,
+            message: formData.message
         };
 
         try {
@@ -88,7 +92,8 @@ const EnquiryPopup = ({ isOpen, onClose, animalType = '', feedInterest = '' }) =
                     location: '',
                     animalType: '',
                     feedInterest: '',
-                    category: ''
+                    category: '',
+                    message: ''
                 });
 
                 setTimeout(() => {
@@ -384,6 +389,22 @@ const EnquiryPopup = ({ isOpen, onClose, animalType = '', feedInterest = '' }) =
                                                     </div>
                                                     {errors.category && <p className="text-[10px] text-[#c0392b] mt-1">{errors.category}</p>}
                                                 </div>
+                                            </div>
+
+                                            {/* Enquiry Message */}
+                                            <div className="field mt-3">
+                                                <label className="block text-[11px] font-medium text-[#4a5a4e] tracking-[0.04em] uppercase mb-1">
+                                                    Message (Optional)
+                                                </label>
+                                                <textarea
+                                                    name="message"
+                                                    value={formData.message}
+                                                    onChange={handleChange}
+                                                    rows="3"
+                                                    className="w-full bg-white border-2 border-[#d4cbb8] rounded-lg px-3 py-2.5 text-[13px] text-[#0F2D1A] outline-none focus:border-[#4A7A5A] transition-colors placeholder:text-[#b0a898] resize-none"
+                                                    placeholder="Tell us more about your requirements..."
+                                                    disabled={isSubmitting}
+                                                />
                                             </div>
 
                                             {/* Submit Button */}
