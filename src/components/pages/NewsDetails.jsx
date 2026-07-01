@@ -19,8 +19,8 @@ import { useParams } from "react-router-dom";
 
 
 // For SEO
-// import SEO from "./SEO";
-// import usePageSEO from "../../hooks/usePageSEO";
+import SEO from "./SEO";
+import usePageSEO from "../../hooks/usePageSEO";
 
 
 import HeroBanner from "../HeroBanner";
@@ -35,9 +35,9 @@ function NewsDetails() {
   const [newsDetails, setNewsDetails] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  //  const { seo } = usePageSEO(
-  //   productSlug ? `product_detail/${productSlug}` : null
-  // );
+   const { seo } = usePageSEO(
+    slug ? `news/${slug}` : null
+  );
 
   const pageSlug = `news/${slug}`;
   const {
@@ -97,10 +97,10 @@ function NewsDetails() {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>News Details -  Animal Feed</title>
-      </Helmet>
-      {/* <SEO seo={seo} /> */}
+      </Helmet> */}
+      <SEO seo={seo} />
       <Header></Header>
       <main className="pt-16 overflow-hidden">
         <HeroBanner

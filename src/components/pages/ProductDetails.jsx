@@ -438,6 +438,51 @@ export default function ProductDetails() {
                   </div>
                 </div>
               </div>
+
+              {/* Feeding Guidelines */}
+              
+                <div className="bg-gradient-to-r from-green-50 to-yellow-50 border border-green-100 rounded-2xl p-5 sm:p-6 mb-6">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-5">
+                    Feeding <span className="text-[#ffa800]">Guidelines</span>
+                  </h3>
+
+                  <div className="space-y-4">
+                    {product.feeding_guidelines && (
+                      <div className="flex items-start gap-3">
+                        {/* <div className="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center flex-shrink-0">
+                          🥣
+                        </div> */}
+
+                        <div>
+                          {/* <h4 className="font-semibold text-gray-800">
+                            Feeding Recommendation
+                          </h4> */}
+
+                          <p className="text-gray-600 text-sm leading-6">
+                            {product.feeding_guidelines}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              
+
+              {/* Key Benefits */}
+              <div className="bg-gradient-to-r from-green-50 to-yellow-50 border border-green-100 rounded-2xl p-5 sm:p-6 mb-6">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-5">
+                    Key Benefits & <span className="text-[#ffa800]">Performance Highlights</span>
+                  </h3>
+                  <div className="space-y-4">
+                    {product.key_benefits && (
+                      <div className="flex items-start gap-3">
+                        <p className="text-gray-600 text-sm leading-6">
+                            {product.key_benefits}
+                          </p>
+                      </div>
+                    )}
+                  </div>
+              </div>
             </div>
           </div>
         </div>

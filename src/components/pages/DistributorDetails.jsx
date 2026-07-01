@@ -58,7 +58,7 @@ function DistributorDetails() {
 } = useBanner(pageSlug);
 
    const { seo } = usePageSEO(
-    slug ? `distributor/${slug}` : null
+    slug ? `distributors/${slug}` : null
   );
 
 

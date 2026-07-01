@@ -6,6 +6,7 @@ import { AuthProvider } from "./auth/AuthProvider";
 // import Core from "./components/Core";
 import "./App.css";
 import AppRoutes from "./routes/AppRoutes";
+import FloatingFAQ from "./components/pages/FloatingFAQ";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <HelmetProvider>
               {/* <Core /> */}
               <AppRoutes />
+              <FloatingFAQ />
             </HelmetProvider>
           </SettingsProvider>
         </CartProvider>
