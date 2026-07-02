@@ -339,7 +339,7 @@ export default function Cart() {
                 {/* Continue Shopping */}
                 <div className="hidden md:flex items-center justify-between">
                   <button
-                    onClick={() => navigate("/distributor")}
+                    onClick={() => navigate("/products")}
                     className="  bg-yellow-500 text-white
                                py-3 rounded-xl font-medium cursor-pointer hover:bg-yellow-400  text-[16px] px-8
                                hover:opacity-90 transition"

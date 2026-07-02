@@ -62,7 +62,13 @@ export default function MyOrders() {
           Accept: "application/json",
         },
       });
-      setOrders(response.data.data || []);
+      // setOrders(response.data.data || []);
+      const activeOrders = (response.data.data || []).filter(
+        (order) => order.status?.toLowerCase() !== "cancelled"
+      );
+
+      setOrders(activeOrders);
+
     } catch (error) {
       console.error("Orders API Error:", error);
     } finally {
@@ -83,7 +89,10 @@ export default function MyOrders() {
           },
         }
       );
-      fetchOrders();
+      setOrders((prev) => prev.filter((order) => order.id !== orderId));
+
+      setShowCancelModal(false);
+      setSelectedOrderId(null);
       toast.success(response.data?.message || "Order cancelled successfully!");
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to cancel order");
@@ -256,7 +265,7 @@ export default function MyOrders() {
                                   >
                                     <FontAwesomeIcon icon={faTrash} />
                                   </button>
-                                  <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
+                                  <span className="absolute bottom-full right-0 mb-2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
                                     Cancel Order
                                   </span>
                                 </div>
@@ -291,10 +300,13 @@ export default function MyOrders() {
                 No
               </button>
               <button
-                onClick={() => {
-                  cancelOrder(selectedOrderId);
-                  setShowCancelModal(false);
-                }}
+                // onClick={() => {
+                //   cancelOrder(selectedOrderId);
+                //   setShowCancelModal(false);
+                // }}
+                onClick={async () => {
+  await cancelOrder(selectedOrderId);
+}}
                 className="px-4 py-2 bg-yellow-500 text-white rounded-lg cursor-pointer"
               >
                 Yes, Cancel

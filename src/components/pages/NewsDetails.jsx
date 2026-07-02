@@ -312,12 +312,14 @@ function NewsDetails() {
                           alt={post.title}
                           className="w-12 h-12 object-cover rounded"
                         />
+                        <Link to={`/news/${post.slug}`} className="hover:text-green-600">
                         <span>
                           <span className="text-[12px] block text text-gray-900">
                             {post.published_at}
                           </span>
                           {post.title}
                         </span>
+                        </Link>
                       </li>
                     ))}
                     {/* <li className="text-sm text-gray-500 hover:text-green-600 cursor-pointer flex items-center gap-3">
