@@ -25,7 +25,7 @@ function Csr() {
 
 
   return (
-    <>
+    <div className="overflow-x-hidden">
       {/* <Helmet>
         <title>Corporate Social Responsibility -  Animal Feed</title>
       </Helmet> */}
@@ -58,7 +58,7 @@ function Csr() {
         </section>
       </main>
       <Footer></Footer>
-    </>
+    </div>
   );
 }
 

@@ -349,7 +349,7 @@ export default function Products() {
 
 
   return (
-    <>
+    <div className="overflow-x-hidden">
       {/* <Helmet>
         <title>Products</title>
       </Helmet> */}
@@ -611,6 +611,6 @@ export default function Products() {
       </main>
 
       <Footer />
-    </>
+    </div>
   );
 }

@@ -25,7 +25,7 @@ function Quality() {
 
 
   return (
-    <>
+    <div className="overflow-x-hidden">
       {/* <Helmet>
         <title>Quality -  Animal Feed</title>
       </Helmet> */}
@@ -58,7 +58,7 @@ function Quality() {
         </section>
       </main>
       <Footer></Footer>
-    </>
+    </div>
   );
 }
 

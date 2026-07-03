@@ -169,6 +169,11 @@ function NewsDetails() {
                       
                       className="w-full h-auto"
                     />
+                    {newsDetails?.category && (
+    <div className="absolute top-4 left-4 bg-green-600 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">
+      {newsDetails.category.name}
+    </div>
+  )}
                     <div className="absolute -bottom-5 left-15 bg-[#ffa800] rounded-full px-4 py-2">
                       {/* 22nd Jan 2026 */}
                       {newsDetails?.published_at}
@@ -370,13 +375,21 @@ function NewsDetails() {
                   <ul className="space-y-4">
                     {sidebar.news_categories.map((category, index) => (
                     <li key={index} className="text-sm text-gray-500 hover:text-green-600 cursor-pointer flex items-center gap-3">
+                      <Link
+                        to={`/news/category/${category.slug}`}
+                        className="text-sm text-gray-500 hover:text-green-600 flex items-center gap-3"
+                      >
                       <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
                         <FontAwesomeIcon
                           icon={faArrowRight}
                           className="text-white text-[10px]"
                         />
                       </span>
-                      {category}
+                      {category.name}
+                      <span className="text-xs text-green-600">
+                        ({category.post_count})
+                      </span>
+                      </Link>
                     </li>
                      ))}
                     {/* <li className="text-sm text-gray-500 hover:text-green-600 cursor-pointer flex items-center gap-3">
@@ -440,12 +453,16 @@ function NewsDetails() {
                   <h3 className="text-xl font-semibold mb-4 text-gray-900">
                     Tags
                   </h3>
+                  {newsDetails?.tags?.length > 0 && (
                   <div className="flex flex-wrap gap-2">
-                    {sidebar.product_categories.map((item) => (
-                    <span key={item.id} className="bg-gray-200 text-sm text-gray-700 px-3 py-1 rounded-full hover:bg-green-600 hover:text-white cursor-pointer">
-                       {item.name}
-                    </span>
-                     ))}
+                    {newsDetails.tags.map((tag, index) => (
+                      <span
+                        key={index}
+                        className="bg-gray-200 text-sm text-gray-700 px-3 py-1 rounded-full hover:bg-green-600 hover:text-white transition cursor-pointer"
+                      >
+                        {tag}
+                      </span>
+                    ))}
                     {/* <span className="bg-gray-200 text-sm text-gray-700 px-3 py-1 rounded-full hover:bg-green-600 hover:text-white cursor-pointer">
                       Sustainability
                     </span>
@@ -462,6 +479,7 @@ function NewsDetails() {
                       Animal Health
                     </span> */}
                   </div>
+                  )}
                 </div>
               </div>
             </div>
