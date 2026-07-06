@@ -630,7 +630,7 @@ function Home() {
         >
           <div className="absolute inset-0 bg-black/60 pointer-events-none z-0"></div>
 
-          <div className="relative z-10 max-w-7xl mx-auto px-4">
+          <div className="relative z-10 max-w-7xl mx-auto px-4 xl:mb-4">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-12 items-center">
               <motion.div
                 className="lg:col-span-1 relative z-20 text-center md:text-left"
@@ -694,12 +694,12 @@ function Home() {
                               <h4 className="text-[#009a62] font-semibold text-lg leading-snug">{card.title}</h4>
                               <p className="text-gray-600 text-sm mt-3 leading-relaxed">{card.description}</p>
                             </div>
-                            <Link href="#" className="group read-more inline-flex items-center gap-3 text-sm text-gray-500 pt-6 hover:text-green-600">
+                            {/* <Link href="#" className="group read-more inline-flex items-center gap-3 text-sm text-gray-500 pt-6 hover:text-green-600">
                               Read More
                               <span className="w-8 h-8 rounded-full border border-gray-400 flex items-center justify-center group-hover:border-green-600 group-hover:text-green-600 transition-transform duration-300 group-hover:translate-x-1">
                                 <FontAwesomeIcon icon={faArrowRight} className="text-xs" />
                               </span>
-                            </Link>
+                            </Link> */}
                           </div>
                         </SwiperSlide>
                       ))}
@@ -1045,7 +1045,7 @@ function Home() {
                     <FontAwesomeIcon icon={faPhone} />
                     {nationwideAvailability.btn_call_label}
                   </Link>
-                  <Link
+                  <Link target="_blank"
                     to={`https://wa.me/${nationwideAvailability.whatsapp ?? ""}`}
                     className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-green-500 text-white font-medium shadow-md hover:bg-green-600 transition w-full md:w-auto"
                   >
@@ -1123,7 +1123,7 @@ function Home() {
                         <div className="p-6 flex flex-col flex-grow">
                           <span className="text-xs text-green-600 font-medium">{item.published_at}</span>
                           <h3 className="mt-2 font-bold text-gray-900">{item.title}</h3>
-                          <p className="mt-2 text-sm text-gray-500 flex-grow">{item.excerpt}</p>
+                          <p className="mt-2 text-sm text-gray-500 flex-grow line-clamp-3">{item.excerpt}</p>
                           <Link
                             to={`/news/${item.slug}`}
                             className="group mt-4 inline-flex items-center gap-2 hover:text-green-700 text-green-600 font-medium"

@@ -319,7 +319,7 @@ const EnquiryPopup = ({ isOpen, onClose, animalType = '', feedInterest = '' }) =
                                                             key={option}
                                                             type="button"
                                                             onClick={() => handleChipSelect(option.toLowerCase())}
-                                                            className={`px-3 py-1.5 rounded-full border-2 text-[11px] transition-all font-medium ${formData.animalType === option.toLowerCase()
+                                                            className={`px-3 py-1.5 rounded-full border-2 text-[11px] cursor-pointer transition-all font-medium ${formData.animalType === option.toLowerCase()
                                                                 ? 'border-[#C8952A] bg-[#C8952A] text-white'
                                                                 : 'border-[#d4cbb8] bg-white text-[#4a5a4e] hover:border-[#4A7A5A]'
                                                                 }`}

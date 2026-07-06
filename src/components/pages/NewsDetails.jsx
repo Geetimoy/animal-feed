@@ -170,10 +170,10 @@ function NewsDetails() {
                       className="w-full h-auto"
                     />
                     {newsDetails?.category && (
-    <div className="absolute top-4 left-4 bg-green-600 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">
-      {newsDetails.category.name}
-    </div>
-  )}
+                      <div className="absolute top-4 left-4 bg-green-600 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">
+                        {newsDetails.category.name}
+                      </div>
+                    )}
                     <div className="absolute -bottom-5 left-15 bg-[#ffa800] rounded-full px-4 py-2">
                       {/* 22nd Jan 2026 */}
                       {newsDetails?.published_at}
@@ -456,12 +456,17 @@ function NewsDetails() {
                   {newsDetails?.tags?.length > 0 && (
                   <div className="flex flex-wrap gap-2">
                     {newsDetails.tags.map((tag, index) => (
-                      <span
-                        key={index}
-                        className="bg-gray-200 text-sm text-gray-700 px-3 py-1 rounded-full hover:bg-green-600 hover:text-white transition cursor-pointer"
+                      <Link
+                        to={`/news/tag/${tag}`}
+                        className="text-sm text-gray-500 hover:text-green-600 flex items-center gap-3"
                       >
-                        {tag}
-                      </span>
+                        <span
+                          key={index}
+                          className="bg-gray-200 text-sm text-gray-700 px-3 py-1 rounded-full hover:bg-green-600 hover:text-white transition cursor-pointer"
+                        >
+                          {tag}
+                        </span>
+                      </Link>
                     ))}
                     {/* <span className="bg-gray-200 text-sm text-gray-700 px-3 py-1 rounded-full hover:bg-green-600 hover:text-white cursor-pointer">
                       Sustainability

@@ -2,13 +2,14 @@ import Footer from "../Footer";
 import Header from "../Header";
 
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import contactBaner from "../../assets/images/contact-banner.jpg";
 
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faIndianRupeeSign } from "@fortawesome/free-solid-svg-icons";
+import { faIndianRupeeSign, faAnglesLeft } from "@fortawesome/free-solid-svg-icons";
 import { API_URL } from "../../config/api";
 
 
@@ -97,6 +98,7 @@ const subtotal = cartItems.reduce(
           </section> */}
           <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-12 mt-16">
             <div className="md:col-span-2 space-y-6">
+              <div><Link to="/my-orders" className="text-green-600"><FontAwesomeIcon icon={faAnglesLeft} /> Back to My Orders</Link></div>
               <div className="bg-white p-6 rounded-[12px] shadow-md h-fit">
                 <p className="normal text-gray-800 text-[16px] md:text-[20px]">ORDER : {order?.order_number}</p>
                 <table className="w-full mt-4 border-collapse">
@@ -122,7 +124,7 @@ const subtotal = cartItems.reduce(
                   </tbody>
                 </table>
               </div>
-              </div>
+            </div>
             <div>
               <div className="bg-white p-6 rounded-[12px] shadow-md h-fit mb-6">
                 <h2 className="text-xl font-semibold mb-4">Delivery details</h2>

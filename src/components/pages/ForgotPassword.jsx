@@ -153,11 +153,13 @@ export default function ForgotPassword() {
           <div className="gg-blob2" />
 
           <div>
+            <Link to="/">
             <img
               src={logo}
               alt="Green Gold Animal Feed"
               className="w-20 h-20 object-contain"
             />
+            </Link>
             <p className="mt-4 text-[0.65rem] font-bold tracking-[0.2em] uppercase text-[#cba344]">
               Customer Portal
             </p>

@@ -202,7 +202,7 @@ function Gallery() {
                       onClick={() => setSelectedImg(item.file_url)}
                       className="w-full h-40 object-cover transform hover:scale-105 transition-transform duration-300 cursor-pointer hover:opacity-80"
                     />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition duration-500 flex items-end p-6">
+                    <div className="absolute inset-0 pointer-events-none bg-black/60 opacity-0 group-hover:opacity-100 transition duration-500 flex items-end p-6">
                       <div className="translate-y-6 group-hover:translate-y-0 transition duration-500">
                         <h3 className="text-white text-xl font-semibold">
                           {item.title}

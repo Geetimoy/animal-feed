@@ -105,10 +105,10 @@ export default function MyOrders() {
     <>
       <SEO seo={seo} />
       <Header showLogout={true} />
-      <main className="pt-16 overflow-x-hidden">
+      <main className="pt-24 overflow-x-hidden">
 
 
-        <div className="flex flex-col md:flex-row bg-[#f7f8fa] md:max-w-7xl md:mx-auto px-4 md:px-8 py-8 mt-16">
+        <div className="flex flex-col md:flex-row bg-[#f7f8fa] md:max-w-7xl md:mx-auto px-4 md:px-8 py-8 ">
           <div className="hidden md:block">
             <ProfileDashboard />
           </div>
@@ -187,17 +187,17 @@ export default function MyOrders() {
                         <tr key={order.id} className="hover:bg-green-50 transition align-top">
 
                           {/* Products column — shows all items in this order */}
-                          <td className="px-2 md:px-4 py-3 border border-green-200">
-                            <div className="flex flex-col gap-3">
+                          <td className="px-2 md:px-4 py-3 border border-green-200 max-w-[150px]">
+                            <div className="flex gap-3 flex-wrap">
                               {order.items?.map((item) => (
-                                <div key={item.id} className="flex items-center gap-3">
+                                <div key={item.id} className="">
                                   <img
                                     src={item.image_url || specialproduct}
                                     alt={item.product_name}
-                                    className="w-[56px] h-[56px] rounded-lg object-cover flex-shrink-0"
+                                    className="w-[36px] h-[36px] rounded-lg object-cover flex-shrink-0"
                                     onError={(e) => { e.target.src = specialproduct; }}
                                   />
-                                  <div>
+                                  {/* <div>
                                     <p className="font-medium text-gray-800 text-sm leading-tight">
                                       {item.product_name}
                                     </p>
@@ -207,7 +207,7 @@ export default function MyOrders() {
                                     <p className="text-xs text-gray-400">
                                       {item.manufacturer_name}
                                     </p>
-                                  </div>
+                                  </div> */}
                                 </div>
                               ))}
                             </div>

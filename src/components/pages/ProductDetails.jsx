@@ -294,6 +294,10 @@ export default function ProductDetails() {
               Products
             </Link>
             <span className="mx-2">/</span>
+            <Link to={`/${product.category?.slug}/${product.sub_category?.slug}`} className="hover:text-green-600 transition-colors">
+              {product.sub_category_name}
+            </Link>
+            <span className="mx-2">/</span>
             <span className="text-gray-700 font-medium truncate max-w-[150px] sm:max-w-[200px] md:max-w-none">
               {product.name}
             </span>
@@ -391,7 +395,7 @@ export default function ProductDetails() {
                 {/* Quantity and Cart */}
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
                   <div className="flex items-center gap-2 sm:gap-3">
-                    <span className="text-gray-700 font-medium text-sm sm:text-base">Qty:</span>
+                    {/* <span className="text-gray-700 font-medium text-sm sm:text-base">Qty:</span> */}
                     {count === 0 ? (
                       <button
                         onClick={() => addToCart(product)}
@@ -402,6 +406,7 @@ export default function ProductDetails() {
                       </button>
                     ) : (
                       <div className="flex items-center bg-gray-100 rounded-lg overflow-hidden">
+                        <span className="text-gray-700 font-medium text-sm sm:text-base mx-2">Qty:</span>
                         <button
                           onClick={() => decrease(product.id)}
                           className="w-8 h-8 sm:w-10 sm:h-10 bg-red-500 hover:bg-red-600 text-white font-bold transition-colors flex items-center justify-center text-sm sm:text-base"

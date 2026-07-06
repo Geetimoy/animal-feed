@@ -54,9 +54,22 @@ const SearchInput = ({ value, onChange }) => (
 const PriceFilter = ({ minPrice, setMinPrice, maxPrice, setMaxPrice }) => {
   const MAX_PRICE = 5000;
 
+  const handlePriceReset = () => {
+    setMinPrice(0);
+    setMaxPrice(MAX_PRICE);
+  };
+
   return (
     <div>
-      <h3 className="text-xl font-semibold mb-4 text-gray-900">Price Filter</h3>
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-xl font-semibold text-gray-900">Price Filter</h3>
+        <button
+          onClick={handlePriceReset}
+          className="text-sm px-3 py-1 bg-green-100 hover:bg-green-200 rounded-md text-gray-700 transition cursor-pointer"
+        >
+          Reset
+        </button>
+      </div>
       <div className="bg-white shadow-md rounded-lg py-4 px-4 mb-4">
         <div className="flex gap-3 mb-3">
           <div className="flex-1">

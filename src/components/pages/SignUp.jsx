@@ -106,7 +106,17 @@ export default function SignUp() {
                 Join Green Gold and get started
               </p>
 
+              {error && (
+                  <p className="text-sm text-red-500 -mt-2 mb-4">{error}</p>
+                )}
+
+                {success && (
+                  <p className="text-sm text-green-600 -mt-2 mb-4">{success}</p>
+                )}
+
               <form onSubmit={handleSubmit}>
+                
+
                 {/* Full Name */}
                 <div className="mb-5">
                   <label className="block text-[0.65rem] font-bold text-gray-500 uppercase tracking-[0.1em] mb-2" htmlFor="name">
@@ -202,13 +212,7 @@ export default function SignUp() {
                   </div>
                 </div>
 
-                {error && (
-                  <p className="text-sm text-red-500 -mt-2 mb-4">{error}</p>
-                )}
-
-                {success && (
-                  <p className="text-sm text-green-600 -mt-2 mb-4">{success}</p>
-                )}
+                
 
                 <button
                   type="submit"

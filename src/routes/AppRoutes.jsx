@@ -11,6 +11,7 @@ import Gallery from "../components/pages/Gallery";
 import Nutrition from "../components/pages/Nutrition";
 import NewsDetails from "../components/pages/NewsDetails";
 import NewsCategory from "../components/pages/NewsCategory";
+import NewsTags from "../components/pages/NewsTags";
 import FeedType from "../components/pages/FeedType";
 import OurTeams from "../components/pages/OurTeams";
 import Quality from "../components/pages/Quality";
@@ -67,6 +68,7 @@ export default function AppRoutes() {
                 <Route path="/nutrition" element={<Nutrition />} />
                 <Route path="/news/:slug" element={<NewsDetails />} />
                 <Route path="/news/category/:slug" element={<NewsCategory />} />
+                <Route path="/news/tag/:tagName" element={<NewsTags/>} />
                 <Route path="/feed-type" element={<FeedType />} />
                 <Route path="/our-teams" element={<OurTeams />} />
                 <Route path="/quality" element={<Quality />} />

@@ -179,7 +179,7 @@ export default function ThankyouOrder() {
               </button>
 
               <button
-                onClick={() => navigate("/")}
+                onClick={() => navigate("/products")}
                 className="bg-gray-100 text-gray-700 px-8 py-4 rounded-xl font-medium hover:bg-gray-200 transition-all duration-300 border border-gray-200 hover:border-gray-300"
               >
                 Continue Shopping

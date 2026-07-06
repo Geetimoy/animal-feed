@@ -379,12 +379,12 @@ function Header() {
                       {/* User info header */}
                       <div className="px-4 py-3 bg-gradient-to-r from-green-50 to-emerald-50/50 border-b border-gray-100">
                         <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#00a34a] to-[#009a62] flex items-center justify-center text-white font-semibold text-sm shadow-md">
+                          <div className="w-10 h-10 shrink-0 rounded-full bg-gradient-to-br from-[#00a34a] to-[#009a62] flex items-center justify-center text-white font-semibold text-sm shadow-md">
                             {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
                           </div>
                           <div>
                             <p className="text-sm font-semibold text-gray-800">{user?.name || 'User'}</p>
-                            <p className="text-xs text-gray-500">{user?.email || 'user@example.com'}</p>
+                            <p className="text-xs text-gray-500 break-all">{user?.email || 'user@example.com'}</p>
                           </div>
                         </div>
                       </div>

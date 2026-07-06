@@ -153,6 +153,16 @@ function Distributor() {
 
   // const bannerItem = banner?.data?.[0];
 
+  const handleReset = () => {
+    setSelectedState("");
+    setSelectedRegion("");
+    setSelectedCategory("");
+    setSelectedType("");
+
+    setFilteredCities(allCityOptions);
+    setFilteredDistributors(distributors);
+  };
+
   return (
     <>
       {/* <Helmet>
@@ -256,13 +266,21 @@ function Distributor() {
                   </div>
 
                   {/* Search button */}
-                  <div>
+                  <div className="flex flex-col md:flex-row gap-2">
                     <button
                       type="submit"
                       className="bg-yellow-500 hover:bg-yellow-400 transition text-black px-4 py-2 rounded hover:opacity-90 w-full cursor-pointer text-center"
                     >
                       Search
                     </button>
+
+                     {/* <button
+                        type="button"
+                        onClick={handleReset}
+                        className="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded cursor-pointer"
+                      >
+                        Reset
+                      </button> */}
                   </div>
 
                 </div>
@@ -273,8 +291,8 @@ function Distributor() {
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <div className="mt-10 grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6">
               {loading ? (
-                <p>Loading...</p>
-              ) : (
+                <p className="text-center py-10">Loading...</p>
+              ) : filteredDistributors.length > 0 ? (
                 filteredDistributors.map((item) => (
                   <div key={item.id} className="bg-white p-4 rounded-lg shadow">
                     <div className="text-gray-600 text-sm">
@@ -301,6 +319,23 @@ function Distributor() {
                     </div>
                   </div>
                 ))
+                ) : (
+                  <div className="col-span-full text-center py-12">
+                    <h3 className="text-2xl font-semibold text-gray-700">
+                      No distributors found
+                    </h3>
+
+                    <p className="text-gray-500 mt-2">
+                      We couldn't find any distributors matching your search criteria.
+                    </p>
+
+                  <button
+                    onClick={handleReset}
+                    className="mt-5 bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition"
+                  >
+                    Reset Filters
+                  </button>
+                </div>
               )}
             </div>
           </div>

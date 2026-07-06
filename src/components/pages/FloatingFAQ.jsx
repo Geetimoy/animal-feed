@@ -107,7 +107,7 @@ function FAQItem({ item, isOpen, onToggle }) {
     <div className="border-b border-[#1F3D2B]/10 last:border-b-0">
       <button
         onClick={onToggle}
-        className="w-full flex items-center justify-between gap-4 py-4 px-1 text-left group"
+        className="w-full cursor-pointer flex items-center justify-between gap-4 py-4 px-1 text-left group"
         aria-expanded={isOpen}
       >
         <span
@@ -252,7 +252,7 @@ export default function FloatingFAQ() {
       {/* Floating trigger button */}
       <button
         onClick={handleOpen}
-        className="fixed bottom-6 right-6 z-40 group flex items-center gap-2 pl-4 pr-5 py-3 rounded-full
+        className="fixed bottom-6 cursor-pointer right-6 z-40 group flex items-center gap-2 pl-4 pr-5 py-3 rounded-full
                    bg-gradient-to-br from-[#E3B75B] to-[#C98A2E] text-[#1F3D2B]
                    shadow-[0_8px_24px_rgba(31,61,43,0.35)]
                    ring-1 ring-[#1F3D2B]/20
@@ -307,7 +307,7 @@ export default function FloatingFAQ() {
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="relative shrink-0 flex items-center justify-center w-8 h-8 rounded-full text-[#FAF6EC]/80 hover:text-[#FAF6EC] hover:bg-[#FAF6EC]/10 transition-colors"
+                className="relative cursor-pointer shrink-0 flex items-center justify-center w-8 h-8 rounded-full text-[#FAF6EC]/80 hover:text-[#FAF6EC] hover:bg-[#FAF6EC]/10 transition-colors"
                 aria-label="Close"
               >
                 <CloseIcon />
