@@ -52,7 +52,8 @@ const SearchInput = ({ value, onChange }) => (
 );
 
 const PriceFilter = ({ minPrice, setMinPrice, maxPrice, setMaxPrice }) => {
-  const MAX_PRICE = 5000;
+  // Changed from 5000 -> 3000 so reset and slider max match the normal/default range
+  const MAX_PRICE = 3000;
 
   const handlePriceReset = () => {
     setMinPrice(0);

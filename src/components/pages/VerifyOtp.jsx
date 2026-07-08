@@ -1,70 +1,84 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import logo from "../../assets/images/logo.png";
-
-import { API_URL } from "../../config/api";
+import { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+// import { toast } from "react-toastify";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function ForgotPassword() {
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState("");
-  // const [success, setSuccess] = useState("");
+// import Header from "../Header";
+// import Footer from "../Footer";
+import logo from "../../assets/images/logo.png";
+import { API_URL } from "../../config/api";
 
+export default function VerifyOtp() {
   const navigate = useNavigate();
+  const { state } = useLocation();
 
-  const handleSubmit = async (e) => {
+  const email = state?.email || "";
+  const generatedOtp = state?.otp || "";
+  const expiresIn = state?.expiresIn || 10;
+
+  const [otp, setOtp] = useState("");
+  // const [otp, setOtp] = useState(state?.otp || "");
+  const [loading, setLoading] = useState(false);
+
+  const handleVerifyOtp = async (e) => {
     e.preventDefault();
-    
 
-     if (!email.trim()) {
-      toast.error("Email is required");
+    if (!otp) {
+      toast.error("Please enter OTP");
       return;
     }
-    // setError("");
-    // setSuccess("");
 
-     try {
+    try {
       setLoading(true);
-    const res = await axios.post(
-      `${API_URL}/customers/forgot-password`,
-      {
-        email,
-      },
-      {
-        headers: {
-          Accept: "application/json",
-        },
-      }
-    );
 
-    toast.success(res.data.message);
-
-    setTimeout(() => {
-      navigate("/verify-otp", {
-        state: {
+      const res = await axios.post(
+        `${API_URL}/customers/verify-otp`,
+        {
           email,
-          otp: res.data.otp,
-          expiresIn: res.data.expires_in_minutes,
+          otp,
         },
-      });
-    }, 1200);
+        {
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
 
-  } catch (err) {
-    const res = err.response?.data;
+      toast.success(res.data.message);
 
-    if (res?.errors?.email) {
-      toast.error(res.errors.email[0]);
-    } else {
-      toast.error(res?.message || "Something went wrong.");
+      setTimeout(() => {
+        navigate("/change-password", {
+          state: {
+            email,
+            resetToken: res.data.reset_token,
+          },
+        });
+      }, 2000);
+
+    } catch (err) {
+      const res = err.response?.data;
+
+      if (res?.errors) {
+        Object.values(res.errors).forEach((arr) => {
+          toast.error(arr[0]);
+        });
+      } else {
+        toast.error(res?.message || "Invalid or expired OTP");
+      }
+    } finally {
+      setLoading(false);
     }
-  } finally {
-    setLoading(false);
-  }
-};
+  };
+
+  useEffect(() => {
+    if (!email) {
+      toast.error("Please request an OTP first.");
+      navigate("/forgot-password", { replace: true });
+    }
+  }, [email, navigate]);
 
   return (
     <>
@@ -93,13 +107,14 @@ export default function ForgotPassword() {
           pointer-events: none;
         }
       `}</style>
+      {/* <Header /> */}
 
-      <div className="min-h-screen flex font-['Inter'] bg-[#f5f0e8]">
-        {/* ── Left Form Panel ── */}
+      <main className="min-h-screen bg-[#f5f0e8] flex justify-center">
         <div className="flex-1 flex items-center justify-center p-8 bg-[#f5f0e8]">
-          <div className="w-full max-w-[26rem]">
-            {/* Mobile logo */}
-            <div className="flex flex-col items-center mb-8 lg:hidden">
+          <div className="w-full max-w-[26rem] px-4">
+
+            {/* Mobile Logo */}
+            {/* <div className="flex flex-col items-center mb-8">
               <img
                 src={logo}
                 alt="Green Gold"
@@ -108,74 +123,85 @@ export default function ForgotPassword() {
               <p className="mt-2 text-[0.65rem] font-bold tracking-[0.2em] uppercase text-[#1a4731]">
                 Customer Portal
               </p>
-            </div>
+            </div> */}
 
             <div className="bg-white rounded-3xl p-10 shadow-[0_4px_24px_rgba(0,0,0,0.07)]">
+
               <h2 className="font-['Playfair_Display'] text-[1.75rem] font-bold text-[#1a4731] mb-1">
-                Forgot Password
+                Verify OTP
               </h2>
-              <p className="text-sm text-gray-400 mb-8">
-                {/* Enter your email to reset your password */}
-                Enter your registered email address to receive a One-Time Password (OTP).
+
+              <p className="text-sm text-gray-500 mb-2">
+                Enter the OTP sent to
               </p>
 
-              <form onSubmit={handleSubmit}>
-                {/* Email */}
-                <div className="mb-6">
-                  <label className="block text-[0.65rem] font-bold text-gray-500 uppercase tracking-[0.1em] mb-2" htmlFor="email">
-                    Email Address
-                  </label>
-                  <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 flex pointer-events-none">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <rect width="20" height="16" x="2" y="4" rx="2" />
-                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                      </svg>
-                    </span>
-                    <input
-                      id="email"
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="you@example.com"
-                      className="w-full py-3 pl-11 pr-4 border-2 border-gray-100 rounded-xl text-sm font-semibold text-gray-700 bg-gray-50 outline-none focus:border-[#cba344] focus:bg-white transition-colors box-border"
-                      required
-                    />
+              <p className="font-semibold text-[#1a4731] mb-8 break-all">
+                {email}
+              </p>
+
+              {generatedOtp && (
+                <div className="mb-8 rounded-xl bg-green-50 border border-green-200 p-4 text-center">
+                  <p className="text-sm text-gray-600">
+                    Development OTP
+                  </p>
+
+                  <div className="text-4xl font-bold tracking-[10px] text-green-700 my-2">
+                    {generatedOtp}
                   </div>
+
+                  <p className="text-xs text-gray-500">
+                    Valid for {expiresIn} minutes
+                  </p>
                 </div>
+              )}
 
-                {/* {error && (
-                  <p className="text-sm text-red-500 -mt-4 mb-4">{error}</p>
-                )}
+              <form onSubmit={handleVerifyOtp}>
 
-                {success && (
-                  <p className="text-sm text-green-600 -mt-4 mb-4">{success}</p>
-                )} */}
+                {/* OTP */}
+                <div className="mb-6">
+                  <label className="block text-[0.65rem] font-bold text-gray-500 uppercase tracking-[0.1em] mb-2">
+                    One Time Password
+                  </label>
+
+                  <input
+                    type="text"
+                    maxLength={6}
+                    value={otp}
+                    onChange={(e) =>
+                      setOtp(e.target.value.replace(/\D/g, ""))
+                    }
+                    placeholder="Enter 6-digit OTP"
+                    className="w-full py-3 px-4 border-2 border-gray-100 rounded-xl text-center text-xl tracking-[8px] font-bold text-gray-700 bg-gray-50 outline-none focus:border-[#cba344] focus:bg-white"
+                    required
+                  />
+                </div>
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-4 bg-[#1a4731] text-white text-sm font-bold tracking-[0.05em] border-none rounded-xl cursor-pointer transition-all disabled:opacity-70 disabled:cursor-not-allowed shadow-[0_6px_20px_rgba(26,71,49,0.28)] hover:bg-[#255f40] hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(26,71,49,0.36)] active:translate-y-0"
+                  className="w-full py-4 bg-[#1a4731] text-white text-sm font-bold tracking-[0.05em] rounded-xl transition-all disabled:opacity-70"
                 >
-                  {/* {loading ? "Sending…" : "Send Reset Link →"} */}
-                  {loading ? "Sending OTP..." : "Send OTP →"}
+                  {loading ? "Verifying..." : "Verify OTP →"}
                 </button>
 
                 <div className="flex items-center gap-3 my-6">
                   <div className="flex-1 h-px bg-gray-200"></div>
-                  <span className="text-gray-400 text-xs font-medium">or</span>
+                  <span className="text-gray-400 text-xs font-medium">
+                    or
+                  </span>
                   <div className="flex-1 h-px bg-gray-200"></div>
                 </div>
 
                 <p className="text-center text-sm text-gray-600">
-                  Remember your password?{" "}
+                  Wrong email?{" "}
                   <Link
-                    to="/login"
-                    className="text-[#cba344] font-semibold no-underline hover:text-[#a8842d]"
+                    to="/forgot-password"
+                    className="text-[#cba344] font-semibold hover:text-[#a8842d]"
                   >
-                    Sign in
+                    Go Back
                   </Link>
                 </p>
+
               </form>
             </div>
           </div>
@@ -226,7 +252,9 @@ export default function ForgotPassword() {
             </div>
           </div>
         </div>
-      </div>
+      </main>
+
+      {/* <Footer /> */}
       <ToastContainer />
     </>
   );

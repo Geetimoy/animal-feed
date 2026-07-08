@@ -178,28 +178,24 @@ import EnquiryPopup from "../EnquiryPopup";
 function Home() {
 
   const [activeTab, setActiveTab] = useState("tab1");
-
-  const [isLoading, setIsLoading] = useState(() => {
-    return !sessionStorage.getItem("homeLoaderShown");
-  });
   // const [isLoading, setIsLoading] = useState(true);
 
 
-  // const LOADER_EXPIRY = 5 * 60 * 1000; // 5 minutes
+  const LOADER_EXPIRY = 5 * 60 * 1000; // 5 minutes
 
   // const [isLoading, setIsLoading] = useState(
   //   () => !localStorage.getItem("homeLoaderShown")
   // );
 
-  // const [isLoading, setIsLoading] = useState(() => {
-  //   const lastShown = localStorage.getItem("homeLoaderShown");
+  const [isLoading, setIsLoading] = useState(() => {
+    const lastShown = localStorage.getItem("homeLoaderShown");
 
-  //   if (!lastShown) return true;
+    if (!lastShown) return true;
 
-  //   const expired = Date.now() - Number(lastShown) > LOADER_EXPIRY;
+    const expired = Date.now() - Number(lastShown) > LOADER_EXPIRY;
 
-  //   return expired;
-  // });
+    return expired;
+  });
 
   const { hash } = useLocation();
   const { settings } = useSettings();
@@ -232,8 +228,7 @@ function Home() {
     }
 
     // Save current timestamp
-    // localStorage.setItem("homeLoaderShown", Date.now().toString());
-    sessionStorage.setItem("homeLoaderShown", "true");
+    localStorage.setItem("homeLoaderShown", Date.now().toString());
 
     document.body.style.overflow = "hidden";
 

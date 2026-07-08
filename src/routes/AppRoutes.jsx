@@ -20,6 +20,8 @@ import DistributorDetails from "../components/pages/DistributorDetails";
 import Login from "../components/pages/Login";
 import SignUp from "../components/pages/SignUp";
 import ForgotPassword from "../components/pages/ForgotPassword";
+import VerifyOtp from "../components/pages/VerifyOtp";
+import ChangePassword from "../components/pages/ChangePassword";
 import ResetPassword from "../components/pages/ResetPassword";
 import Logout from "../components/pages/Logout";
 import Products from "../components/pages/Products";
@@ -79,7 +81,9 @@ export default function AppRoutes() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/sign-up" element={<SignUp />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/verify-otp" element={<VerifyOtp />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
+                <Route path="/change-password" element={<ChangePassword />} />
                 {/* <Route path="/logout" element={<Logout />} /> */}
 
 

@@ -1,70 +1,38 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
-
-import { API_URL } from "../../config/api";
-import axios from "axios";
-
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState("");
-  // const [success, setSuccess] = useState("");
-
-  const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    setLoading(true);
+    setError("");
+    setSuccess("");
 
-     if (!email.trim()) {
-      toast.error("Email is required");
-      return;
+    try {
+      // Add your API call here
+      // const response = await fetch(`${API_URL}/forgot-password`, {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({ email }),
+      // });
+
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      setSuccess("Password reset link sent to your email!");
+      setEmail("");
+    } catch (err) {
+      setError(err.message || "Something went wrong.");
+    } finally {
+      setLoading(false);
     }
-    // setError("");
-    // setSuccess("");
-
-     try {
-      setLoading(true);
-    const res = await axios.post(
-      `${API_URL}/customers/forgot-password`,
-      {
-        email,
-      },
-      {
-        headers: {
-          Accept: "application/json",
-        },
-      }
-    );
-
-    toast.success(res.data.message);
-
-    setTimeout(() => {
-      navigate("/verify-otp", {
-        state: {
-          email,
-          otp: res.data.otp,
-          expiresIn: res.data.expires_in_minutes,
-        },
-      });
-    }, 1200);
-
-  } catch (err) {
-    const res = err.response?.data;
-
-    if (res?.errors?.email) {
-      toast.error(res.errors.email[0]);
-    } else {
-      toast.error(res?.message || "Something went wrong.");
-    }
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   return (
     <>
@@ -115,8 +83,7 @@ export default function ForgotPassword() {
                 Forgot Password
               </h2>
               <p className="text-sm text-gray-400 mb-8">
-                {/* Enter your email to reset your password */}
-                Enter your registered email address to receive a One-Time Password (OTP).
+                Enter your email to reset your password
               </p>
 
               <form onSubmit={handleSubmit}>
@@ -144,21 +111,20 @@ export default function ForgotPassword() {
                   </div>
                 </div>
 
-                {/* {error && (
+                {error && (
                   <p className="text-sm text-red-500 -mt-4 mb-4">{error}</p>
                 )}
 
                 {success && (
                   <p className="text-sm text-green-600 -mt-4 mb-4">{success}</p>
-                )} */}
+                )}
 
                 <button
                   type="submit"
                   disabled={loading}
                   className="w-full py-4 bg-[#1a4731] text-white text-sm font-bold tracking-[0.05em] border-none rounded-xl cursor-pointer transition-all disabled:opacity-70 disabled:cursor-not-allowed shadow-[0_6px_20px_rgba(26,71,49,0.28)] hover:bg-[#255f40] hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(26,71,49,0.36)] active:translate-y-0"
                 >
-                  {/* {loading ? "Sending…" : "Send Reset Link →"} */}
-                  {loading ? "Sending OTP..." : "Send OTP →"}
+                  {loading ? "Sending…" : "Send Reset Link →"}
                 </button>
 
                 <div className="flex items-center gap-3 my-6">
@@ -205,9 +171,8 @@ export default function ForgotPassword() {
               <span className="text-[#cba344]">Password.</span>
             </h1>
             <p className="text-white/65 text-base leading-relaxed max-w-sm">
-              {/* Don't worry! Enter your email address and we'll send you a link
-              to reset your password and get back to managing your feed orders. */}
-              Don't worry! Enter your registered email address and we'll send a One-Time Password (OTP) to verify your identity and reset your password securely.
+              Don't worry! Enter your email address and we'll send you a link
+              to reset your password and get back to managing your feed orders.
             </p>
           </div>
 
@@ -227,7 +192,6 @@ export default function ForgotPassword() {
           </div>
         </div>
       </div>
-      <ToastContainer />
     </>
   );
 }

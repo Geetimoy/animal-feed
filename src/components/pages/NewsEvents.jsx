@@ -30,7 +30,7 @@ import usePageSEO from "../../hooks/usePageSEO";
 function NewsEvents() {
 
   const [news, setNews] = useState([]); // All news
-  const [visibleCount, setVisibleCount] = useState(3);
+  const [visibleCount, setVisibleCount] = useState(6);
   const [loading, setLoading] = useState(true);
 
   const [events, setEvents] = useState([]);
@@ -328,8 +328,9 @@ function NewsEvents() {
                       className="h-48 w-full object-cover rounded-b-2xl"
                     />
 
-                    <div className="absolute top-4 right-4 bg-[#ffa800] text-black text-xs font-bold px-3 py-1 rounded-full">
-                      {item.category_tag || "News"}
+                    <div className="absolute top-4 right-4 bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+                      {/* {item.category_tag || "News"} */}
+                      {item.category?.name || "News"}
                     </div>
                   </div>
 
