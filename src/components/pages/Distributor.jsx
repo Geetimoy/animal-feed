@@ -15,7 +15,7 @@ import {
   faFish,
   faCow,
   faPiggyBank,
-  faEgg,
+  faEgg, faPhone, faEnvelope
 } from "@fortawesome/free-solid-svg-icons";
 import { Helmet } from "react-helmet";
 import HeroBanner from "../HeroBanner";
@@ -163,6 +163,22 @@ function Distributor() {
     setFilteredDistributors(distributors);
   };
 
+
+  // Add near the top of the component, or in a utils file
+const getDirectionsUrl = (item) => {
+  // Prefer precise coordinates if you have them
+  if (item.latitude && item.longitude) {
+    return `https://www.google.com/maps/dir/?api=1&destination=${item.latitude},${item.longitude}`;
+  }
+ 
+  // Fallback: build a search query from address fields
+  const addressParts = [item.company_name, item.address, item.city, item.state]
+    .filter(Boolean)
+    .join(", ");
+ 
+  return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(addressParts)}`;
+};
+
   return (
     <>
       {/* <Helmet>
@@ -289,18 +305,65 @@ function Distributor() {
           </div>
 
           <div className="max-w-7xl mx-auto px-4 md:px-8">
-            <div className="mt-10 grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6">
+            <h4 className="text-left py-4 text-2xl mt-10">Showing {filteredDistributors.length}{" "} distributors near you</h4>
+            <div className="mt-0 grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-6">
               {loading ? (
                 <p className="text-center py-10">Loading...</p>
               ) : filteredDistributors.length > 0 ? (
                 filteredDistributors.map((item) => (
                   <div key={item.id} className="bg-white p-4 rounded-lg shadow">
-                    <div className="text-gray-600 text-sm">
-                      <h3 className="text-xl font-bold mb-2 text-gray-800">
-                        <Link to={`/distributors/${item.slug}`}>{item.name}</Link>
-                      </h3>
-                      <p className="mb-1">{item.company_name}</p>
-                      <div className="mt-4">
+                    <div className="flex flex-col md:flex-row gap-2 text-gray-600 text-sm">
+                      <div className="w-full md:w-1/2">
+                        <h3 className="text-xl font-bold mb-2 text-gray-800">
+                          <Link to={`/distributors/${item.slug}`}>{item.name}</Link>
+                        </h3>
+                        <p className="mb-1">{item.company_name}</p>
+                        <p className="text-gray-600 mb-3">{item.city}, {item.state}</p>
+                        <p className="text-gray-600 mb-1">
+                          <span className="text-[#00a34a] mr-2">
+                            <FontAwesomeIcon icon={faPhone} />
+                          </span>{" "}
+                          {item.phone}
+                        </p>
+                        <p className="text-gray-600">
+                          <span>
+                            <FontAwesomeIcon
+                              className="text-[#00a34a] mr-2"
+                              icon={faEnvelope}
+                            />
+                          </span>{" "}
+                          <Link
+                            to={`mailto:${item.email}`}
+                            className="underline"
+                          >
+                            {item.email}
+                          </Link>
+                        </p>
+                      </div>
+                      <div className="relative w-full md:w-1/2 border border-gray-200 overflow-hidden rounded-xl p-1">
+                        <div className="absolute right-3 top-3 bg-white shadow-md flex items-center justify-center text-green-700 text-sm text-center p-2 z-10">
+                          <a href={getDirectionsUrl(item)} target="_blank" rel="noopener noreferrer text-green-700">
+<FontAwesomeIcon icon={faLocationDot} /> Route
+</a>
+                        </div>
+                        {item.map_embed_url ? (
+                          <iframe
+                            title={item.name}
+                            src={item.map_embed_url}
+                            className="w-full h-full border-0 rounded-lg"
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"
+                            allowFullScreen
+                          />
+                        ) : (
+                          <div className="w-full h-full min-h-[180px] bg-gray-100 rounded-lg flex items-center justify-center text-gray-500 text-sm text-center p-4">
+                            Map not available
+                          </div>
+                        )}
+                      </div>
+                      
+                    </div>
+                    <div className="mt-4">
                         <div className="grid grid-cols-3 gap-2">
                           {item.categories?.map((category) => {
                             const { icon, className } = getTagData(category.name);
@@ -316,7 +379,6 @@ function Distributor() {
                           })}
                         </div>
                       </div>
-                    </div>
                   </div>
                 ))
                 ) : (
