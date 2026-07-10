@@ -18,6 +18,8 @@
     "@fortawesome/react-fontawesome": "^3.1.1",
     "@tailwindcss/vite": "^4.1.18",
     "axios": "^1.16.0",
+    "build": "^0.1.4",
+    "lucide-react": "^1.23.0",
     "motion": "^12.34.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
