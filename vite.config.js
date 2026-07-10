@@ -14,5 +14,5 @@ export default defineConfig({
     }),
     tailwindcss(),
   ],
-  base: '/uidevelopment/animal-feeds/'
+  base: '/uidevelopment/animal-feed/'
 })

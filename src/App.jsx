@@ -10,7 +10,7 @@ import FloatingFAQ from "./components/pages/FloatingFAQ";
 
 function App() {
   return (
-    <BrowserRouter basename="/uidevelopment/animal-feeds/">
+    <BrowserRouter basename="/uidevelopment/animal-feed/">
       <AuthProvider>
         <CartProvider>
           <SettingsProvider>

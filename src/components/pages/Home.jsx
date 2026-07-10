@@ -1194,7 +1194,7 @@ function Home() {
         </section>
 
         {/* ── News & Events ──────────────────────────────────────────────── */}
-        <section className="py-10 md:py-12 bg-white">
+        {/* <section className="py-10 md:py-12 bg-white">
           <motion.div
             className="max-w-7xl mx-auto px-4"
             initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={slideInUp}
@@ -1271,7 +1271,7 @@ function Home() {
               )}
             </div>
           </motion.div>
-        </section>
+        </section> */}
 
         <Testimonial />
 
