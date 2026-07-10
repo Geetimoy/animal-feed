@@ -4,6 +4,7 @@ import Header from "../Header";
 import Footer from "../Footer";
 
 import aboutBaner from '../../assets/images/about-banner.jpg';
+import directorImage from "../../assets/images/director.jpg";
 import aboutBanerMob from '../../assets/images/about-banner-mob.jpg';
 import visionMission from '../../assets/images/cattle1.png';
 import officeMan from '../../assets/images/office-man.png';
@@ -158,8 +159,75 @@ function AboutUs() {
         />
 
 
+        <section className="py-16 lg:py-24 bg-white">
+          <div className="max-w-7xl mx-auto px-4 md:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              {/* Left Image */}
+              <motion.div
+                initial={{ opacity: 0, x: -60 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7 }}
+                viewport={{ once: true }}
+              >
+                <img
+                  src={directorImage}
+                  alt="Managing Director"
+                  className="w-full max-w-[520px] mx-auto"
+                />
+              </motion.div>
+
+              {/* Right Content */}
+              <motion.div
+                initial={{ opacity: 0, x: 60 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7 }}
+                viewport={{ once: true }}
+              >
+                <h2 className="text-3xl md:text-5xl font-bold text-gray-800 leading-tight mb-8">
+                  Message from our <br />
+                  <span className="text-[#ffa800]">Managing Director</span>
+                </h2>
+
+                <h4 className="text-2xl font-semibold text-[#00a63e] mb-6">
+                  Dear Farmers, Dealers & Young Entrepreneurs,
+                </h4>
+
+                <div className="space-y-5 text-gray-700 text-[17px] leading-8">
+                  <p>
+                    Welcome to <strong>Green Gold Livestock Feed Pvt. Ltd.</strong> With over
+                    33 years of experience in animal husbandry, I understand the importance
+                    of quality nutrition in improving livestock productivity. Our mission is
+                    to deliver scientifically formulated, high-quality feed that farmers can
+                    trust.
+                  </p>
+
+                  <p>
+                    We are committed to maintaining the highest standards of quality,
+                    innovation, and customer satisfaction while supporting farmers with
+                    reliable products and practical solutions. Together, we can build a
+                    stronger and more sustainable livestock sector.
+                  </p>
+
+                  <div className="pt-4 border-t border-gray-200">
+                    <p className="italic">With warm regards,</p>
+
+                    <h5 className="text-xl font-bold text-[#00a63e] mt-2">
+                      Dr. Hemant Kumar Gogoi
+                    </h5>
+
+                    <p className="text-gray-600">
+                      Managing Director <br />
+                      Green Gold Livestock Feed Pvt. Ltd.
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
         {/* Vision and Mission Section */}
-        <motion.section
+        {/* <motion.section
           id="missionvision"
           className="py-10 md:py-12 bg-gray-100 scroll-mt-[100px]"
           initial="hidden"
@@ -300,7 +368,7 @@ function AboutUs() {
               </motion.div>
             </div>
           </div>
-        </motion.section>
+        </motion.section> */}
 
 
 

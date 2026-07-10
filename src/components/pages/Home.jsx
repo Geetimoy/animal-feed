@@ -22,6 +22,7 @@ import cardIcon3 from '../../assets/images/card-icon3.png';
 import commitments from '../../assets/images/commitment-bg.jpg';
 import research from '../../assets/images/Layer25.png';
 import bgNationwideImage from '../../assets/images/Laye28.png';
+import visionMission from '../../assets/images/cattle1.png';
 
 import { Link, useLocation } from 'react-router-dom';
 
@@ -174,10 +175,12 @@ const Skeleton = ({ className = "" }) => (
 import { Helmet } from "react-helmet-async";
 import { useSettings } from "../../context/SettingsContext";
 import EnquiryPopup from "../EnquiryPopup";
+import Testimonial from "./Testimonial";
 
 function Home() {
 
-  const [activeTab, setActiveTab] = useState("tab1");
+  const [activeTab, setActiveTab] = useState("tab1"); // Commitment
+  const [visionTab, setVisionTab] = useState("vision"); // Vision & Mission
 
   const [isLoading, setIsLoading] = useState(() => {
     return !sessionStorage.getItem("homeLoaderShown");
@@ -968,7 +971,7 @@ function Home() {
         </section>
 
         {/* ── Research & Development ─────────────────────────────────────── */}
-        <section className="bg-white py-10 md:py-12">
+        {/* <section className="bg-white py-10 md:py-12">
           <div className="max-w-5xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <motion.div
               className="relative"
@@ -1010,6 +1013,128 @@ function Home() {
                 </>
               )}
             </motion.div>
+          </div>
+        </section> */}
+
+
+        {/* Vision and Mission Section */}
+        <section id="missionvision" className="py-10 md:py-20 bg-gray-100 scroll-mt-[100px]">
+          <div className="max-w-7xl mx-auto px-4 md:px-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12 place-items-center">
+              <div className="w-full order-1 md:order-2">
+                <img src={visionMission} alt="" className="w-full" />
+              </div>
+              <div className="order-2 md:order-1">
+                <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center md:text-left">
+                  Vision <span className="text-[#ffa800]">& Mission</span>
+                </h2>
+                <div className="w-full max-w-xl mt-6 md:mt-10">
+                  {/* <!-- Tabs --> */}
+                  <div className="flex">
+                    <button
+                      id="vision"
+                      onClick={() => setVisionTab("vision")}
+                      className="tab-btn bg-white px-6 md:px-12 py-4 text-lg font-semibold text-gray-900 rounded-t-xl  text-center md:text-left"
+                    >
+                      Our Vision
+                    </button>
+
+                    <button
+                      id="mission"
+                      onClick={() => setVisionTab("mission")}
+                      className="tab-btn bg-yellow-200  px-6 md:px-12 py-4 text-lg font-semibold text-gray-700 rounded-t-xl  text-center md:text-left"
+                    >
+                      Our Mission
+                    </button>
+                  </div>
+
+                  {/* <!-- Card --> */}
+                  <div className="bg-white rounded-b-3xl rounded-tr-3xl p-4 md:p-8 shadow-2xl">
+                    {/* <!-- QUALITY --> */}
+                    {visionTab === "vision" && (
+                      <div id="vision">
+                        <h4 className="text-green-600 font-semibold text-lg mb-4">
+                          Our Vision
+                        </h4>
+
+                        <p className="text-md text-gray-700 mb-4">
+                          To emerge as a leading animal nutrition enterprise
+                          recognized for scientific excellence, uncompromising
+                          quality, and meaningful contribution to sustainable
+                          livestock development.
+                        </p>
+                        <ul className="space-y-4 text-sm text-gray-700">
+                          <li className="flex items-center gap-3">
+                            <span className="flex items-center justify-center w-[10px] h-[10px] bg-green-600 rounded-full">
+                              <i className="fa-solid fa-arrow-right text-white text-[10px]"></i>
+                            </span>
+                            Scientific Excellence
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <span className="flex items-center justify-center w-[10px] h-[10px] bg-green-600 rounded-full">
+                              <i className="fa-solid fa-arrow-right text-white text-[10px]"></i>
+                            </span>
+                            Uncompromising Quality
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <span className="flex items-center justify-center w-[10px] h-[10px] bg-green-600 rounded-full">
+                              <i className="fa-solid fa-arrow-right text-white text-[10px]"></i>
+                            </span>
+                            Sustainable Development
+                          </li>
+                        </ul>
+                      </div>
+                    )}
+                    {/* <!-- CERT --> */}
+                    {visionTab === "mission" && (
+                      <div id="mission">
+                        <h4 className="text-green-600 font-semibold text-lg mb-4">
+                          Our Mission
+                        </h4>
+
+                        <ul className="space-y-4 text-sm text-gray-700">
+                          <li className="flex items-center gap-3">
+                            {" "}
+                            <span className="flex items-center justify-center w-[14px] h-[10px] bg-green-600 rounded-full"></span>
+                            To deliver advanced, science-led animal nutrition
+                            solutions that enhance livestock health,
+                            productivity, and farm profitability.
+                          </li>
+                          <li className="flex items-center gap-3">
+                            {" "}
+                            <span className="flex items-center justify-center w-[14px] h-[10px] bg-green-600 rounded-full"></span>
+                            To uphold world-class quality and safety standards
+                            through rigorous testing, in-house research, and
+                            process excellence.
+                          </li>
+                          <li className="flex items-center gap-3">
+                            {" "}
+                            <span className="flex items-center justify-center w-[14px] h-[10px] bg-green-600 rounded-full"></span>
+                            To create long-term value for farmers by providing
+                            consistent, reliable, and cost-effective feed
+                            solutions.
+                          </li>
+                          <li className="flex items-center gap-3">
+                            {" "}
+                            <span className="flex items-center justify-center w-[14px] h-[10px] bg-green-600 rounded-full"></span>
+                            To operate responsibly by promoting sustainable
+                            sourcing, environmental stewardship, and community
+                            development.
+                          </li>
+                          <li className="flex items-center gap-3">
+                            {" "}
+                            <span className="flex items-center justify-center w-[14px] h-[10px] bg-green-600 rounded-full"></span>
+                            To drive continuous improvement through innovation,
+                            research, and professional leadership in animal
+                            nutrition.
+                          </li>
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -1147,6 +1272,8 @@ function Home() {
             </div>
           </motion.div>
         </section>
+
+        <Testimonial />
 
         <CertificateSlider />
       </motion.main>
