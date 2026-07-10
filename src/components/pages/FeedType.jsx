@@ -110,6 +110,8 @@ function FeedType() {
   const poultry = feedSettings?.data?.poultry;
   const pig = feedSettings?.data?.pig;
   const fish = feedSettings?.data?.fish;
+  const goat = feedSettings?.data?.goat;
+  const yak = feedSettings?.data?.yak;
 
   const location = useLocation();
 
@@ -150,7 +152,15 @@ function FeedType() {
           height="h-[500px]"
           isLoading={isLoading}
         />
-
+        <section className="py-10 md:py-12">
+          <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center">
+            {feedSettings?.data?.page?.title}
+            <span className="text-[#ffa800]">
+              {feedSettings?.data?.page?.title_highlight}
+            </span>
+          </h2>
+          <p className="text-gray-600 mt-3 max-w-2xl text-center mx-auto text-[16px] md:text-[18px]">{feedSettings?.data?.page?.description}</p>
+        </section>
         {/* ================= CATTLE ================= */}
         <section id="cattle" className="py-10 md:py-12 bg-gray-100">
           <div className="text-center  mb-6">
@@ -158,6 +168,9 @@ function FeedType() {
               {cattle?.heading} <span className="text-[#ffa800]"> {" "}
                 {cattle?.heading_highlight}</span>
             </h2>
+            <p className="text-gray-600 mt-3 max-w-2xl mx-auto text-[16px] md:text-[18px]">
+              {cattle?.description}
+            </p>
           </div>
           <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 items-center gap-6 md:gap-12">
             <img
@@ -493,6 +506,194 @@ function FeedType() {
             >
               Enquire about Fish Feed
             </button>
+          </div>
+        </section>
+
+        {/* ================= Goat Feed ================= */}
+        <section id="goat" className="py-10 md:py-12 bg-gray-100">
+          <div className="text-center mb-6  px-4">
+            <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center ">
+              {goat?.heading} <span className="text-[#ffa800]">{goat?.heading_highlight}</span>
+            </h2>
+
+            <p className="text-gray-600 mt-3 max-w-2xl mx-auto text-[16px] md:text-[18px]">
+              {goat?.description}
+            </p>
+          </div>
+
+          <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 items-stretch gap-4 md:gap-6">
+            {goat?.feed_cards?.map((card, index) => (
+              <div key={index} className="relative w-full h-full bg-white rounded-2xl  p-4 md:p-8 shadow-sm z-30 flex flex-col">
+                <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center  leading-[40px]  mb-2 md:mb-4">
+                  <FontAwesomeIcon icon={iconMap[card.icon_key] || faPiggyBank} />
+                </span>
+
+                <h2 className="text-lg font-bold text-gray-900 mb-2 text-center min-h-[48px] flex items-center ">
+                  {card.title}
+                </h2>
+
+                <ul className="space-y-3 text-sm text-gray-700">
+                  {card.bullets?.map((bullet, bulletIndex) => (
+                    <li key={bulletIndex} className="relative pl-7 text-gray-700 leading-relaxed">
+                      <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
+                        <FontAwesomeIcon
+                          icon={faArrowRight}
+                          className="text-white text-[10px]"
+                        />
+                      </span>
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          {/* Feeding Schedule */}
+          <div className="mt-8 md:mt-14 max-w-7xl mx-auto px-4">
+            {/* <h3 className="text-2xl font-semibold text-gray-800 flex items-center gap-3 mb-6 text-center justify-center">
+              Goat Feeding Schedule
+            </h3> */}
+
+            {/* <div className="bg-white rounded-2xl p-4 md:p-8 shadow-sm ">
+              {goat?.schedule_tables?.map((table, index) => (
+                <div key={index} className=" bg-white rounded-2xl  border border-gray-200 shadow-sm">
+                  <h4 className="text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4 md:ml-6">
+                    {table.title}
+                  </h4>
+
+                  <div className="overflow-x-auto  ">
+                    <table className="w-full border-collapse">
+                      <thead className="bg-green-100 text-gray-800">
+                        <tr>
+                          {table.columns?.map((column, colIndex) => (
+                            <th key={colIndex} className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold">
+                              {column}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+
+                      <tbody className="text-gray-700">
+                        {table.rows?.map((row, rowIndex) => (
+                          <tr key={rowIndex} className="hover:bg-green-50 transition">
+                            {row.map((cell, cellIndex) => (
+                              <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                                {cell}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ))}
+            </div> */}
+
+            {/* Enquiry Button - GOAT */}
+            <div className="mt-8 text-center">
+              <button
+                onClick={() => openPopup('goat', '')}
+                className="bg-[#009a62] hover:bg-[#007a4d] text-white font-semibold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105 cursor-pointer"
+              >
+                Enquire about Goat Feed
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* ================= Yak Feed ================= */}
+        <section id="yak" className="py-10 md:py-12">
+          <div className="text-center mb-6  px-4">
+            <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center ">
+              {yak?.heading} <span className="text-[#ffa800]">{yak?.heading_highlight}</span>
+            </h2>
+
+            <p className="text-gray-600 mt-3 max-w-2xl mx-auto text-[16px] md:text-[18px]">
+              {yak?.description}
+            </p>
+          </div>
+
+          <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 items-stretch gap-4 md:gap-6">
+            {yak?.feed_cards?.map((card, index) => (
+              <div key={index} className="relative w-full h-full bg-white rounded-2xl  p-4 md:p-8 shadow-sm z-30 flex flex-col">
+                <span className="w-[40px] h-[40px] bg-[#00a63e] rounded-full block text-white text-center  leading-[40px]  mb-2 md:mb-4">
+                  <FontAwesomeIcon icon={iconMap[card.icon_key] || faPiggyBank} />
+                </span>
+
+                <h2 className="text-lg font-bold text-gray-900 mb-2 text-center min-h-[48px] flex items-center ">
+                  {card.title}
+                </h2>
+
+                <ul className="space-y-3 text-sm text-gray-700">
+                  {card.bullets?.map((bullet, bulletIndex) => (
+                    <li key={bulletIndex} className="relative pl-7 text-gray-700 leading-relaxed">
+                      <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-green-600">
+                        <FontAwesomeIcon
+                          icon={faArrowRight}
+                          className="text-white text-[10px]"
+                        />
+                      </span>
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          {/* Feeding Schedule */}
+          <div className="mt-8 md:mt-14 max-w-7xl mx-auto px-4">
+            {/* <h3 className="text-2xl font-semibold text-gray-800 flex items-center gap-3 mb-6 text-center justify-center">
+              Yak Feeding Schedule
+            </h3> */}
+
+            {/* <div className="bg-white rounded-2xl p-4 md:p-8 shadow-sm ">
+              {yak?.schedule_tables?.map((table, index) => (
+                <div key={index} className=" bg-white rounded-2xl  border border-gray-200 shadow-sm">
+                  <h4 className="text-[18px] font-bold text-gray-800 leading-normal text-center md:text-left mb-4 mt-4 md:ml-6">
+                    {table.title}
+                  </h4>
+
+                  <div className="overflow-x-auto  ">
+                    <table className="w-full border-collapse">
+                      <thead className="bg-green-100 text-gray-800">
+                        <tr>
+                          {table.columns?.map((column, colIndex) => (
+                            <th key={colIndex} className="px-2 md:px-4 py-3 text-center text-sm md:text-base font-semibold">
+                              {column}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+
+                      <tbody className="text-gray-700">
+                        {table.rows?.map((row, rowIndex) => (
+                          <tr key={rowIndex} className="hover:bg-green-50 transition">
+                            {row.map((cell, cellIndex) => (
+                              <td className="px-2 md:px-4 py-3 text-center  whitespace-nowrap">
+                                {cell}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ))}
+            </div> */}
+
+            {/* Enquiry Button - GOAT */}
+            <div className="mt-8 text-center">
+              <button
+                onClick={() => openPopup('goat', '')}
+                className="bg-[#009a62] hover:bg-[#007a4d] text-white font-semibold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105 cursor-pointer"
+              >
+                Enquire about Goat Feed
+              </button>
+            </div>
           </div>
         </section>
       </main>

@@ -163,9 +163,7 @@ function ResearchDevelopment() {
               {laboratoryExcellence?.subtitle}
 
             </motion.p>
-            {/* <motion.p>
-              tsesr
-            </motion.p> */}
+
 
             <motion.div className="mt-6 md:mt-10 grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
               {laboratoryExcellence?.cards?.map((card, index) => {
@@ -323,13 +321,6 @@ function ResearchDevelopment() {
                 );
               })}
             </motion.div>
-            <motion.p
-              className="mt-4 md:mt-6 text-gray-600 leading-normal md:leading-relaxed text-[16px] md:text-[18px] text-center"
-              variants={slideInUp}
-              transition={{ delay: 0.1 }}
-            >
-              By combining scientific knowledge with field experience, we develop practical nutritional solutions that improve farm productivity while supporting sustainable livestock production.
-            </motion.p>
           </div>
         </motion.section>
 

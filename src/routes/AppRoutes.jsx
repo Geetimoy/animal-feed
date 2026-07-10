@@ -49,6 +49,7 @@ import MyOrders from "../components/pages/MyOrder";
 import OrderDetails from "../components/pages/OrderDetails";
 import AddressManagement from "../components/pages/AddressManagement";
 import ThankyouOrder from "../components/pages/ThankyouOrder";
+import CMSPage from "../components/pages/CMSPage";
 
 
 
@@ -70,12 +71,13 @@ export default function AppRoutes() {
                 <Route path="/nutrition" element={<Nutrition />} />
                 <Route path="/news/:slug" element={<NewsDetails />} />
                 <Route path="/news/category/:slug" element={<NewsCategory />} />
-                <Route path="/news/tag/:tagName" element={<NewsTags/>} />
+                <Route path="/news/tag/:tagName" element={<NewsTags />} />
                 <Route path="/feed-type" element={<FeedType />} />
                 <Route path="/our-teams" element={<OurTeams />} />
                 <Route path="/quality" element={<Quality />} />
                 <Route path="/csr" element={<Csr />} />
                 <Route path="/distributors/:slug" element={<DistributorDetails />} />
+                <Route path="/pages/:slug" element={<CMSPage />} />
 
                 {/* Auth Routes */}
                 <Route path="/login" element={<Login />} />
