@@ -164,7 +164,6 @@ export default function ProductSidebar({
   distributors,
   selectedDistributors,
   handleDistributorChange,
-  sidebarData,
 }) {
   const location = useLocation();
   const { categorySlug: activeCategorySlug, subCategorySlug: activeSubCategorySlug } = useParams();
@@ -276,12 +275,8 @@ export default function ProductSidebar({
                 e.target.src = "https://via.placeholder.com/36x36?text=?"; // fallback
               }}
             />
-            {/* ✅ FIX: use this category's own products_count instead of
-                sidebarData?.category?.products_count (which stayed fixed
-                to a single "active" category and showed the same number
-                for every row in the list). */}
             <span className={`font-medium ${isOpen ? "text-green-700" : "text-gray-800"}`}>
-              {category.name} ({category.products_count ?? 0})
+              {category.name}
             </span>
           </div>
           <div
@@ -321,9 +316,7 @@ export default function ProductSidebar({
                     : "bg-gray-50 hover:bg-gray-100 text-gray-600"
                   }`}
               >
-                {/* ✅ FIX: added the sub-category's own products_count,
-                    which wasn't being rendered at all before. */}
-                {sub.name} ({sub.products_count ?? 0})
+                {sub.name}
               </Link>
             ))}
           </div>

@@ -26,6 +26,9 @@ import usePageSEO from "../../hooks/usePageSEO";
 import HeroBanner from "../HeroBanner";
 import { useBanner } from "../../hooks/useBanner";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function NewsDetails() {
 
   const [banner, setBanner] = useState(null);
@@ -33,6 +36,7 @@ function NewsDetails() {
 
   const { slug } = useParams();
   const [newsDetails, setNewsDetails] = useState(null);
+  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(true);
 
    const { seo } = usePageSEO(
@@ -41,9 +45,9 @@ function NewsDetails() {
 
   const pageSlug = `news/${slug}`;
   const {
-  bannerItem,
-  isLoading: bannerLoading,
-} = useBanner(pageSlug);
+    bannerItem,
+    isLoading: bannerLoading,
+  } = useBanner(pageSlug);
 
   const [sidebar, setSidebar] = useState({
     recent_posts: [],
@@ -94,6 +98,44 @@ function NewsDetails() {
       setLoading(false);
     }
   };
+
+  // Newsletter
+  const handleSubscribe = async () => {
+  if (!email.trim()) {
+    toast.error("Please enter your email.");
+    return;
+  }
+
+  try {
+    setLoading(true);
+
+    const res = await axios.post(
+      `${API_URL}/newsletter/subscribe`,
+      {
+        email,
+      },
+      {
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
+
+    toast.success(res.data.message || "Subscribed successfully.");
+
+    setEmail("");
+  } catch (err) {
+    const res = err.response?.data;
+
+    if (res?.errors?.email) {
+      toast.error(res.errors.email[0]);
+    } else {
+      toast.error(res?.message || "Something went wrong.");
+    }
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <>
@@ -439,13 +481,27 @@ function NewsDetails() {
                     Subscribe to our newsletter to receive updates and news.
                   </p>
                   <div className="flex">
-                    <input
+                    {/* <input
                       type="email"
                       placeholder="Your email address"
                       className="w-full px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-600"
-                    />
-                    <button className="bg-green-600 text-white px-4 py-2 rounded-r-lg hover:bg-green-700 transition duration-300">
+                    /> */}
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Your email address"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+                      />
+                    {/* <button className="bg-green-600 text-white px-4 py-2 rounded-r-lg hover:bg-green-700 transition duration-300">
                       Subscribe
+                    </button> */}
+                    <button
+                      type="button"
+                      onClick={handleSubscribe}
+                      disabled={loading}
+                      className="bg-green-600 text-white px-4 py-2 rounded-r-lg hover:bg-green-700 transition duration-300 disabled:opacity-60" >
+                      {loading ? "Subscribing..." : "Subscribe"}
                     </button>
                   </div>
                 </div>
@@ -491,6 +547,7 @@ function NewsDetails() {
           </div>
         </section>
       </main>
+      <ToastContainer />
       <Footer></Footer>
     </>
   );

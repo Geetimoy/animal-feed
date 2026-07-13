@@ -176,6 +176,7 @@ import { Helmet } from "react-helmet-async";
 import { useSettings } from "../../context/SettingsContext";
 import EnquiryPopup from "../EnquiryPopup";
 import Testimonial from "./Testimonial";
+import VisionMissionSection from "../VisionMissionSection";
 
 function Home() {
 
@@ -277,6 +278,7 @@ function Home() {
   };
   const researchDevelopment = homeSettings?.data?.research_development ?? {};
   const nationwideAvailability = homeSettings?.data?.nationwide ?? { states: [] };
+  const visionMissionData = homeSettings?.data?.vision_mission || {};
 
 
   const iconMap = { cardIcon1, cardIcon2, cardIcon3 };
@@ -304,6 +306,8 @@ function Home() {
       setNewsLoading(false);
     }
   };
+
+
 
   // Loading dots for animation
   const loadingDots = [
@@ -508,6 +512,14 @@ function Home() {
         {/* ── About Section ──────────────────────────────────────────────── */}
         <section className="w-full py-10 md:py-12 md:mt-12">
           <div className="max-w-7xl mx-auto px-8">
+            <div className="mb-4 md:mb-6 max-w-6xl mx-auto md:mx-0">
+              <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center md:text-left">
+                {about.heading} <span className="text-[#ffa800]">{about.heading_highlight}</span>
+              </h2>
+              <p className="text-[16px] text-gray-600 mt-1 text-center md:text-left">
+                {about.subheading}
+              </p>
+            </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center justify-center">
               <motion.div
                 className="space-y-5"
@@ -524,12 +536,12 @@ function Home() {
                     </>
                   ) : (
                     <>
-                      <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center md:text-left">
+                      {/* <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center md:text-left">
                         {about.heading} <span className="text-[#ffa800]">{about.heading_highlight}</span>
                       </h2>
                       <p className="text-[16px] text-gray-600 mt-1 text-center md:text-left">
                         {about.subheading}
-                      </p>
+                      </p> */}
                     </>
                   )}
                 </div>
@@ -1018,128 +1030,83 @@ function Home() {
 
 
         {/* Vision and Mission Section */}
-        <section id="missionvision" className="py-10 md:py-20 bg-gray-100 scroll-mt-[100px]">
-          <div className="max-w-7xl mx-auto px-4 md:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12 place-items-center">
-              <div className="w-full order-1 md:order-2">
-                <img src={visionMission} alt="" className="w-full" />
-              </div>
-              <div className="order-2 md:order-1">
-                <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center md:text-left">
-                  Vision <span className="text-[#ffa800]">& Mission</span>
-                </h2>
-                <div className="w-full max-w-xl mt-6 md:mt-10">
-                  {/* <!-- Tabs --> */}
-                  <div className="flex">
-                    <button
-                      id="vision"
-                      onClick={() => setVisionTab("vision")}
-                      className="tab-btn bg-white px-6 md:px-12 py-4 text-lg font-semibold text-gray-900 rounded-t-xl  text-center md:text-left"
-                    >
-                      Our Vision
-                    </button>
+        <VisionMissionSection data={visionMissionData} />
 
-                    <button
-                      id="mission"
-                      onClick={() => setVisionTab("mission")}
-                      className="tab-btn bg-yellow-200  px-6 md:px-12 py-4 text-lg font-semibold text-gray-700 rounded-t-xl  text-center md:text-left"
-                    >
-                      Our Mission
-                    </button>
-                  </div>
-
-                  {/* <!-- Card --> */}
-                  <div className="bg-white rounded-b-3xl rounded-tr-3xl p-4 md:p-8 shadow-2xl">
-                    {/* <!-- QUALITY --> */}
-                    {visionTab === "vision" && (
-                      <div id="vision">
-                        <h4 className="text-green-600 font-semibold text-lg mb-4">
-                          Our Vision
-                        </h4>
-
-                        <p className="text-md text-gray-700 mb-4">
-                          To emerge as a leading animal nutrition enterprise
-                          recognized for scientific excellence, uncompromising
-                          quality, and meaningful contribution to sustainable
-                          livestock development.
-                        </p>
-                        <ul className="space-y-4 text-sm text-gray-700">
-                          <li className="flex items-center gap-3">
-                            <span className="flex items-center justify-center w-[10px] h-[10px] bg-green-600 rounded-full">
-                              <i className="fa-solid fa-arrow-right text-white text-[10px]"></i>
-                            </span>
-                            Scientific Excellence
-                          </li>
-                          <li className="flex items-center gap-3">
-                            <span className="flex items-center justify-center w-[10px] h-[10px] bg-green-600 rounded-full">
-                              <i className="fa-solid fa-arrow-right text-white text-[10px]"></i>
-                            </span>
-                            Uncompromising Quality
-                          </li>
-                          <li className="flex items-center gap-3">
-                            <span className="flex items-center justify-center w-[10px] h-[10px] bg-green-600 rounded-full">
-                              <i className="fa-solid fa-arrow-right text-white text-[10px]"></i>
-                            </span>
-                            Sustainable Development
-                          </li>
-                        </ul>
-                      </div>
-                    )}
-                    {/* <!-- CERT --> */}
-                    {visionTab === "mission" && (
-                      <div id="mission">
-                        <h4 className="text-green-600 font-semibold text-lg mb-4">
-                          Our Mission
-                        </h4>
-
-                        <ul className="space-y-4 text-sm text-gray-700">
-                          <li className="flex items-center gap-3">
-                            {" "}
-                            <span className="flex items-center justify-center w-[14px] h-[10px] bg-green-600 rounded-full"></span>
-                            To deliver advanced, science-led animal nutrition
-                            solutions that enhance livestock health,
-                            productivity, and farm profitability.
-                          </li>
-                          <li className="flex items-center gap-3">
-                            {" "}
-                            <span className="flex items-center justify-center w-[14px] h-[10px] bg-green-600 rounded-full"></span>
-                            To uphold world-class quality and safety standards
-                            through rigorous testing, in-house research, and
-                            process excellence.
-                          </li>
-                          <li className="flex items-center gap-3">
-                            {" "}
-                            <span className="flex items-center justify-center w-[14px] h-[10px] bg-green-600 rounded-full"></span>
-                            To create long-term value for farmers by providing
-                            consistent, reliable, and cost-effective feed
-                            solutions.
-                          </li>
-                          <li className="flex items-center gap-3">
-                            {" "}
-                            <span className="flex items-center justify-center w-[14px] h-[10px] bg-green-600 rounded-full"></span>
-                            To operate responsibly by promoting sustainable
-                            sourcing, environmental stewardship, and community
-                            development.
-                          </li>
-                          <li className="flex items-center gap-3">
-                            {" "}
-                            <span className="flex items-center justify-center w-[14px] h-[10px] bg-green-600 rounded-full"></span>
-                            To drive continuous improvement through innovation,
-                            research, and professional leadership in animal
-                            nutrition.
-                          </li>
-                        </ul>
-                      </div>
-                    )}
-                  </div>
+        {/* How It started */}
+        {/* <section className="relative py-10 md:py-12 bg-white">
+          <div className="max-w-7xl mx-auto px-4">
+            <motion.div
+              className="space-y-4"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={staggerContainer}
+            >
+              <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center">
+                 How <span className="text-[#ffa800]">It Started</span>
+              </h2>
+              <p className="text-[16px] text-gray-600 mt-1 text-center">
+                Founded in 2011, GreenGold was established with a vision to support the growth of agriculture and livestock in Arunachal Pradesh and the North Eastern region. To address the need for reliable, high-quality livestock nutrition, the company set up its Animal Feed Plant to manufacture scientifically formulated, nutritionally balanced feed for farmers. Today, GreenGold remains committed to delivering quality nutrition that promotes healthier livestock, improved productivity, and sustainable farming
+              </p>
+            </motion.div>
+          </div>
+        </section> */}
+        <section
+          className="relative py-10 md:py-12 overflow-hidden bg-center bg-cover"
+          style={{ backgroundImage: `url(${bgNationwideImage})` }}
+        >
+          <div className="absolute inset-0 bg-black/80"></div>
+          <motion.div
+            className="relative z-10 max-w-5xl mx-auto px-4 md:px-6 text-center"
+            initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={slideInUp}
+          >
+            {homeSettingsLoading ? (
+              <div className="space-y-4 flex flex-col items-center">
+                <Skeleton className="h-10 w-72 bg-gray-500" />
+                <Skeleton className="h-4 w-96 bg-gray-500" />
+                <Skeleton className="h-4 w-80 bg-gray-500" />
+                <div className="flex gap-4 mt-6">
+                  <Skeleton className="h-14 w-40 rounded-xl bg-gray-500" />
+                  <Skeleton className="h-14 w-40 rounded-xl bg-gray-500" />
                 </div>
               </div>
-            </div>
-          </div>
+            ) : (
+              <>
+                <h2 className="text-3xl md:text-5xl font-semibold tracking-wide text-white">
+                  {nationwideAvailability.heading}
+                  <span className="text-amber-400 font-medium"> {nationwideAvailability.heading_highlight}</span>
+                </h2>
+                <p className="mt-6 text-md md:text-base text-gray-300 leading-relaxed max-w-5xl mx-auto">
+                  {nationwideAvailability.description}
+                </p>
+                <div className="mt-6 md:mt-10 flex flex-col sm:flex-row justify-center items-center gap-4 text-lg">
+                  <Link
+                    to={`tel:${nationwideAvailability.phone ?? ""}`}
+                    className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-amber-400 text-black font-medium shadow-md hover:bg-amber-500 transition w-full md:w-auto"
+                  >
+                    <FontAwesomeIcon icon={faPhone} />
+                    {nationwideAvailability.btn_call_label}
+                  </Link>
+                  <Link target="_blank"
+                    to={`https://wa.me/${nationwideAvailability.whatsapp ?? ""}`}
+                    className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-green-500 text-white font-medium shadow-md hover:bg-green-600 transition w-full md:w-auto"
+                  >
+                    <FontAwesomeIcon icon={faWhatsapp} className="text-lg" />
+                    {nationwideAvailability.btn_whatsapp_label}
+                  </Link>
+                </div>
+                <div className="mt-8 md:mt-14 flex flex-wrap justify-center gap-x-6 md:gap-x-10 gap-y-4 text-lg text-gray-300 tracking-wide">
+                  {(nationwideAvailability.states ?? []).map((state, index) => (
+                    <span key={index}>{state}</span>
+                  ))}
+                </div>
+              </>
+            )}
+          </motion.div>
         </section>
 
         {/* ── Nationwide Availability ────────────────────────────────────── */}
-        <section
+        {/* <section
           className="relative py-10 md:py-12 overflow-hidden bg-center bg-cover"
           style={{ backgroundImage: `url(${bgNationwideImage})` }}
         >
@@ -1191,7 +1158,7 @@ function Home() {
               </>
             )}
           </motion.div>
-        </section>
+        </section> */}
 
         {/* ── News & Events ──────────────────────────────────────────────── */}
         {/* <section className="py-10 md:py-12 bg-white">

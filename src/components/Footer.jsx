@@ -152,7 +152,7 @@ function Footer() {
                 <span className="mt-1.5 w-[7px] h-[7px] rounded-full bg-gray-800"></span>
                 <span>
                   <Link
-                    to="/learning-development"
+                    to="/pages/learning-development"
                     className="text-[#7f979f] text-base font-medium inline-block transition-transform duration-300 ease-in-out hover:translate-x-1"
                   >
                     Learning & Development
@@ -186,7 +186,7 @@ function Footer() {
                 <span className="mt-1.5 w-[7px] h-[7px] rounded-full bg-gray-800"></span>
                 <span>
                   <Link
-                    to="/responsible-feeding"
+                    to="/pages/responsible-feeding"
                     className="text-[#7f979f] text-base font-medium inline-block transition-transform duration-300 ease-in-out hover:translate-x-1"
                   >
                     Responsible Feeding

@@ -49,6 +49,7 @@ import MyOrders from "../components/pages/MyOrder";
 import OrderDetails from "../components/pages/OrderDetails";
 import AddressManagement from "../components/pages/AddressManagement";
 import ThankyouOrder from "../components/pages/ThankyouOrder";
+import CMSPage from "../components/pages/CMSPage";
 
 
 
@@ -76,6 +77,7 @@ export default function AppRoutes() {
                 <Route path="/quality" element={<Quality />} />
                 <Route path="/csr" element={<Csr />} />
                 <Route path="/distributors/:slug" element={<DistributorDetails />} />
+                <Route path="/pages/:slug" element={<CMSPage />} />
 
                 {/* Auth Routes */}
                 <Route path="/login" element={<Login />} />

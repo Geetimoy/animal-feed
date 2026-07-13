@@ -337,6 +337,9 @@ export default function ProductDetails() {
                   <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm">
                     <span className="text-gray-500">SKU: {product.id || "FEED-001"}</span>
                   </div>
+                  <div className="text-md font-semibold text-gray-800 mt-2">
+                    <span className="text-green-600 ">Distributor Name: </span>{product.distributor?.company_name}
+                  </div>
                 </div>
 
                 {/* Price */}
