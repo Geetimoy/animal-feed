@@ -115,6 +115,17 @@ const AnimalFeedStory = ({ data }) => {
     }
   };
 
+  // const {
+  //   heading,
+  //   heading_highlight,
+  //   intro_description,
+  //   hero_video = {},
+  //   rooted_in_tradition = {},
+  //   feature_cards = [],
+  //   sustainability = {},
+  //   livestock = {},
+  // } = data || {};
+
   const {
     heading,
     heading_highlight,
@@ -126,34 +137,35 @@ const AnimalFeedStory = ({ data }) => {
     livestock = {},
   } = data || {};
 
-  // Destructure nested objects
+  const {
+    heading: sustainabilityHeading,
+    highlight: sustainabilityHighlight,
+    text: sustainabilityText,
+    points = [],
+    stat_boxes = [],
+  } = sustainability || {};
+
   const {
     heading: traditionHeading,
     highlight: traditionHighlight,
     description: traditionDescription,
     trust_badges = [],
-    featured_video_card = {}
+    featured_video_card = {},
   } = rooted_in_tradition || {};
 
   const {
     title: videoCardTitle,
     description: videoCardDescription,
-    mini_stats = []
+    mini_stats = [],
   } = featured_video_card || {};
-
-  const {
-    heading: sustainabilityHeading,
-    highlight: sustainabilityHighlight,
-    text: sustainabilityText,
-    stat_boxes = []
-  } = sustainability || {};
 
   const {
     heading: livestockHeading,
     highlight: livestockHighlight,
     text: livestockText,
-    stat_circles = []
+    stat_circles = [],
   } = livestock || {};
+
 
   // Get video URL - using the hero_video.url or fallback
   const videoUrl = hero_video?.url || "https://videos.pexels.com/video-files/854315/854315-hd_1920_1080_25fps.mp4";
@@ -492,7 +504,7 @@ const AnimalFeedStory = ({ data }) => {
         </motion.div>
 
         {/* Lower section: sustainability & livestock solutions */}
-        <div className="max-w-6xl mx-auto mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div id="sustainability" className="scroll-mt-28 max-w-6xl mx-auto mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Sustainability panel */}
           <motion.div
             className="bg-gradient-to-br from-[#fafaf5] to-[#f5f7ea] rounded-3xl p-6 md:p-8 border border-[#e7e9d5] shadow-lg"
@@ -507,14 +519,32 @@ const AnimalFeedStory = ({ data }) => {
                   className="w-12 h-12 p-3 bg-[#ffa800]/20 rounded-2xl text-[#b57c00]"
                 />
                 <span>
-                  {sustainabilityHeading || "Sustainability & "}
-                  <span className="text-[#ffa800]">{sustainabilityHighlight || " Community"}</span>
+                  {sustainabilityHeading}
+                  {" "}
+                  <span className="text-[#ffa800]">{sustainabilityHighlight}</span>
                 </span>
               </h3>
             </div>
-            <p className="text-gray-700 text-base leading-relaxed text-center md:text-left">
-              {sustainabilityText || "GreenGold is committed to producing animal feed responsibly while supporting environmental conservation, economic growth, and social development."}
+            <p className="text-gray-700 text-base leading-relaxed text-center md:text-left whitespace-pre-line">
+              {sustainabilityText}
             </p>
+
+            {points.length > 0 && (
+              <div className="mt-5 space-y-1">
+                {points.map((point, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center gap-3"
+                  >
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#00a63e] flex-shrink-0"></div>
+                    <p className="text-gray-700 text-xs md:text-base">
+                      {point}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+
             <div className="flex flex-wrap gap-4 mt-6">
               {stat_boxes && stat_boxes.length > 0 ? (
                 stat_boxes.map((stat, index) => (
@@ -567,6 +597,7 @@ const AnimalFeedStory = ({ data }) => {
                 />
                 <span>
                   {livestockHeading}
+                  {" "}
                   <span className="text-[#ffa800]">{livestockHighlight}</span>
                 </span>
               </h3>

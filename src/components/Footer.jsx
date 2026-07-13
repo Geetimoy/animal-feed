@@ -15,6 +15,7 @@ function Footer() {
   const token = localStorage.getItem("customer_token");
   const { settings } = useSettings();
 
+
   return (
     <>
       <footer className="bg-gradient-to-b from-[#0a1424] via-[#0b1628] to-[#0a1322] text-gray-300 overflow-hidden">
@@ -175,7 +176,7 @@ function Footer() {
                 <span className="mt-1.5 w-[7px] h-[7px] rounded-full bg-gray-800"></span>
                 <span>
                   <Link
-                    to="/sustainability"
+                    to="/about-us/#sustainability"
                     className="text-[#7f979f] text-base font-medium inline-block transition-transform duration-300 ease-in-out hover:translate-x-1"
                   >
                     Sustainability
@@ -197,11 +198,12 @@ function Footer() {
                 <span className="mt-1.5 w-[7px] h-[7px] rounded-full bg-gray-800"></span>
                 <span>
                   <Link
-                    to="/certificates"
+                    to="../#certificates"
                     className="text-[#7f979f] text-base font-medium inline-block transition-transform duration-300 ease-in-out hover:translate-x-1"
                   >
                     Certificates / Documentation
                   </Link>
+
                 </span>
               </li>
             </ul>

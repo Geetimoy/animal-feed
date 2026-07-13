@@ -33,7 +33,7 @@ const VisionMissionSection = ({ data }) => {
                 >
                     <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
                         {heading}{" "}
-                        <span className="text-[#ffb400]">{headingHighlight}</span>
+                        <span className="">{headingHighlight}</span>
                     </h2>
 
                     <p className="mt-5 max-w-3xl mx-auto text-gray-600 text-lg leading-8">
@@ -55,12 +55,12 @@ const VisionMissionSection = ({ data }) => {
                         whileHover={{ y: -8 }}
                         className="bg-white rounded-3xl p-8 md:p-10 shadow-xl border border-gray-100 h-full transition-all duration-300 hover:shadow-2xl"
                     >
-                        <div className="w-16 h-16 rounded-2xl bg-yellow-100 flex items-center justify-center mb-6">
+                        {/* <div className="w-16 h-16 rounded-2xl bg-yellow-100 flex items-center justify-center mb-6">
                             <FontAwesomeIcon
                                 icon={faStar}
                                 className="text-3xl text-yellow-500"
                             />
-                        </div>
+                        </div> */}
 
                         <h3 className="text-3xl font-bold text-gray-900 mb-5">
                             {visionData?.title || "Our Vision"}
@@ -104,12 +104,12 @@ const VisionMissionSection = ({ data }) => {
                         whileHover={{ y: -8 }}
                         className="bg-white rounded-3xl p-8 md:p-10 shadow-xl border border-gray-100 h-full transition-all duration-300 hover:shadow-2xl"
                     >
-                        <div className="w-16 h-16 rounded-2xl bg-green-100 flex items-center justify-center mb-6">
+                        {/* <div className="w-16 h-16 rounded-2xl bg-green-100 flex items-center justify-center mb-6">
                             <FontAwesomeIcon
                                 icon={faRocket}
                                 className="text-3xl text-green-600"
                             />
-                        </div>
+                        </div> */}
 
                         <h3 className="text-3xl font-bold text-gray-900 mb-5">
                             {missionData?.title || "Our Mission"}

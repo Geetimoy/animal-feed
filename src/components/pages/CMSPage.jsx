@@ -50,7 +50,7 @@ export default function CMSPage() {
 
       <Header />
 
-      <main className="pt-16">
+      <main className="pt-16 overflow-hidden">
 
         <HeroBanner
           imageUrl={bannerItem?.image_url}
@@ -75,9 +75,12 @@ export default function CMSPage() {
           ) : (
 
             <>
-              <h1 className="text-4xl md:text-5xl font-semibold text-gray-800 mb-8">
+              <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 mb-4">
                 {page?.title}
-              </h1>
+                <span className="text-[#ffa800]">
+                  &nbsp;{page?.title_highlight}
+                </span>
+              </h2>
 
               <div
                 className="prose prose-lg max-w-none

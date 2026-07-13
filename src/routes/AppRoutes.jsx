@@ -50,6 +50,7 @@ import OrderDetails from "../components/pages/OrderDetails";
 import AddressManagement from "../components/pages/AddressManagement";
 import ThankyouOrder from "../components/pages/ThankyouOrder";
 import CMSPage from "../components/pages/CMSPage";
+import ComingSoon from "../components/pages/ComingSoon";
 
 
 
@@ -78,6 +79,7 @@ export default function AppRoutes() {
                 <Route path="/csr" element={<Csr />} />
                 <Route path="/distributors/:slug" element={<DistributorDetails />} />
                 <Route path="/pages/:slug" element={<CMSPage />} />
+                <Route path="/press-media" element={<ComingSoon />} />
 
                 {/* Auth Routes */}
                 <Route path="/login" element={<Login />} />
