@@ -1302,7 +1302,7 @@ function Home() {
           >
             <div className="flex items-center justify-between mb-8 md:mb-10">
               <h2 className="text-3xl md:text-5xl font-semibold text-gray-900">
-                News & Insights
+                News & Events
               </h2>
 
               <Link
