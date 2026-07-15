@@ -247,9 +247,9 @@ function Header() {
                     <Link to="/about-us#ourstory" className="block px-4 py-2 text-[15px] hover:bg-gray-100 hover:text-green-600">
                       <FontAwesomeIcon icon={faBookOpen} className="mr-1" /> Our Story
                     </Link>
-                    <Link to="/about-us#missionvision" className="block px-4 py-2 text-[15px] hover:bg-gray-100 hover:text-green-600">
+                    {/* <Link to="/about-us#missionvision" className="block px-4 py-2 text-[15px] hover:bg-gray-100 hover:text-green-600">
                       <FontAwesomeIcon icon={faBullseye} className="mr-1" /> Mission & Vision
-                    </Link>
+                    </Link> */}
                     <Link to="/about-us#ourcommitment" className="block px-4 py-2 text-[15px] hover:bg-gray-100 hover:text-green-600">
                       <FontAwesomeIcon icon={faAward} className="mr-1" /> Our Commitment
                     </Link>

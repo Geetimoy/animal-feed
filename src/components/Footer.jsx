@@ -15,6 +15,7 @@ function Footer() {
   const token = localStorage.getItem("customer_token");
   const { settings } = useSettings();
 
+
   return (
     <>
       <footer className="bg-gradient-to-b from-[#0a1424] via-[#0b1628] to-[#0a1322] text-gray-300 overflow-hidden">
@@ -85,7 +86,7 @@ function Footer() {
                 <span className="mt-1.5 w-[7px] h-[7px] rounded-full bg-gray-800"></span>
                 <span>
                   <Link
-                    to="/feed-type"
+                    to="/nutrition"
                     className="text-[#7f979f] text-base font-medium inline-block transition-transform duration-300 ease-in-out hover:translate-x-1"
                   >
                     Animal Nutrition
@@ -141,7 +142,7 @@ function Footer() {
                 <span className="mt-1.5 w-[7px] h-[7px] rounded-full bg-gray-800"></span>
                 <span>
                   <Link
-                    to="/our-culture"
+                    to="/about-us/#story"
                     className="text-[#7f979f] text-base font-medium inline-block transition-transform duration-300 ease-in-out hover:translate-x-1"
                   >
                     Our Culture
@@ -175,7 +176,7 @@ function Footer() {
                 <span className="mt-1.5 w-[7px] h-[7px] rounded-full bg-gray-800"></span>
                 <span>
                   <Link
-                    to="/sustainability"
+                    to="/about-us/#sustainability"
                     className="text-[#7f979f] text-base font-medium inline-block transition-transform duration-300 ease-in-out hover:translate-x-1"
                   >
                     Sustainability
@@ -197,11 +198,12 @@ function Footer() {
                 <span className="mt-1.5 w-[7px] h-[7px] rounded-full bg-gray-800"></span>
                 <span>
                   <Link
-                    to="/certificates"
+                    to="../#certificates"
                     className="text-[#7f979f] text-base font-medium inline-block transition-transform duration-300 ease-in-out hover:translate-x-1"
                   >
                     Certificates / Documentation
                   </Link>
+
                 </span>
               </li>
             </ul>
@@ -220,7 +222,7 @@ function Footer() {
                 <span className="mt-1.5 w-[7px] h-[7px] rounded-full bg-gray-800"></span>
                 <span>
                   <Link
-                    to="/contact"
+                    to="/contact-us"
                     className="text-[#7f979f] text-base font-medium inline-block transition-transform duration-300 ease-in-out hover:translate-x-1"
                   >
                     Contact Information
@@ -244,7 +246,7 @@ function Footer() {
 
         {/* Manufactured by & Marketed by Section */}
         <div className="max-w-7xl mx-auto px-6">
-          <div className="border-t border-gray-800 mt-10 pt-8 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+          <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
             <p className="text-[#7f979f] text-base text-center md:text-left">
               <span className="font-semibold text-white">
                 Manufactured by:

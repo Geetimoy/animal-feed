@@ -141,6 +141,177 @@ function Nutrition() {
           isLoading={isLoading}
         />
 
+        {/* ================= ANIMAL NUTRITION OVERVIEW ================= */}
+        <motion.section
+          className="bg-white py-10 md:py-16 gsap-fade-in"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeIn}
+        >
+          <div className="max-w-7xl mx-auto px-4">
+            {/* Header */}
+            <motion.div
+              className="text-center mb-8 md:mb-12"
+              variants={slideInUp}
+            >
+              <motion.h2
+                className="text-3xl md:text-5xl font-semibold text-gray-900 mb-3 md:mb-4"
+                variants={slideInUp}
+              >
+                Animal <span className="text-[#ffa800]">Nutrition</span>
+              </motion.h2>
+              <motion.p
+                className="text-base md:text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed"
+                variants={slideInUp}
+                transition={{ delay: 0.1 }}
+              >
+                Nutrition is the foundation of healthy livestock and profitable farming. Every animal requires the
+                right balance of energy, protein, fibre, vitamins, minerals, and essential micronutrients to achieve
+                optimum growth, productivity, reproductive performance, and disease resistance.
+              </motion.p>
+            </motion.div>
+
+            {/* Content Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-start">
+              {/* Left Column - Description */}
+              <motion.div
+                variants={slideInLeft}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                <motion.p
+                  className="text-base md:text-lg text-gray-700 leading-relaxed mb-6"
+                  variants={slideInUp}
+                >
+                  At GreenGold, we formulate feed according to species, age, production stage, and physiological
+                  requirements, ensuring that every animal receives complete and balanced nutrition.
+                </motion.p>
+
+                <motion.h3
+                  className="text-xl md:text-2xl font-bold text-gray-800 mb-4"
+                  variants={slideInUp}
+                  transition={{ delay: 0.1 }}
+                >
+                  Scientific feeding improves:
+                </motion.h3>
+
+                <motion.ul
+                  className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4"
+                  variants={staggerContainer}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
+                  {[
+                    "Growth rate",
+                    "Milk production",
+                    "Weight gain",
+                    "Egg production",
+                    "Feed efficiency",
+                    "Fertility",
+                    "Immunity",
+                    "Animal welfare"
+                  ].map((item, index) => (
+                    <motion.li
+                      key={index}
+                      className="relative pl-7 text-sm md:text-base text-gray-700 leading-relaxed"
+                      variants={itemVariant}
+                    >
+                      <span className="absolute left-0 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-[#00a63e]">
+                        <FontAwesomeIcon
+                          icon={faArrowRight}
+                          className="text-white text-[10px]"
+                        />
+                      </span>
+                      {item}
+                    </motion.li>
+                  ))}
+                </motion.ul>
+              </motion.div>
+
+              {/* Right Column - Updated Design with Glassmorphism */}
+              <motion.div
+                className="rounded-2xl p-0 h-full min-h-[200px] md:min-h-[300px] relative"
+                variants={slideInRight}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                <motion.div
+                  variants={scaleIn}
+                  transition={{ delay: 0.2 }}
+                  className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#009a62] to-[#006b44] p-8 h-full flex flex-col justify-between shadow-2xl"
+                >
+                  {/* Background Pattern */}
+                  <div className="absolute inset-0 opacity-20">
+                    <div className="absolute -top-20 -right-20 h-60 w-60 rounded-full bg-yellow-400 blur-3xl"></div>
+                    <div className="absolute bottom-0 left-0 h-40 w-40 rounded-full border border-yellow-300"></div>
+
+                    {/* Grid Pattern */}
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        backgroundImage: `
+                  linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)
+                `,
+                        backgroundSize: "28px 28px",
+                      }}
+                    />
+
+                    {/* Decorative circles */}
+                    <div className="absolute top-1/4 left-1/4 h-32 w-32 rounded-full bg-yellow-400/10 blur-2xl"></div>
+                    <div className="absolute bottom-1/3 right-1/4 h-24 w-24 rounded-full bg-white/10 blur-xl"></div>
+                  </div>
+
+                  <div className="relative z-10">
+                    {/* Badge */}
+                    <span className="inline-flex items-center rounded-full border border-yellow-400/30 bg-yellow-400/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.25em] text-yellow-300 backdrop-blur-sm">
+                      <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 mr-2 animate-pulse"></span>
+                      Quality Feed
+                    </span>
+
+                    {/* Main Content */}
+                    <div className="mt-6">
+                      <div className="border-l-4 border-yellow-400 pl-6">
+                        <h3 className="text-3xl md:text-4xl font-extrabold leading-tight text-white">
+                          Better Nutrition
+                          <span className="block text-yellow-300">Better Results</span>
+                        </h3>
+                      </div>
+
+                      <p className="mt-5 max-w-lg text-base md:text-lg leading-8 text-white/90">
+                        Better nutrition creates healthier animals, improves milk production,
+                        increases farmer income, and builds a stronger livestock economy for a
+                        sustainable future.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Bottom accent */}
+                  <div className="relative z-10 mt-6 pt-6 border-t border-white/20">
+                    <div className="flex items-center gap-3 text-sm text-white/80">
+                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
+                        <FontAwesomeIcon icon={faLeaf} className="text-yellow-300" />
+                      </span>
+                      <span>Sustainable farming solutions</span>
+                    </div>
+                  </div>
+
+                  {/* Floating dots decoration */}
+                  <div className="absolute bottom-4 right-4 flex gap-1.5 opacity-30">
+                    <span className="h-2 w-2 rounded-full bg-white"></span>
+                    <span className="h-2 w-2 rounded-full bg-yellow-400"></span>
+                    <span className="h-2 w-2 rounded-full bg-white"></span>
+                  </div>
+                </motion.div>
+              </motion.div>
+            </div>
+          </div>
+        </motion.section>
+
         {/* ================= CATTLE ================= */}
         <motion.section
           className="bg-gray-100 py-10 md:py-12 gsap-fade-in"

@@ -509,7 +509,7 @@ function FeedType() {
           </div>
         </section>
 
-         {/* ================= Goat Feed ================= */}
+        {/* ================= Goat Feed ================= */}
         <section id="goat" className="py-10 md:py-12 bg-gray-100">
           <div className="text-center mb-6  px-4">
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center ">

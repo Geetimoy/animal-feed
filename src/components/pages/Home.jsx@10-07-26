@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight, faArrowLeft, faPhone, faCalendarAlt, faClock } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faArrowLeft, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
 import banner1 from '../../assets/images/Layer35-cattle.png';
@@ -225,15 +225,7 @@ function Home() {
     }
   }, [hash]);
 
-  const formatDate = (date) => {
-    if (!date) return "";
 
-    return new Date(date).toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    });
-  };
 
   useEffect(() => {
     fetchHomeSettings();
@@ -300,55 +292,12 @@ function Home() {
     fetchNews();
   }, []);
 
-  // const fetchNews = async () => {
-  //   try {
-  //     setNewsLoading(true);
-  //     setNewsError(false);
-  //     const res = await axios.get(`${API_URL}/news-events`);
-  //     setNews(res.data?.news?.data || []);
-  //   } catch (err) {
-  //     console.error("News API error:", err);
-  //     setNewsError(true);
-  //     setNews([]);
-  //   } finally {
-  //     setNewsLoading(false);
-  //   }
-  // };
-
   const fetchNews = async () => {
     try {
       setNewsLoading(true);
       setNewsError(false);
-
       const res = await axios.get(`${API_URL}/news-events`);
-
-      const newsData = res.data?.news?.data || [];
-
-      const monthMap = {
-        Jan: 0,
-        Feb: 1,
-        Mar: 2,
-        Apr: 3,
-        May: 4,
-        Jun: 5,
-        Jul: 6,
-        Aug: 7,
-        Sep: 8,
-        Oct: 9,
-        Nov: 10,
-        Dec: 11,
-      };
-
-      const sortedNews = [...newsData].sort((a, b) => {
-        const parseDate = (str) => {
-          const [day, month, year] = str.split(" ");
-          return new Date(year, monthMap[month], Number(day));
-        };
-
-        return parseDate(b.published_at) - parseDate(a.published_at);
-      });
-
-      setNews(sortedNews);
+      setNews(res.data?.news?.data || []);
     } catch (err) {
       console.error("News API error:", err);
       setNewsError(true);
@@ -561,16 +510,8 @@ function Home() {
         </motion.section>
 
         {/* ── About Section ──────────────────────────────────────────────── */}
-        <section className="w-full py-10 md:py-12 md:mb-24 md:mt-12">
+        <section className="w-full py-10 md:py-12 md:mt-12">
           <div className="max-w-7xl mx-auto px-8">
-            <div className="mb-4 md:mb-6 max-w-6xl mx-auto md:mx-0">
-              <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center md:text-left">
-                {about.heading} <span className="">{about.heading_highlight}</span>
-              </h2>
-              <p className="text-[16px] text-gray-600 mt-1 text-center md:text-left">
-                {about.subheading}
-              </p>
-            </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center justify-center">
               <motion.div
                 className="space-y-5"
@@ -587,12 +528,12 @@ function Home() {
                     </>
                   ) : (
                     <>
-                      {/* <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center md:text-left">
+                      <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center md:text-left">
                         {about.heading} <span className="text-[#ffa800]">{about.heading_highlight}</span>
                       </h2>
                       <p className="text-[16px] text-gray-600 mt-1 text-center md:text-left">
                         {about.subheading}
-                      </p> */}
+                      </p>
                     </>
                   )}
                 </div>
@@ -622,7 +563,7 @@ function Home() {
                       </>
                     ) : (
                       <>
-                        {/* <h3 className="text-[28px] font-bold text-gray-800">{about.card_heading}</h3> */}
+                        <h3 className="text-[28px] font-bold text-gray-800">{about.card_heading}</h3>
                         <p className="text-[18px] text-gray-600">{about.card_description}</p>
                         <ul className="space-y-2 text-[16px] text-gray-700">
                           {(about.card_bullets ?? []).map((item, index) => (
@@ -717,7 +658,7 @@ function Home() {
                   <>
                     <h2 className="text-3xl md:text-5xl font-semibold text-white leading-normal md:leading-snug">
                       {whyChoose.heading} <br className="hidden md:block" />
-                      <span className="">{whyChoose.heading_highlight}</span>
+                      <span className="text-yellow-400">{whyChoose.heading_highlight}</span>
                     </h2>
                     <p className="text-gray-200 mt-4 text-[16px] md:text-[18px] leading-normal md:leading-relaxed max-w-sm">
                       {whyChoose.description}
@@ -902,7 +843,7 @@ function Home() {
                 <>
                   <h2 className="text-3xl lg:text-5xl font-semibold text-gray-800">
                     {animalNutrition.heading} <br className="hidden md:block" />
-                    <span className="">{animalNutrition.heading_highlight}</span>
+                    <span className="text-[#ffa800]">{animalNutrition.heading_highlight}</span>
                   </h2>
                   <p className="mt-2 md:mt-4 text-gray-600 max-w-md mx-auto lg:mx-0 text-center text-[16px] md:text-[18px]">
                     {animalNutrition.description}
@@ -914,7 +855,7 @@ function Home() {
         </section>
 
         {/* ── Our Unwavering Commitment ──────────────────────────────────── */}
-        <section className="relative w-full overflow-hidden h-auto ">
+        <section className="relative w-full overflow-hidden h-auto lg:h-[700px]">
           <img src={commitments} alt="" className="absolute inset-0 h-full w-full object-cover" />
           <div className="absolute inset-0 bg-black/60"></div>
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-12">
@@ -930,7 +871,7 @@ function Home() {
               ) : (
                 <>
                   <h2 className="text-3xl sm:text-5xl font-semibold text-white">
-                    {commitment.heading} <span className="">{commitment.heading_highlight}</span>
+                    {commitment.heading} <span className="text-yellow-400">{commitment.heading_highlight}</span>
                   </h2>
                   <p className="mt-4 text-gray-200 text-[16px] sm:text-[18px]">{commitment.description}</p>
                 </>
@@ -952,7 +893,7 @@ function Home() {
                 ) : (
                   <>
                     <h3 className="text-3xl md:text-5xl font-light mb-4 text-center md:text-left">
-                      {commitment.promise_heading} <span className="font-normal">{commitment.promise_highlight}</span>
+                      {commitment.promise_heading} <span className="text-[#ffa800] font-normal">{commitment.promise_highlight}</span>
                     </h3>
                     <p className="text-gray-200 text-[16px] sm:text-[18px] leading-normal md:leading-relaxed mb-4 md:mb-8 text-center md:text-left">
                       {commitment.promise_text}
@@ -1083,81 +1024,8 @@ function Home() {
         {/* Vision and Mission Section */}
         <VisionMissionSection data={visionMissionData} />
 
-        {/* How It started */}
-        {/* <section className="relative py-10 md:py-12 bg-white">
-          <div className="max-w-7xl mx-auto px-4">
-            <motion.div
-              className="space-y-4"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={staggerContainer}
-            >
-              <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center">
-                 How <span className="text-[#ffa800]">It Started</span>
-              </h2>
-              <p className="text-[16px] text-gray-600 mt-1 text-center">
-                Founded in 2011, GreenGold was established with a vision to support the growth of agriculture and livestock in Arunachal Pradesh and the North Eastern region. To address the need for reliable, high-quality livestock nutrition, the company set up its Animal Feed Plant to manufacture scientifically formulated, nutritionally balanced feed for farmers. Today, GreenGold remains committed to delivering quality nutrition that promotes healthier livestock, improved productivity, and sustainable farming
-              </p>
-            </motion.div>
-          </div>
-        </section> */}
-        <section
-          className="relative py-10 md:py-12 overflow-hidden bg-center bg-cover"
-          style={{ backgroundImage: `url(${bgNationwideImage})` }}
-        >
-          <div className="absolute inset-0 bg-black/80"></div>
-          <motion.div
-            className="relative z-10 max-w-5xl mx-auto px-4 md:px-6 text-center"
-            initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={slideInUp}
-          >
-            {homeSettingsLoading ? (
-              <div className="space-y-4 flex flex-col items-center">
-                <Skeleton className="h-10 w-72 bg-gray-500" />
-                <Skeleton className="h-4 w-96 bg-gray-500" />
-                <Skeleton className="h-4 w-80 bg-gray-500" />
-                <div className="flex gap-4 mt-6">
-                  <Skeleton className="h-14 w-40 rounded-xl bg-gray-500" />
-                  <Skeleton className="h-14 w-40 rounded-xl bg-gray-500" />
-                </div>
-              </div>
-            ) : (
-              <>
-                <h2 className="text-3xl md:text-5xl font-semibold tracking-wide text-white">
-                  {nationwideAvailability.heading}
-                  <span className="font-medium"> {nationwideAvailability.heading_highlight}</span>
-                </h2>
-                <p className="mt-6 text-md md:text-base text-gray-300 leading-relaxed max-w-5xl mx-auto">
-                  {nationwideAvailability.description}
-                </p>
-                <div className="mt-6 md:mt-10 flex flex-col sm:flex-row justify-center items-center gap-4 text-lg">
-                  <Link
-                    to={`tel:${nationwideAvailability.phone ?? ""}`}
-                    className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-amber-400 text-black font-medium shadow-md hover:bg-amber-500 transition w-full md:w-auto"
-                  >
-                    <FontAwesomeIcon icon={faPhone} />
-                    {nationwideAvailability.btn_call_label}
-                  </Link>
-                  <Link target="_blank"
-                    to={`https://wa.me/${nationwideAvailability.whatsapp ?? ""}`}
-                    className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-green-500 text-white font-medium shadow-md hover:bg-green-600 transition w-full md:w-auto"
-                  >
-                    <FontAwesomeIcon icon={faWhatsapp} className="text-lg" />
-                    {nationwideAvailability.btn_whatsapp_label}
-                  </Link>
-                </div>
-                <div className="mt-8 md:mt-14 flex flex-wrap justify-center gap-x-6 md:gap-x-10 gap-y-4 text-lg text-gray-300 tracking-wide">
-                  {(nationwideAvailability.states ?? []).map((state, index) => (
-                    <span key={index}>{state}</span>
-                  ))}
-                </div>
-              </>
-            )}
-          </motion.div>
-        </section>
-
         {/* ── Nationwide Availability ────────────────────────────────────── */}
-        {/* <section
+        <section
           className="relative py-10 md:py-12 overflow-hidden bg-center bg-cover"
           style={{ backgroundImage: `url(${bgNationwideImage})` }}
         >
@@ -1209,7 +1077,7 @@ function Home() {
               </>
             )}
           </motion.div>
-        </section> */}
+        </section>
 
         {/* ── News & Events ──────────────────────────────────────────────── */}
         {/* <section className="py-10 md:py-12 bg-white">
@@ -1220,7 +1088,7 @@ function Home() {
             <div className="flex flex-col items-center md:flex-row md:items-end md:justify-between mb-6 md:mb-12">
               <div>
                 <h2 className="text-3xl md:text-5xl font-semibold text-gray-900 text-center md:text-left">
-                  News & Events
+                  News & <span className="text-yellow-500">Event</span>
                 </h2>
                 <p className="mt-2 text-gray-500 max-w-md text-center md:text-left text-[16px] md:text-[18px]">
                   Stay updated with the latest happenings, product launches, and events at Green Gold.
@@ -1291,181 +1159,9 @@ function Home() {
           </motion.div>
         </section> */}
 
-        {/* ── News & Events ──────────────────────────────────────────────── */}
-        <section className="py-10 md:py-16 bg-white">
-          <motion.div
-            className="max-w-7xl mx-auto px-4"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={slideInUp}
-          >
-            <div className="flex items-center justify-between mb-8 md:mb-10">
-              <h2 className="text-3xl md:text-5xl font-semibold text-gray-900">
-                News & Events
-              </h2>
-
-              <Link
-                to="/news-events"
-                className="hidden md:inline-flex items-center px-5 py-2.5 rounded-full border-2 border-gray-200 text-sm font-medium text-gray-700 hover:border-green-500 hover:text-green-600 transition-all duration-300"
-              >
-                Read more stories
-              </Link>
-            </div>
-
-            {newsLoading ? (
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <Skeleton className="h-[400px] lg:h-[500px] w-full rounded-2xl" />
-                <div className="space-y-6">
-                  {[1, 2, 3].map(i => (
-                    <div key={i} className="flex gap-4">
-                      <Skeleton className="w-32 h-24 rounded-xl flex-shrink-0" />
-                      <div className="flex-1 space-y-2">
-                        <Skeleton className="h-3 w-20" />
-                        <Skeleton className="h-4 w-full" />
-                        <Skeleton className="h-4 w-3/4" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : newsError || news.length === 0 ? (
-              <p className="text-center text-gray-400 py-8">
-                {newsError ? "Unable to load news at the moment. Please try again later." : "No news available at the moment."}
-              </p>
-            ) : (
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* ── Left Side: Featured/Large Image ────────────── */}
-                <div className="lg:col-span-2">
-                  <motion.div variants={slideInUp}>
-                    <Link
-                      to={`/news/${news[0]?.slug}`}
-                      className="group relative block rounded-2xl overflow-hidden h-[400px] lg:h-[500px] w-full"
-                    >
-                      <img
-                        src={news[0]?.image_url || FALLBACK_IMAGE}
-                        alt={news[0]?.title}
-                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        onError={(e) => {
-                          e.target.src = FALLBACK_IMAGE;
-                        }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-
-                      {/* Content Overlay */}
-                      <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
-                        <div className="flex items-center gap-3 mb-3">
-                          <span className="inline-flex items-center px-3 py-1 rounded-full bg-green-600 text-white text-xs font-medium">
-                            Featured
-                          </span>
-                          <span className="text-xs text-white/80 font-medium flex items-center gap-1.5">
-                            <FontAwesomeIcon icon={faCalendarAlt} className="text-green-400" />
-                            {formatDate(news[0]?.published_at)}
-                          </span>
-                          <span className="text-xs text-white/80 font-medium flex items-center gap-1.5">
-                            <FontAwesomeIcon icon={faClock} className="text-green-400" />
-                            {news[0]?.read_time || "2 min read"}
-                          </span>
-                        </div>
-                        <h3 className="text-xl md:text-3xl font-bold text-white leading-snug line-clamp-2">
-                          {news[0]?.title}
-                        </h3>
-                        <p className="mt-2 text-sm text-white/70 line-clamp-2 max-w-2xl">
-                          {news[0]?.excerpt || news[0]?.content?.substring(0, 120) + "..."}
-                        </p>
-                        <span className="mt-4 inline-flex items-center gap-2 text-white text-sm font-medium border-t border-white/30 pt-4 group-hover:text-green-300 transition-colors w-fit">
-                          Read article
-                          <FontAwesomeIcon icon={faArrowRight} className="text-[10px] transition-transform duration-300 group-hover:translate-x-1" />
-                        </span>
-                      </div>
-                    </Link>
-                  </motion.div>
-                </div>
-
-                {/* ── Right Side: Smaller Images ────────────────── */}
-                <div className="lg:col-span-1 space-y-4">
-                  {news.slice(1, 4).map((item, index) => (
-                    <motion.div
-                      key={item.id}
-                      variants={slideInUp}
-                      custom={index}
-                    >
-                      <Link
-                        to={`/news/${item.slug}`}
-                        className="group flex gap-4 p-3 rounded-xl hover:bg-gray-50 transition-all duration-300"
-                      >
-                        <div className="relative w-28 h-24 md:w-32 md:h-28 rounded-xl overflow-hidden flex-shrink-0">
-                          <img
-                            src={item.image_url || FALLBACK_IMAGE}
-                            alt={item.title}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                            onError={(e) => {
-                              e.target.src = FALLBACK_IMAGE;
-                            }}
-                          />
-                          {index === 0 && (
-                            <span className="absolute top-1 right-1 px-1.5 py-0.5 bg-green-600 text-white text-[8px] font-semibold rounded">
-                              NEW
-                            </span>
-                          )}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 text-xs text-gray-500">
-                            <span className="flex items-center gap-1">
-                              <FontAwesomeIcon icon={faCalendarAlt} className="text-green-500 text-[10px]" />
-                              {formatDate(item.published_at)}
-                            </span>
-                          </div>
-                          <h4 className="mt-1 text-sm font-semibold text-gray-900 line-clamp-2 group-hover:text-green-600 transition-colors">
-                            {item.title}
-                          </h4>
-                          <span className="mt-2 inline-flex items-center gap-1 text-green-600 text-xs font-medium group-hover:text-green-700 transition-colors">
-                            Read more
-                            <FontAwesomeIcon icon={faArrowRight} className="text-[8px] transition-transform duration-300 group-hover:translate-x-1" />
-                          </span>
-                        </div>
-                      </Link>
-
-                      {index < 2 && (
-                        <div className="border-t border-gray-100 mx-3"></div>
-                      )}
-                    </motion.div>
-                  ))}
-
-                  {/* View All Link on Right Side */}
-                  <div className="pt-2">
-                    <Link
-                      to="/news-events"
-                      className="inline-flex items-center gap-2 text-sm font-medium text-green-600 hover:text-green-700 transition-colors group"
-                    >
-                      View all stories
-                      <FontAwesomeIcon
-                        icon={faArrowRight}
-                        className="transition-transform duration-300 group-hover:translate-x-1"
-                      />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Mobile "read more" link */}
-            <div className="flex md:hidden justify-center mt-8">
-              <Link
-                to="/news"
-                className="inline-flex items-center px-5 py-2.5 rounded-full border-2 border-gray-200 text-sm font-medium text-gray-700 active:scale-95"
-              >
-                Read more stories
-              </Link>
-            </div>
-          </motion.div>
-        </section>
-
         <Testimonial />
 
-        <div id="certificates" className="-scroll-mt-4" >
-          <CertificateSlider />
-        </div>
+        <CertificateSlider />
       </motion.main>
 
       <Footer />

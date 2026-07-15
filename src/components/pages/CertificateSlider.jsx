@@ -101,7 +101,7 @@ export default function CertificateSlider() {
         >
           <h2 className="text-3xl sm:text-5xl font-semibold text-gray-900">
             {sectionData?.heading || "Our"}{" "}
-            <span className="text-yellow-400">
+            <span className="">
               {sectionData?.heading_highlight || "Certifications"}
             </span>
           </h2>

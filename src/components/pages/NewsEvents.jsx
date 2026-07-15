@@ -116,7 +116,8 @@ function NewsEvents() {
         <section className="py-10 md:py-12 bg-gray-100">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center">
-              Upcoming <span className="text-[#ffa800]">Events</span>
+              Events 
+              {/* <span className="text-[#ffa800]">Events</span> */}
             </h2>
             <p className="mt-4 md:mt-6 text-gray-600 leading-normal md:leading-relaxed text-[16px] md:text-[18px] text-center">
               Join us in our upcoming events and initiatives. From farmer
@@ -305,7 +306,7 @@ function NewsEvents() {
         <section className="">
           <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 md:py-12">
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center">
-              Latest <span className="text-[#ffa800]">News</span>
+              Latest News 
             </h2>
             <p className="mt-4 md:mt-6 text-gray-600 leading-normal md:leading-relaxed text-[16px] md:text-[18px] text-center">
               Stay updated with the latest news, announcements, and upcoming

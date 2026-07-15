@@ -159,6 +159,7 @@ function AboutUs() {
         />
 
 
+        {/* Message from our Managing Director section */}
         <section className="py-16 lg:py-24 bg-white">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -170,7 +171,7 @@ function AboutUs() {
                 viewport={{ once: true }}
               >
                 <img
-                  src={directorImage}
+                  src={aboutSettings?.director_message?.image_url || directorImage}
                   alt="Managing Director"
                   className="w-full max-w-[520px] mx-auto"
                 />
@@ -184,40 +185,37 @@ function AboutUs() {
                 viewport={{ once: true }}
               >
                 <h2 className="text-3xl md:text-5xl font-bold text-gray-800 leading-tight mb-8">
-                  Message from our <br />
-                  <span className="text-[#ffa800]">Managing Director</span>
+                  {aboutSettings?.director_message?.heading || "Message from our"} <br />
+                  <span className="text-[#ffa800]">
+                    {aboutSettings?.director_message?.heading_highlight || "Managing Director"}
+                  </span>
                 </h2>
 
                 <h4 className="text-2xl font-semibold text-[#00a63e] mb-6">
-                  Dear Farmers, Dealers & Young Entrepreneurs,
+                  {aboutSettings?.director_message?.salutation}
                 </h4>
 
                 <div className="space-y-5 text-gray-700 text-[17px] leading-8">
-                  <p>
-                    Welcome to <strong>Green Gold Livestock Feed Pvt. Ltd.</strong> With over
-                    33 years of experience in animal husbandry, I understand the importance
-                    of quality nutrition in improving livestock productivity. Our mission is
-                    to deliver scientifically formulated, high-quality feed that farmers can
-                    trust.
-                  </p>
-
-                  <p>
-                    We are committed to maintaining the highest standards of quality,
-                    innovation, and customer satisfaction while supporting farmers with
-                    reliable products and practical solutions. Together, we can build a
-                    stronger and more sustainable livestock sector.
-                  </p>
+                  {aboutSettings?.director_message?.paragraphs &&
+                    aboutSettings.director_message.paragraphs.map((paragraph, index) => (
+                      <p key={index} style={{ whiteSpace: 'pre-line' }}>
+                        {paragraph}
+                      </p>
+                    ))
+                  }
 
                   <div className="pt-4 border-t border-gray-200">
-                    <p className="italic">With warm regards,</p>
+                    <p className="italic">
+                      {aboutSettings?.director_message?.signoff}
+                    </p>
 
                     <h5 className="text-xl font-bold text-[#00a63e] mt-2">
-                      Dr. Hemant Kumar Gogoi
+                      {aboutSettings?.director_message?.name}
                     </h5>
 
                     <p className="text-gray-600">
-                      Managing Director <br />
-                      Green Gold Livestock Feed Pvt. Ltd.
+                      {aboutSettings?.director_message?.title} <br />
+                      {aboutSettings?.director_message?.company}
                     </p>
                   </div>
                 </div>

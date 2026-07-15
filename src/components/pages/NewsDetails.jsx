@@ -17,11 +17,9 @@ import axios from "axios";
 
 import { useParams } from "react-router-dom";
 
-
 // For SEO
 import SEO from "./SEO";
 import usePageSEO from "../../hooks/usePageSEO";
-
 
 import HeroBanner from "../HeroBanner";
 import { useBanner } from "../../hooks/useBanner";
@@ -29,25 +27,76 @@ import { useBanner } from "../../hooks/useBanner";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function NewsDetails() {
+// ---- Helpers to convert CKEditor <oembed> tags into real iframes ----
 
+/**
+ * Extracts a YouTube video ID from any common YouTube URL format
+ * and returns a proper embeddable URL.
+ */
+function getYouTubeEmbedUrl(url) {
+  if (!url) return null;
+
+  const patterns = [
+    /youtu\.be\/([^?&]+)/,               // https://youtu.be/VIDEO_ID
+    /youtube\.com\/watch\?v=([^&]+)/,    // https://youtube.com/watch?v=VIDEO_ID
+    /youtube\.com\/embed\/([^?&]+)/,     // already an embed URL
+    /youtube\.com\/shorts\/([^?&]+)/,    // shorts
+  ];
+
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match && match[1]) {
+      return `https://www.youtube.com/embed/${match[1]}`;
+    }
+  }
+  return null;
+}
+
+/**
+ * Replaces CKEditor's <figure class="media"><oembed url="..."></oembed></figure>
+ * (and bare <oembed> tags) with a real responsive iframe, since browsers
+ * don't know how to render <oembed> natively.
+ */
+function processEmbeds(html) {
+  if (!html) return html;
+
+  return html.replace(
+    /<figure[^>]*class="media"[^>]*>\s*<oembed\s+url="([^"]+)"\s*>\s*<\/oembed>\s*<\/figure>|<oembed\s+url="([^"]+)"\s*>\s*<\/oembed>/g,
+    (match, urlA, urlB) => {
+      const rawUrl = urlA || urlB;
+      const embedUrl = getYouTubeEmbedUrl(rawUrl);
+
+      if (!embedUrl) {
+        // Unknown provider - just drop the unusable tag rather than leave it broken
+        return "";
+      }
+
+      return `
+        <div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;margin:24px 0;border-radius:8px;">
+          <iframe
+            src="${embedUrl}"
+            style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      `;
+    }
+  );
+}
+
+function NewsDetails() {
   const [banner, setBanner] = useState(null);
-  // const pageSlug = "news-details";
 
   const { slug } = useParams();
   const [newsDetails, setNewsDetails] = useState(null);
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(true);
 
-   const { seo } = usePageSEO(
-    slug ? `news/${slug}` : null
-  );
+  const { seo } = usePageSEO(slug ? `news/${slug}` : null);
 
   const pageSlug = `news/${slug}`;
-  const {
-    bannerItem,
-    isLoading: bannerLoading,
-  } = useBanner(pageSlug);
+  const { bannerItem, isLoading: bannerLoading } = useBanner(pageSlug);
 
   const [sidebar, setSidebar] = useState({
     recent_posts: [],
@@ -55,38 +104,15 @@ function NewsDetails() {
     product_categories: [],
   });
 
-  // useEffect(() => {
-        
-  //   if (pageSlug) {
-  //     fetchBanner();
-  //   }
-  // }, [pageSlug]);
-
-  // const fetchBanner = async () => {
-  //   try {
-  //       const res = await axios.get(
-  //         `${API_URL}/banners/${pageSlug}`
-  //       );
-        
-  //       setBanner(res.data);
-  //     } catch (err) {
-  //       console.log("Banner API error:", err);
-  //     }
-  //   };
-
-  // const bannerItem = banner?.data?.[0];
-
   useEffect(() => {
-  fetchNewsDetails();
+    fetchNewsDetails();
   }, [slug]);
 
   const fetchNewsDetails = async () => {
     try {
       setLoading(true);
 
-      const res = await axios.get(
-        `${API_URL}/news/${slug}`
-      );
+      const res = await axios.get(`${API_URL}/news/${slug}`);
 
       console.log("News Details:", res.data);
 
@@ -100,48 +126,45 @@ function NewsDetails() {
   };
 
   // Newsletter
-  const handleSubscribe = async () => {
-  if (!email.trim()) {
-    toast.error("Please enter your email.");
-    return;
-  }
-
-  try {
-    setLoading(true);
-
-    const res = await axios.post(
-      `${API_URL}/newsletter/subscribe`,
-      {
-        email,
-      },
-      {
-        headers: {
-          Accept: "application/json",
-        },
-      }
-    );
-
-    toast.success(res.data.message || "Subscribed successfully.");
-
-    setEmail("");
-  } catch (err) {
-    const res = err.response?.data;
-
-    if (res?.errors?.email) {
-      toast.error(res.errors.email[0]);
-    } else {
-      toast.error(res?.message || "Something went wrong.");
+    const handleSubscribe = async () => {
+    if (!email.trim()) {
+      toast.error("Please enter your email.");
+      return;
     }
-  } finally {
-    setLoading(false);
-  }
-};
+  
+    try {
+      setLoading(true);
+  
+      const res = await axios.post(
+        `${API_URL}/newsletter/subscribe`,
+        {
+          email,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
+  
+      toast.success(res.data.message || "Subscribed successfully.");
+  
+      setEmail("");
+    } catch (err) {
+      const res = err.response?.data;
+  
+      if (res?.errors?.email) {
+        toast.error(res.errors.email[0]);
+      } else {
+        toast.error(res?.message || "Something went wrong.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
-      {/* <Helmet>
-        <title>News Details -  Animal Feed</title>
-      </Helmet> */}
       <SEO seo={seo} />
       <Header></Header>
       <main className="pt-16 overflow-hidden">
@@ -156,50 +179,6 @@ function NewsDetails() {
           ctaSecondaryUrl={bannerItem?.cta_secondary_url}
           isLoading={bannerLoading}
         />
-        {/* {bannerItem?.image_url && (
-        <section className="relative z-0">
-          <div className="relative">
-            <img
-              src={bannerItem?.image_url}
-              alt={bannerItem?.title}
-              className="w-full md:h-auto h-[450px] hidden md:block object-cover"
-            />
-            <img
-              src={bannerItem?.image_url}
-              alt={bannerItem?.title}
-              className="w-full md:h-auto h-[400px] block md:hidden object-cover"
-            />
-            <div className="absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-4xl px-4 md:px-6  w-full">
-              <h1 className="text-[#fff] text-4xl md:text-6xl font-bold text-center mb-4 md:mb-6">
-                {bannerItem?.title_white} <span className="text-[#ffa800]">{bannerItem?.title_gold}</span>
-              </h1>
-              <p className="text-white text-[16px] md:text-xl text-center">
-                 Stay updated with the latest developments and activities at
-                Green Gold Animal Feed. 
-                {bannerItem?.subtitle}
-              </p>
-              <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
-                <Link
-                  to={bannerItem?.cta_primary_url || "/distributor"}
-                  className="mt-4 md:mt-6 w-full  md:w-[215px] h-[48px] bg-gradient-to-r from-[#00a34a] to-[#009a62] text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2 "
-                >
-                  <span className="text-[20px] font-bold font-inter">
-                    <FontAwesomeIcon icon={faMagnifyingGlass} /> {bannerItem?.cta_primary_label || "Find Distributor"}
-                  </span>
-                </Link>
-                <Link
-                  to={bannerItem?.cta_secondary_url || "/contact-us"}
-                  className="mt-3 md:mt-6  w-full  md:w-[198px] h-[48px] border text-white rounded-[12px] hover:opacity-90 transition flex items-center justify-center space-x-2"
-                >
-                  <span className="text-[20px] font-bold font-inter">
-                    <FontAwesomeIcon icon={faLocationDot} /> {bannerItem?.cta_secondary_label || "Contact Us"}
-                  </span>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-        )} */}
         <section>
           <div className="max-w-7xl mx-auto px-4 py-8">
             <div className="flex gap-8 md:flex-row flex-col">
@@ -207,8 +186,8 @@ function NewsDetails() {
                 <div className="bg-white p-4 md:p-8 shadow-xl">
                   <div className="relative">
                     <img
-                      src={newsDetails?.image_url} alt={newsDetails?.title}
-                      
+                      src={newsDetails?.image_url}
+                      alt={newsDetails?.title}
                       className="w-full h-auto"
                     />
                     {newsDetails?.category && (
@@ -217,7 +196,6 @@ function NewsDetails() {
                       </div>
                     )}
                     <div className="absolute -bottom-5 left-15 bg-[#ffa800] rounded-full px-4 py-2">
-                      {/* 22nd Jan 2026 */}
                       {newsDetails?.published_at}
                     </div>
                   </div>
@@ -233,115 +211,13 @@ function NewsDetails() {
                     {newsDetails?.title}
                   </h2>
 
-                  {/* {newsDetails?.content} */}
-                  <div dangerouslySetInnerHTML={{ __html: newsDetails?.content }} />
-                  {/* <p className="mt-4 text-sm text-gray-500 leading-6">
-                    Green Gold Animal Feed is proud to announce the launch of
-                    our new advanced cattle feed formula. This innovative
-                    product is designed to enhance the health and productivity
-                    of cattle while maintaining the highest standards of quality
-                    and safety.
-                    
-                  </p> */}
-                  {/* <p className="mt-4 text-sm text-gray-500 leading-6">
-                    This innovative product is designed to enhance the health
-                    and productivity of cattle while maintaining the highest
-                    standards of quality and safety. Green Gold Animal Feed is
-                    proud to announce the launch of our new advanced cattle feed
-                    formula. This innovative product is designed to enhance the
-                    health and productivity of cattle while maintaining the
-                    highest standards of quality and safety. Green Gold Animal
-                    Feed is proud to announce the launch of our new advanced
-                    cattle feed formula.
-                  </p> */}
-                  {/* <div className="flex flex-col">
-                    <div className="w-full md:w-1/2">
-                      <img
-                        src={newsslider2}
-                        alt="News Details"
-                        className="w-full h-auto mt-4"
-                      />
-                    </div>
-                    <div className="ml-1 md:ml-4 w-full md:w-1/2">
-                      <p className="mt-4 text-sm text-gray-500 leading-6">
-                        Green Gold Animal Feed is proud to announce the launch
-                        of our new advanced cattle feed formula. This innovative
-                        product is designed to enhance the health and
-                        productivity of cattle while maintaining the highest
-                        standards of quality and safety.
-                      </p>
-                      <ul className="space-y-2 text-[16px] text-gray-700 mt-8">
-                        <li className="text-sm text-gray-500 flex items-center gap-3">
-                          <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
-                            <FontAwesomeIcon
-                              icon={faArrowRight}
-                              className="text-white text-[10px]"
-                            />
-                          </span>
-                          Enhanced nutritional value for better cattle health
-                        </li>
-                        <li className="text-sm text-gray-500 flex items-center gap-3">
-                          <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
-                            <FontAwesomeIcon
-                              icon={faArrowRight}
-                              className="text-white text-[10px]"
-                            />
-                          </span>{" "}
-                          Improved feed conversion ratio
-                        </li>
-                        <li className="text-sm text-gray-500 flex items-center gap-3">
-                          <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
-                            <FontAwesomeIcon
-                              icon={faArrowRight}
-                              className="text-white text-[10px]"
-                            />
-                          </span>{" "}
-                          Sustainable and eco-friendly production process
-                        </li>
-                        <li className="text-sm text-gray-500 flex items-center gap-3">
-                          <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
-                            <FontAwesomeIcon
-                              icon={faArrowRight}
-                              className="text-white text-[10px]"
-                            />
-                          </span>{" "}
-                          Productivity of cattle{" "}
-                        </li>
-                        <li className="text-sm text-gray-500 flex items-center gap-3">
-                          <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
-                            <FontAwesomeIcon
-                              icon={faArrowRight}
-                              className="text-white text-[10px]"
-                            />
-                          </span>{" "}
-                          This innovative product is designed to enhance
-                        </li>
-                      </ul>
-                    </div>
-                  </div> */}
-                  {/* <div className="relative bg-[#f5f5f5] p-[25px] md:p-[35px] italic mt-4 md:mt-8 text-[17px] md:text-lg text-[#746a6f] text-center md:text-left">
-                    "At Green Gold, we are committed to advancing animal
-                    nutrition through innovation and quality. Our new cattle
-                    feed formula reflects our dedication to supporting farmers
-                    and promoting sustainable agriculture."
-                    <span className="block uppercase mt-4 not-italic text-[#222] text-[18px] md:text-xl">
-                      Green Gold
-                    </span>
-                    <span className="absolute top-4 left-4 text-5xl text-[#ffa800] opacity-20">
-                      &#10077;
-                    </span>
-                  </div> */}
-                  {/* <p className="mt-4 text-sm text-gray-500 leading-6">
-                    This innovative product is designed to enhance the health
-                    and productivity of cattle while maintaining the highest
-                    standards of quality and safety. Green Gold Animal Feed is
-                    proud to announce the launch of our new advanced cattle feed
-                    formula. This innovative product is designed to enhance the
-                    health and productivity of cattle while maintaining the
-                    highest standards of quality and safety. Green Gold Animal
-                    Feed is proud to announce the launch of our new advanced
-                    cattle feed formula.
-                  </p> */}
+                  {/* Fixed: process oembed tags into real iframes before injecting */}
+                  <div
+                    className="news-content mt-4 text-sm text-gray-600 leading-6"
+                    dangerouslySetInnerHTML={{
+                      __html: processEmbeds(newsDetails?.content),
+                    }}
+                  />
                 </div>
               </div>
 
@@ -353,61 +229,25 @@ function NewsDetails() {
                   </h3>
                   <ul className="space-y-4">
                     {sidebar.recent_posts.map((post, index) => (
-                      <li key={index} className="text-sm text-gray-500 hover:text-green-600 cursor-pointer flex items-center gap-3">
+                      <li
+                        key={index}
+                        className="text-sm text-gray-500 hover:text-green-600 cursor-pointer flex items-center gap-3"
+                      >
                         <img
                           src={post.image_url}
                           alt={post.title}
                           className="w-12 h-12 object-cover rounded"
                         />
                         <Link to={`/news/${post.slug}`} className="hover:text-green-600">
-                        <span>
-                          <span className="text-[12px] block text text-gray-900">
-                            {post.published_at}
+                          <span>
+                            <span className="text-[12px] block text text-gray-900">
+                              {post.published_at}
+                            </span>
+                            {post.title}
                           </span>
-                          {post.title}
-                        </span>
                         </Link>
                       </li>
                     ))}
-                    {/* <li className="text-sm text-gray-500 hover:text-green-600 cursor-pointer flex items-center gap-3">
-                      <img
-                        src={newsslider2}
-                        alt="Recent Post"
-                        className="w-12 h-12 object-cover rounded"
-                      />
-                      <span>
-                        <span className="text-[12px] block text text-gray-900">
-                          18 July, 2026
-                        </span>
-                        Sustainable Farming Practices by Green Gold
-                      </span>
-                    </li>
-                    <li className="text-sm text-gray-500 hover:text-green-600 cursor-pointer flex items-center gap-3">
-                      <img
-                        src={newsslider}
-                        alt="Recent Post"
-                        className="w-12 h-12 object-cover rounded"
-                      />
-                      <span>
-                        <span className="text-[12px] block text text-gray-900">
-                          18 July, 2026
-                        </span>
-                        Innovations in Animal Nutrition 2026
-                      </span>
-                    </li>
-                    <li className="text-sm text-gray-500 hover:text-green-600 cursor-pointer flex items-center gap-3">
-                      <img
-                        src={newsslider2}
-                        alt="Recent Post"
-                        className="w-12 h-12 object-cover rounded"
-                      />
-                      <span>
-                        <span className="text-[12px] block text text-gray-900">
-                          18 July, 2026
-                        </span>
-                        Green Gold's Commitment to Quality
-                      </span>
-                    </li> */}
                   </ul>
                 </div>
                 <div className="bg-[#f8f8f8] p-4 md:p-6 mt-4 md:mt-8">
@@ -416,61 +256,24 @@ function NewsDetails() {
                   </h3>
                   <ul className="space-y-4">
                     {sidebar.news_categories.map((category, index) => (
-                    <li key={index} className="text-sm text-gray-500 hover:text-green-600 cursor-pointer flex items-center gap-3">
-                      <Link
-                        to={`/news/category/${category.slug}`}
-                        className="text-sm text-gray-500 hover:text-green-600 flex items-center gap-3"
+                      <li
+                        key={index}
+                        className="text-sm text-gray-500 hover:text-green-600 cursor-pointer flex items-center gap-3"
                       >
-                      <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
-                        <FontAwesomeIcon
-                          icon={faArrowRight}
-                          className="text-white text-[10px]"
-                        />
-                      </span>
-                      {category.name}
-                      <span className="text-xs text-green-600">
-                        ({category.post_count})
-                      </span>
-                      </Link>
-                    </li>
-                     ))}
-                    {/* <li className="text-sm text-gray-500 hover:text-green-600 cursor-pointer flex items-center gap-3">
-                      <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
-                        <FontAwesomeIcon
-                          icon={faArrowRight}
-                          className="text-white text-[10px]"
-                        />
-                      </span>
-                      Product Launches
-                    </li>
-                    <li className="text-sm text-gray-500 hover:text-green-600 cursor-pointer flex items-center gap-3">
-                      <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
-                        <FontAwesomeIcon
-                          icon={faArrowRight}
-                          className="text-white text-[10px]"
-                        />
-                      </span>
-                      Sustainability
-                    </li>
-                    <li className="text-sm text-gray-500 hover:text-green-600 cursor-pointer flex items-center gap-3">
-                      <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
-                        <FontAwesomeIcon
-                          icon={faArrowRight}
-                          className="text-white text-[10px]"
-                        />
-                      </span>
-                      Events
-                    </li>
-                    <li className="text-sm text-gray-500 hover:text-green-600 cursor-pointer flex items-center gap-3">
-                      <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
-                        <FontAwesomeIcon
-                          icon={faArrowRight}
-                          className="text-white text-[10px]"
-                        />
-                      </span>
-                      Company News
-                    </li> */}
-                   
+                        <Link
+                          to={`/news/category/${category.slug}`}
+                          className="text-sm text-gray-500 hover:text-green-600 flex items-center gap-3"
+                        >
+                          <span className="flex items-center justify-center w-[18px] h-[18px] bg-green-600 rounded-full">
+                            <FontAwesomeIcon icon={faArrowRight} className="text-white text-[10px]" />
+                          </span>
+                          {category.name}
+                          <span className="text-xs text-green-600">
+                            ({category.post_count})
+                          </span>
+                        </Link>
+                      </li>
+                    ))}
                   </ul>
                 </div>
                 <div className="bg-[#f8f8f8] p-4 md:p-6 mt-8">
@@ -486,7 +289,7 @@ function NewsDetails() {
                       placeholder="Your email address"
                       className="w-full px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                     /> */}
-                    <input
+                     <input
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -510,36 +313,19 @@ function NewsDetails() {
                     Tags
                   </h3>
                   {newsDetails?.tags?.length > 0 && (
-                  <div className="flex flex-wrap gap-2">
-                    {newsDetails.tags.map((tag, index) => (
-                      <Link
-                        to={`/news/tag/${tag}`}
-                        className="text-sm text-gray-500 hover:text-green-600 flex items-center gap-3"
-                      >
-                        <span
+                    <div className="flex flex-wrap gap-2">
+                      {newsDetails.tags.map((tag, index) => (
+                        <Link
                           key={index}
-                          className="bg-gray-200 text-sm text-gray-700 px-3 py-1 rounded-full hover:bg-green-600 hover:text-white transition cursor-pointer"
+                          to={`/news/tag/${tag}`}
+                          className="text-sm text-gray-500 hover:text-green-600 flex items-center gap-3"
                         >
-                          {tag}
-                        </span>
-                      </Link>
-                    ))}
-                    {/* <span className="bg-gray-200 text-sm text-gray-700 px-3 py-1 rounded-full hover:bg-green-600 hover:text-white cursor-pointer">
-                      Sustainability
-                    </span>
-                    <span className="bg-gray-200 text-sm text-gray-700 px-3 py-1 rounded-full hover:bg-green-600 hover:text-white cursor-pointer">
-                      Innovation
-                    </span>
-                    <span className="bg-gray-200 text-sm text-gray-700 px-3 py-1 rounded-full hover:bg-green-600 hover:text-white cursor-pointer">
-                      Cattle Feed
-                    </span>
-                    <span className="bg-gray-200 text-sm text-gray-700 px-3 py-1 rounded-full hover:bg-green-600 hover:text-white cursor-pointer">
-                      Farming
-                    </span>
-                    <span className="bg-gray-200 text-sm text-gray-700 px-3 py-1 rounded-full hover:bg-green-600 hover:text-white cursor-pointer">
-                      Animal Health
-                    </span> */}
-                  </div>
+                          <span className="bg-gray-200 text-sm text-gray-700 px-3 py-1 rounded-full hover:bg-green-600 hover:text-white transition cursor-pointer">
+                            {tag}
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
                   )}
                 </div>
               </div>

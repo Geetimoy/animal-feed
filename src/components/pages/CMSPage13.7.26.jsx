@@ -64,7 +64,7 @@ export default function CMSPage() {
           isLoading={bannerLoading}
         />
 
-        <section className="max-w-7xl mx-auto px-4 py-14 cms-page">
+        <section className="max-w-7xl mx-auto px-4 py-14">
 
           {loading ? (
 
@@ -76,7 +76,10 @@ export default function CMSPage() {
 
             <>
               <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 mb-4">
-                {page?.title} {page?.title_highlight}
+                {page?.title}
+                <span className="text-[#ffa800]">
+                  &nbsp;{page?.title_highlight}
+                </span>
               </h2>
 
               <div
