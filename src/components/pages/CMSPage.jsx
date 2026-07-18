@@ -11,6 +11,8 @@ import { useBanner } from "../../hooks/useBanner";
 import usePageSEO from "../../hooks/usePageSEO";
 import SEO from "./SEO";
 
+import bannercmsVideo from "../../assets/images/Lab.mp4";
+
 export default function CMSPage() {
   const { slug } = useParams();
 
@@ -52,7 +54,7 @@ export default function CMSPage() {
 
       <main className="pt-16 overflow-hidden">
 
-        <HeroBanner
+        {/* <HeroBanner
           imageUrl={bannerItem?.image_url}
           titleWhite={bannerItem?.title_white}
           titleGold={bannerItem?.title_gold}
@@ -62,7 +64,16 @@ export default function CMSPage() {
           ctaSecondaryLabel={bannerItem?.cta_secondary_label}
           ctaSecondaryUrl={bannerItem?.cta_secondary_url}
           isLoading={bannerLoading}
-        />
+        /> */}
+        <video
+                      src={bannercmsVideo}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="auto"
+                      className="w-full h-full object-cover"
+                    />
 
         <section className="max-w-7xl mx-auto px-4 py-14 cms-page">
 
