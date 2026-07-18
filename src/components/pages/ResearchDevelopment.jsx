@@ -8,7 +8,7 @@ import aboutBanerMob from '../../assets/images/about-banner-mob.jpg';
 import commitment from '../../assets/images/our-commitment.jpg';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot, faMagnifyingGlass, faArrowRight, faLightbulb, faMedal, faLeaf, faCheck, faCalculator, faEnvelope, faSeedling, faShield, faChartSimple, faRecycle } from "@fortawesome/free-solid-svg-icons";
+import { faLocationDot, faMagnifyingGlass, faArrowRight, faLightbulb, faMedal, faLeaf, faCheck, faCalculator, faEnvelope, faSeedling, faShield, faChartSimple, faRecycle, faDumpster, faMoneyBillTrendUp, faBraille, faCodeCommit, faSquareH, faWandSparkles } from "@fortawesome/free-solid-svg-icons";
 import { faResearchgate } from "@fortawesome/free-brands-svg-icons";
 import { faFedora } from "@fortawesome/free-brands-svg-icons";
 import { Link, useParams } from "react-router-dom";
@@ -106,6 +106,10 @@ function ResearchDevelopment() {
     faLeaf,
     faSeedling,
     faFedora,
+    faDumpster,
+    faMoneyBillTrendUp,
+    faSquareH,
+    faWandSparkles,
   };
 
 
@@ -146,7 +150,7 @@ function ResearchDevelopment() {
               variants={slideInUp}
             >
               {laboratoryExcellence?.heading}{" "}
-              <span className="text-[#ffa800]">{laboratoryExcellence?.heading_highlight}</span>
+              {/* <span className="text-[#ffa800]">{laboratoryExcellence?.heading_highlight}</span> */}
             </motion.h2>
             <motion.p
               className="mt-4 md:mt-6 text-gray-600 leading-normal md:leading-relaxed text-[16px] md:text-[18px] text-center"
@@ -167,7 +171,7 @@ function ResearchDevelopment() {
               tsesr
             </motion.p> */}
 
-            <motion.div className="mt-6 md:mt-10 grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
+            {/* <motion.div className="mt-6 md:mt-10 grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
               {laboratoryExcellence?.cards?.map((card, index) => {
                 const icon = iconMap[card.icon_key];
 
@@ -193,20 +197,20 @@ function ResearchDevelopment() {
                   </motion.div>
                 );
               })}
-            </motion.div>
-            <motion.p
+            </motion.div> */}
+            {/* <motion.p
               className="mt-4 md:mt-6 text-gray-600 leading-normal md:leading-relaxed text-[16px] md:text-[18px] text-center"
               variants={slideInUp}
               transition={{ delay: 0.3 }}
             >
-              {/* This allows us to maintain complete control over feed quality from
-              raw material selection to final dispatch. */}
+              This allows us to maintain complete control over feed quality from
+              raw material selection to final dispatch.
               {laboratoryExcellence?.footer_text}
-            </motion.p>
+            </motion.p> */}
           </div>
         </motion.section>
 
-        {/* Science-Based Feed Formulation */}
+        {/* Our R&D Focus */}
         <motion.section
           initial="hidden"
           whileInView="visible"
@@ -221,13 +225,13 @@ function ResearchDevelopment() {
               {scienceFormulation?.heading}{" "}
               <span className="text-[#ffa800]">{scienceFormulation?.heading_highlight}</span>
             </motion.h2>
-            <motion.p
+            {/* <motion.p
               className="mt-4 md:mt-6 text-gray-600 leading-normal md:leading-relaxed text-[16px] md:text-[18px] text-center"
               variants={slideInUp}
               transition={{ delay: 0.1 }}
             >
               {scienceFormulation?.description}
-            </motion.p>
+            </motion.p> */}
             <motion.div
               className="mt-4 md:mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"
               variants={staggerContainer}
@@ -258,7 +262,9 @@ function ResearchDevelopment() {
                     <h5 className="text-lg font-semibold mb-2">
                       {card.title}
                     </h5>
-
+                    <p className="text-gray-600 mb-3">
+                      Our nutrition experts formulate balanced diets for:
+                    </p>
                     <ul className="text-gray-600">
                       {card.bullets?.map((bullet, bulletIndex) => (
                         <li
@@ -275,6 +281,7 @@ function ResearchDevelopment() {
                         </li>
                       ))}
                     </ul>
+                    <p className="text-gray-600 mt-3">Each formulation is developed to meet the nutritional requirements of different species and growth stages.</p>
                   </motion.div>
                 );
               })}
@@ -302,7 +309,9 @@ function ResearchDevelopment() {
                     <h5 className="text-lg font-semibold mb-2">
                       {card.title}
                     </h5>
-
+                    <p className="text-gray-600 mb-3">
+                      Using our modern in-house laboratory, we evaluate:
+                    </p>
                     <ul className="text-gray-600">
                       {card.bullets?.map((bullet, bulletIndex) => (
                         <li
@@ -319,35 +328,38 @@ function ResearchDevelopment() {
                         </li>
                       ))}
                     </ul>
+                    <p className="text-gray-600 mt-3">
+                      Only raw materials that meet our quality standards are approved for production.
+                    </p>
                   </motion.div>
                 );
               })}
             </motion.div>
-            <motion.p
+            {/* <motion.p
               className="mt-4 md:mt-6 text-gray-600 leading-normal md:leading-relaxed text-[16px] md:text-[18px] text-center"
               variants={slideInUp}
               transition={{ delay: 0.1 }}
             >
               By combining scientific knowledge with field experience, we develop practical nutritional solutions that improve farm productivity while supporting sustainable livestock production.
-            </motion.p>
+            </motion.p> */}
           </div>
         </motion.section>
 
         {/* Innovation for Sustainable Nutrition */}
         <motion.section
-          className="bg-gray-100"
+          className=""
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeIn}
         >
-          <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 md:py-12">
+          <div className="max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-8">
             <motion.h2
-              className="text-3xl md:text-5xl font-semibold text-gray-800 text-center"
+              className="text-2xl md:text-3xl font-semibold text-gray-800 text-center"
               variants={slideInUp}
             >
               {innovationSustainable?.heading}{" "}
-              <span className="text-[#ffa800]">{innovationSustainable?.heading_highlight}</span>
+              {/* <span className="text-[#ffa800]">{innovationSustainable?.heading_highlight}</span> */}
             </motion.h2>
             <motion.p
               className="mt-4 md:mt-6 text-gray-600 leading-normal md:leading-relaxed text-[16px] md:text-[18px] text-center"
@@ -362,7 +374,7 @@ function ResearchDevelopment() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-            >
+              >
               {innovationSustainable?.cards?.map((card, index) => {
                 const icon = iconMap[card.icon_key];
 
@@ -401,13 +413,12 @@ function ResearchDevelopment() {
         </motion.section>
 
         {/* Our R&D Commitment */}
-        <motion.section
+        {/* <motion.section
           className="relative w-full overflow-hidden gsap-fade-in"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          variants={fadeIn}
-        >
+          variants={fadeIn} >
           <motion.img
             src={commitmentData?.image_url}
             alt={commitmentData?.heading}
@@ -433,7 +444,72 @@ function ResearchDevelopment() {
               {commitmentData?.description}
             </motion.p>
           </div>
+        </motion.section> */}
+
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "0px" }}
+          variants={fadeIn} >
+          <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 md:py-12">
+            <motion.h2
+              className="text-2xl md:text-3xl font-semibold text-gray-800 text-center"
+              variants={slideInUp}
+            >
+              Farmer-Oriented Research
+            </motion.h2>
+            <p className="mt-4 md:mt-6 text-gray-600 leading-normal md:leading-relaxed text-[16px] md:text-[18px] text-center">
+                    We work closely with livestock farmers, veterinarians, and industry experts to understand field challenges and develop practical feeding solutions suited to the climatic and farming conditions of Northeast India.
+                  </p>
+              
+          </div>
+          <div className="max-w-7xl mx-auto px-4 md:px-8"><div className="h-px bg-gray-300 my-6"></div></div>
+          
+          <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 md:py-12">
+            <motion.h2
+              className="text-2xl md:text-3xl font-semibold text-gray-800 text-center"
+             
+            >
+              Quality Improvement
+            </motion.h2>
+            <p className="mt-4 md:mt-6 text-gray-600 leading-normal md:leading-relaxed text-[16px] md:text-[18px] text-center">
+                   Our R&D program continuously monitors product performance through regular testing and feedback from farmers and dealers. This helps us refine formulations and maintain consistent product quality.
+                  </p>
+              
+          </div>
         </motion.section>
+        <div className="max-w-7xl mx-auto px-4 md:px-8"><div className="h-px bg-gray-300 my-6"></div></div>
+
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeIn} >
+          <div className="max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-8">
+            
+            <motion.div
+              className="mt-4 md:mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}>
+                <div className="bg-white p-6 rounded-lg shadow">
+                  <FontAwesomeIcon icon={faBraille} className="text-4xl text-[#009a62] mb-4" />
+                  <h5 className="text-lg font-semibold mb-2">Our Vision</h5>
+                  <p className="text-gray-600 mb-3">
+                    To become a leading livestock nutrition company by delivering innovative, science-based feed solutions that promote healthy animals, sustainable farming, and higher income for livestock farmers.
+                  </p>
+                </div>
+                <div className="bg-white p-6 rounded-lg shadow">
+                  <FontAwesomeIcon icon={faCodeCommit} className="text-4xl text-[#009a62] mb-4" />
+                  <h5 className="text-lg font-semibold mb-2">Our Commitment</h5>
+                  <p className="text-gray-600 mb-3">
+                    At Green Gold Livestock Feed Pvt. Ltd., we believe that innovation, scientific research, and uncompromising quality are the foundation of successful livestock farming. Through continuous research and development, we strive to provide reliable feed products that contribute to the growth of the livestock sector and the prosperity of farming communities.
+                  </p>
+                </div>
+            </motion.div>
+          </div>
+      </motion.section>
       </main>
       <Footer></Footer>
     </>
