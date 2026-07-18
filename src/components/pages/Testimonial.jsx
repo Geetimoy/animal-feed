@@ -3,6 +3,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import { ChevronLeft, ChevronRight, X, Play, Pause } from "lucide-react";
 
+import { API_URL } from "../../config/api";
+
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -20,14 +22,14 @@ export default function Testimonial() {
     const [error, setError] = useState(null);
     const [selectedTestimonial, setSelectedTestimonial] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-    const videoRef = useRef(null);
+    //const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+    //const videoRef = useRef(null);
 
     useEffect(() => {
         const fetchTestimonials = async () => {
             try {
                 const response = await fetch(
-                    "https://neonatestaging.com/animal_feed/public/api/testimonials"
+                    `${API_URL}/testimonials`
                 );
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -113,6 +115,24 @@ export default function Testimonial() {
         );
     }
 
+    // Youtube Link
+    const getYouTubeEmbedUrl = (url) => {
+  if (!url) return "";
+
+  const regExp =
+    /^.*(?:youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+
+  const match = url.match(regExp);
+
+  return match && match[1]
+    ? `https://www.youtube.com/embed/${match[1]}?autoplay=1&rel=0`
+    : "";
+};
+
+    // const youtubeEmbedUrl = getYoutubeEmbedUrl(
+    //     selectedTestimonial?.video_url
+    // );
+
     return (
         <>
             <section className="py-20 bg-[#F8FAFC]">
@@ -155,7 +175,7 @@ export default function Testimonial() {
                                     slidesPerView: 2,
                                 },
                                 1024: {
-                                    slidesPerView: 4,
+                                    slidesPerView: 3,
                                 },
                             }}
                         >
@@ -231,7 +251,7 @@ export default function Testimonial() {
                             {/* Left side - Video */}
                             <div className="relative h-[300px] lg:h-[520px] bg-gradient-to-br from-[#032b38] to-[#0a4b5e] rounded-t-2xl lg:rounded-l-2xl lg:rounded-tr-none overflow-hidden">
                                 <div className="relative w-full h-full group">
-                                    <video
+                                    {/* <video
                                         ref={videoRef}
                                         src={selectedTestimonial.video_url || DEMO_VIDEO_URL}
                                         className="w-full h-full object-cover"
@@ -242,10 +262,43 @@ export default function Testimonial() {
                                         playsInline
                                     >
                                         Your browser does not support the video tag.
-                                    </video>
+                                    </video> */}
+
+                                    {/* {youtubeEmbedUrl ? (
+                                        <iframe
+                                            className="w-full h-full"
+                                            src={youtubeEmbedUrl}
+                                            title={selectedTestimonial.name}
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowFullScreen
+                                        />
+                                    ) : (
+                                        <img
+                                            src={selectedTestimonial.image_url || FALLBACK_IMAGE}
+                                            alt={selectedTestimonial.name}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    )} */}
+
+                                    {selectedTestimonial?.video_url ? (
+    <iframe
+      className="w-full h-full"
+      src={getYouTubeEmbedUrl(selectedTestimonial.video_url)}
+      title={selectedTestimonial.name}
+      frameBorder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowFullScreen
+    />
+  ) : (
+    <img
+      src={selectedTestimonial.image_url || FALLBACK_IMAGE}
+      alt={selectedTestimonial.name}
+      className="w-full h-full object-cover"
+    />
+  )}
 
                                     {/* Custom Play/Pause Overlay */}
-                                    <div
+                                    {/* <div
                                         className="absolute inset-0 flex items-center justify-center cursor-pointer transition-opacity duration-300"
                                         onClick={toggleVideoPlay}
                                     >
@@ -256,17 +309,17 @@ export default function Testimonial() {
                                                 <Pause size={32} className="text-[#032b38]" />
                                             )}
                                         </div>
-                                    </div>
+                                    </div> */}
 
                                     {/* Video Controls Hint */}
-                                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/50 text-xs bg-black/30 px-3 py-1 rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    {/* <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/50 text-xs bg-black/30 px-3 py-1 rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                         Click to {isVideoPlaying ? 'pause' : 'play'}
-                                    </div>
+                                    </div> */}
 
                                     {/* Video Duration Badge */}
-                                    <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    {/* <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                         {selectedTestimonial.video_duration || '1:30'}
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
 
