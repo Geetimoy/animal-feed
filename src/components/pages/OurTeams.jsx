@@ -115,7 +115,7 @@ function OurTeams() {
         <section className="py-10 md:py-12 bg-gray-100">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <h2 className="text-[26px] md:text-5xl font-semibold text-gray-800 text-center">
-              {leadership.heading || "Board of"} 
+              {leadership.heading} 
             </h2>
             {/* <p className="mt-3 md:mt-6 text-gray-600 leading-relaxed  text-[16px] md:text-[18px] text-center">
               {leadership.description || "Guiding Green Gold with vision, expertise, and commitment to excellence"}
