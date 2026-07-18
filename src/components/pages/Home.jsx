@@ -23,9 +23,9 @@ import commitments from '../../assets/images/commitment-bg.jpg';
 import research from '../../assets/images/Layer25.png';
 import bgNationwideImage from '../../assets/images/Laye28.png';
 import visionMission from '../../assets/images/cattle1.png';
+import bannerVideo from "../../assets/images/Factory-process.mov";
 
 import { Link, useLocation } from 'react-router-dom';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 
@@ -485,8 +485,17 @@ function Home() {
           animate="visible"
           variants={fadeIn}
         >
-          <div className="grid grid-cols-4 md:h-[700px] h-[350px] w-full">
-            <motion.div className="relative" variants={slideInLeft} custom={1}>
+          <div className="grid grid-cols-1 md:h-[700px] h-[350px] w-full overflow-hidden">
+            <video
+              src={bannerVideo}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              className="w-full h-full object-cover"
+            />
+            {/* <motion.div className="relative" variants={slideInLeft} custom={1}>
               <img src={banner1} className="w-full h-full object-cover" alt="Cattle feed" />
               <div className="absolute inset-0 bg-black/[0.60]"></div>
               <div className="absolute bottom-[140px] md:bottom-[200px] left-[12px] md:left-[40px] z-10">
@@ -520,7 +529,7 @@ function Home() {
                 <h3 className="text-white text-[20px] md:text-[43px] font-normal">PIG </h3>
                 <p className="text-white text-[16px] md:text-[28px]">FEED</p>
               </div>
-            </motion.div>
+            </motion.div> */}
           </div>
 
           {/* Hero Card */}
