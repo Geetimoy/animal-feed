@@ -249,6 +249,8 @@ export default function Products() {
 
   const { seo } = usePageSEO("static/products");
 
+  const [sectionData, setSectionData] = useState({});
+
 
   useEffect(() => {
     Fancybox.bind("[data-fancybox='product-gallery']", {
@@ -346,7 +348,23 @@ export default function Products() {
     }
   };
 
+  useEffect(() => {
+    fetchProductSections();
+  }, []);
 
+
+  const fetchProductSections = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/products/sections`);
+      setSectionData(res.data?.data || {});
+    } catch (err) {
+      console.error("Products Section API Error:", err);
+    }
+  };
+
+
+  const ourProducts = sectionData?.our_products || {};
+  const ourCommitment = sectionData?.our_commitment || {};
 
   return (
     <div className="overflow-x-hidden">
@@ -462,8 +480,9 @@ export default function Products() {
           {/* MAIN */}
           <div className="lg:col-span-3">
             <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center mb-4 md:mb-10">
-              Product <span className="text-[#ffa800]">Category</span>
+               {ourProducts.title_black} 
             </h2>
+            <p className="text-gray-600 mt-3 mb-3 text-center mx-auto text-[16px] md:text-[18px]">{ourProducts.description}</p>
             {/* CATEGORY SLIDER */}
             <div className="relative mb-6 ">
               <button className="cat-prev absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white w-8 h-8 rounded-full shadow cursor-pointer">
@@ -606,6 +625,14 @@ export default function Products() {
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* Our Commitment */}
+          <div className="lg:col-span-3 mt-10">
+            <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 text-center mb-4 md:mb-10">
+               {ourCommitment.title_black} 
+            </h2>
+            <p className="text-gray-600 mt-3 mb-3 text-center mx-auto text-[16px] md:text-[18px]">{ourCommitment.description}</p>
           </div>
         </div>
       </main>
